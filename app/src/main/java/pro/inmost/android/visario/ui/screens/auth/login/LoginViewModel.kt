@@ -1,52 +1,83 @@
 package pro.inmost.android.visario.ui.screens.auth.login
 
+import android.content.Context
+import android.view.View
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
+import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.model.entities.LoginRequest
+import pro.inmost.android.visario.domain.model.entities.AuthResponse
+import pro.inmost.android.visario.domain.model.entities.Tokens
 import pro.inmost.android.visario.domain.utils.log
+import pro.inmost.android.visario.ui.activities.dataStore
 import pro.inmost.android.visario.ui.screens.auth.Authenticator
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
+import pro.inmost.android.visario.ui.utils.*
 
 
 class LoginViewModel(private val authenticator: Authenticator) : ViewModel() {
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
+    private val _emailInvalid = MutableLiveData<Int>()
+    val emailInvalid: LiveData<Int> = _emailInvalid
+
+    private val _passInvalid = MutableLiveData<Int>()
+    val passInvalid: LiveData<Int> = _passInvalid
+
     private val _openRegisterScreen = SingleLiveEvent<Unit>()
     val openRegisterScreen: LiveData<Unit> = _openRegisterScreen
 
-    fun openRegisterScreen(){
+    fun openRegisterScreen() {
         _openRegisterScreen.call()
     }
 
-    fun login(){
-        val loginRequest = getLoginRequest()
-        val JSON: MediaType = "application/json; charset=utf-8".toMediaType()
-        val json = Gson().toJson(loginRequest)
-        val client = OkHttpClient()
+    fun login(view: View) {
+        view.isEnabled = false
 
-        val body: RequestBody = RequestBody.create(JSON, json)
-        val request: Request = Request.Builder()
-            .url("http://3.129.6.178:8081/auth/login")
-            .post(body)
-            .build()
-        viewModelScope.launch(Dispatchers.IO) {
-            client.newCall(request).execute().use { response ->
-                val body = response.body?.string() ?: ""
-                log(body)
+        viewModelScope.launch {
+            val loginRequest = getLoginRequest()
+            if (validate(loginRequest)) {
+                when (val response = authenticator.login(loginRequest)) {
+                    is AuthResponse.OK -> {
+                        log("login ok: ${response.tokens}")
+                        saveTokens(view.context, response.tokens)
+                    }
+                    is AuthResponse.Error -> {
+                        log("login error: ${response.message}")
+                        view.snackbar(response.message)
+                    }
+                }
+            }
+            view.isEnabled = true
+        }
+    }
+
+    private fun saveTokens(context: Context, tokens: Tokens?) {
+        viewModelScope.launch {
+            context.dataStore.edit { pref ->
+                pref[stringPreferencesKey(PREF_KEY_ACCESS_TOKEN)] = tokens?.accessToken ?: ""
+                pref[stringPreferencesKey(PREF_KEY_REFRESH_TOKEN)] = tokens?.refreshToken ?: ""
             }
         }
+    }
 
+    private fun validate(request: LoginRequest): Boolean {
+        var valid = true
+        if (!request.email.isValidEmail()) {
+            _emailInvalid.value = R.string.invalid_email
+            valid = false
+        }
+        if (request.password.isBlank()) {
+            _passInvalid.value = R.string.empty_field
+            valid = false
+        }
+
+        return valid
     }
 
     private fun getLoginRequest(): LoginRequest {

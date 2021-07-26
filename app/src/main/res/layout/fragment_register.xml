@@ -57,7 +57,8 @@
                         android:id="@+id/edit_text_username"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@{viewModel.username}"
+                        app:showError="@{viewModel.usernameInvalid}"
+                        android:text="@={viewModel.username}"
                         android:hint="@string/username"
                         android:inputType="text" />
 
@@ -75,7 +76,8 @@
                         android:id="@+id/edit_text_email"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@{viewModel.email}"
+                        app:showError="@{viewModel.emailInvalid}"
+                        android:text="@={viewModel.email}"
                         android:hint="@string/email"
                         android:inputType="textEmailAddress" />
 
@@ -93,7 +95,8 @@
                         android:id="@+id/edit_text_first_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@{viewModel.firstName}"
+                        app:showError="@{viewModel.firstNameInvalid}"
+                        android:text="@={viewModel.firstName}"
                         android:hint="@string/first_name"
                         android:inputType="text" />
 
@@ -111,7 +114,8 @@
                         android:id="@+id/edit_text_last_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@{viewModel.lastName}"
+                        app:showError="@{viewModel.lastNameInvalid}"
+                        android:text="@={viewModel.lastName}"
                         android:hint="@string/last_name"
                         android:inputType="text" />
 
@@ -125,12 +129,14 @@
                     android:layout_marginStart="@dimen/login_fields_margin_startEnd"
                     android:layout_marginEnd="@dimen/login_fields_margin_startEnd">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <pro.inmost.android.visario.ui.customviews.DatePickerEditText
                         android:id="@+id/edit_text_birthday"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        app:showError="@{viewModel.birthdayInvalid}"
+                        android:focusable="false"
                         android:hint="@string/date_of_birth"
-                        android:text="@{viewModel.birthday}"
+                        android:text="@={viewModel.birthday}"
                         android:inputType="date" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -148,7 +154,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/password"
-                        android:text="@{viewModel.password}"
+                        app:showError="@{viewModel.passInvalid}"
+                        android:text="@={viewModel.password}"
                         android:inputType="textPassword" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -165,7 +172,8 @@
                         android:id="@+id/edit_text_confirm_password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@{viewModel.confirmPassword}"
+                        android:text="@={viewModel.confirmPassword}"
+                        app:showError="@{viewModel.confirmPassInvalid}"
                         android:hint="@string/confirm_password"
                         android:inputType="textPassword" />
 
@@ -176,7 +184,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:onClick="@{() -> viewModel.register()}"
+                    android:onClick="@{(view) -> viewModel.register(view)}"
                     android:text="@string/register" />
 
                 <com.google.android.material.button.MaterialButton
