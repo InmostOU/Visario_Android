@@ -5,16 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.domain.model.entities.AuthResponse
-import pro.inmost.android.visario.domain.model.entities.RegisterRequest
-import pro.inmost.android.visario.domain.utils.log
+import pro.inmost.android.visario.core.domain.entities.auth.AuthResponse
+import pro.inmost.android.visario.core.domain.entities.auth.RegisterRequest
+import pro.inmost.android.visario.core.domain.utils.log
 import pro.inmost.android.visario.ui.screens.auth.Authenticator
-import pro.inmost.android.visario.ui.utils.DateParser
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.isValidEmail
-import pro.inmost.android.visario.ui.utils.snackbar
+import pro.inmost.android.visario.ui.utils.*
 
 class RegisterViewModel(private val authenticator: Authenticator) : ViewModel() {
     val username = MutableLiveData<String>()
@@ -47,24 +46,26 @@ class RegisterViewModel(private val authenticator: Authenticator) : ViewModel() 
     val showInfoDialogAndQuit: LiveData<Unit> = _showInfoDialogAndQuit
 
     fun register(view: View) {
-        view.isEnabled = false
-
-        viewModelScope.launch {
-            val request = getRegisterRequest()
-            if (validate(request)) {
-
-                when (val response = authenticator.register(request)) {
-                    is AuthResponse.OK -> {
-                        log("register ok")
-                        _showInfoDialogAndQuit.call()
+        view.hideKeyboard()
+        val request = getRegisterRequest()
+        if (validate(request)) {
+            view.isEnabled = false
+            viewModelScope.launch(Dispatchers.IO) {
+                val response = authenticator.register(request)
+                withContext(Dispatchers.Main) {
+                    when (response) {
+                        is AuthResponse.OK -> {
+                            log("register ok")
+                            _showInfoDialogAndQuit.call()
+                        }
+                        is AuthResponse.Error -> {
+                            log("register error: ${response.message}")
+                            view.snackbar(response.message)
+                        }
                     }
-                    is AuthResponse.Error -> {
-                        log("register error: ${response.message}")
-                        view.snackbar(response.message)
-                    }
+                    view.isEnabled = true
                 }
             }
-            view.isEnabled = true
         }
     }
 

@@ -24,4 +24,5 @@
     <string name="register_success">A link has been sent to your email address, click on it to finish your registration. Then you can login to the application.</string>
     <string name="confirm_email">Confirm email</string>
     <string name="ok">OK</string>
+    <string name="log_out">Log out</string>
 </resources>

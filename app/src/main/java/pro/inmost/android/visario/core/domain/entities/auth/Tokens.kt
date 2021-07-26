@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.domain.model.entities
+package pro.inmost.android.visario.core.domain.entities.auth
 
 data class Tokens (
     val accessToken: String,

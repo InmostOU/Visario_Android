@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.domain.utils
+package pro.inmost.android.visario.core.domain.utils
 
 import android.util.Log
 
