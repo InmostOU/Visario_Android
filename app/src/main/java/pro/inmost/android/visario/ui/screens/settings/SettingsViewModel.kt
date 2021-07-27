@@ -6,16 +6,18 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import pro.inmost.android.visario.core.data.chimeapi.auth.Authenticator
+import pro.inmost.android.visario.core.domain.entities.RequestResult
 import pro.inmost.android.visario.ui.activities.dataStore
-import pro.inmost.android.visario.ui.screens.auth.Authenticator
+import pro.inmost.android.visario.ui.boundaries.AccountRepository
 import pro.inmost.android.visario.ui.utils.PREF_KEY_ACCESS_TOKEN
 import pro.inmost.android.visario.ui.utils.PREF_KEY_REFRESH_TOKEN
 
-class SettingsViewModel(private val authenticator: Authenticator) : ViewModel() {
+class SettingsViewModel(private val accountRepository: AccountRepository<RequestResult>) : ViewModel() {
 
     fun logout(context: Context){
         viewModelScope.launch {
-            authenticator.logout()
+            accountRepository.logout()
             removeTokensFromDataStore(context)
         }
     }

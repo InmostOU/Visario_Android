@@ -15,6 +15,7 @@
         android:theme="@style/Theme.Visario">
         <activity
             android:name=".ui.activities.MainActivity"
+            android:configChanges="uiMode|orientation|screenSize|locale"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

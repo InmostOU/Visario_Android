@@ -14,6 +14,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
+import pro.inmost.android.visario.core.data.chimeapi.ChimeApi
+import pro.inmost.android.visario.core.data.chimeapi.auth.model.Tokens
 import pro.inmost.android.visario.databinding.ActivityMainBinding
 import pro.inmost.android.visario.ui.utils.*
 
@@ -43,6 +45,9 @@ class MainActivity : AppCompatActivity() {
             if (accessToken.isNullOrBlank() || refreshToken.isNullOrBlank()){
                 openLoginScreen()
             } else {
+                ChimeApi.TokensHolder.updateTokens(
+                    Tokens(accessToken, refreshToken)
+                )
                 openApp()
             }
             hideSplash()

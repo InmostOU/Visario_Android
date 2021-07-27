@@ -5,8 +5,11 @@
 
     <data>
         <variable
+            name="viewModel"
+            type="pro.inmost.android.visario.ui.screens.chats.ChatsViewModel" />
+        <variable
             name="model"
-            type="pro.inmost.android.visario.core.domain.entities.chat.Channel" />
+            type="pro.inmost.android.visario.core.domain.entities.Chat" />
     </data>
 
     <LinearLayout
@@ -53,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_chat_name"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="?android:attr/textColorPrimary"
                 android:text="@{model.name}"
                 tools:text="Chat name"/>
 
@@ -63,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textSize="@dimen/text_size_chat_last_message"
+                android:textColor="?android:attr/textColorSecondary"
                 tools:text="Last message"/>
 
         </LinearLayout>
@@ -73,6 +77,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_chat_last_message"
             android:layout_marginEnd="16dp"
+            android:textColor="?android:attr/textColorSecondary"
             tools:text="12:00"/>
 
     </LinearLayout>

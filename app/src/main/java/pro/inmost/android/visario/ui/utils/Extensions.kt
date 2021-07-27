@@ -2,6 +2,7 @@ package pro.inmost.android.visario.ui.utils
 
 import android.content.Context
 import android.util.Patterns
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -64,5 +65,7 @@ fun View.hide() {
 fun View.gone() {
     visibility = View.GONE
 }
+
+val View.layoutInflater: LayoutInflater get() = LayoutInflater.from(context)
 
 fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()

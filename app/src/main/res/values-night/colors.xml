@@ -2,4 +2,7 @@
 <resources>
     <color name="primary">@color/purple_200</color>
     <color name="splash_background">#292929</color>
+    <color name="text_title">#DDDDDD</color>
+    <color name="text_subtitle">#B6B6B6</color>
+    <color name="toolbar">#202020</color>
 </resources>

@@ -5,20 +5,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <include layout="@layout/view_app_bar"
             android:id="@+id/app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:elevation="8dp"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="@string/title_notifications"/>
-        </com.google.android.material.appbar.AppBarLayout>
+            app:title="@{@string/title_notifications}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

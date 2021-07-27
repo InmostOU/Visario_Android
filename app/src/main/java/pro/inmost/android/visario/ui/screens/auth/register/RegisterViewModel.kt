@@ -6,16 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.core.domain.entities.auth.AuthResponse
-import pro.inmost.android.visario.core.domain.entities.auth.RegisterRequest
-import pro.inmost.android.visario.core.domain.utils.log
-import pro.inmost.android.visario.ui.screens.auth.Authenticator
+import pro.inmost.android.visario.core.data.chimeapi.auth.model.RegisterBody
+import pro.inmost.android.visario.core.domain.entities.RequestResult
+import pro.inmost.android.visario.ui.boundaries.AccountRepository
 import pro.inmost.android.visario.ui.utils.*
 
-class RegisterViewModel(private val authenticator: Authenticator) : ViewModel() {
+class RegisterViewModel(private val repository: AccountRepository<RequestResult>) : ViewModel() {
     val username = MutableLiveData<String>()
     val email = MutableLiveData<String>()
     val firstName = MutableLiveData<String>()
@@ -48,31 +48,35 @@ class RegisterViewModel(private val authenticator: Authenticator) : ViewModel() 
     fun register(view: View) {
         view.hideKeyboard()
         val request = getRegisterRequest()
-        if (validate(request)) {
-            view.isEnabled = false
-            viewModelScope.launch(Dispatchers.IO) {
-                val response = authenticator.register(request)
-                withContext(Dispatchers.Main) {
-                    when (response) {
-                        is AuthResponse.OK -> {
-                            log("register ok")
-                            _showInfoDialogAndQuit.call()
-                        }
-                        is AuthResponse.Error -> {
-                            log("register error: ${response.message}")
-                            view.snackbar(response.message)
-                        }
+        if (!validate(request)) return
+
+        view.isEnabled = false
+
+        viewModelScope.launch {
+            try {
+                val response = withContext(IO) { repository.register(request) }
+                when (response) {
+                    is RequestResult.OK<*> -> {
+                        _showInfoDialogAndQuit.call()
                     }
-                    view.isEnabled = true
+                    is RequestResult.Error -> {
+                        view.snackbar(response.message)
+                    }
                 }
+                view.isEnabled = true
+            } catch (e: Exception) {
+                e.printStackTrace()
+                view.snackbar(e.localizedMessage ?: "Error")
+                view.isEnabled = true
             }
         }
+
     }
 
-    private fun validate(request: RegisterRequest): Boolean {
+    private fun validate(body: RegisterBody): Boolean {
         var valid = true
 
-        request.apply {
+        body.apply {
             if (!email.isValidEmail()) {
                 _emailInvalid.value = R.string.invalid_email
                 valid = false
@@ -105,8 +109,8 @@ class RegisterViewModel(private val authenticator: Authenticator) : ViewModel() 
         return valid
     }
 
-    private fun getRegisterRequest(): RegisterRequest {
-        return RegisterRequest(
+    private fun getRegisterRequest(): RegisterBody {
+        return RegisterBody(
             username = username.value ?: "",
             email = email.value ?: "",
             firstName = firstName.value ?: "",
