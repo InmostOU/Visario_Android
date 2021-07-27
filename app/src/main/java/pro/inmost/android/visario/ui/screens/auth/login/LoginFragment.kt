@@ -1,33 +1,16 @@
 package pro.inmost.android.visario.ui.screens.auth.login
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentLoginBinding
+import pro.inmost.android.visario.ui.main.BaseFragment
 import pro.inmost.android.visario.ui.utils.navigate
 
-class LoginFragment : Fragment() {
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
+class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
     private val viewModel: LoginViewModel by viewModel()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
+    override fun onCreated(binding: FragmentLoginBinding) {
         binding.viewModel = viewModel
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         subscribeEvents()
     }
 
@@ -43,8 +26,4 @@ class LoginFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

@@ -7,6 +7,9 @@
         <variable
             name="title"
             type="java.lang.String" />
+        <variable
+            name="navIcon"
+            type="android.graphics.drawable.Drawable" />
     </data>
 
     <com.google.android.material.appbar.AppBarLayout
@@ -24,6 +27,7 @@
             app:title="@{title}"
             tools:title="Visario"
             app:elevation="8dp"
+            app:navigationIcon="@{navIcon}"
             app:titleTextColor="?android:attr/textColorPrimary" />
 
     </com.google.android.material.appbar.AppBarLayout>

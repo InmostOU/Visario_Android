@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.activities
+package pro.inmost.android.visario.ui.main
 
 import android.content.Context
 import android.os.Bundle
@@ -7,7 +7,6 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.coroutines.delay

@@ -9,13 +9,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.core.data.chimeapi.auth.model.Tokens
 import pro.inmost.android.visario.core.domain.entities.RequestResult
-import pro.inmost.android.visario.ui.activities.dataStore
+import pro.inmost.android.visario.ui.main.dataStore
 import pro.inmost.android.visario.ui.boundaries.AccountRepository
 import pro.inmost.android.visario.ui.utils.*
 

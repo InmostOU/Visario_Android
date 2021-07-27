@@ -35,6 +35,6 @@
     <include
         android:id="@+id/splash_screen"
         tools:visibility="gone"
-        layout="@layout/splash_screen"/>
+        layout="@layout/view_splash_screen"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

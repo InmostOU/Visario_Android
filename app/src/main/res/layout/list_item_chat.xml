@@ -15,70 +15,83 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:layout_marginTop="12dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp">
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/chat_icon"
-                android:layout_width="@dimen/chat_image_size"
-                android:layout_height="@dimen/chat_image_size"
-                android:layout_gravity="center"
-                app:shapeAppearance="@style/ChatCircleImage"
-                app:srcCompat="@color/teal_200"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                tools:text="CN"/>
-
-        </FrameLayout>
-
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:layout_marginStart="16dp"
-            android:orientation="vertical">
+            android:layout_marginBottom="12dp">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_view_chat_name"
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_chat_name"
-                android:textStyle="bold"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@{model.name}"
-                tools:text="Chat name"/>
+                android:layout_gravity="center_vertical">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/chat_icon"
+                    android:layout_width="@dimen/chat_image_size"
+                    android:layout_height="@dimen/chat_image_size"
+                    android:layout_gravity="center"
+                    app:shapeAppearance="@style/ChatCircleImage"
+                    app:srcCompat="?attr/colorPrimary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    tools:text="CN"/>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_view_chat_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_chat_name"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:text="@{model.name}"
+                    tools:text="Chat name"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_view_last_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="@dimen/text_size_chat_last_message"
+                    android:textColor="?android:attr/textColorSecondary"
+                    tools:text="Last message"/>
+
+            </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_view_last_message"
+                android:id="@+id/text_view_time_of_last_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:textSize="@dimen/text_size_chat_last_message"
+                android:layout_marginEnd="16dp"
                 android:textColor="?android:attr/textColorSecondary"
-                tools:text="Last message"/>
+                tools:text="12:00"/>
 
         </LinearLayout>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_view_time_of_last_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_chat_last_message"
-            android:layout_marginEnd="16dp"
-            android:textColor="?android:attr/textColorSecondary"
-            tools:text="12:00"/>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/dividerHorizontal"/>
     </LinearLayout>
+
+
 </layout>
