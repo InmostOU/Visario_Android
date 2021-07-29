@@ -4,13 +4,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import pro.inmost.android.visario.core.data.chimeapi.auth.model.AuthResponse
-import pro.inmost.android.visario.core.domain.entities.Chat
+import pro.inmost.android.visario.core.data.chimeapi.channels.model.Channel
 import pro.inmost.android.visario.databinding.ListItemChatBinding
 import pro.inmost.android.visario.ui.utils.layoutInflater
 
-class ChannelListAdapter(private val viewModel: ChatsViewModel) :
-    ListAdapter<Chat, ChannelListAdapter.ChannelHolder>(ChannelsDiffUtil()) {
+class ChatListAdapter(private val viewModel: ChatsViewModel) :
+    ListAdapter<Channel, ChatListAdapter.ChannelHolder>(ChannelsDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChannelHolder {
         return ChannelHolder(
@@ -29,18 +28,18 @@ class ChannelListAdapter(private val viewModel: ChatsViewModel) :
             binding.viewModel = viewModel
         }
 
-        fun bind(item: Chat){
+        fun bind(item: Channel){
             binding.model = item
             binding.executePendingBindings()
         }
     }
 
-    class ChannelsDiffUtil : DiffUtil.ItemCallback<Chat>() {
-        override fun areItemsTheSame(oldItem: Chat, newItem: Chat): Boolean {
-            return oldItem.arn == newItem.arn
+    class ChannelsDiffUtil : DiffUtil.ItemCallback<Channel>() {
+        override fun areItemsTheSame(oldItem: Channel, newItem: Channel): Boolean {
+            return oldItem.channelArn == newItem.channelArn
         }
 
-        override fun areContentsTheSame(oldItem: Chat, newItem: Chat): Boolean {
+        override fun areContentsTheSame(oldItem: Channel, newItem: Channel): Boolean {
             return oldItem == newItem
         }
 

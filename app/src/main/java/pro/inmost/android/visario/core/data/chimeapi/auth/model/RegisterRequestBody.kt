@@ -1,6 +1,6 @@
 package pro.inmost.android.visario.core.data.chimeapi.auth.model
 
-data class RegisterBody(
+data class RegisterRequestBody(
     val username: String,
     val email: String,
     val password: String,

@@ -50,7 +50,7 @@ fun View.snackbar(textResId: Int){
     Snackbar.make(this, context.getString(textResId), Snackbar.LENGTH_SHORT).show()
 }
 
-fun Fragment.navigateUp(){
+fun Fragment.navigateBack(){
     findNavController().navigateUp()
 }
 

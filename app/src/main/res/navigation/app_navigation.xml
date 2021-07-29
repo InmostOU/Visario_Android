@@ -8,7 +8,24 @@
     <fragment
         android:id="@+id/navigation_chats"
         android:name="pro.inmost.android.visario.ui.screens.chats.ChatsFragment"
-        tools:layout="@layout/fragment_chats" />
+        tools:layout="@layout/fragment_chats" >
+        <action
+            android:id="@+id/action_navigation_chats_to_navigation_messages"
+            app:destination="@id/navigation_messages" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_messages"
+        android:name="pro.inmost.android.visario.ui.screens.chats.messages.MessagesFragment"
+        tools:layout="@layout/fragment_messages">
+
+        <argument
+            android:name="channelName"
+            app:argType="string" />
+        <argument
+            android:name="channelArn"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_calls"

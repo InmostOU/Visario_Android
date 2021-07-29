@@ -14,4 +14,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red_600">#E53935</color>
+    <color name="outgoing_message_bubble">#CBEBFC</color>
+    <color name="incoming_message_bubble">#FFFFFF</color>
+    <color name="chat_background">#EFEFEF</color>
+    <color name="sender_background">#FFFFFF</color>
 </resources>

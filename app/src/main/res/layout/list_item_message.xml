@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.Gravity" />
+        <variable
+            name="message"
+            type="pro.inmost.android.visario.core.data.chimeapi.messages.Message" />
+        <variable
+            name="viewModel"
+            type="pro.inmost.android.visario.ui.screens.chats.messages.MessagesViewModel" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="@{message.fromCurrentUser ? Gravity.END : Gravity.START}"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:minWidth="100dp"
+            tools:background="@drawable/shape_bg_incoming_bubble"
+            android:background="@{message.fromCurrentUser ? @drawable/shape_bg_outgoing_bubble : @drawable/shape_bg_incoming_bubble}">
+
+            <LinearLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="4dp">
+
+                <TextView
+                    android:id="@+id/message_sender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:maxLines="1"
+                    tools:text="newman"
+                    android:text="@{message.senderName}"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="@dimen/message_sender_text_size"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/message_time"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/message_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="@dimen/message_bubble_max_width"
+                    android:layout_gravity="end"
+                    android:gravity="center_vertical"
+                    tools:text="12:00"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="8dp"
+                    android:text="@{message.formatDate}"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="@dimen/message_time_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/message_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxWidth="@dimen/message_bubble_max_width"
+                android:lineSpacingExtra="2dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="10dp"
+                android:text="@{message.content}"
+                tools:text="Hello world! Please know that you are beautiful!"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="@dimen/message_text_size" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</layout>

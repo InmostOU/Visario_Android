@@ -5,28 +5,39 @@
 
     <data>
         <variable
-            name="chat"
-            type="pro.inmost.android.visario.core.domain.entities.Chat" />
+            name="viewModel"
+            type="pro.inmost.android.visario.ui.screens.chats.messages.MessagesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/chat_background">
 
         <include layout="@layout/view_app_bar"
             android:id="@+id/app_bar"
-            app:title="@{chat.name}"
             app:navIcon="@{@drawable/ic_baseline_arrow_back_24}"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/message_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="true"
+            app:reverseLayout="true"
+            app:layout_constraintTop_toBottomOf="@id/app_bar"
+            app:layout_constraintBottom_toTopOf="@+id/sender_layout"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/list_item_message"/>
 
 
         <LinearLayout
+            android:id="@+id/sender_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             android:orientation="horizontal"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="16dp">
+            android:padding="12dp"
+            android:background="@color/sender_background">
 
             <EditText
                 android:id="@+id/edit_text_message"
@@ -43,6 +54,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:padding="4dp"
+                android:onClick="@{(view) -> viewModel.sendMessage(view)}"
                 android:background="@android:color/transparent"
                 android:tint="?attr/colorSecondary"
                 android:src="@drawable/ic_baseline_send_24"/>

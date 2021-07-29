@@ -57,7 +57,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/email"
-                        app:showError="@{viewModel.emailInvalid}"
+                        app:showError="@{viewModel.validator.emailInvalid}"
                         android:text="@={viewModel.email}"
                         android:inputType="textEmailAddress" />
 
@@ -76,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="@={viewModel.password}"
-                        app:showError="@{viewModel.passInvalid}"
+                        app:showError="@{viewModel.validator.passInvalid}"
                         android:hint="@string/password"
                         android:inputType="textPassword" />
 
@@ -100,7 +100,7 @@
                     android:layout_marginBottom="5dp"
                     android:text="@string/register"
                     android:onClick="@{() -> viewModel.openRegisterScreen()}"
-                    android:textColor="@color/primary" />
+                    android:textColor="?attr/colorPrimary" />
             </LinearLayout>
 
 

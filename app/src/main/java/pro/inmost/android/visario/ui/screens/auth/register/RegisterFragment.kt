@@ -5,17 +5,18 @@ import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentRegisterBinding
 import pro.inmost.android.visario.ui.dialogs.InfoDialog
 import pro.inmost.android.visario.ui.main.BaseFragment
-import pro.inmost.android.visario.ui.utils.navigateUp
+import pro.inmost.android.visario.ui.utils.navigateBack
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment_register) {
     private val viewModel: RegisterViewModel by viewModel()
 
     override fun onCreated(binding: FragmentRegisterBinding) {
+        binding.viewModel = viewModel
         subscribeEvents()
     }
 
     private fun subscribeEvents() {
-        viewModel.backToLogin.observe(viewLifecycleOwner) { navigateUp() }
+        viewModel.backToLogin.observe(viewLifecycleOwner) { navigateBack() }
         viewModel.showInfoDialogAndQuit.observe(viewLifecycleOwner) {
             showInfoDialog()
         }
@@ -27,7 +28,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
             getString(R.string.confirm_email),
             getString(R.string.register_success)
         ).show {
-            navigateUp()
+            navigateBack()
         }
     }
 }

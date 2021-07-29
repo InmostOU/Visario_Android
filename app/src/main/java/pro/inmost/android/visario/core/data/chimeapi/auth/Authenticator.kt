@@ -8,7 +8,7 @@ import pro.inmost.android.visario.core.data.chimeapi.services.AccountService
 class Authenticator(private val service: AccountService) {
 
     suspend fun login(email: String, password: String): AuthResponse {
-        val request = LoginBody(email, password)
+        val request = LoginRequestBody(email, password)
         return service.login(request).apply {
             if (status == STATUS_OK && accessToken.isNotBlank()){
                 saveTokens(accessToken, refreshToken)
@@ -21,7 +21,7 @@ class Authenticator(private val service: AccountService) {
         return true
     }
 
-    suspend fun register(body: RegisterBody): AuthResponse {
+    suspend fun register(body: RegisterRequestBody): AuthResponse {
         return service.register(body)
     }
 
