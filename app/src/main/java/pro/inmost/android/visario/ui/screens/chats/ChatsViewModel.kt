@@ -24,8 +24,10 @@ class ChatsViewModel(private val repository: ChatsRepository<Channel>) : ViewMod
             withContext(IO){
                 repository.getChats()
             }.onSuccess {
+                log("success: $it")
                 emit(it)
             }.onFailure {
+                log("failure: $it")
                 log(it.message)
             }
             delay(chatsRequestTimeout)

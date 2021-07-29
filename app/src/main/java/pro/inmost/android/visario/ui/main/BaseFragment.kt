@@ -11,7 +11,7 @@ import pro.inmost.android.visario.databinding.FragmentMessagesBinding
 
 abstract class BaseFragment<T : ViewDataBinding>(private val layId: Int) : Fragment() {
     private var _binding: T? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,

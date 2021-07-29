@@ -13,28 +13,37 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     private lateinit var listAdapter: MessageListAdapter
 
     override fun onCreated(binding: FragmentMessagesBinding) {
-        updateTitle(binding)
-        setupRecyclerView(binding)
+        binding.viewModel = viewModel
+        updateTitle()
+        setupRecyclerView()
         fetchData()
-        observeEvents(binding)
+        observeEvents()
     }
 
-    private fun setupRecyclerView(binding: FragmentMessagesBinding) {
+    private fun setupRecyclerView() {
         listAdapter = MessageListAdapter(viewModel)
         binding.messageList.adapter = listAdapter
     }
 
-    private fun updateTitle(binding: FragmentMessagesBinding) {
+    private fun updateTitle() {
         binding.appBar.title = args.channelName
     }
 
-    private fun observeEvents(binding: FragmentMessagesBinding) {
+    private fun observeEvents() {
         binding.appBar.toolbar.setNavigationOnClickListener { navigateBack() }
     }
 
     private fun fetchData() {
         viewModel.getMessages(args.channelArn).observe(viewLifecycleOwner){ messages ->
             listAdapter.submitList(messages)
+        }
+        //for test
+        viewModel.myNewMessages.observe(viewLifecycleOwner){ message ->
+            listAdapter.submitList(
+                listAdapter.currentList.toMutableList().apply { add(0,message) }
+            ){
+                binding.messageList.smoothScrollToPosition(0)
+            }
         }
     }
 }

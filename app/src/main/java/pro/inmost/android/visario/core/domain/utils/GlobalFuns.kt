@@ -4,5 +4,5 @@ import android.util.Log
 
 fun log(msg: String?){
     msg ?: return
-    Log.i("VISARIO", msg)
+    Log.i("VISARIO_LOG", msg)
 }

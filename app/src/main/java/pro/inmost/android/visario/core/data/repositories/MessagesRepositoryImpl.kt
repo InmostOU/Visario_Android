@@ -29,10 +29,11 @@ class MessagesRepositoryImpl(private val api: ChimeApi) : MessagesRepository {
             if (response.status == STATUS_OK) {
                 Result.success(response.message)
             } else {
+                log("sendMessage response: ${response.status}, ${response.message}")
                 Result.failure(Throwable(response.message))
             }
         } catch (t: Throwable) {
-            log("sendMessage: ${t.message}")
+            log("sendMessage error: ${t.message}")
             Result.failure(Throwable(t.message))
         }
     }

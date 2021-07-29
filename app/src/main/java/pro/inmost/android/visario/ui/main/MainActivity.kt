@@ -57,8 +57,6 @@ class MainActivity : AppCompatActivity() {
         dataStore.data.collect { pref ->
             val accessToken = pref[stringPreferencesKey(PREF_KEY_ACCESS_TOKEN)]
             val refreshToken = pref[stringPreferencesKey(PREF_KEY_REFRESH_TOKEN)]
-            log("access token: $accessToken")
-            log("refresh token: $refreshToken")
             if (accessToken.isNullOrBlank() || refreshToken.isNullOrBlank()) {
                 openLoginScreen()
             } else {

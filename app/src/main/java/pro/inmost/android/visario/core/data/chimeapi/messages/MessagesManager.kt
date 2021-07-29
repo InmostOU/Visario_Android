@@ -6,7 +6,7 @@ class MessagesManager(private val service: MessagesService) {
 
     suspend fun getMessages(channelArn: String) = service.getMessages(channelArn)
 
-    suspend fun getLastMessage(channelArn: String) = service.getMessages(channelArn).messages.last()
+    suspend fun getLastMessage(channelArn: String) = service.getMessages(channelArn).messages.lastOrNull()
 
     suspend fun sendMessage(request: MessageRequest) = service.sendMessage(request)
 
