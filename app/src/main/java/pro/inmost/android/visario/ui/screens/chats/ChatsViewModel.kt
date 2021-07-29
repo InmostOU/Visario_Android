@@ -14,7 +14,7 @@ import pro.inmost.android.visario.core.domain.utils.log
 import pro.inmost.android.visario.ui.boundaries.ChatsRepository
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 
-class ChatsViewModel(private val repository: ChatsRepository<List<Channel>>) : ViewModel() {
+class ChatsViewModel(private val repository: ChatsRepository<Channel>) : ViewModel() {
     private val chatsRequestTimeout = 5000L
     private val _onChatClick = SingleLiveEvent<Channel>()
     val onChatClick: LiveData<Channel> = _onChatClick

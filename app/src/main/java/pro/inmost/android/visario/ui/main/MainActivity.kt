@@ -17,6 +17,7 @@ import org.koin.android.ext.android.inject
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.core.data.chimeapi.ChimeApi
 import pro.inmost.android.visario.core.data.chimeapi.auth.model.Tokens
+import pro.inmost.android.visario.core.domain.utils.log
 import pro.inmost.android.visario.databinding.ActivityMainBinding
 import pro.inmost.android.visario.ui.utils.*
 
@@ -56,6 +57,8 @@ class MainActivity : AppCompatActivity() {
         dataStore.data.collect { pref ->
             val accessToken = pref[stringPreferencesKey(PREF_KEY_ACCESS_TOKEN)]
             val refreshToken = pref[stringPreferencesKey(PREF_KEY_REFRESH_TOKEN)]
+            log("access token: $accessToken")
+            log("refresh token: $refreshToken")
             if (accessToken.isNullOrBlank() || refreshToken.isNullOrBlank()) {
                 openLoginScreen()
             } else {
