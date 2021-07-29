@@ -34,22 +34,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.navView.setupWithNavController(navController)
         lifecycleScope.launch {
             delay(splashTime)
             checkAuth()
-        }
-        observeNavigation()
-    }
-
-    private fun observeNavigation() {
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.navigation_chats,
-                R.id.navigation_calls,
-                R.id.navigation_contacts,
-                R.id.navigation_settings -> showBottomNavView()
-                else -> hideBottomNavView()
-            }
         }
     }
 
@@ -74,23 +62,16 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    fun setBottomNavVisibility(visibility: Int) {
+        binding.navView.visibility = visibility
+    }
+
     private fun openApp() {
         setGraph(R.navigation.app_navigation)
-        showBottomNavView()
     }
 
     private fun openLoginScreen() {
-        hideBottomNavView()
         setGraph(R.navigation.login_navigation)
-    }
-
-    private fun showBottomNavView() {
-        binding.navView.show()
-        binding.navView.setupWithNavController(navController)
-    }
-
-    private fun hideBottomNavView() {
-        binding.navView.gone()
     }
 
     private fun hideSplash() {

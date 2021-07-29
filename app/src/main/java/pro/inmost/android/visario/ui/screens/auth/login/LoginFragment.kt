@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.screens.auth.login
 
+import android.view.View
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentLoginBinding
@@ -8,6 +9,8 @@ import pro.inmost.android.visario.ui.utils.navigate
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
     private val viewModel: LoginViewModel by viewModel()
+
+    override var bottomNavViewVisibility: Int = View.GONE
 
     override fun onCreated(binding: FragmentLoginBinding) {
         binding.viewModel = viewModel

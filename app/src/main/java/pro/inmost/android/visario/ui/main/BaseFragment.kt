@@ -7,11 +7,20 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import pro.inmost.android.visario.databinding.FragmentMessagesBinding
 
 abstract class BaseFragment<T : ViewDataBinding>(private val layId: Int) : Fragment() {
     private var _binding: T? = null
     val binding get() = _binding!!
+
+    protected open var bottomNavViewVisibility = View.VISIBLE
+
+    override fun onResume() {
+        super.onResume()
+        if (activity is MainActivity) {
+            val mainActivity = activity as MainActivity
+            mainActivity.setBottomNavVisibility(bottomNavViewVisibility)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +34,10 @@ abstract class BaseFragment<T : ViewDataBinding>(private val layId: Int) : Fragm
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (activity is MainActivity) {
+            val mainActivity = activity as MainActivity
+            mainActivity.setBottomNavVisibility(bottomNavViewVisibility)
+        }
         onCreated(binding)
     }
 

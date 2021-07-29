@@ -26,11 +26,10 @@ class MessagesRepositoryImpl(private val api: ChimeApi) : MessagesRepository {
     override suspend fun sendMessage(request: MessageRequest): Result<String> {
         return try {
             val response = api.messages.sendMessage(request)
-            if (response.status == STATUS_OK) {
-                Result.success(response.message)
+            if (response.content.isNotBlank()) {
+                Result.success(response.content)
             } else {
-                log("sendMessage response: ${response.status}, ${response.message}")
-                Result.failure(Throwable(response.message))
+                Result.failure(Throwable("Send failed"))
             }
         } catch (t: Throwable) {
             log("sendMessage error: ${t.message}")

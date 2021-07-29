@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.screens.auth.register
 
+import android.view.View
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentRegisterBinding
@@ -9,6 +10,8 @@ import pro.inmost.android.visario.ui.utils.navigateBack
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment_register) {
     private val viewModel: RegisterViewModel by viewModel()
+
+    override var bottomNavViewVisibility: Int = View.GONE
 
     override fun onCreated(binding: FragmentRegisterBinding) {
         binding.viewModel = viewModel

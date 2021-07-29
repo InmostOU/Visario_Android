@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.screens.chats.messages
 
+import android.view.View
 import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
@@ -11,6 +12,8 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     private val viewModel: MessagesViewModel by viewModel()
     private val args: MessagesFragmentArgs by navArgs()
     private lateinit var listAdapter: MessageListAdapter
+
+    override var bottomNavViewVisibility: Int = View.GONE
 
     override fun onCreated(binding: FragmentMessagesBinding) {
         binding.viewModel = viewModel

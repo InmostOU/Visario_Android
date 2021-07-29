@@ -5,6 +5,7 @@
 
     <data>
         <import type="android.view.Gravity" />
+        <import type="android.view.View"/>
         <variable
             name="message"
             type="pro.inmost.android.visario.core.data.chimeapi.messages.Message" />
@@ -58,16 +59,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxWidth="@dimen/message_bubble_max_width"
-                    android:layout_gravity="end"
                     android:gravity="center_vertical"
                     tools:text="12:00"
-                    android:layout_marginTop="2dp"
                     android:layout_marginStart="8dp"
                     android:text="@{message.formatDate}"
                     android:textColor="?android:attr/textColorPrimary"
                     android:textSize="@dimen/message_time_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/send_status"
+                    android:layout_width="@dimen/message_done_mark_size"
+                    android:layout_height="@dimen/message_done_mark_size"
+                    android:layout_marginStart="8dp"
+                    android:layout_gravity="bottom"
+                    android:visibility="@{message.fromCurrentUser ? View.VISIBLE : View.GONE}"
+                    android:src="@drawable/ic_baseline_done_24"/>
 
             </LinearLayout>
 

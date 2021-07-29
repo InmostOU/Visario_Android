@@ -44,6 +44,7 @@ class MessagesViewModel(private val repository: MessagesRepository) : ViewModel(
 
         viewModelScope.launch {
             val request = MessageRequest(message.value!!, channelArn)
+            log(request.toString())
             withContext(Dispatchers.IO) {
                 repository.sendMessage(request)
             }.onSuccess {
