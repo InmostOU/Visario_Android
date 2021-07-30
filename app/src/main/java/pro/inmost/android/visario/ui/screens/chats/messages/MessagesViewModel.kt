@@ -23,28 +23,27 @@ class MessagesViewModel(private val repository: MessagesRepository) : ViewModel(
 
     fun getMessages(arn: String) = liveData {
         channelArn = arn
-        withContext(Dispatchers.IO) {
-            repository.getMessages(arn)
-        }.onSuccess { list ->
-            val messages = list
-                .sortedBy { it.createdTimestamp }
-                .reversed()
-            emit(messages)
-        }.onFailure {
-            log(it.message)
+
+        // just for now
+        while(currentCoroutineContext().isActive){
+            withContext(Dispatchers.IO) {
+                repository.getMessages(arn)
+            }.onSuccess { list ->
+                val messages = list.sortedByDescending { it.createdTimestamp }
+                emit(messages)
+            }.onFailure {
+                log(it.message)
+            }
+            delay(100)
         }
     }
 
     fun sendMessage(view: View) {
         if (message.value.isNullOrBlank()) return
 
-        // for test
-        myNewMessages.value = createMessage()
-        message.value = ""
-
+        val request = MessageRequest(message.value!!, channelArn)
         viewModelScope.launch {
-            val request = MessageRequest(message.value!!, channelArn)
-            log(request.toString())
+            message.value = ""
             withContext(Dispatchers.IO) {
                 repository.sendMessage(request)
             }.onSuccess {

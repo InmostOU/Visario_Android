@@ -57,8 +57,8 @@ object DateParser {
         if (format != null) {
             val sdf = SimpleDateFormat(format, Locale.getDefault())
             return try {
-                val date: Date = sdf.parse(value)
-                date.time
+                val date: Date? = sdf.parse(value)
+                date?.time ?: 0L
             } catch (e: ParseException) {
                 e.printStackTrace()
                 -1

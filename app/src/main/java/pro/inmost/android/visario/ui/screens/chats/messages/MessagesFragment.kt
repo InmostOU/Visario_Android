@@ -2,6 +2,14 @@ package pro.inmost.android.visario.ui.screens.chats.messages
 
 import android.view.View
 import androidx.navigation.fragment.navArgs
+import com.amazonaws.services.chime.AmazonChimeAsyncClientBuilder
+import com.amazonaws.services.chime.model.*
+import com.amazonaws.services.chime.sdk.meetings.realtime.datamessage.DataMessage
+import com.amazonaws.services.chime.sdk.meetings.realtime.datamessage.DataMessageObserver
+import com.amazonaws.services.chime.sdk.meetings.session.DefaultMeetingSession
+import com.amazonaws.services.chime.sdk.meetings.session.MeetingSession
+import com.amazonaws.services.chime.sdk.meetings.session.MeetingSessionConfiguration
+import com.amazonaws.services.chime.sdk.meetings.session.MeetingSessionCredentials
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentMessagesBinding
@@ -22,6 +30,7 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
         fetchData()
         observeEvents()
     }
+
 
     private fun setupRecyclerView() {
         listAdapter = MessageListAdapter(viewModel)

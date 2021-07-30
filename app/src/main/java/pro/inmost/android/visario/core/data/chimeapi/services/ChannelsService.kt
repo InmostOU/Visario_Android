@@ -4,6 +4,6 @@ import pro.inmost.android.visario.core.data.chimeapi.channels.model.ChannelRespo
 import retrofit2.http.GET
 
 interface ChannelsService {
-    @GET("channels/getChannelsMemberships")
+    @GET(URLs.CHANNEL_LIST)
     suspend fun getChannels(): ChannelResponseBody
 }

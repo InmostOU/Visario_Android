@@ -36,11 +36,29 @@ android {
         viewBinding true
         dataBinding true
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude("META-INF/*.kotlin_module")
+    }
 }
 
 dependencies {
     def koin_version = "3.1.2"
     implementation "io.insert-koin:koin-android:$koin_version"
+
+    implementation(name: 'amazon-chime-sdk', ext: 'aar')
+    implementation(name: 'amazon-chime-sdk-media', ext: 'aar')
+
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
+    implementation 'com.amazonaws:aws-java-sdk-chime'
 
     implementation "androidx.datastore:datastore-preferences-core:1.0.0-rc02"
     implementation "androidx.datastore:datastore-preferences:1.0.0-rc02"

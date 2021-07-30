@@ -49,7 +49,8 @@
                 android:paddingEnd="16dp"
                 android:text="@={viewModel.message}"
                 android:background="@drawable/edit_text_background"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:importantForAutofill="no" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:layout_width="0dp"
