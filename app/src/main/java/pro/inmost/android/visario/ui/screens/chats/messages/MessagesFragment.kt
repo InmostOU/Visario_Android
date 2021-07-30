@@ -2,14 +2,6 @@ package pro.inmost.android.visario.ui.screens.chats.messages
 
 import android.view.View
 import androidx.navigation.fragment.navArgs
-import com.amazonaws.services.chime.AmazonChimeAsyncClientBuilder
-import com.amazonaws.services.chime.model.*
-import com.amazonaws.services.chime.sdk.meetings.realtime.datamessage.DataMessage
-import com.amazonaws.services.chime.sdk.meetings.realtime.datamessage.DataMessageObserver
-import com.amazonaws.services.chime.sdk.meetings.session.DefaultMeetingSession
-import com.amazonaws.services.chime.sdk.meetings.session.MeetingSession
-import com.amazonaws.services.chime.sdk.meetings.session.MeetingSessionConfiguration
-import com.amazonaws.services.chime.sdk.meetings.session.MeetingSessionCredentials
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentMessagesBinding
@@ -46,16 +38,17 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     }
 
     private fun fetchData() {
-        viewModel.getMessages(args.channelArn).observe(viewLifecycleOwner){ messages ->
-            listAdapter.submitList(messages)
+        viewModel.observeMessages(args.channelArn).observe(viewLifecycleOwner){ messages ->
+            listAdapter.submitList(messages){ scrollToBottom() }
         }
-        //for test
-        viewModel.myNewMessages.observe(viewLifecycleOwner){ message ->
-            listAdapter.submitList(
-                listAdapter.currentList.toMutableList().apply { add(0,message) }
-            ){
-                binding.messageList.smoothScrollToPosition(0)
-            }
-        }
+    }
+
+    private fun scrollToBottom() {
+        binding.messageList.smoothScrollToPosition(0)
+    }
+
+    override fun onStop() {
+        viewModel.saveMessages()
+        super.onStop()
     }
 }

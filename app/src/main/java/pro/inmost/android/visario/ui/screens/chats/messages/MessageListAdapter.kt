@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import pro.inmost.android.visario.core.data.chimeapi.messages.Message
+import pro.inmost.android.visario.data.network.chimeapi.messages.Message
 import pro.inmost.android.visario.databinding.ListItemMessageBinding
 import pro.inmost.android.visario.ui.utils.layoutInflater
 

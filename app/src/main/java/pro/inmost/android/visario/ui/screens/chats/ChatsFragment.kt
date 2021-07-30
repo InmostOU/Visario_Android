@@ -2,7 +2,7 @@ package pro.inmost.android.visario.ui.screens.chats
 
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.core.data.chimeapi.channels.model.Channel
+import pro.inmost.android.visario.data.network.chimeapi.channels.model.Channel
 import pro.inmost.android.visario.databinding.FragmentChatsBinding
 import pro.inmost.android.visario.ui.main.BaseFragment
 import pro.inmost.android.visario.ui.utils.navigate
@@ -37,6 +37,11 @@ class ChatsFragment : BaseFragment<FragmentChatsBinding>(R.layout.fragment_chats
         viewModel.observeChats().observe(viewLifecycleOwner){ list ->
             listAdapter.submitList(list)
         }
+    }
+
+    override fun onStop() {
+        viewModel.saveChannels()
+        super.onStop()
     }
 
 }

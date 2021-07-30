@@ -3,7 +3,7 @@ package pro.inmost.android.visario.ui.screens.auth
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.core.data.chimeapi.auth.model.RegisterRequestBody
+import pro.inmost.android.visario.data.network.chimeapi.auth.model.RegisterRequest
 import pro.inmost.android.visario.ui.utils.isValidEmail
 
 class Validator {
@@ -23,7 +23,7 @@ class Validator {
     val birthdayInvalid: LiveData<Int> = _birthdayInvalid
     val passInvalid: LiveData<Int> = _passInvalid
 
-    fun validate(body: RegisterRequestBody): Boolean {
+    fun validate(body: RegisterRequest): Boolean {
         var valid = true
 
         body.apply {

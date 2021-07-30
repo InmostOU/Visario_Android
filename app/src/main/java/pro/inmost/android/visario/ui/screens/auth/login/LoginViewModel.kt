@@ -12,14 +12,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.core.data.chimeapi.auth.model.Tokens
+import pro.inmost.android.visario.data.network.chimeapi.auth.model.Tokens
 import pro.inmost.android.visario.ui.main.dataStore
-import pro.inmost.android.visario.ui.boundaries.AccountRepository
+import pro.inmost.android.visario.domain.boundaries.AccountRepository
+import pro.inmost.android.visario.domain.usecases.AccountUseCase
 import pro.inmost.android.visario.ui.screens.auth.Validator
 import pro.inmost.android.visario.ui.utils.*
 
 
-class LoginViewModel(private val repository: AccountRepository) : ViewModel() {
+class LoginViewModel(private val accountUseCase: AccountUseCase) : ViewModel() {
     val validator = Validator()
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
@@ -40,7 +41,7 @@ class LoginViewModel(private val repository: AccountRepository) : ViewModel() {
 
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                repository.login(email.value!!, password.value!!)
+                accountUseCase.login(email.value!!, password.value!!)
             }.onSuccess {
                 saveTokens(view.context, it)
             }.onFailure {

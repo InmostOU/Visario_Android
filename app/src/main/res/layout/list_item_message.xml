@@ -8,7 +8,7 @@
         <import type="android.view.View"/>
         <variable
             name="message"
-            type="pro.inmost.android.visario.core.data.chimeapi.messages.Message" />
+            type="pro.inmost.android.visario.data.network.chimeapi.messages.Message" />
         <variable
             name="viewModel"
             type="pro.inmost.android.visario.ui.screens.chats.messages.MessagesViewModel" />

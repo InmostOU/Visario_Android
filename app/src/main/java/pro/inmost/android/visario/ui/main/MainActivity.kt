@@ -2,7 +2,6 @@ package pro.inmost.android.visario.ui.main
 
 import android.content.Context
 import android.os.Bundle
-import android.view.MenuInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -13,11 +12,9 @@ import androidx.navigation.ui.setupWithNavController
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.core.data.chimeapi.ChimeApi
-import pro.inmost.android.visario.core.data.chimeapi.auth.model.Tokens
-import pro.inmost.android.visario.core.domain.utils.log
+import pro.inmost.android.visario.data.network.chimeapi.ChimeApi
+import pro.inmost.android.visario.data.network.chimeapi.auth.model.Tokens
 import pro.inmost.android.visario.databinding.ActivityMainBinding
 import pro.inmost.android.visario.ui.utils.*
 

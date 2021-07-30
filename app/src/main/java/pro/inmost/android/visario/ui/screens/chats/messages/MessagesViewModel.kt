@@ -1,40 +1,34 @@
 package pro.inmost.android.visario.ui.screens.chats.messages
 
-import android.text.format.DateFormat
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.collect
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.core.data.chimeapi.messages.Message
-import pro.inmost.android.visario.core.data.chimeapi.messages.MessageRequest
-import pro.inmost.android.visario.core.domain.utils.log
-import pro.inmost.android.visario.ui.boundaries.MessagesRepository
-import pro.inmost.android.visario.ui.utils.toast
-import java.text.SimpleDateFormat
-import java.util.*
+import pro.inmost.android.visario.data.network.chimeapi.messages.Message
+import pro.inmost.android.visario.data.network.chimeapi.messages.MessageRequest
+import pro.inmost.android.visario.domain.boundaries.MessagesNetworkRepository
+import pro.inmost.android.visario.domain.usecases.MessagingUseCase
+import pro.inmost.android.visario.domain.utils.log
 
-class MessagesViewModel(private val repository: MessagesRepository) : ViewModel() {
+class MessagesViewModel(private val messagingUseCase: MessagingUseCase) : ViewModel() {
     private var channelArn: String = ""
     val message = MutableLiveData<String>()
-    val myNewMessages = MutableLiveData<Message>()
+    private var data: List<Message> = listOf()
 
-    fun getMessages(arn: String) = liveData {
+    fun observeMessages(arn: String) = liveData {
         channelArn = arn
-
-        // just for now
-        while(currentCoroutineContext().isActive){
-            withContext(Dispatchers.IO) {
-                repository.getMessages(arn)
-            }.onSuccess { list ->
-                val messages = list.sortedByDescending { it.createdTimestamp }
-                emit(messages)
+        messagingUseCase.observeMessages(arn).collect { result ->
+            result.onSuccess { list ->
+                data = list.sortedByDescending { it.createdTimestamp }
+                emit(data)
             }.onFailure {
                 log(it.message)
             }
-            delay(100)
         }
     }
 
@@ -42,31 +36,21 @@ class MessagesViewModel(private val repository: MessagesRepository) : ViewModel(
         if (message.value.isNullOrBlank()) return
 
         val request = MessageRequest(message.value!!, channelArn)
+        message.value = ""
+
         viewModelScope.launch {
-            message.value = ""
-            withContext(Dispatchers.IO) {
-                repository.sendMessage(request)
-            }.onSuccess {
+            messagingUseCase.sendMessage(request).onSuccess {
                 message.value = ""
             }.onFailure {
                 val message = it.message ?: view.context.getString(R.string.send_failed)
-                view.context.toast(message)
+                log(message)
             }
         }
     }
 
-    private fun createMessage(): Message{
-        return  Message(
-            messageId = UUID.randomUUID().toString(),
-            content = message.value ?: "",
-            createdTimestamp = DateFormat.format("yyyy-MM-dd hh:mm:ss", System.currentTimeMillis()).toString(),
-            lastEditedTimestamp = DateFormat.format("yyyy-MM-dd hh:mm:ss", System.currentTimeMillis()).toString(),
-            metadata = "",
-            redacted = false,
-            senderArn = "",
-            senderName = "Mr Myself",
-            type = "",
-            fromCurrentUser = true
-        )
+    fun saveMessages(){
+        viewModelScope.launch {
+            messagingUseCase.saveMessage(data)
+        }
     }
 }

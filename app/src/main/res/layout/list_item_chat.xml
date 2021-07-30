@@ -9,7 +9,7 @@
             type="pro.inmost.android.visario.ui.screens.chats.ChatsViewModel" />
         <variable
             name="model"
-            type="pro.inmost.android.visario.core.data.chimeapi.channels.model.Channel" />
+            type="pro.inmost.android.visario.data.network.chimeapi.channels.model.Channel" />
     </data>
 
     <LinearLayout
@@ -28,28 +28,13 @@
             android:onClick="@{() -> viewModel.onItemClick(model)}"
             android:layout_marginBottom="12dp">
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/chat_icon"
-                    android:layout_width="@dimen/chat_image_size"
-                    android:layout_height="@dimen/chat_image_size"
-                    android:layout_gravity="center"
-                    app:shapeAppearance="@style/ChatCircleImage"
-                    app:srcCompat="?attr/colorPrimary"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    tools:text="CN"/>
-
-            </FrameLayout>
+            <ImageView
+                android:id="@+id/chat_icon"
+                android:layout_width="@dimen/chat_image_size"
+                android:layout_height="@dimen/chat_image_size"
+                android:layout_gravity="center"
+                app:shapeAppearance="@style/ChatCircleImage"
+                android:src="@drawable/ic_chat_icon"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -74,6 +59,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:textSize="@dimen/text_size_chat_last_message"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="?android:attr/textColorSecondary"
                     android:text="@{model.lastMessageContent}"
                     tools:text="Last message"/>

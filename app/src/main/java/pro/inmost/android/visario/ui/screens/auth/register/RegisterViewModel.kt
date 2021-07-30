@@ -9,13 +9,12 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.core.data.chimeapi.auth.model.RegisterRequestBody
-import pro.inmost.android.visario.core.data.chimeapi.auth.model.Tokens
-import pro.inmost.android.visario.ui.boundaries.AccountRepository
+import pro.inmost.android.visario.data.network.chimeapi.auth.model.RegisterRequest
+import pro.inmost.android.visario.domain.usecases.AccountUseCase
 import pro.inmost.android.visario.ui.screens.auth.Validator
 import pro.inmost.android.visario.ui.utils.*
 
-class RegisterViewModel(private val repository: AccountRepository) : ViewModel() {
+class RegisterViewModel(private val accountUseCase: AccountUseCase) : ViewModel() {
     val validator = Validator()
     val username = MutableLiveData<String>()
     val email = MutableLiveData<String>()
@@ -33,14 +32,14 @@ class RegisterViewModel(private val repository: AccountRepository) : ViewModel()
 
     fun register(view: View) {
         view.hideKeyboard()
-        val request = getRegisterRequest()
+        val request = createRegisterRequest()
         if (!validator.validate(request)) return
 
         view.isEnabled = false
 
         viewModelScope.launch {
             withContext(IO) {
-                repository.register(request)
+                accountUseCase.register(request)
             }.onSuccess {
                 _showInfoDialogAndQuit.call()
             }.onFailure {
@@ -52,8 +51,8 @@ class RegisterViewModel(private val repository: AccountRepository) : ViewModel()
 
     }
 
-    private fun getRegisterRequest(): RegisterRequestBody {
-        return RegisterRequestBody(
+    private fun createRegisterRequest(): RegisterRequest {
+        return RegisterRequest(
             username = username.value ?: "",
             email = email.value ?: "",
             firstName = firstName.value ?: "",

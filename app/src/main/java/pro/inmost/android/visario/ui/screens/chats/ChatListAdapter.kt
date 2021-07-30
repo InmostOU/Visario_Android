@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import pro.inmost.android.visario.core.data.chimeapi.channels.model.Channel
+import pro.inmost.android.visario.data.network.chimeapi.channels.model.Channel
 import pro.inmost.android.visario.databinding.ListItemChatBinding
 import pro.inmost.android.visario.ui.utils.layoutInflater
 

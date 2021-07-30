@@ -4,37 +4,41 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import pro.inmost.android.visario.core.data.chimeapi.channels.model.Channel
-import pro.inmost.android.visario.core.domain.utils.log
-import pro.inmost.android.visario.ui.boundaries.ChatsRepository
+import pro.inmost.android.visario.data.network.chimeapi.channels.model.Channel
+import pro.inmost.android.visario.domain.utils.log
+import pro.inmost.android.visario.domain.boundaries.ChannelsNetworkRepository
+import pro.inmost.android.visario.domain.usecases.ChannelsUseCase
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 
-class ChatsViewModel(private val repository: ChatsRepository<Channel>) : ViewModel() {
-    private val chatsRequestTimeout = 5000L
+class ChatsViewModel(private val channelsUseCase: ChannelsUseCase) : ViewModel() {
     private val _onChatClick = SingleLiveEvent<Channel>()
     val onChatClick: LiveData<Channel> = _onChatClick
+    private var data = listOf<Channel>()
 
     fun observeChats() = liveData {
-        while (viewModelScope.isActive){
-            withContext(IO){
-                repository.getChats()
-            }.onSuccess {
-                log("success: $it")
+        channelsUseCase.observeChannels().collect { result ->
+            result.onSuccess {
+                data = it
                 emit(it)
             }.onFailure {
-                log("failure: $it")
-                log(it.message)
+                log("channels receiving failure: ${it.message}")
             }
-            delay(chatsRequestTimeout)
         }
     }
 
     fun onItemClick(item: Channel) {
         _onChatClick.postValue(item)
+    }
+
+    fun saveChannels(){
+        viewModelScope.launch {
+            channelsUseCase.saveChannels(data)
+        }
     }
 }
