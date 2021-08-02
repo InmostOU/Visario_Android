@@ -23,7 +23,7 @@
             android:name="channelName"
             app:argType="string" />
         <argument
-            android:name="channelArn"
+            android:name="channelUrl"
             app:argType="string" />
     </fragment>
 

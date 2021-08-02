@@ -8,7 +8,7 @@ import pro.inmost.android.visario.ui.main.BaseFragment
 class ContactsFragment : BaseFragment<FragmentContactsBinding>(R.layout.fragment_contacts) {
     private val viewModel: ContactsViewModel by viewModel()
 
-    override fun onCreated(binding: FragmentContactsBinding) {
+    override fun onCreated() {
 
     }
 }

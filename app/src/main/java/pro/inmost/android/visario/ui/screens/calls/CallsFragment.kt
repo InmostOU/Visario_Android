@@ -8,7 +8,7 @@ import pro.inmost.android.visario.ui.main.BaseFragment
 class CallsFragment : BaseFragment<FragmentCallsBinding>(R.layout.fragment_calls) {
     private val viewModel: CallsViewModel by viewModel()
 
-    override fun onCreated(binding: FragmentCallsBinding) {
+    override fun onCreated() {
 
     }
 }

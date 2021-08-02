@@ -1,15 +1,17 @@
 package pro.inmost.android.visario.di
 
-import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import pro.inmost.android.visario.data.database.AppDatabase
 import pro.inmost.android.visario.data.network.chimeapi.ChimeApi
 import pro.inmost.android.visario.data.repositories.*
-import pro.inmost.android.visario.domain.usecases.AccountUseCase
-import pro.inmost.android.visario.domain.usecases.ChannelsUseCase
-import pro.inmost.android.visario.domain.usecases.ContactsUseCase
-import pro.inmost.android.visario.domain.usecases.MessagingUseCase
+import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.auth.UpdateTokensUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.auth.login.LoginUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCaseImpl
+import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.ui.screens.auth.login.LoginViewModel
 import pro.inmost.android.visario.ui.screens.auth.register.RegisterViewModel
 import pro.inmost.android.visario.ui.screens.calls.CallsViewModel
@@ -19,54 +21,58 @@ import pro.inmost.android.visario.ui.screens.contacts.ContactsViewModel
 import pro.inmost.android.visario.ui.screens.settings.SettingsViewModel
 
 val appModule = module {
+    factory { AppDatabase.instance }
     single { ChimeApi() }
-    single { AppDatabase.getInstance(androidContext()) }
+    single { CredentialsStore(androidApplication().applicationContext) }
 }
 
 val viewModelsModule = module {
-    viewModel { ChatsViewModel(get()) }
-    viewModel { MessagesViewModel(get()) }
+    viewModel { ChatsViewModel(get(), get()) }
+    viewModel { MessagesViewModel(get(), get(), get()) }
     viewModel { CallsViewModel() }
-    viewModel { ContactsViewModel(get()) }
+    viewModel { ContactsViewModel() }
     viewModel { LoginViewModel(get()) }
     viewModel { RegisterViewModel(get()) }
     viewModel { SettingsViewModel(get()) }
 }
 
 val repositories = module {
-    single { AccountRepositoryImpl(get()) }
-    single { ChannelsNetworkRepositoryImpl(get()) }
-    single { ChannelsLocalRepositoryImpl(get()) }
-    single { MessagesNetworkRepositoryImpl(get()) }
-    single { MessagesLocalRepositoryImpl(get()) }
-    single { ContactsNetworkRepositoryImpl(get()) }
+    factory { AccountRepositoryImpl(get()) }
+    factory { ChannelsNetworkRepositoryImpl(get()) }
+    factory { ChannelsLocalRepositoryImpl(get(), get()) }
+    factory { ContactsNetworkRepositoryImpl(get()) }
 }
 
 val dao = module {
-    single { (get() as AppDatabase).channelsDao() }
-    single { (get() as AppDatabase).messagesDao() }
+    factory { (get() as AppDatabase).channelsDao() }
+    factory { (get() as AppDatabase).messagesDao() }
 }
 
 val useCases = module {
-    single {
-        ChannelsUseCase(
+    factory {
+        FetchChannelsUseCaseImpl(
             localRepository = get<ChannelsLocalRepositoryImpl>(),
-            networkRepository = get<ChannelsNetworkRepositoryImpl>()
+            networkRepository = get<ChannelsNetworkRepositoryImpl>(),
         )
     }
-    single {
-        MessagingUseCase(
-            localRepository = get<MessagesLocalRepositoryImpl>(),
-            networkRepository = get<MessagesNetworkRepositoryImpl>()
+
+    factory {
+        UpdateTokensUseCaseImpl(
+            repository = get<AccountRepositoryImpl>()
         )
     }
-    single {
-        ContactsUseCase(
-            networkRepository = get<ContactsNetworkRepositoryImpl>()
+    factory {
+        LoginUseCaseImpl(
+            repository = get<AccountRepositoryImpl>()
         )
     }
-    single {
-        AccountUseCase(
+    factory {
+        RegistrationUseCaseImpl(
+            repository = get<AccountRepositoryImpl>()
+        )
+    }
+    factory {
+        LogoutUseCaseImpl(
             repository = get<AccountRepositoryImpl>()
         )
     }

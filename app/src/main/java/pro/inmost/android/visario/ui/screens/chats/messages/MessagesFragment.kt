@@ -15,9 +15,9 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
 
     override var bottomNavViewVisibility: Int = View.GONE
 
-    override fun onCreated(binding: FragmentMessagesBinding) {
+    override fun onCreated() {
         binding.viewModel = viewModel
-        updateTitle()
+        updateTitle(args.channelName)
         setupRecyclerView()
         fetchData()
         observeEvents()
@@ -29,8 +29,10 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
         binding.messageList.adapter = listAdapter
     }
 
-    private fun updateTitle() {
-        binding.appBar.title = args.channelName
+    private fun updateTitle(title: String) {
+        if (title != binding.appBar.title){
+            binding.appBar.title = title
+        }
     }
 
     private fun observeEvents() {
@@ -38,8 +40,12 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     }
 
     private fun fetchData() {
-        viewModel.observeMessages(args.channelArn).observe(viewLifecycleOwner){ messages ->
-            listAdapter.submitList(messages){ scrollToBottom() }
+        viewModel.observeChannel(args.channelUrl).observe(viewLifecycleOwner) { channel ->
+            updateTitle(channel.name)
+            val needScroll = channel.messages.size > listAdapter.currentList.size
+            listAdapter.submitList(channel.messages) {
+                if (needScroll) scrollToBottom()
+            }
         }
     }
 
@@ -48,7 +54,7 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     }
 
     override fun onStop() {
-        viewModel.saveMessages()
+        viewModel.saveChannel()
         super.onStop()
     }
 }

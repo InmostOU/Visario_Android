@@ -1,9 +1,9 @@
 package pro.inmost.android.visario.data.network.chimeapi.services
 
-import pro.inmost.android.visario.data.network.chimeapi.channels.model.ChannelResponse
+import pro.inmost.android.visario.data.network.chimeapi.channels.ChannelsResponse
 import retrofit2.http.GET
 
 interface ChannelsService {
-    @GET(URLs.CHANNEL_LIST)
-    suspend fun getChannels(): ChannelResponse
+    @GET(Endpoints.CHANNEL_LIST)
+    suspend fun getChannels(): ChannelsResponse
 }

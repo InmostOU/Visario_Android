@@ -8,7 +8,7 @@
         <import type="android.view.View"/>
         <variable
             name="message"
-            type="pro.inmost.android.visario.data.network.chimeapi.messages.Message" />
+            type="pro.inmost.android.visario.domain.entities.Message" />
         <variable
             name="viewModel"
             type="pro.inmost.android.visario.ui.screens.chats.messages.MessagesViewModel" />
@@ -62,7 +62,7 @@
                     android:gravity="center_vertical"
                     tools:text="12:00"
                     android:layout_marginStart="8dp"
-                    android:text="@{message.formatDate}"
+                    android:text="@{message.createdDateFormat}"
                     android:textColor="?android:attr/textColorPrimary"
                     android:textSize="@dimen/message_time_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +90,7 @@
                 android:paddingEnd="16dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="10dp"
-                android:text="@{message.content}"
+                android:text="@{message.text}"
                 tools:text="Hello world! Please know that you are beautiful!"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="@dimen/message_text_size" />

@@ -13,7 +13,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
 
     override var bottomNavViewVisibility: Int = View.GONE
 
-    override fun onCreated(binding: FragmentRegisterBinding) {
+    override fun onCreated() {
         binding.viewModel = viewModel
         subscribeEvents()
     }

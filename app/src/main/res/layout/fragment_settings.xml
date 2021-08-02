@@ -29,7 +29,7 @@
             android:drawableTint="@color/red_600"
             android:drawableEnd="@drawable/ic_baseline_logout_24"
             android:text="@string/log_out"
-            android:onClick="@{(view) -> viewModel.logout(view.context)}"/>
+            android:onClick="@{() -> viewModel.logout()}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

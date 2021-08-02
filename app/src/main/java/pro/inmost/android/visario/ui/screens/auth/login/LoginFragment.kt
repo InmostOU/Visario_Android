@@ -12,7 +12,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     override var bottomNavViewVisibility: Int = View.GONE
 
-    override fun onCreated(binding: FragmentLoginBinding) {
+    override fun onCreated() {
         binding.viewModel = viewModel
         subscribeEvents()
     }

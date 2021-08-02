@@ -38,10 +38,10 @@ abstract class BaseFragment<T : ViewDataBinding>(private val layId: Int) : Fragm
             val mainActivity = activity as MainActivity
             mainActivity.setBottomNavVisibility(bottomNavViewVisibility)
         }
-        onCreated(binding)
+        onCreated()
     }
 
-    abstract fun onCreated(binding: T)
+    abstract fun onCreated()
 
     override fun onDestroyView() {
         super.onDestroyView()

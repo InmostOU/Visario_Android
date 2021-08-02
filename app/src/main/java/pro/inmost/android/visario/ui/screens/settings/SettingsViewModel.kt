@@ -1,30 +1,20 @@
 package pro.inmost.android.visario.ui.screens.settings
 
-import android.content.Context
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import pro.inmost.android.visario.ui.main.dataStore
-import pro.inmost.android.visario.domain.boundaries.AccountRepository
-import pro.inmost.android.visario.domain.usecases.AccountUseCase
-import pro.inmost.android.visario.ui.utils.PREF_KEY_ACCESS_TOKEN
-import pro.inmost.android.visario.ui.utils.PREF_KEY_REFRESH_TOKEN
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCase
+import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 
-class SettingsViewModel(private val accountUseCase: AccountUseCase) : ViewModel() {
+class SettingsViewModel(private val logoutUseCase: LogoutUseCase) : ViewModel(), KoinComponent {
+    private val credentials: CredentialsStore by inject()
 
-    fun logout(context: Context){
+    fun logout(){
         viewModelScope.launch {
-            accountUseCase.logout()
-            removeTokensFromDataStore(context)
-        }
-    }
-
-    private suspend fun removeTokensFromDataStore(context: Context) {
-        context.dataStore.edit { pref ->
-            pref[stringPreferencesKey(PREF_KEY_ACCESS_TOKEN)] = ""
-            pref[stringPreferencesKey(PREF_KEY_REFRESH_TOKEN)] = ""
+            logoutUseCase.logout()
+            credentials.clear()
         }
     }
 }

@@ -10,6 +10,7 @@
         android:id="@+id/navigation_login"
         android:name="pro.inmost.android.visario.ui.screens.auth.login.LoginFragment"
         tools:layout="@layout/fragment_login" >
+
         <action
             android:id="@+id/action_navigation_login_to_navigation_register"
             app:destination="@id/navigation_register" />

@@ -16,27 +16,11 @@ class ChimeApi {
         serviceFactory.getService(AccountService::class.java)
     )
     val channels get() = ChannelManager(
-        serviceFactory.getService(ChannelsService::class.java, TokensHolder.accessToken)
+        serviceFactory.getService(ChannelsService::class.java, auth.accessToken)
     )
     val messages get() = MessagesManager(
-        serviceFactory.getService(MessagesService::class.java, TokensHolder.accessToken)
+        serviceFactory.getService(MessagesService::class.java, auth.accessToken)
     )
-
-
-    internal object TokensHolder {
-        private var tokens: Tokens? = null
-        val accessToken get() = tokens?.accessToken ?: ""
-        val refreshToken get() = tokens?.refreshToken ?: ""
-
-        fun updateTokens(tokens: Tokens){
-            this.tokens = tokens
-        }
-
-        fun deleteTokens(){
-            tokens = null
-        }
-
-    }
 
     companion object{
         internal const val SERVER_BASE_URL = "http://3.129.6.178:8081/"

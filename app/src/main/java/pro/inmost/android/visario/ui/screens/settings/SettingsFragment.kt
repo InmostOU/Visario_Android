@@ -8,7 +8,7 @@ import pro.inmost.android.visario.ui.main.BaseFragment
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment_settings) {
     private val viewModel: SettingsViewModel by viewModel()
 
-    override fun onCreated(binding: FragmentSettingsBinding) {
+    override fun onCreated() {
         binding.viewModel = viewModel
     }
 }

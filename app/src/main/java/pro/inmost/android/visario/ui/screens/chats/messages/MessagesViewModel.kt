@@ -6,40 +6,37 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.collect
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.data.network.chimeapi.messages.Message
-import pro.inmost.android.visario.data.network.chimeapi.messages.MessageRequest
-import pro.inmost.android.visario.domain.boundaries.MessagesNetworkRepository
-import pro.inmost.android.visario.domain.usecases.MessagingUseCase
-import pro.inmost.android.visario.domain.utils.log
+import pro.inmost.android.visario.domain.entities.Channel
+import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCase
+import pro.inmost.android.visario.domain.usecases.channels.SaveChannelsUseCase
+import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCase
+import pro.inmost.android.visario.ui.utils.log
 
-class MessagesViewModel(private val messagingUseCase: MessagingUseCase) : ViewModel() {
-    private var channelArn: String = ""
+class MessagesViewModel(
+    private val fetchChannelsUseCase: FetchChannelsUseCase,
+    private val sendMessageUseCase: SendMessageUseCase,
+    private val saveChannelsUseCase: SaveChannelsUseCase
+) : ViewModel() {
+    private var currentChannelUrl: String = ""
     val message = MutableLiveData<String>()
-    private var data: List<Message> = listOf()
+    private var data: Channel? = null
 
-    fun observeMessages(arn: String) = liveData {
-        channelArn = arn
-        messagingUseCase.observeMessages(arn).collect { result ->
-            result.onSuccess { list ->
-                data = list.sortedByDescending { it.createdTimestamp }
-                emit(data)
-            }.onFailure {
-                log(it.message)
-            }
+    fun observeChannel(channelUrl: String) = liveData {
+        currentChannelUrl = channelUrl
+        fetchChannelsUseCase.observeChannel(channelUrl).collect { channel ->
+            data = channel
+            emit(data!!)
         }
     }
 
     fun sendMessage(view: View) {
         if (message.value.isNullOrBlank()) return
-
-        val request = MessageRequest(message.value!!, channelArn)
         message.value = ""
 
         viewModelScope.launch {
-            messagingUseCase.sendMessage(request).onSuccess {
+            sendMessageUseCase.send(message.value!!, currentChannelUrl).onSuccess {
                 message.value = ""
             }.onFailure {
                 val message = it.message ?: view.context.getString(R.string.send_failed)
@@ -48,9 +45,11 @@ class MessagesViewModel(private val messagingUseCase: MessagingUseCase) : ViewMo
         }
     }
 
-    fun saveMessages(){
+    fun saveChannel() {
         viewModelScope.launch {
-            messagingUseCase.saveMessage(data)
+            data?.let {
+                saveChannelsUseCase.save(it)
+            }
         }
     }
 }
