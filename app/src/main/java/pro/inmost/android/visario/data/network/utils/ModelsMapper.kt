@@ -6,20 +6,14 @@ import pro.inmost.android.visario.data.entities.MessageData
 import pro.inmost.android.visario.data.network.chimeapi.auth.model.RegistrationRequest
 import pro.inmost.android.visario.domain.entities.*
 
-fun List<ChannelData>.toDomainChannels(messages: List<Message>): List<Channel>{
-    return mapNotNull { data ->
-        data.toDomainChannel(messages)
-    }
-}
-
-fun ChannelData.toDomainChannel(messages: List<Message>): Channel? {
+fun ChannelData.toDomainChannel(messages: List<MessageData>): Channel? {
     return kotlin.runCatching {
         Channel(
             url = channelArn,
             name = this.name,
             mode = ChannelMode.valueOf(this.mode ?: "UNRESTRICTED"),
             privacy = Privacy.valueOf(this.privacy ?: "PUBLIC"),
-            messages = messages
+            messages = messages.toDomainMessages()
         )
     }.getOrNull()
 }
@@ -73,11 +67,11 @@ fun Channel.toChannelData(): ChannelData {
 
 fun List<MessageData>.toDomainMessages(): List<Message>{
     return mapNotNull { data ->
-        data.toDomainChannel()
+        data.toDomainMessage()
     }
 }
 
-fun MessageData.toDomainChannel(): Message? {
+fun MessageData.toDomainMessage(): Message? {
     return  kotlin.runCatching {
         Message(
             messageId = this.messageId,

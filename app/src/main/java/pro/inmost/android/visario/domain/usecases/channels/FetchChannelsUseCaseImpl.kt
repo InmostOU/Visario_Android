@@ -14,7 +14,6 @@ class FetchChannelsUseCaseImpl(
 ): FetchChannelsUseCase {
     private val timeout = 100L
 
-
     override fun observeChannels() = flow {
         val savedChannels = localRepository.getChannels()
         if (savedChannels.isNotEmpty()){

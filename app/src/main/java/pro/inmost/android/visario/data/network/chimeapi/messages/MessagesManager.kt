@@ -1,13 +1,16 @@
 package pro.inmost.android.visario.data.network.chimeapi.messages
 
-import pro.inmost.android.visario.data.network.chimeapi.services.MessagesService
+import pro.inmost.android.visario.data.network.chimeapi.services.MessagingService
+import pro.inmost.android.visario.data.network.utils.urlEncode
 
-class MessagesManager(private val service: MessagesService) {
+class MessagesManager(
+    private val service: MessagingService
+) {
 
-    suspend fun getMessages(channelArn: String) = service.getMessages(channelArn)
-
-    suspend fun getLastMessage(channelArn: String) = service.getMessages(channelArn).messages.lastOrNull()
+    suspend fun getMessages(channelArn: String) = service.getMessages(channelArn.urlEncode())
 
     suspend fun sendMessage(request: MessageRequest) = service.sendMessage(request)
+
+    suspend fun getSessionEndpoint() = service.getMessagingSessionEndpoint()
 
 }

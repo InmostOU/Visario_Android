@@ -7,10 +7,12 @@ import pro.inmost.android.visario.data.database.AppDatabase
 import pro.inmost.android.visario.data.network.chimeapi.ChimeApi
 import pro.inmost.android.visario.data.repositories.*
 import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.auth.UpdateTokensUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.auth.credentials.UpdateCredentialsUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.login.LoginUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.channels.SaveChannelsUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.ui.screens.auth.login.LoginViewModel
 import pro.inmost.android.visario.ui.screens.auth.register.RegisterViewModel
@@ -21,19 +23,19 @@ import pro.inmost.android.visario.ui.screens.contacts.ContactsViewModel
 import pro.inmost.android.visario.ui.screens.settings.SettingsViewModel
 
 val appModule = module {
-    factory { AppDatabase.instance }
+    factory { AppDatabase.getInstance(androidApplication().applicationContext) }
     single { ChimeApi() }
-    single { CredentialsStore(androidApplication().applicationContext) }
+    single { CredentialsStore(androidApplication().applicationContext, get<UpdateCredentialsUseCaseImpl>()) }
 }
 
 val viewModelsModule = module {
-    viewModel { ChatsViewModel(get(), get()) }
-    viewModel { MessagesViewModel(get(), get(), get()) }
+    viewModel { ChatsViewModel(get<FetchChannelsUseCaseImpl>(), get<SaveChannelsUseCaseImpl>()) }
+    viewModel { MessagesViewModel(get<FetchChannelsUseCaseImpl>(), get<SendMessageUseCaseImpl>(), get<SaveChannelsUseCaseImpl>()) }
     viewModel { CallsViewModel() }
     viewModel { ContactsViewModel() }
-    viewModel { LoginViewModel(get()) }
-    viewModel { RegisterViewModel(get()) }
-    viewModel { SettingsViewModel(get()) }
+    viewModel { LoginViewModel(get<LoginUseCaseImpl>(), get()) }
+    viewModel { RegisterViewModel(get<RegistrationUseCaseImpl>()) }
+    viewModel { SettingsViewModel(get<LogoutUseCaseImpl>(), get()) }
 }
 
 val repositories = module {
@@ -57,12 +59,23 @@ val useCases = module {
     }
 
     factory {
-        UpdateTokensUseCaseImpl(
+        SaveChannelsUseCaseImpl(
+            repository = get<ChannelsLocalRepositoryImpl>()
+        )
+    }
+    factory {
+        SendMessageUseCaseImpl(
+            repository = get<ChannelsNetworkRepositoryImpl>()
+        )
+    }
+
+    factory {
+        UpdateCredentialsUseCaseImpl(
             repository = get<AccountRepositoryImpl>()
         )
     }
     factory {
-        LoginUseCaseImpl(
+        LoginUseCaseImpl (
             repository = get<AccountRepositoryImpl>()
         )
     }

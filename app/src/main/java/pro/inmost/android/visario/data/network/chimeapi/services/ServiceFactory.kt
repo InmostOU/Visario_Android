@@ -12,21 +12,22 @@ class ServiceFactory {
     private val timeoutInSec = 5L
     private val builder = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(SERVER_BASE_URL)
 
-    fun <T>getService(service: Class<T>, accessToken: String): T {
+    fun <T>getService(service: Class<T>, accessToken: String, baseUrl: String): T {
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(AccessTokenInterceptor(accessToken))
             .callTimeout(timeoutInSec, TimeUnit.SECONDS)
             .build()
         return builder
+            .baseUrl(baseUrl)
             .client(client)
             .build()
             .create(service)
     }
 
-    fun <T>getService(service: Class<T>): T {
+    fun <T>getService(service: Class<T>, baseUrl: String): T {
         return builder
+            .baseUrl(baseUrl)
             .build()
             .create(service)
     }

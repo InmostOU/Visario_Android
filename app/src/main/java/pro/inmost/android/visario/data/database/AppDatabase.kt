@@ -19,15 +19,16 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun messagesDao(): MessagesDao
 
     companion object {
-        private const val DATABASE_NAME = "visario_android_db"
-        lateinit var instance: AppDatabase
+        private var databaseName: String = "visario_android_db"
 
-        fun init (context: Context, user: String) {
-            instance = Room.databaseBuilder(
-                context,
-                AppDatabase::class.java,
-                "${DATABASE_NAME}_${user.hashCode()}"
-            ).build()
+        fun updateName(user: String){
+            databaseName = "visario_android_db_${user.hashCode()}"
         }
+
+        fun getInstance (context: Context) = Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            databaseName
+        ).build()
     }
 }

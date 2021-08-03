@@ -6,6 +6,7 @@ import pro.inmost.android.visario.data.database.dao.ChannelsDao
 import pro.inmost.android.visario.data.database.dao.MessagesDao
 import pro.inmost.android.visario.data.network.utils.toChannelsWithMessages
 import pro.inmost.android.visario.data.network.utils.toDomainChannel
+import pro.inmost.android.visario.data.network.utils.toDomainMessage
 import pro.inmost.android.visario.data.network.utils.toDomainChannels
 import pro.inmost.android.visario.domain.repositories.ChannelsLocalRepository
 import pro.inmost.android.visario.domain.entities.Channel

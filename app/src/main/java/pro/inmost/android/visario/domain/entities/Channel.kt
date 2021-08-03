@@ -5,12 +5,12 @@ data class Channel (
     val name: String,
     val mode: ChannelMode,
     val privacy: Privacy,
-    val messages: List<Message>
+    var messages: List<Message>
 ){
     val lastMessage: String
-        get() = messages.first().text
+        get() = messages.firstOrNull()?.text ?: ""
     val lastMessageTime: String
-        get() = messages.first().createdDateFormat
+        get() = messages.firstOrNull()?.createdDateFormat ?: ""
     val newMessagesCount: Int
         get() = messages.filter { it.read }.count()
 }

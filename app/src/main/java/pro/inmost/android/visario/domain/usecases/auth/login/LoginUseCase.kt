@@ -1,7 +1,7 @@
 package pro.inmost.android.visario.domain.usecases.auth.login
 
-import pro.inmost.android.visario.data.network.chimeapi.auth.model.Tokens
+import pro.inmost.android.visario.domain.entities.Credentials
 
 interface LoginUseCase {
-    suspend fun login(email: String, password: String): Result<Tokens>
+    suspend fun login(email: String, password: String): Result<Credentials>
 }

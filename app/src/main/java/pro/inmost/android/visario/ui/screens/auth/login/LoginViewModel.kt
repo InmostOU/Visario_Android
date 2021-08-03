@@ -11,22 +11,29 @@ import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.data.network.chimeapi.auth.model.Tokens
+import pro.inmost.android.visario.domain.entities.Credentials
+import pro.inmost.android.visario.domain.usecases.auth.credentials.UpdateCredentialsUseCase
 import pro.inmost.android.visario.domain.usecases.auth.login.LoginUseCase
 import pro.inmost.android.visario.ui.screens.auth.*
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 import pro.inmost.android.visario.ui.utils.hideKeyboard
+import pro.inmost.android.visario.ui.utils.log
 import pro.inmost.android.visario.ui.utils.snackbar
 
 
-class LoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel(), KoinComponent {
-    private val credentials: CredentialsStore by inject()
+class LoginViewModel(
+    private val loginUseCase: LoginUseCase,
+    private val credentialsStore: CredentialsStore
+) : ViewModel(){
     val validator = Validator()
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
     private val _openRegisterScreen = SingleLiveEvent<Unit>()
     val openRegisterScreen: LiveData<Unit> = _openRegisterScreen
+
+    private val _loginSuccessful = SingleLiveEvent<Unit>()
+    val loginSuccessful: LiveData<Unit> = _loginSuccessful
 
     fun openRegisterScreen() {
         _openRegisterScreen.call()
@@ -43,7 +50,8 @@ class LoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel(), Koin
             withContext(Dispatchers.IO) {
                 loginUseCase.login(email.value!!, password.value!!)
             }.onSuccess {
-                saveCredentials(email.value!!, it)
+                updateCredentials(it)
+                _loginSuccessful.call()
             }.onFailure {
                 val message = it.message ?: view.context.getString(R.string.unknown_error)
                 view.snackbar(message)
@@ -53,13 +61,8 @@ class LoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel(), Koin
 
     }
 
-    private fun saveCredentials(email: String, tokens: Tokens?) {
-        viewModelScope.launch {
-            credentials.update { pref ->
-                pref.updateUser(email)
-                pref.updateAccessToken(tokens?.accessToken)
-                pref.updateRefreshToken(tokens?.refreshToken)
-            }
-        }
+    private fun updateCredentials(credentials: Credentials) {
+        log("creds: $credentials")
+        credentialsStore.saveCredentials(credentials)
     }
 }
