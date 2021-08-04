@@ -9,13 +9,13 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.entities.Channel
-import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCase
+import pro.inmost.android.visario.domain.usecases.channels.ObserveChannelsUseCase
 import pro.inmost.android.visario.domain.usecases.channels.SaveChannelsUseCase
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCase
 import pro.inmost.android.visario.ui.utils.log
 
 class MessagesViewModel(
-    private val fetchChannelsUseCase: FetchChannelsUseCase,
+    private val observeChannelsUseCase: ObserveChannelsUseCase,
     private val sendMessageUseCase: SendMessageUseCase,
     private val saveChannelsUseCase: SaveChannelsUseCase
 ) : ViewModel() {
@@ -25,7 +25,7 @@ class MessagesViewModel(
 
     fun observeChannel(channelUrl: String) = liveData {
         currentChannelUrl = channelUrl
-        fetchChannelsUseCase.observeChannel(channelUrl).collect { channel ->
+        observeChannelsUseCase.observeChannel(channelUrl).collect { channel ->
             data = channel
             emit(data!!)
         }

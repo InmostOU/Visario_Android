@@ -14,4 +14,8 @@ object Endpoints {
     const val REGISTER = "auth/register"
 
     const val CHANNEL_LIST = "channels/getChannelsMemberships"
+
+
+    const val SECRET_KEY = "rNa+yYTTKX5mzLAjPtEQLa9SJ7ixPnowDdDrkyZE"
+    const val ACCESS_KEY_ID = "AKIAUBGB3I6BUMXOOWX7"
 }

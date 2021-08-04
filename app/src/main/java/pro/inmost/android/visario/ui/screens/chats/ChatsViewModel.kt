@@ -7,12 +7,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.domain.entities.Channel
-import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCase
+import pro.inmost.android.visario.domain.usecases.channels.ObserveChannelsUseCase
 import pro.inmost.android.visario.domain.usecases.channels.SaveChannelsUseCase
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 
 class ChatsViewModel(
-    private val channelsUseCase: FetchChannelsUseCase,
+    private val channelsUseCase: ObserveChannelsUseCase,
     private val saveChannelsUseCase: SaveChannelsUseCase
 ) : ViewModel() {
     private val _onChatClick = SingleLiveEvent<Channel>()

@@ -6,7 +6,7 @@ import org.koin.dsl.module
 import pro.inmost.android.visario.data.database.AppDatabase
 import pro.inmost.android.visario.data.network.chimeapi.ChimeApi
 import pro.inmost.android.visario.data.repositories.*
-import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.channels.ObserveChannelsUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.credentials.UpdateCredentialsUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.login.LoginUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCaseImpl
@@ -29,8 +29,8 @@ val appModule = module {
 }
 
 val viewModelsModule = module {
-    viewModel { ChatsViewModel(get<FetchChannelsUseCaseImpl>(), get<SaveChannelsUseCaseImpl>()) }
-    viewModel { MessagesViewModel(get<FetchChannelsUseCaseImpl>(), get<SendMessageUseCaseImpl>(), get<SaveChannelsUseCaseImpl>()) }
+    viewModel { ChatsViewModel(get<ObserveChannelsUseCaseImpl>(), get<SaveChannelsUseCaseImpl>()) }
+    viewModel { MessagesViewModel(get<ObserveChannelsUseCaseImpl>(), get<SendMessageUseCaseImpl>(), get<SaveChannelsUseCaseImpl>()) }
     viewModel { CallsViewModel() }
     viewModel { ContactsViewModel() }
     viewModel { LoginViewModel(get<LoginUseCaseImpl>(), get()) }
@@ -52,7 +52,7 @@ val dao = module {
 
 val useCases = module {
     factory {
-        FetchChannelsUseCaseImpl(
+        ObserveChannelsUseCaseImpl(
             localRepository = get<ChannelsLocalRepositoryImpl>(),
             networkRepository = get<ChannelsNetworkRepositoryImpl>(),
         )

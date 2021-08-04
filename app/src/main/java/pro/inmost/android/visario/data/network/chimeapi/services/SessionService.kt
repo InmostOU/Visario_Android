@@ -8,5 +8,5 @@ interface SessionService {
     @GET(Endpoints.SESSION_CONNECT)
     suspend fun sessionConnect(
         @Body sessionRequest: SessionConnectRequest
-    )
+    ): String
 }

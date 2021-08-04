@@ -44,7 +44,7 @@ fun Message.toMessageData(): MessageData {
         messageId = this.messageId,
         content = this.text,
         createdTimestamp = this.createdTimestamp,
-        lastEditedTimestamp = this.lastEditedTimestamp.toString(),
+        lastEditedTimestamp = this.lastEditedTimestamp,
         metadata = "",
         redacted = this.redacted,
         senderName = this.senderName,
@@ -80,8 +80,10 @@ fun MessageData.toDomainMessage(): Message? {
             senderUrl = this.senderArn,
             senderName = this.senderName,
             createdTimestamp = this.createdTimestamp,
+            lastEditedTimestamp = this.lastEditedTimestamp,
             type = this.type,
-            redacted = this.redacted
+            redacted = this.redacted,
+            fromCurrentUser = this.fromCurrentUser
         )
     }.getOrNull()
 }
