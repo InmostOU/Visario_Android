@@ -3,5 +3,5 @@ package pro.inmost.android.visario.data.network.chimeapi.session
 import pro.inmost.android.visario.data.network.chimeapi.services.SessionService
 
 class SessionManager(private val service: SessionService) {
-    suspend fun sessionConnect(request: SessionConnectRequest) = service.sessionConnect(request)
+    suspend fun sessionConnect(request: String) = service.sessionConnect(request)
 }

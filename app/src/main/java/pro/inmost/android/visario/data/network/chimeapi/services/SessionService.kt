@@ -1,12 +1,11 @@
 package pro.inmost.android.visario.data.network.chimeapi.services
 
-import pro.inmost.android.visario.data.network.chimeapi.session.SessionConnectRequest
-import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface SessionService {
-    @GET(Endpoints.SESSION_CONNECT)
+    @GET(Endpoints.SESSION_CONNECT+ "/{id}")
     suspend fun sessionConnect(
-        @Body sessionRequest: SessionConnectRequest
+        @Path("id") sessionRequest: String
     ): String
 }

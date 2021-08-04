@@ -29,10 +29,7 @@ class ChannelsNetworkRepositoryImpl(private val api: ChimeApi): ChannelsNetworkR
                 val response = api.channels.getChannels()
                 if (response.status == STATUS_OK) {
                     val channels = response.channels.mapNotNull { data ->
-                        val messagesResponse = loadMessages(data.channelArn)
-                        val messages = if (messagesResponse.status == STATUS_OK){
-                            messagesResponse.messages
-                        } else listOf()
+                        val messages = getMessages(data.channelArn).getOrElse { listOf() }
                         data.toDomainChannel(messages)
                     }
                     Result.success(channels)
@@ -46,12 +43,9 @@ class ChannelsNetworkRepositoryImpl(private val api: ChimeApi): ChannelsNetworkR
         }
     }
 
-    private suspend fun loadMessages(channelArn: String): MessagesResponse {
-        return api.messages.getMessages(channelArn)
-    }
-
     override suspend fun getChannel(channelUrl: String): Result<Channel> {
         try {
+
             getChannels().onSuccess { channels ->
                 val channel = channels.find { it.url == channelUrl }
                 return if (channel != null) {
@@ -67,12 +61,16 @@ class ChannelsNetworkRepositoryImpl(private val api: ChimeApi): ChannelsNetworkR
         return Result.failure(Throwable("Unknown error"))
     }
 
+
+
+
     override suspend fun getMessages(channelUrl: String): Result<List<Message>> {
         return withContext(IO){
             try {
                 val response = loadMessages(channelUrl)
                 if (response.status == STATUS_OK){
-                    Result.success(response.messages.toDomainMessages())
+                    val messages = response.messages.sortedByDescending { it.createdTimestamp }
+                    Result.success(messages.toDomainMessages())
                 } else {
                     Result.failure(Throwable(response.message))
                 }
@@ -83,6 +81,10 @@ class ChannelsNetworkRepositoryImpl(private val api: ChimeApi): ChannelsNetworkR
         }
     }
 
+    private suspend fun loadMessages(channelArn: String): MessagesResponse {
+        return api.messages.getMessages(channelArn)
+    }
+
     override suspend fun sendMessage(channelUrl: String, text: String): Result<String> {
         return withContext(IO){
             try {
@@ -90,6 +92,7 @@ class ChannelsNetworkRepositoryImpl(private val api: ChimeApi): ChannelsNetworkR
                     channelArn = channelUrl,
                     content = text
                 )
+                log("send request: $request")
                 val response = api.messages.sendMessage(request)
                 if (!response.content.isNullOrBlank()) {
                     Result.success(response.content)

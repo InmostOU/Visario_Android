@@ -7,6 +7,7 @@ import pro.inmost.android.visario.data.network.chimeapi.messages.MessagesManager
 import pro.inmost.android.visario.data.network.chimeapi.session.SessionEndpoint
 import pro.inmost.android.visario.data.network.chimeapi.session.SessionManager
 import pro.inmost.android.visario.data.network.chimeapi.services.*
+import pro.inmost.android.visario.data.network.chimeapi.services.Endpoints.SERVER_BASE_URL
 import pro.inmost.android.visario.data.network.user.UserManager
 
 
@@ -33,7 +34,6 @@ class ChimeApi {
     }
 
     companion object{
-        internal const val SERVER_BASE_URL = "http://3.129.6.178:8081/"
         const val STATUS_OK = 200
     }
 }

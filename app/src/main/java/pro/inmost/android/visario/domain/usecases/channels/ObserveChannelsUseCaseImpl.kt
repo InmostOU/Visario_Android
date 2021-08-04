@@ -35,20 +35,13 @@ class ObserveChannelsUseCaseImpl(
             emit(channel)
         }
 
-       /* while(currentCoroutineContext().isActive){
+       while(currentCoroutineContext().isActive){
             networkRepository.getChannel(channel).onSuccess {
                 emit(it)
             }.onFailure {
                 log(it.message)
             }
             delay(timeout)
-        }*/
-
-        networkRepository.getChannel(channel).onSuccess {
-            emit(it)
-        }.onFailure {
-            log(it.message)
         }
-        delay(timeout)
     }
 }

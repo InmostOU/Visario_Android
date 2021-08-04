@@ -3,7 +3,6 @@ package pro.inmost.android.visario.data.network.chimeapi.services
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
-import pro.inmost.android.visario.data.network.chimeapi.ChimeApi.Companion.SERVER_BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit

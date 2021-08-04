@@ -14,28 +14,20 @@ import javax.crypto.spec.SecretKeySpec
 
 
 data class SessionConnectRequest(
-    @Expose
     @SerializedName("X-Amz-Algorithm")
     val algorithm: String = "HMAC-SHA256",
-    @Expose
     @SerializedName("X-Amz-Credential")
     var credential: String = "",
-    @Expose
     @SerializedName("X-Amz-Date")
     val date: String = DateFormat.format("yyyyMMddTHHmmssZ", System.currentTimeMillis()).toString(),
-    @Expose
     @SerializedName("X-Amz-Expires")
     val expires: Int = 3600,
-    @Expose
     @SerializedName("X-Amz-SignedHeaders")
     val signedHeaders: String = "host",
-    @Expose
     @SerializedName("sessionId")
     val sessionId: String = UUID.randomUUID().toString(),
-    @Expose
     @SerializedName("userArn")
-    val userArn: String = "arn:aws:chime:us-east-1:277431928707:app-instance/c9f0aa1c-74c7-49af-8b75-b650f128511c",
-    @Expose
+    val userArn: String = "arn:aws:chime:us-east-1:277431928707:app-instance/c9f0aa1c-74c7-49af-8b75-b650f128511c/user/140",
     @SerializedName("X-Amz-Signature")
     var signature: String = "",
 ) {
@@ -63,13 +55,21 @@ data class SessionConnectRequest(
         return "wss://$endpoint$canonicalUri?$canonicalQuery"
     }
 
-    private fun getCanonicalQuery(): String {
+    fun signRequest(): String{
+        signature = generateSignature(SECRET_KEY, timestamp, getCanonicalQuery())
+        return signature
+    }
+
+    fun getSignedQuery(): String{
+        return getCanonicalQuery() + "&X-Amz-Signature=${signature}"
+    }
+
+    fun getCanonicalQuery(): String {
         var canonicalQuery = ""
         canonicalQuery += "X-Amz-Algorithm=$algorithm"
         canonicalQuery += "&X-Amz-Credential=${credential.urlEncode()}"
         canonicalQuery += "&X-Amz-Date=$date"
         canonicalQuery += "&X-Amz-Expires=$expires"
-     //   canonicalQuerystring += "&X-Amz-Security-Token=" + urllib.parse.quote(session_token, safe='')
         canonicalQuery += "&X-Amz-SignedHeaders=$signedHeaders"
         canonicalQuery += "&sessionId=$sessionId"
         canonicalQuery += "&userArn=${userArn.urlEncode()}"

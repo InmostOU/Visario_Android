@@ -33,12 +33,16 @@ class MessagesViewModel(
 
     fun sendMessage(view: View) {
         if (message.value.isNullOrBlank()) return
+        val messageText = message.value!!
         message.value = ""
-
         viewModelScope.launch {
-            sendMessageUseCase.send(message.value!!, currentChannelUrl).onSuccess {
+            sendMessageUseCase.send(
+                channel = currentChannelUrl,
+                message = messageText
+            ).onSuccess {
                 message.value = ""
             }.onFailure {
+             //   message.value = messageText
                 val message = it.message ?: view.context.getString(R.string.send_failed)
                 log(message)
             }
