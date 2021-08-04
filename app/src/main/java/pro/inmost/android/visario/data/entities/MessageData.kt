@@ -9,7 +9,7 @@ data class MessageData(
     val messageId: String,
     val content: String,
     val createdTimestamp: Long,
-    val lastEditedTimestamp: String?,
+    val lastEditedTimestamp: Long,
     val metadata: String,
     val redacted: Boolean,
     val senderArn: String,

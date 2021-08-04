@@ -7,6 +7,7 @@ import pro.inmost.android.visario.data.network.chimeapi.messages.MessagesManager
 import pro.inmost.android.visario.data.network.chimeapi.session.SessionEndpoint
 import pro.inmost.android.visario.data.network.chimeapi.session.SessionManager
 import pro.inmost.android.visario.data.network.chimeapi.services.*
+import pro.inmost.android.visario.data.network.user.UserManager
 
 
 class ChimeApi {
@@ -21,9 +22,13 @@ class ChimeApi {
         serviceFactory.getService(MessagingService::class.java, TokensHolder.accessToken, SERVER_BASE_URL)
     )
 
-    fun getSessionManager(endpoint: SessionEndpoint): SessionManager {
+    val user get() = UserManager(
+        serviceFactory.getService(UserService::class.java, TokensHolder.accessToken, SERVER_BASE_URL)
+    )
+
+    fun getSessionManager(endpoint: String): SessionManager {
         return SessionManager(
-            serviceFactory.getService(SessionService::class.java, endpoint.url)
+            serviceFactory.getService(SessionService::class.java, "https://$endpoint")
         )
     }
 

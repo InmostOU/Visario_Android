@@ -6,6 +6,7 @@ import androidx.core.content.edit
 import pro.inmost.android.visario.BuildConfig
 import pro.inmost.android.visario.domain.entities.Credentials
 import pro.inmost.android.visario.domain.usecases.auth.credentials.UpdateCredentialsUseCase
+import pro.inmost.android.visario.ui.utils.log
 
 class CredentialsStore(context: Context, private val updateCredentialsUseCase: UpdateCredentialsUseCase) {
     private val preferences =  context.getSharedPreferences("credentials", MODE_PRIVATE)
@@ -23,6 +24,8 @@ class CredentialsStore(context: Context, private val updateCredentialsUseCase: U
     }
 
     fun saveCredentials(credentials: Credentials){
+        log("credentials: $credentials")
+
         credentials.apply {
             saveAccessToken(accessToken)
             saveRefreshToken(refreshToken)

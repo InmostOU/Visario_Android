@@ -7,7 +7,7 @@ class MessagesManager(
     private val service: MessagingService
 ) {
 
-    suspend fun getMessages(channelArn: String) = service.getMessages(channelArn.urlEncode())
+    suspend fun getMessages(channelArn: String) = service.getMessages(channelArn)
 
     suspend fun sendMessage(request: MessageRequest) = service.sendMessage(request)
 

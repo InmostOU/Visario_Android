@@ -1,13 +1,18 @@
 package pro.inmost.android.visario.data.repositories
 
 import android.text.format.DateFormat
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import pro.inmost.android.visario.data.network.chimeapi.ChimeApi
 import pro.inmost.android.visario.data.network.chimeapi.ChimeApi.Companion.STATUS_OK
 import pro.inmost.android.visario.data.network.chimeapi.auth.Authenticator
 import pro.inmost.android.visario.data.network.chimeapi.messages.MessageRequest
 import pro.inmost.android.visario.data.network.chimeapi.messages.MessagesResponse
+import pro.inmost.android.visario.data.network.chimeapi.services.Endpoints.ACCESS_KEY_ID
+import pro.inmost.android.visario.data.network.chimeapi.session.SessionConnectRequest
 import pro.inmost.android.visario.data.network.utils.toDomainChannel
 import pro.inmost.android.visario.data.network.utils.toDomainMessages
 import pro.inmost.android.visario.data.network.utils.urlEncode
@@ -22,24 +27,21 @@ class ChannelsNetworkRepositoryImpl(private val api: ChimeApi): ChannelsNetworkR
         return withContext(IO) {
             try {
                 val response = api.channels.getChannels()
-                log("response: $response")
                 if (response.status == STATUS_OK) {
                     val channels = response.channels.mapNotNull { data ->
                         val messagesResponse = loadMessages(data.channelArn)
-                        log("messages response: $messagesResponse")
                         val messages = if (messagesResponse.status == STATUS_OK){
                             messagesResponse.messages
                         } else listOf()
                         data.toDomainChannel(messages)
                     }
-                    log("channels: $channels")
                     Result.success(channels)
                 } else {
                     Result.failure(Throwable(response.message))
                 }
-            } catch (e: Throwable) {
-                e.printStackTrace()
-                Result.failure(e)
+            } catch (t: Throwable) {
+                t.printStackTrace()
+                Result.failure(t)
             }
         }
     }
@@ -49,22 +51,20 @@ class ChannelsNetworkRepositoryImpl(private val api: ChimeApi): ChannelsNetworkR
     }
 
     override suspend fun getChannel(channelUrl: String): Result<Channel> {
-       // startSession()
-
-        getChannels().onSuccess { channels ->
-            val channel = channels.find { it.url == channelUrl.urlEncode() }
-            return if (channel != null) {
-                Result.success(channel)
+        try {
+            getChannels().onSuccess { channels ->
+                val channel = channels.find { it.url == channelUrl }
+                return if (channel != null) {
+                    Result.success(channel)
+                } else Result.failure(Throwable("Not find"))
+            }.onFailure {
+                return Result.failure(it)
             }
-            else Result.failure(Throwable("Not find"))
-        }.onFailure {
-            return Result.failure(it)
+        } catch (t: Throwable) {
+            t.printStackTrace()
+            return Result.failure(t)
         }
         return Result.failure(Throwable("Unknown error"))
-    }
-
-    private suspend fun startSession() {
-
     }
 
     override suspend fun getMessages(channelUrl: String): Result<List<Message>> {
