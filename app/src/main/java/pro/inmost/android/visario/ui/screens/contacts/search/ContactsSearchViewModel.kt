@@ -1,19 +1,25 @@
-package pro.inmost.android.visario.ui.screens.contacts
+package pro.inmost.android.visario.ui.screens.contacts.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import pro.inmost.android.visario.domain.entities.Contact
-import pro.inmost.android.visario.domain.usecases.contacts.FetchContactsUseCase
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 
-class ContactsViewModel(private val fetchContactsUseCase: FetchContactsUseCase) : ViewModel() {
+class ContactsSearchViewModel : ViewModel() {
     private val _openContactEvent = SingleLiveEvent<Int>()
     val openContactEvent: LiveData<Int> = _openContactEvent
 
-    fun observeContacts() = fetchContactsUseCase.fetchAll().asLiveData()
 
     fun onItemClick(item: Contact){
         _openContactEvent.value = item.id
     }
+
+    fun addContact(contact: Contact){
+
+    }
+
+    fun search(username: String){
+
+    }
+
 }

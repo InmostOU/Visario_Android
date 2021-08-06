@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_invite"
+        android:icon="@drawable/ic_round_chat_24"
+        android:title="@string/invite_to_channel" />
+
+    <item
+        android:id="@+id/menu_contact_pin"
+        android:icon="@drawable/ic_round_call_24"
+        android:title="@string/delete_contact" />
+
+    <item
+        android:id="@+id/navigation_contacts"
+        android:icon="@drawable/ic_round_people_24"
+        android:title="@string/block_user" />
+</menu>

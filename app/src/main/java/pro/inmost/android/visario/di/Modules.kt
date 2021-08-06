@@ -12,6 +12,7 @@ import pro.inmost.android.visario.domain.usecases.auth.login.LoginUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.channels.SaveChannelsUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.contacts.FetchContactsUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.ui.screens.auth.login.LoginViewModel
@@ -20,6 +21,8 @@ import pro.inmost.android.visario.ui.screens.calls.CallsViewModel
 import pro.inmost.android.visario.ui.screens.chats.ChatsViewModel
 import pro.inmost.android.visario.ui.screens.chats.messages.MessagesViewModel
 import pro.inmost.android.visario.ui.screens.contacts.ContactsViewModel
+import pro.inmost.android.visario.ui.screens.contacts.detail.ContactDetailViewModel
+import pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchViewModel
 import pro.inmost.android.visario.ui.screens.settings.SettingsViewModel
 
 val appModule = module {
@@ -32,7 +35,9 @@ val viewModelsModule = module {
     viewModel { ChatsViewModel(get<ObserveChannelsUseCaseImpl>(), get<SaveChannelsUseCaseImpl>()) }
     viewModel { MessagesViewModel(get<ObserveChannelsUseCaseImpl>(), get<SendMessageUseCaseImpl>(), get<SaveChannelsUseCaseImpl>()) }
     viewModel { CallsViewModel() }
-    viewModel { ContactsViewModel() }
+    viewModel { ContactsViewModel(get<FetchContactsUseCaseImpl>()) }
+    viewModel { ContactDetailViewModel(get<FetchContactsUseCaseImpl>()) }
+    viewModel { ContactsSearchViewModel() }
     viewModel { LoginViewModel(get<LoginUseCaseImpl>(), get()) }
     viewModel { RegisterViewModel(get<RegistrationUseCaseImpl>()) }
     viewModel { SettingsViewModel(get<LogoutUseCaseImpl>(), get()) }
@@ -42,12 +47,14 @@ val repositories = module {
     factory { AccountRepositoryImpl(get()) }
     factory { ChannelsNetworkRepositoryImpl(get()) }
     factory { ChannelsLocalRepositoryImpl(get(), get()) }
+    factory { ContactsLocalRepositoryImpl(get()) }
     factory { ContactsNetworkRepositoryImpl(get()) }
 }
 
 val dao = module {
     factory { (get() as AppDatabase).channelsDao() }
     factory { (get() as AppDatabase).messagesDao() }
+    factory { (get() as AppDatabase).contactsDao() }
 }
 
 val useCases = module {
@@ -87,6 +94,12 @@ val useCases = module {
     factory {
         LogoutUseCaseImpl(
             repository = get<AccountRepositoryImpl>()
+        )
+    }
+
+    factory {
+        FetchContactsUseCaseImpl(
+            localRepository = get<ContactsLocalRepositoryImpl>()
         )
     }
 }

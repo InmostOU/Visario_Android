@@ -19,12 +19,24 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/title_contacts"
                 app:elevation="8dp"
-                app:menu="@menu/contacts_menu"
-                android:paddingEnd="16dp"
-                app:titleTextColor="?android:attr/textColorPrimary"
-                tools:ignore="RtlSymmetry" />
+                app:contentInsetStart="0dp"
+                app:contentInsetStartWithNavigation="0dp"
+                app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+                app:titleTextColor="?android:attr/textColorPrimary">
+
+                <SearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:queryHint="@string/search"
+                    android:iconifiedByDefault="false"
+                    android:searchIcon="@null"
+                    android:queryBackground="@android:color/transparent">
+                    <requestFocus/>
+                </SearchView>
+
+            </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -32,22 +44,10 @@
             android:id="@+id/contact_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            tools:listitem="@layout/list_item_contact"
+            tools:listitem="@layout/list_item_contact_found"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/app_bar"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/button_add_contact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:backgroundTint="?attr/colorSurface"
-            app:tint="?attr/colorOnBackground"
-            android:src="@drawable/ic_round_person_add_alt_1_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/create_new_channel" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

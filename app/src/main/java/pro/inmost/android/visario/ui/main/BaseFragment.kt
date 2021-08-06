@@ -10,9 +10,10 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment<T : ViewDataBinding>(private val layId: Int) : Fragment() {
     private var _binding: T? = null
-    val binding get() = _binding!!
+    protected val binding get() = _binding!!
 
     protected open var bottomNavViewVisibility = View.VISIBLE
+
 
     override fun onResume() {
         super.onResume()

@@ -7,10 +7,10 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.screens.chats.ChatsViewModel" />
+            type="pro.inmost.android.visario.ui.screens.contacts.ContactsViewModel" />
         <variable
             name="model"
-            type="pro.inmost.android.visario.domain.entities.Channel" />
+            type="pro.inmost.android.visario.domain.entities.Contact" />
     </data>
 
     <LinearLayout
@@ -30,11 +30,12 @@
             android:layout_marginBottom="12dp">
 
             <ImageView
-                android:id="@+id/chat_icon"
+                android:id="@+id/contact_icon"
                 android:layout_width="@dimen/chat_image_size"
                 android:layout_height="@dimen/chat_image_size"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_chat_icon"/>
+                app:tint="?attr/colorOnSurface"
+                android:src="@drawable/ic_contact"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -44,14 +45,14 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_view_chat_name"
+                    android:id="@+id/text_view_user_full_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_size_chat_name"
                     android:textStyle="bold"
                     android:textColor="?android:attr/textColorPrimary"
-                    android:text="@{model.name}"
-                    tools:text="Chat name"/>
+                    android:text="@{model.fullName}"
+                    tools:text="Contact Name"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/text_view_last_message"
@@ -62,42 +63,8 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:text="@{model.lastMessage}"
-                    tools:text="Last message"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_marginEnd="8dp"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_view_time_of_last_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="@dimen/text_size_chat_last_message"
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:text="@{model.lastMessageTime}"
-                    tools:text="12:00"/>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_view_new_messages"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:padding="2dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/shape_circle"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:text="@{String.valueOf(model.newMessagesCount)}"
-                    tools:text="10"
-                    android:visibility="@{model.newMessagesCount == 0 ? View.INVISIBLE : View.VISIBLE}"/>
+                    android:text="@{model.online ? @string/online : @string/offline}"
+                    tools:text="Online"/>
 
             </LinearLayout>
 

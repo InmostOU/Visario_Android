@@ -6,6 +6,7 @@
     <string name="welcome">Welcome</string>
     <string name="register">Register</string>
     <string name="username">Username</string>
+    <string name="username_lowercase">username</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="date_of_birth">Date of birth</string>
@@ -29,4 +30,19 @@
     <string name="message">Message</string>
     <string name="unknown_error">Unknown error</string>
     <string name="send_failed">Send failed</string>
+    <string name="search_contacts">Search contacts</string>
+
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
+    <string name="start_chatting">Start chatting</string>
+    <string name="start_calling">Start calling</string>
+    <string name="search">Search</string>
+    <string name="add_contact">Add contact</string>
+    <string name="start_video_call">Start video call</string>
+    <string name="email_lowercase">email</string>
+    <string name="phone">phone</string>
+    <string name="open_contact_menu">Open contact menu</string>
+    <string name="invite_to_channel">Invite to Channel</string>
+    <string name="delete_contact">Delete contact</string>
+    <string name="block_user">Block user</string>
 </resources>
