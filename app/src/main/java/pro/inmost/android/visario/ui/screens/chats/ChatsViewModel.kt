@@ -1,38 +1,24 @@
 package pro.inmost.android.visario.ui.screens.chats
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import androidx.lifecycle.*
 import pro.inmost.android.visario.domain.entities.Channel
-import pro.inmost.android.visario.domain.usecases.channels.ObserveChannelsUseCase
-import pro.inmost.android.visario.domain.usecases.channels.SaveChannelsUseCase
+import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCase
+import pro.inmost.android.visario.domain.usecases.channels.UpdateChannelUseCase
+import pro.inmost.android.visario.ui.entities.ChannelUI
+import pro.inmost.android.visario.ui.entities.toUIChannels
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 
 class ChatsViewModel(
-    private val channelsUseCase: ObserveChannelsUseCase,
-    private val saveChannelsUseCase: SaveChannelsUseCase
+    private val fetchUseCase: FetchChannelsUseCase,
+    private val updateChannelUseCase: UpdateChannelUseCase
 ) : ViewModel() {
-    private val _onChatClick = SingleLiveEvent<Channel>()
-    val onChatClick: LiveData<Channel> = _onChatClick
-    private var data = listOf<Channel>()
+    private val _onChatClick = SingleLiveEvent<ChannelUI>()
+    val onChatClick: LiveData<ChannelUI> = _onChatClick
 
-    fun observeChats() = liveData {
-        channelsUseCase.observeChannels().collect { channels ->
-            data = channels
-            emit(data)
-        }
-    }
+    val channels: LiveData<List<ChannelUI>>
+        get() =  fetchUseCase.getChannels().asLiveData().map { it.toUIChannels() }
 
-    fun onItemClick(item: Channel) {
+    fun onItemClick(item: ChannelUI) {
         _onChatClick.postValue(item)
-    }
-
-    fun saveChannels() {
-        viewModelScope.launch {
-            saveChannelsUseCase.save(*data.toTypedArray())
-        }
     }
 }

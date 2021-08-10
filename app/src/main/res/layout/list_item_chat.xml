@@ -10,7 +10,7 @@
             type="pro.inmost.android.visario.ui.screens.chats.ChatsViewModel" />
         <variable
             name="model"
-            type="pro.inmost.android.visario.domain.entities.Channel" />
+            type="pro.inmost.android.visario.ui.entities.ChannelUI" />
     </data>
 
     <LinearLayout
@@ -97,7 +97,7 @@
                     android:textColor="@color/white"
                     android:text="@{String.valueOf(model.newMessagesCount)}"
                     tools:text="10"
-                    android:visibility="@{model.newMessagesCount == 0 ? View.INVISIBLE : View.VISIBLE}"/>
+                    android:visibility="@{model.hasNewMessages ? View.VISIBLE : View.INVISIBLE}"/>
 
             </LinearLayout>
 

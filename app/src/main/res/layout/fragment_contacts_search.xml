@@ -19,22 +19,23 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:elevation="8dp"
                 app:contentInsetStart="0dp"
                 app:contentInsetStartWithNavigation="0dp"
+                app:elevation="8dp"
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+                app:navigationIconTint="?attr/colorOnSurface"
                 app:titleTextColor="?android:attr/textColorPrimary">
 
-                <SearchView
+                <androidx.appcompat.widget.SearchView
                     android:id="@+id/search_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:queryHint="@string/search"
-                    android:iconifiedByDefault="false"
-                    android:searchIcon="@null"
-                    android:queryBackground="@android:color/transparent">
+                    app:iconifiedByDefault="false"
+                    app:queryBackground="@android:color/transparent"
+                    app:queryHint="@string/search"
+                    app:searchIcon="@null">
                     <requestFocus/>
-                </SearchView>
+                </androidx.appcompat.widget.SearchView>
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -44,10 +45,42 @@
             android:id="@+id/contact_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            tools:listitem="@layout/list_item_contact_found"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/app_bar"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            tools:listitem="@layout/list_item_contact_found" />
+
+        <LinearLayout
+            android:id="@+id/not_found_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/not_found_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:gravity="center"
+                app:tint="?attr/colorOnSurface"
+                android:src="@drawable/ic_not_found"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:layout_marginStart="16dp"
+                android:textColor="?android:attr/textColorSecondary"
+                android:text="@string/not_found"/>
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

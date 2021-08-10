@@ -2,9 +2,10 @@ package pro.inmost.android.visario.domain.entities
 
 data class Contact(
     val id: Int,
-    val firstName: String,
-    val lastName: String,
+    val url: String,
     val username: String,
+    var firstName: String,
+    var lastName: String,
     val email: String,
     val phoneNumber: String,
     val image: String,
@@ -14,7 +15,5 @@ data class Contact(
     var muted: Boolean = false,
     var inMyContacts: Boolean = false
 ){
-    val fullName get() = "$firstName $lastName"
-    val phoneShowing = true
-    val emailShowing = true
+    val fullName: String get() = "$firstName $lastName"
 }

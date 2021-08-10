@@ -10,7 +10,7 @@
             type="pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchViewModel" />
         <variable
             name="model"
-            type="pro.inmost.android.visario.domain.entities.Contact" />
+            type="pro.inmost.android.visario.ui.entities.ContactUI" />
     </data>
 
     <LinearLayout
@@ -33,6 +33,7 @@
                 android:layout_width="@dimen/chat_image_size"
                 android:layout_height="@dimen/chat_image_size"
                 android:layout_gravity="center"
+                app:tint="?attr/colorOnSurface"
                 android:src="@drawable/ic_contact"/>
 
             <LinearLayout

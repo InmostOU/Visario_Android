@@ -25,26 +25,14 @@
                 app:loadImage="@{viewModel.contact.image}"
                 app:srcCompat="@drawable/contact_sample"/>
 
-        <Toolbar
-            android:id="@+id/toolbar_contact_detail"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/contact_detail_menu"
-            android:navigationIcon="@drawable/ic_baseline_arrow_back_24"/>
-        <ImageButton
-            android:id="@+id/button_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:scaleType="fitCenter"
-            app:tint="?attr/colorOnSurface"
-            android:src="@drawable/ic_baseline_more_vert_24"
-            android:contentDescription="@string/open_contact_menu" />
+            app:chooseMenu="@{viewModel.contact.inMyContacts}"
+            app:navigationIconTint="?attr/colorOnSurface"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/button_chat"
@@ -194,28 +182,53 @@
                     android:visibility="@{viewModel.contact.emailShowing ? View.VISIBLE : View.GONE}"
                     android:orientation="vertical">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/text_view_email"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size_chat_name"
-                        android:textStyle="bold"
                         android:layout_marginTop="8dp"
-                        android:text="@{viewModel.contact.email}"
-                        android:textColor="?android:attr/textColorPrimary"
-                        tools:text="doe@gmail.com"/>
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
                         android:layout_marginBottom="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@string/email_lowercase"
-                        android:textAllCaps="false"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:textSize="@dimen/text_size_chat_last_message" />
+                        android:layout_marginEnd="16dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/text_view_email"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_chat_name"
+                            android:textStyle="bold"
+                            android:text="@{viewModel.contact.email}"
+                            android:textColor="?android:attr/textColorPrimary"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:text="doe@gmail.com"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/email_lowercase"
+                            android:textAllCaps="false"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text_view_email"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:textSize="@dimen/text_size_chat_last_message" />
+
+                        <ImageButton
+                            android:id="@+id/button_send_email"
+                            android:layout_width="@dimen/send_mail_icon_size"
+                            android:layout_height="@dimen/send_mail_icon_size"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_mail_send"
+                            android:scaleType="fitCenter"
+                            app:tint="?attr/colorOnSurface"
+                            android:onClick="@{() -> viewModel.sendMail()}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:contentDescription="@string/send_mail" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <View
                         android:layout_width="match_parent"
@@ -231,28 +244,54 @@
                     android:visibility="@{viewModel.contact.phoneShowing ? View.VISIBLE : View.GONE}"
                     android:orientation="vertical">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/text_view_phone"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size_chat_name"
-                        android:textStyle="bold"
                         android:layout_marginTop="8dp"
-                        android:text="@{viewModel.contact.phoneNumber}"
-                        android:textColor="?android:attr/textColorPrimary"
-                        tools:text="+123456789"/>
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
                         android:layout_marginBottom="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@string/phone"
-                        android:textAllCaps="false"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:textSize="@dimen/text_size_chat_last_message" />
+                        android:layout_marginEnd="16dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/text_view_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_chat_name"
+                            android:textStyle="bold"
+                            android:text="@{viewModel.contact.phoneNumber}"
+                            android:textColor="?android:attr/textColorPrimary"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:text="+123456789"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/phone"
+                            android:textAllCaps="false"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text_view_phone"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:textSize="@dimen/text_size_chat_last_message" />
+
+                        <ImageButton
+                            android:id="@+id/button_call_by_cell"
+                            android:layout_width="@dimen/send_mail_icon_size"
+                            android:layout_height="@dimen/send_mail_icon_size"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_outline_call_24"
+                            android:scaleType="fitCenter"
+                            app:tint="?attr/colorOnSurface"
+                            android:onClick="@{() -> viewModel.callByCell()}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:contentDescription="@string/call_by_cell" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
                 </LinearLayout>
 
             </LinearLayout>

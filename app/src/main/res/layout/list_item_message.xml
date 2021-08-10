@@ -8,12 +8,11 @@
         <import type="android.view.View"/>
         <variable
             name="message"
-            type="pro.inmost.android.visario.domain.entities.Message" />
+            type="pro.inmost.android.visario.ui.entities.MessageUI" />
         <variable
             name="viewModel"
             type="pro.inmost.android.visario.ui.screens.chats.messages.MessagesViewModel" />
     </data>
-
 
     <LinearLayout
         android:layout_width="match_parent"

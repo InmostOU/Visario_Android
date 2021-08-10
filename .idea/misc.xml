@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/bottom_sheet_background.xml" value="0.19478827361563517" />
+        <entry key="app/src/main/res/layout/dealog_add_contact.xml" value="0.18469055374592833" />
+        <entry key="app/src/main/res/layout/fragment_contact_edit.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/layout/fragment_contacts.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/layout/fragment_contacts_search.xml" value="0.18469055374592833" />
+        <entry key="app/src/main/res/layout/fragment_detail_contact.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/layout/fragment_messages.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.18469055374592833" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.10526315789473684" />
+        <entry key="app/src/main/res/layout/list_item_chat.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/layout/list_item_contact.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/layout/list_item_contact_found.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/layout/list_item_message.xml" value="0.10526315789473684" />
+        <entry key="app/src/main/res/layout/view_app_bar.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/menu/contact_detail.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/menu/contact_detail_menu.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/menu/contact_detail_unlisted.xml" value="0.19572368421052633" />
+        <entry key="app/src/main/res/menu/contact_list.xml" value="0.10197368421052631" />
+        <entry key="app/src/main/res/menu/contacts_menu.xml" value="0.19381107491856678" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

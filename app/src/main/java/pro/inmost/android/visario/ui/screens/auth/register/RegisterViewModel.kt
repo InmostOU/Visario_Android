@@ -9,7 +9,6 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.data.network.chimeapi.auth.model.RegistrationRequest
 import pro.inmost.android.visario.domain.entities.User
 import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCase
 import pro.inmost.android.visario.ui.screens.auth.Validator

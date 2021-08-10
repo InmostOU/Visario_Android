@@ -1,20 +1,22 @@
 package pro.inmost.android.visario.domain.usecases.contacts
 
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.Flow
+import pro.inmost.android.visario.data.utils.launchIO
 import pro.inmost.android.visario.domain.entities.Contact
-import pro.inmost.android.visario.domain.repositories.ContactsLocalRepository
+import pro.inmost.android.visario.domain.repositories.ContactsRepository
 
-class FetchContactsUseCaseImpl(private val localRepository: ContactsLocalRepository) : FetchContactsUseCase {
+class FetchContactsUseCaseImpl(private val repository: ContactsRepository) : FetchContactsUseCase {
 
-    override fun fetch(id: Int) = flow {
-        localRepository.getContact(id)?.let {
-            emit(it)
-        }
+    override suspend fun fetch(username: String): Result<Contact>{
+        return repository.getContact(username)
     }
 
-    override fun fetchAll() = flow {
-        val contacts = localRepository.getContacts()
-        emit(contacts)
+    override suspend fun fetchAll(): List<Contact> {
+        return repository.getContacts()
     }
 
+    override fun observe(): Flow<List<Contact>> {
+        launchIO { repository.refreshData() }
+        return repository.observeContacts()
+    }
 }

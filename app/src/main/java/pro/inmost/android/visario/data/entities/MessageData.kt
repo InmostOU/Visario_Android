@@ -16,5 +16,6 @@ data class MessageData(
     val channelArn: String,
     val senderName: String,
     val type: String,
-    val fromCurrentUser: Boolean = false
+    val fromCurrentUser: Boolean = false,
+    var read: Boolean = false
 )

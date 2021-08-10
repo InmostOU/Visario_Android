@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -74,6 +75,10 @@ fun View.gone() {
     visibility = View.GONE
 }
 
+fun View.visibility(visible: Boolean){
+    visibility = if (visible) View.VISIBLE else View.GONE
+}
+
 val View.layoutInflater: LayoutInflater get() = LayoutInflater.from(context)
 
 fun CharSequence?.isValidEmail() =
@@ -106,3 +111,29 @@ val Context.statusBarHeight: Int
         return if (resourceId > 0) resources.getDimensionPixelSize(resourceId) else ceil(((if (VERSION.SDK_INT >= VERSION_CODES.M) 24 else 25) * resources.displayMetrics.density).toDouble())
             .toInt()
     }
+
+fun SearchView.onQueryChange(query: (String) -> Unit) {
+    setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        override fun onQueryTextChange(q: String): Boolean {
+            query(q)
+            return false
+        }
+
+        override fun onQueryTextSubmit(q: String): Boolean {
+            return false
+        }
+    })
+}
+
+fun SearchView.onQuerySubmit(query: (String) -> Unit) {
+    setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        override fun onQueryTextChange(q: String): Boolean {
+            return false
+        }
+
+        override fun onQueryTextSubmit(q: String): Boolean {
+            query(q)
+            return false
+        }
+    })
+}

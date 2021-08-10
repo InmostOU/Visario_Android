@@ -45,4 +45,16 @@
     <string name="invite_to_channel">Invite to Channel</string>
     <string name="delete_contact">Delete contact</string>
     <string name="block_user">Block user</string>
+    <string name="not_found">Not found</string>
+    <string name="edit_contact">Edit contact</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_contact_confirm">Are you sure you want to delete this contact?</string>
+    <string name="save">Save</string>
+    <string name="edit_name">Edit name</string>
+    <string name="hint_last_name">Last name (optional)</string>
+    <string name="hint_first_name">First name</string>
+    <string name="done">Done</string>
+    <string name="send_mail">Send mail</string>
+    <string name="call_by_cell">Call by cell</string>
 </resources>
