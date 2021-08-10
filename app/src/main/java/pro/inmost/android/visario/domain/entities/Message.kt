@@ -14,10 +14,4 @@ data class Message(
     val lastEditedTimestamp: Long = 0,
     val fromCurrentUser: Boolean = false,
     val read: Boolean = false
-) {
-    val createdDateFormat: String
-         get() = DateFormat.format("hh:mm", createdTimestamp).toString()
-
-    val editedDateFormat: String
-        get() = DateFormat.format("hh:mm", lastEditedTimestamp).toString()
-}
+)

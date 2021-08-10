@@ -35,7 +35,49 @@
     <fragment
         android:id="@+id/navigation_contacts"
         android:name="pro.inmost.android.visario.ui.screens.contacts.ContactsFragment"
-        tools:layout="@layout/fragment_contacts" />
+        tools:layout="@layout/fragment_contacts" >
+        <action
+            android:id="@+id/action_navigation_contacts_to_navigation_contacts_search"
+            app:destination="@id/navigation_contacts_search" />
+        <action
+            android:id="@+id/action_navigation_contacts_to_navigation_contact_detail"
+            app:destination="@id/navigation_contact_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_contact_detail"
+        android:name="pro.inmost.android.visario.ui.screens.contacts.detail.ContactDetailFragment"
+        tools:layout="@layout/fragment_detail_contact">
+
+        <action
+            android:id="@+id/action_navigation_contact_detail_to_navigation_contact_edit"
+            app:destination="@id/navigation_contact_edit" />
+        <argument
+            android:name="contact"
+            app:argType="pro.inmost.android.visario.ui.entities.ContactUI" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_contact_edit"
+        android:name="pro.inmost.android.visario.ui.screens.contacts.edit.EditContactFragment"
+        tools:layout="@layout/fragment_contact_edit">
+
+        <argument
+            android:name="contact"
+            app:argType="pro.inmost.android.visario.ui.entities.ContactUI" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_contacts_search"
+        android:name="pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchFragment"
+        tools:layout="@layout/fragment_contacts_search" >
+        <action
+            android:id="@+id/action_navigation_contacts_search_to_navigation_contact_detail"
+            app:destination="@id/navigation_contact_detail" />
+        <action
+            android:id="@+id/action_navigation_contacts_search_to_navigation_contact_edit"
+            app:destination="@id/navigation_contact_edit" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_settings"

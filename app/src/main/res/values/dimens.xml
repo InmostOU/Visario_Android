@@ -14,4 +14,6 @@
     <dimen name="message_sender_text_size">14sp</dimen>
     <dimen name="message_bubble_max_width">340dp</dimen>
     <dimen name="message_done_mark_size">18dp</dimen>
+    <dimen name="contact_detail_name_text_size">24sp</dimen>
+    <dimen name="send_mail_icon_size">28dp</dimen>
 </resources>

@@ -11,8 +11,4 @@ data class ChannelData(
     val mode: String?,
     val privacy: String?,
     val metadata: String?
-){
-    var newMessages: Int = 0
-    var lastMessage: String? = ""
-    var lastMessageTime: Long = 0
-}
+)

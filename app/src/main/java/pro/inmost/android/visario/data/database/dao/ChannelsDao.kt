@@ -1,8 +1,10 @@
 package pro.inmost.android.visario.data.database.dao
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 import pro.inmost.android.visario.data.entities.ChannelData
 import pro.inmost.android.visario.data.entities.ChannelWithMessages
+import pro.inmost.android.visario.data.entities.ContactData
 
 @Dao
 interface ChannelsDao {
@@ -16,11 +18,23 @@ interface ChannelsDao {
     @Query("SELECT * FROM channels")
     suspend fun getAll(): List<ChannelData>
 
+    @Query("SELECT * FROM channels WHERE channelArn =:channelArn")
+    suspend fun get(channelArn: String): ChannelData?
+
     @Transaction
     @Query("SELECT * FROM channels WHERE channelArn =:channelArn")
     suspend fun getChannelWithMessages(channelArn: String): ChannelWithMessages?
 
     @Transaction
     @Query("SELECT * FROM channels")
-    suspend fun getChannelsWithMessages(): List<ChannelWithMessages>
+    fun getChannelsWithMessages(): Flow<List<ChannelWithMessages>>
+
+    @Query("DELETE FROM channels")
+    suspend fun deleteAll()
+
+    @Transaction
+    suspend fun fullUpdate(items: List<ChannelData>){
+        deleteAll()
+        insert(*items.toTypedArray())
+    }
 }

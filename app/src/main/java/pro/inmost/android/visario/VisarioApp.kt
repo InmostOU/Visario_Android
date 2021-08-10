@@ -18,7 +18,10 @@ class VisarioApp : Application() {
                     viewModelsModule,
                     repositories,
                     dao,
-                    useCases
+                    contactsUseCases,
+                    channelsUseCases,
+                    accountUseCases,
+                    messagesUseCases
                 )
             )
         }
