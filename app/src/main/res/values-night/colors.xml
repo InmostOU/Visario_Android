@@ -9,4 +9,5 @@
     <color name="incoming_message_bubble">#222222</color>
     <color name="chat_background">#191919</color>
     <color name="sender_background">#1C1C1C</color>
+    <color name="surface">#D8FFFFFF</color>
 </resources>

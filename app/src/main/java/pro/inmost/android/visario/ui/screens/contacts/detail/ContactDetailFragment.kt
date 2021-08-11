@@ -16,8 +16,6 @@ class ContactDetailFragment : BaseFragment<FragmentDetailContactBinding>(R.layou
     private val viewModel: ContactDetailViewModel by viewModel()
     private val args: ContactDetailFragmentArgs by navArgs()
 
-    override var bottomNavViewVisibility: Int = View.GONE
-
     override fun onCreated() {
         binding.viewModel = viewModel
         viewModel.loadContact(args.contact)

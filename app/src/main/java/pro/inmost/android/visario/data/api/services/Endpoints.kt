@@ -6,7 +6,7 @@ object Endpoints {
     const val MESSAGES_SESSION = "/messages/messaging-session"
     const val SESSION_CONNECT = "connect"
 
-    const val USER_INFO = "user/info"
+    const val GET_CURRENT_USER_PROFILE = "user/profile"
 
     const val LOGIN = "auth/login"
     const val REGISTER = "auth/register"

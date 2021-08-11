@@ -4,25 +4,39 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/bottom_sheet_background.xml" value="0.19478827361563517" />
+        <entry key="app/src/main/res/drawable/ic_email.xml" value="0.2416988416988417" />
+        <entry key="app/src/main/res/drawable/shape_bg_incoming_bubble.xml" value="0.2416988416988417" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2152777777777778" />
         <entry key="app/src/main/res/layout/dealog_add_contact.xml" value="0.18469055374592833" />
+        <entry key="app/src/main/res/layout/fragment_chats.xml" value="0.2152777777777778" />
         <entry key="app/src/main/res/layout/fragment_contact_edit.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/layout/fragment_contacts.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/layout/fragment_contacts_search.xml" value="0.18469055374592833" />
         <entry key="app/src/main/res/layout/fragment_detail_contact.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/layout/fragment_messages.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2152777777777778" />
+        <entry key="app/src/main/res/layout/fragment_privacy_birthdate.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/layout/fragment_privacy_email.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/layout/fragment_privacy_password.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/layout/fragment_privacy_phone_number.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/layout/fragment_profile_edit.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.18469055374592833" />
-        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.10526315789473684" />
+        <entry key="app/src/main/res/layout/fragment_security.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.2644444444444444" />
         <entry key="app/src/main/res/layout/list_item_chat.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/layout/list_item_contact.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/layout/list_item_contact_found.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/layout/list_item_message.xml" value="0.10526315789473684" />
         <entry key="app/src/main/res/layout/view_app_bar.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/menu/contact_detail.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/menu/contact_detail_menu.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/menu/contact_detail_unlisted.xml" value="0.19572368421052633" />
         <entry key="app/src/main/res/menu/contact_list.xml" value="0.10197368421052631" />
         <entry key="app/src/main/res/menu/contacts_menu.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/menu/settings.xml" value="0.22013888888888888" />
       </map>
     </option>
   </component>

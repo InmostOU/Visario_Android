@@ -21,8 +21,6 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
             binding.message = message
         }
 
-    override var bottomNavViewVisibility: Int = View.GONE
-
     override fun onCreated() {
         binding.viewModel = viewModel
         binding.messageList.adapter = listAdapter

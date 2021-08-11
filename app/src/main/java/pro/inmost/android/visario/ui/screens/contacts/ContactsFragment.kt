@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.screens.contacts
 
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
@@ -20,6 +21,8 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(R.layout.fragment
             binding.viewModel = viewModel
             binding.model = contact
         }
+
+    override var bottomNavViewVisibility: Int = View.VISIBLE
 
     override fun onCreated() {
         binding.contactList.adapter = listAdapter

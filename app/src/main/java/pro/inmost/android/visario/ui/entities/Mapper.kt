@@ -77,6 +77,36 @@ fun Message.toUIMessage() = MessageUI(
     fromCurrentUser = this.fromCurrentUser
 )
 
+fun ProfileUI.toDomainProfile() = Profile(
+    id = id,
+    userUrl = userUrl,
+    firstName = firstName,
+    lastName = lastName,
+    username = username,
+    about = about,
+    birthdate = birthdate,
+    phoneNumber = phoneNumber,
+    image = image,
+    email = email,
+    showEmailTo = showEmailTo,
+    showPhoneNumberTo = showPhoneNumberTo
+)
+
+fun Profile.toUIProfile() = ProfileUI(
+    id = id,
+    userUrl = userUrl,
+    firstName = firstName,
+    lastName = lastName,
+    username = username,
+    about = about,
+    birthdate = birthdate,
+    phoneNumber = phoneNumber,
+    image = image,
+    email = email,
+    showEmailTo = showEmailTo,
+    showPhoneNumberTo = showPhoneNumberTo
+)
+
 fun List<Contact>.toUIContacts() = map { it.toUIContact() }
 fun List<ContactUI>.toDomainContacts() = map { it.toDomainContact() }
 

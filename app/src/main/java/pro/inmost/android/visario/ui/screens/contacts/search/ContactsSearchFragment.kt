@@ -26,8 +26,6 @@ class ContactsSearchFragment :
             binding.model = contact
         }
 
-    override var bottomNavViewVisibility: Int = View.GONE
-
     override fun onCreated() {
         binding.contactList.adapter = listAdapter
         showKeyboard()

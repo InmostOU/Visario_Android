@@ -37,4 +37,19 @@
     <style name="CustomBottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottom_sheet_background</item>
     </style>
+
+    <style name="ExpandedUserTitle">
+        <item name="android:textSize">@dimen/expanded_user_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="ExpandedUserSubTitle" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">@dimen/expanded_user_subtitle</item>
+    </style>
+
+    <style name="CollapsedUserTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="CollapsedUserSubTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
 </resources>

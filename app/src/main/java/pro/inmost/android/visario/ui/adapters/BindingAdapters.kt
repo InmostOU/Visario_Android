@@ -23,7 +23,7 @@ fun ImageView.loadImage(image: String?) {
 @BindingAdapter(value = ["chooseMenu"])
 fun MaterialToolbar.chooseMenu(myContact: Boolean?) {
     myContact ?: return
-
+    menu.clear()
     val menu = if (myContact){
         R.menu.contact_detail
     } else {

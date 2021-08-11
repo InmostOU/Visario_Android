@@ -57,7 +57,7 @@ class RegisterViewModel(private val registrationUseCase: RegistrationUseCase) : 
             email = email.value ?: "",
             firstName = firstName.value ?: "",
             lastName = lastName.value ?: "",
-            dateOfBirth = DateParser.parseToMillis(birthday.value),
+            birthdate = DateParser.parseToMillis(birthday.value),
             password = password.value ?: "",
             matchingPassword = confirmPassword.value ?: ""
         )
