@@ -137,3 +137,7 @@ fun SearchView.onQuerySubmit(query: (String) -> Unit) {
         }
     })
 }
+
+inline fun CharSequence.ifNotEmpty(action: () -> Unit) {
+    if (isNotBlank()) action()
+}

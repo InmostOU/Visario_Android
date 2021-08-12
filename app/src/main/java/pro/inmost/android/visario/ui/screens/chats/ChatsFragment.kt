@@ -36,7 +36,6 @@ class ChatsFragment : BaseFragment<FragmentChatsBinding>(R.layout.fragment_chats
 
     private fun observeData() {
         viewModel.channels.observe(viewLifecycleOwner){ list ->
-            logInfo("receive channel list: $list")
             listAdapter.submitList(list)
         }
     }

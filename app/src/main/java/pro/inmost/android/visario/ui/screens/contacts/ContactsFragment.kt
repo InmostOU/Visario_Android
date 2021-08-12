@@ -37,16 +37,6 @@ class ContactsFragment : BaseFragment<FragmentContactsBinding>(R.layout.fragment
     }
 
     private fun observeEvents() {
-        val searchItem = binding.toolbar.menu.findItem(R.id.menu_search_contact)
-        val searchView = searchItem.actionView as SearchView
-        searchView.onQueryChange { query ->
-            lifecycleScope.launchWhenResumed {
-                val result = viewModel.search(query)
-                // binding.notFoundLayout.visibility(result.isEmpty())
-                listAdapter.submitList(result)
-            }
-        }
-
         binding.buttonAddContact.setOnClickListener { openContactsSearchFragment() }
         viewModel.openContactEvent.observe(viewLifecycleOwner){ contact ->
             openContactDetails(contact)

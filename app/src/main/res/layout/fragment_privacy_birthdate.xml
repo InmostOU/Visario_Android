@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="pro.inmost.android.visario.ui.entities.Viewers"/>
         <variable
             name="viewModel"
             type="pro.inmost.android.visario.ui.screens.account.security.privacy.birthdate.BirthdateSetupViewModel" />
@@ -60,24 +61,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:onCheckedChanged="@{viewModel.onViewersChanged}"
                     android:layout_marginStart="8dp">
 
                     <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/radio_button_everybody"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layoutDirection="rtl"
+                        android:checked="@{viewModel.profile.showBirthdateTo == Viewers.EVERYONE}"
                         android:textSize="@dimen/radio_group_text_size"
                         android:text="@string/everybody"/>
                     <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/radio_button_contacts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layoutDirection="rtl"
+                        android:checked="@{viewModel.profile.showBirthdateTo == Viewers.CONTACTS}"
                         android:textSize="@dimen/radio_group_text_size"
                         android:text="@string/my_contacts"/>
 
                     <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/radio_button_nobody"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{viewModel.profile.showBirthdateTo == Viewers.NO_ONE}"
                         android:layoutDirection="rtl"
                         android:textSize="@dimen/radio_group_text_size"
                         android:text="@string/nobody"/>

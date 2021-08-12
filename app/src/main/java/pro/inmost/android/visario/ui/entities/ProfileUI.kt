@@ -17,8 +17,9 @@ data class ProfileUI(
     val birthdate: Long,
     val about: String,
     val image: String,
-    val showEmailTo: String,
-    val showPhoneNumberTo: String
+    val showEmailTo: Viewers,
+    val showPhoneNumberTo: Viewers,
+    val showBirthdateTo: Viewers
 ): Parcelable{
 
     val fullName: String

@@ -93,7 +93,7 @@
 
     <fragment
         android:id="@+id/navigation_profile_info_edit"
-        android:name="pro.inmost.android.visario.ui.screens.account.profile.EditProfileFragment"
+        android:name="pro.inmost.android.visario.ui.screens.account.edit.EditProfileFragment"
         tools:layout="@layout/fragment_profile_edit" />
 
     <navigation

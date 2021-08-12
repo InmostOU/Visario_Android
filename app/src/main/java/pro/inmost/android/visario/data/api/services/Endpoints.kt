@@ -7,6 +7,7 @@ object Endpoints {
     const val SESSION_CONNECT = "connect"
 
     const val GET_CURRENT_USER_PROFILE = "user/profile"
+    const val UPDATE_PROFILE = "/user/profile/update"
 
     const val LOGIN = "auth/login"
     const val REGISTER = "auth/register"

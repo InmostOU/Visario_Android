@@ -63,7 +63,7 @@
                     app:navigationIconTint="?attr/colorOnSurface"
                     app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight" />
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
             </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 

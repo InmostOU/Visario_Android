@@ -28,8 +28,12 @@ import pro.inmost.android.visario.ui.screens.contacts.detail.ContactDetailViewMo
 import pro.inmost.android.visario.ui.screens.contacts.edit.EditContactViewModel
 import pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchViewModel
 import pro.inmost.android.visario.ui.screens.account.AccountViewModel
-import pro.inmost.android.visario.ui.screens.account.profile.EditProfileViewModel
+import pro.inmost.android.visario.ui.screens.account.edit.EditProfileViewModel
 import pro.inmost.android.visario.ui.screens.account.security.SecurityViewModel
+import pro.inmost.android.visario.ui.screens.account.security.privacy.birthdate.BirthdateSetupViewModel
+import pro.inmost.android.visario.ui.screens.account.security.privacy.email.EmailSetupViewModel
+import pro.inmost.android.visario.ui.screens.account.security.privacy.password.PasswordSetupViewModel
+import pro.inmost.android.visario.ui.screens.account.security.privacy.phonenumber.PhoneNumberSetupViewModel
 
 
 val appModule = module {
@@ -53,6 +57,11 @@ val viewModelsModule = module {
     viewModel { AccountViewModel(get<LogoutUseCaseImpl>(), get(), get<FetchProfileUseCaseImpl>()) }
     viewModel { EditProfileViewModel(get<UpdateProfileUseCaseImpl>(), get<FetchProfileUseCaseImpl>()) }
     viewModel { SecurityViewModel() }
+
+    viewModel { PhoneNumberSetupViewModel(get<FetchProfileUseCaseImpl>(),get<UpdateProfileUseCaseImpl>()) }
+    viewModel { EmailSetupViewModel(get<FetchProfileUseCaseImpl>(), get<UpdateProfileUseCaseImpl>()) }
+    viewModel { BirthdateSetupViewModel(get<FetchProfileUseCaseImpl>(), get<UpdateProfileUseCaseImpl>()) }
+    viewModel { PasswordSetupViewModel(get<FetchProfileUseCaseImpl>(), get<UpdateProfileUseCaseImpl>()) }
 }
 
 val repositories = module {

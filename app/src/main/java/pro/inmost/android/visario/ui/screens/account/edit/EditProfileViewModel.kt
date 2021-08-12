@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.screens.account.profile
+package pro.inmost.android.visario.ui.screens.account.edit
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,7 +25,7 @@ class EditProfileViewModel(
     val about = MutableLiveData<String>()
     val birthdate = MutableLiveData<String>()
 
-    val validator = MediatorLiveData<Boolean>().apply {
+    val dataValid = MediatorLiveData<Boolean>().apply {
         var firstNameValid = true
         var usernameValid = true
         var birthdayValid = true
@@ -69,7 +69,7 @@ class EditProfileViewModel(
     fun updateProfile() {
         createUpdatedProfile()?.toDomainProfile()?.let { profile ->
             viewModelScope.launch {
-                updateProfileUseCase.update(profile).onSuccess {
+                updateProfileUseCase.update(profile).onSuccess { status ->
                     quitEvent.call()
                 }
             }

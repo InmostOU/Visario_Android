@@ -42,7 +42,7 @@ class ContactsRepositoryImpl(
 
     override suspend fun searchMyContacts(query: String) = withContext(IO) {
         dao.getAll().toDomainContacts().filter { data ->
-            data.username.contains(query) || data.fullName.contains(query)
+            data.username.contains(query, true) || data.fullName.contains(query, true)
         }
     }
 

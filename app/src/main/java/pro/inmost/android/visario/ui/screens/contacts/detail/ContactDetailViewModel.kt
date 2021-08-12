@@ -55,10 +55,6 @@ class ContactDetailViewModel(
 
     }
 
-    fun callByCell(){
-
-    }
-
     fun sendMail(){
 
     }
@@ -70,7 +66,7 @@ class ContactDetailViewModel(
     fun deleteContact(username: String) {
         viewModelScope.launch {
             deleteContactsUseCase.delete(username).onSuccess {
-                loadContact(username)
+                _closeFragmentEvent.call()
             }
         }
     }

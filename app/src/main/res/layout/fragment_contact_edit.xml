@@ -36,12 +36,14 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_baseline_done_24"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:padding="8dp"
                     app:tint="?attr/colorOnSurface"
                     android:textColor="?attr/colorOnSurface"
                     android:enabled="@{viewModel.firstName.length() > 0}"
                     android:onClick="@{() -> viewModel.saveContact()}"
-                    android:layout_gravity="end"/>
+                    android:layout_gravity="end"
+                    android:contentDescription="@string/add_contact" />
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -61,7 +63,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:shapeAppearanceOverlay="@style/CircleImage"
             app:loadImageOrPlaceholder="@{viewModel.contact.image}"
-            app:srcCompat="@drawable/contact_sample"/>
+            tools:srcCompat="@drawable/contact_placeholder"/>
 
 
         <LinearLayout

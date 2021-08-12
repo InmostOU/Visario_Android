@@ -21,10 +21,20 @@
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/title_contacts"
                 app:elevation="8dp"
-                app:menu="@menu/contact_list"
                 android:paddingEnd="16dp"
                 app:titleTextColor="?android:attr/textColorPrimary"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:visibility="gone"
+                    app:queryBackground="@android:color/transparent"
+                    app:queryHint="@string/search">
+                </androidx.appcompat.widget.SearchView>
+            </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 

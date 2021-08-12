@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.screens.account.profile
+package pro.inmost.android.visario.ui.screens.account.edit
 
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R

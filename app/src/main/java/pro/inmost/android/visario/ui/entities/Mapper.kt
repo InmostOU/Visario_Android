@@ -89,8 +89,8 @@ fun ProfileUI.toDomainProfile() = Profile(
     phoneNumber = phoneNumber,
     image = image,
     email = email,
-    showEmailTo = showEmailTo,
-    showPhoneNumberTo = showPhoneNumberTo
+    showEmailTo = showEmailTo.name,
+    showPhoneNumberTo = showPhoneNumberTo.name
 )
 
 fun Profile.toUIProfile() = ProfileUI(
@@ -104,8 +104,9 @@ fun Profile.toUIProfile() = ProfileUI(
     phoneNumber = phoneNumber,
     image = image,
     email = email,
-    showEmailTo = showEmailTo,
-    showPhoneNumberTo = showPhoneNumberTo
+    showEmailTo = Viewers.valueOf(showEmailTo),
+    showPhoneNumberTo = Viewers.valueOf(showPhoneNumberTo),
+    showBirthdateTo = Viewers.EVERYONE
 )
 
 fun List<Contact>.toUIContacts() = map { it.toUIContact() }

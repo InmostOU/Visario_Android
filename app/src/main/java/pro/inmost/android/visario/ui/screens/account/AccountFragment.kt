@@ -24,6 +24,11 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
         observeEvents()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadProfile()
+    }
+
     private fun observeEvents() {
         setupToolbar()
         viewModel.logout.observe(viewLifecycleOwner){

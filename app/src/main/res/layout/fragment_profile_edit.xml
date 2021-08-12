@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.screens.account.profile.EditProfileViewModel" />
+            type="pro.inmost.android.visario.ui.screens.account.edit.EditProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,10 +35,13 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_baseline_done_24"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:padding="8dp"
                     app:tint="?attr/colorOnSurface"
+                    android:enabled="@{viewModel.dataValid}"
                     android:onClick="@{() -> viewModel.updateProfile()}"
-                    android:layout_gravity="end"/>
+                    android:layout_gravity="end"
+                    android:contentDescription="@string/edit_info" />
 
             </com.google.android.material.appbar.MaterialToolbar>
 
