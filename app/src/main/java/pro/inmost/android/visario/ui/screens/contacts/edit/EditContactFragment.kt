@@ -14,6 +14,11 @@ class EditContactFragment : BaseFragment<FragmentContactEditBinding>(R.layout.fr
     override fun onCreated() {
         binding.viewModel = viewModel
         viewModel.loadContact(args.contact)
+        observeEvents()
+    }
+
+    private fun observeEvents() {
+        binding.toolbar.setNavigationOnClickListener { navigateBack() }
         viewModel.navigateBack.observe(viewLifecycleOwner) { navigateBack() }
     }
 }

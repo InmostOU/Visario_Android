@@ -1,4 +1,4 @@
 package pro.inmost.android.visario.ui.utils
 
-import pro.inmost.android.visario.BuildConfig
+const val PROFILE_DATE_FORMAT = "dd MMMM yyyy"
 

@@ -20,4 +20,5 @@
     <dimen name="expanded_user_subtitle">18sp</dimen>
     <dimen name="radio_group_text_size">16sp</dimen>
     <dimen name="margin_between_setting_cards">18dp</dimen>
+    <dimen name="contact_fab_size">50dp</dimen>
 </resources>

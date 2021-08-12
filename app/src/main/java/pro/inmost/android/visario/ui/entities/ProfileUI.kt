@@ -3,6 +3,7 @@ package pro.inmost.android.visario.ui.entities
 import android.os.Parcelable
 import android.text.format.DateFormat
 import kotlinx.parcelize.Parcelize
+import pro.inmost.android.visario.ui.utils.PROFILE_DATE_FORMAT
 
 @Parcelize
 data class ProfileUI(
@@ -24,5 +25,5 @@ data class ProfileUI(
         get() = "$firstName $lastName"
 
     val birthdateFormat: String
-        get() = DateFormat.format("dd MMMM yyyy", birthdate).toString()
+        get() = DateFormat.format(PROFILE_DATE_FORMAT, birthdate).toString()
 }
