@@ -12,7 +12,6 @@ import pro.inmost.android.visario.ui.entities.ProfileUI
 import pro.inmost.android.visario.ui.entities.Viewers
 import pro.inmost.android.visario.ui.entities.toDomainProfile
 import pro.inmost.android.visario.ui.entities.toUIProfile
-import pro.inmost.android.visario.ui.utils.log
 
 class BirthdateSetupViewModel (
     private val fetchProfileUseCase: FetchProfileUseCase,
@@ -44,7 +43,7 @@ class BirthdateSetupViewModel (
         profile.value?.let {
             val profileForUpdate = it.copy(showBirthdateTo = viewers).toDomainProfile()
             viewModelScope.launch {
-                updateProfileUseCase.update(profileForUpdate)
+                updateProfileUseCase.updateInfo(profileForUpdate)
             }
         }
     }

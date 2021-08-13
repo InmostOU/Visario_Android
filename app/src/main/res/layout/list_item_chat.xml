@@ -92,9 +92,10 @@
                     android:textSize="12sp"
                     android:padding="2dp"
                     android:layout_marginTop="4dp"
+                    android:backgroundTint="?attr/colorSecondary"
                     android:background="@drawable/shape_circle"
                     android:gravity="center"
-                    android:textColor="@color/white"
+                    android:textColor="?attr/colorOnSecondary"
                     android:text="@{String.valueOf(model.newMessagesCount)}"
                     tools:text="10"
                     android:visibility="@{model.hasNewMessages ? View.VISIBLE : View.INVISIBLE}"/>
@@ -106,6 +107,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:backgroundTint="@color/dividerColor"
             android:background="?attr/dividerHorizontal"/>
     </LinearLayout>
 

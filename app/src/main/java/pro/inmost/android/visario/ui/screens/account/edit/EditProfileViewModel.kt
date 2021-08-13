@@ -69,7 +69,7 @@ class EditProfileViewModel(
     fun updateProfile() {
         createUpdatedProfile()?.toDomainProfile()?.let { profile ->
             viewModelScope.launch {
-                updateProfileUseCase.update(profile).onSuccess { status ->
+                updateProfileUseCase.updateInfo(profile).onSuccess { status ->
                     quitEvent.call()
                 }
             }

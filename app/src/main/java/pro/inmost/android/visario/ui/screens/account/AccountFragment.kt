@@ -1,8 +1,12 @@
 package pro.inmost.android.visario.ui.screens.account
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.PorterDuff
 import android.view.View
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
@@ -10,14 +14,33 @@ import pro.inmost.android.visario.databinding.FragmentAccountBinding
 import pro.inmost.android.visario.ui.main.BaseFragment
 import pro.inmost.android.visario.ui.main.MainActivity
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
+import pro.inmost.android.visario.ui.utils.MediaPicker
+import pro.inmost.android.visario.ui.utils.log
 import pro.inmost.android.visario.ui.utils.navigate
 
 
 class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_account) {
     private val viewModel: AccountViewModel by viewModel()
     private var authListener: AuthListener? = null
-
     override var bottomNavViewVisibility: Int = View.VISIBLE
+    private val profileImageResult =
+        registerForActivityResult(StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    val fileUri = data?.data!!
+                    viewModel.changePhoto(fileUri)
+                }
+                ImagePicker.RESULT_ERROR -> {
+                    log("image picker: " + ImagePicker.getError(data))
+                }
+                else -> {
+                    log("image picker: Task Cancelled")
+                }
+            }
+        }
 
     override fun onCreated() {
         binding.viewModel = viewModel
@@ -30,7 +53,6 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
     }
 
     private fun observeEvents() {
-        setupToolbar()
         viewModel.logout.observe(viewLifecycleOwner){
             authListener?.onLogout()
         }
@@ -42,35 +64,12 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
             true
         }
         binding.privacyLayout.setOnClickListener { openSecurityFragment() }
+
+        binding.buttonChangeImage.setOnClickListener { openImagePicker() }
     }
 
-    private fun setupToolbar() {
-        val editIcon = binding.toolbar.menu.getItem(0).icon
-        val menuIcon = binding.toolbar.menu.getItem(1).icon
-        var isShow = false
-        var scrollRange = -1
-        binding.appbar.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, offset ->
-            if (scrollRange == -1) {
-                scrollRange = appBarLayout.totalScrollRange;
-            }
-            if (scrollRange + offset == 0) {
-                //collapsed
-                isShow = true
-                editIcon.setColorFilter(
-                    resources.getColor(R.color.surface),
-                    PorterDuff.Mode.SRC_ATOP
-                )
-                menuIcon.setColorFilter(
-                    resources.getColor(R.color.surface),
-                    PorterDuff.Mode.SRC_ATOP
-                )
-            } else if (isShow) {
-                //expanded
-                isShow = false
-                editIcon.setColorFilter(resources.getColor(R.color.white), PorterDuff.Mode.SRC_ATOP)
-                menuIcon.setColorFilter(resources.getColor(R.color.white), PorterDuff.Mode.SRC_ATOP)
-            }
-        })
+    private fun openImagePicker() {
+        MediaPicker(this).startImagePicker(profileImageResult)
     }
 
     private fun openSecurityFragment() {

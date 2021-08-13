@@ -9,6 +9,7 @@ import pro.inmost.android.visario.data.utils.toDataProfile
 import pro.inmost.android.visario.data.utils.toDomainProfile
 import pro.inmost.android.visario.domain.entities.Profile
 import pro.inmost.android.visario.domain.repositories.ProfileRepository
+import java.io.File
 
 class ProfileRepositoryImpl(
     private val profileDao: ProfileDao,
@@ -32,9 +33,15 @@ class ProfileRepositoryImpl(
         return result ?: Result.failure(Throwable("Get profile: unknown error"))
     }
 
-    override suspend fun updateProfile(profile: Profile): Result<Unit> {
+    override suspend fun updateProfileInfo(profile: Profile): Result<Unit> {
         val profileData = profile.toDataProfile()
         withContext(IO){ profileDao.update(profileData) }
         return api.user.updateProfile(profileData)
+    }
+
+    override suspend fun updateProfilePhoto(profile: Profile): Result<Unit> {
+        val profileForUpdate = profile.toDataProfile()
+        profileDao.update(profileForUpdate)
+        return api.user.updateProfileImage(File(profile.image))
     }
 }

@@ -43,7 +43,7 @@ class EmailSetupViewModel(
         profile.value?.let {
             val profileForUpdate = it.copy(showEmailTo = viewers).toDomainProfile()
             viewModelScope.launch {
-                updateProfileUseCase.update(profileForUpdate)
+                updateProfileUseCase.updateInfo(profileForUpdate)
             }
         }
     }

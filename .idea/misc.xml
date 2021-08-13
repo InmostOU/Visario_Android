@@ -4,19 +4,25 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/bottom_sheet_background.xml" value="0.19478827361563517" />
+        <entry key="app/src/main/res/drawable/edit_text_background.xml" value="0.2416988416988417" />
         <entry key="app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.2152777777777778" />
+        <entry key="app/src/main/res/drawable/ic_chat_icon.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/drawable/ic_email.xml" value="0.2416988416988417" />
+        <entry key="app/src/main/res/drawable/ic_not_found.xml" value="0.2416988416988417" />
         <entry key="app/src/main/res/drawable/shape_bg_incoming_bubble.xml" value="0.2416988416988417" />
+        <entry key="app/src/main/res/drawable/shape_circle.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2152777777777778" />
         <entry key="app/src/main/res/layout/dealog_add_contact.xml" value="0.18469055374592833" />
-        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.19027777777777777" />
+        <entry key="app/src/main/res/layout/fragment_calls.xml" value="0.20639332870048646" />
         <entry key="app/src/main/res/layout/fragment_chats.xml" value="0.2152777777777778" />
-        <entry key="app/src/main/res/layout/fragment_contact_detail.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_contact_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_contact_edit.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/layout/fragment_contacts.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/layout/fragment_contacts_search.xml" value="0.18469055374592833" />
         <entry key="app/src/main/res/layout/fragment_detail_contact.xml" value="0.18958333333333333" />
-        <entry key="app/src/main/res/layout/fragment_messages.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.18472222222222223" />
+        <entry key="app/src/main/res/layout/fragment_messages.xml" value="0.22972972972972974" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2152777777777778" />
         <entry key="app/src/main/res/layout/fragment_privacy_birthdate.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/layout/fragment_privacy_email.xml" value="0.22013888888888888" />
@@ -30,8 +36,9 @@
         <entry key="app/src/main/res/layout/list_item_chat.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/layout/list_item_contact.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/layout/list_item_contact_found.xml" value="0.19381107491856678" />
-        <entry key="app/src/main/res/layout/list_item_message.xml" value="0.10526315789473684" />
-        <entry key="app/src/main/res/layout/view_app_bar.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/layout/list_item_message.xml" value="0.22972972972972974" />
+        <entry key="app/src/main/res/layout/view_app_bar.xml" value="0.18472222222222223" />
+        <entry key="app/src/main/res/layout/view_splash_screen.xml" value="0.20625" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/menu/contact_detail.xml" value="0.19381107491856678" />
@@ -40,6 +47,7 @@
         <entry key="app/src/main/res/menu/contact_list.xml" value="0.10197368421052631" />
         <entry key="app/src/main/res/menu/contacts_menu.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/menu/settings.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/xml/provider_paths.xml" value="0.2076388888888889" />
       </map>
     </option>
   </component>

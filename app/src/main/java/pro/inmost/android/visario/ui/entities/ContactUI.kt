@@ -27,6 +27,9 @@ data class ContactUI(
     val phoneShowing get() = phoneNumber.isNotBlank()
     val emailShowing get() = email.isNotBlank()
     val birthdayShowing get() = birthdate != 0L
+
+    val extraInfoShowing get() = phoneShowing || emailShowing || birthdayShowing
+
     val birthdateFormat: String
         get() = DateFormat.format(PROFILE_DATE_FORMAT, birthdate).toString()
 }

@@ -27,8 +27,8 @@ fun ImageView.loadImageOrPlaceholder(image: String?) {
     }
 }
 
-@BindingAdapter(value = ["chooseMenu"])
-fun MaterialToolbar.chooseMenu(myContact: Boolean?) {
+@BindingAdapter(value = ["chooseContactMenu"])
+fun MaterialToolbar.chooseContactMenu(myContact: Boolean?) {
     myContact ?: return
     menu.clear()
     val menu = if (myContact){

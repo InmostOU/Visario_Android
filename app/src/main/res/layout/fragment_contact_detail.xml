@@ -13,8 +13,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:background="@color/chat_background">
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -24,7 +23,6 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
-                style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -35,11 +33,10 @@
                 app:subtitle="@{viewModel.contact.online ? @string/online : @string/offline}"
                 tools:subtitle="@string/online"
                 tools:title="Albert Einstein"
-                app:collapsedTitleTextAppearance="@style/CollapsedUserTitle"
-                app:collapsedSubtitleTextAppearance="@style/CollapsedUserSubTitle"
+                app:collapsedTitleTextAppearance="@style/ToolbarTitle"
+                app:collapsedSubtitleTextAppearance="@style/ToolbarSubtitle"
                 app:expandedTitleTextAppearance="@style/ExpandedUserTitle"
                 app:expandedSubtitleTextAppearance="@style/ExpandedUserSubTitle"
-                app:expandedTitleMarginEnd="64dp"
                 app:expandedTitleMarginStart="22dp"
                 app:expandedTitleMarginBottom="16dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -52,18 +49,20 @@
                     android:scaleType="centerCrop"
                     app:loadImageOrPlaceholder="@{viewModel.contact.image}"
                     tools:src="@drawable/einstein"
-                    app:layout_collapseMode="parallax" />
+                    app:layout_collapseMode="parallax"
+                    android:contentDescription="@string/contact_photo" />
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:chooseMenu="@{viewModel.contact.inMyContacts}"
+                    android:backgroundTint="?attr/colorSurface"
+                    app:chooseContactMenu="@{viewModel.contact.inMyContacts}"
                     app:navigationIconTint="?attr/colorOnSurface"
                     app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"  />
             </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -71,11 +70,9 @@
             android:id="@+id/button_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:backgroundTint="?attr/colorSurface"
-            app:tint="?attr/colorOnBackground"
             android:src="@drawable/ic_chatting"
             app:fabSize="normal"
-            app:maxImageSize="36dp"
+            app:maxImageSize="38dp"
             app:layout_anchor="@id/appbar"
             app:layout_anchorGravity="bottom|end"
             android:layout_marginEnd="16dp"
@@ -88,8 +85,6 @@
             android:id="@+id/button_add_contact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:backgroundTint="?attr/colorSurface"
-            app:tint="?attr/colorOnBackground"
             android:src="@drawable/ic_round_person_add_alt_1_24"
             app:layout_anchor="@id/appbar"
             app:fabSize="normal"
@@ -131,10 +126,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:textSize="16sp"
-                            android:textColor="?attr/colorSecondary"
+                            android:text="@string/info"
                             android:textStyle="bold"
-                            android:text="@string/info"/>
+                            android:textColor="?attr/colorSecondaryVariant"
+                            android:textSize="@dimen/section_title_size" />
 
                         <!--about-->
                         <LinearLayout
@@ -148,16 +143,15 @@
                                 android:id="@+id/text_view_about"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textSize="@dimen/text_size_chat_name"
-                                android:textStyle="bold"
-                                android:text="@{viewModel.contact.about}"
-                                android:textColor="?android:attr/textColorPrimary"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                android:maxLines="1"
                                 android:ellipsize="end"
                                 android:maxLength="@integer/about_max_text_length"
-                                tools:text="Some interesting info about me"/>
+                                android:maxLines="1"
+                                android:text="@{viewModel.contact.about}"
+                                android:textColor="?android:attr/textColorPrimary"
+                                android:textSize="16sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="Some interesting info about me" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="match_parent"
@@ -193,7 +187,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/text_size_chat_name"
-                                android:textStyle="bold"
                                 android:textColor="?android:attr/textColorPrimary"
                                 android:text="@{'@' + viewModel.contact.username}"
                                 tools:text="\@relativeguy"/>
@@ -213,7 +206,7 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:visibility="@{viewModel.contact.phoneShowing ? View.VISIBLE : View.GONE}"
+                                android:visibility="@{viewModel.contact.extraInfoShowing ? View.VISIBLE : View.GONE}"
                                 android:background="?attr/dividerHorizontal"/>
 
                         </LinearLayout>
@@ -232,7 +225,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/text_size_chat_name"
-                                android:textStyle="bold"
                                 android:text="@{viewModel.contact.phoneNumber}"
                                 android:textColor="?android:attr/textColorPrimary"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -256,7 +248,7 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:visibility="@{viewModel.contact.emailShowing ? View.VISIBLE : View.GONE}"
+                                android:visibility="@{viewModel.contact.extraInfoShowing ? View.VISIBLE : View.GONE}"
                                 android:background="?attr/dividerHorizontal"/>
 
                         </LinearLayout>
@@ -282,7 +274,6 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:textSize="@dimen/text_size_chat_name"
-                                    android:textStyle="bold"
                                     android:text="@{viewModel.contact.email}"
                                     android:textColor="?android:attr/textColorPrimary"
                                     app:layout_constraintTop_toTopOf="parent"
@@ -302,14 +293,14 @@
                                     android:textColor="?android:attr/textColorSecondary"
                                     android:textSize="@dimen/text_size_chat_last_message" />
 
-                                <ImageButton
+                                <ImageView
                                     android:id="@+id/button_send_email"
                                     android:layout_width="@dimen/send_mail_icon_size"
                                     android:layout_height="@dimen/send_mail_icon_size"
-                                    android:background="@android:color/transparent"
                                     android:src="@drawable/ic_mail_send"
                                     android:scaleType="fitCenter"
                                     app:tint="?attr/colorOnSurface"
+                                    android:padding="4dp"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -339,7 +330,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/text_size_chat_name"
-                                android:textStyle="bold"
                                 android:text="@{viewModel.contact.birthdateFormat}"
                                 android:textColor="?android:attr/textColorPrimary"
                                 app:layout_constraintTop_toTopOf="parent"

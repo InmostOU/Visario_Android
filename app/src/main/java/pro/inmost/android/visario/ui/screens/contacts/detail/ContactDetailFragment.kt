@@ -16,8 +16,12 @@ class ContactDetailFragment : BaseFragment<FragmentContactDetailBinding>(R.layou
 
     override fun onCreated() {
         binding.viewModel = viewModel
-        viewModel.loadContact(args.contact)
         observeEvents()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadContact(args.contact)
     }
 
     private fun observeEvents() {

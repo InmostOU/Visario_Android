@@ -8,6 +8,7 @@ import pro.inmost.android.visario.data.api.dto.responses.StandardResponse
 import pro.inmost.android.visario.data.api.utils.logError
 import pro.inmost.android.visario.data.api.utils.logInfo
 import pro.inmost.android.visario.data.entities.ProfileData
+import java.io.File
 
 class AccountManager(private val service: AccountService) {
 
@@ -46,5 +47,11 @@ class AccountManager(private val service: AccountService) {
             logError("updateProfile error: ${it.message}")
             Result.failure(it)
         }
+    }
+
+    fun updateProfileImage(file: File): Result<Unit> {
+        val bytes = file.readBytes()
+        // TODO
+        return Result.success(Unit)
     }
 }

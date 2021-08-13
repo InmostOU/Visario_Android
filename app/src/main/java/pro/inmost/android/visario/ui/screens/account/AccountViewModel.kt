@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.screens.account
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,21 +8,23 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCase
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
+import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCase
 import pro.inmost.android.visario.ui.entities.ProfileUI
-import pro.inmost.android.visario.ui.entities.Viewers
+import pro.inmost.android.visario.ui.entities.toDomainProfile
 import pro.inmost.android.visario.ui.entities.toUIProfile
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
-import pro.inmost.android.visario.ui.utils.DateParser
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 
 class AccountViewModel(
     private val logoutUseCase: LogoutUseCase,
     private val credentialsStore: CredentialsStore,
-    private val fetchProfileUseCase: FetchProfileUseCase
+    private val fetchProfileUseCase: FetchProfileUseCase,
+    private val updateProfileUseCase: UpdateProfileUseCase
 ) : ViewModel() {
     private val _logout = SingleLiveEvent<Unit>()
     val logout: LiveData<Unit> = _logout
     val profile = MutableLiveData<ProfileUI>()
+
 
     fun loadProfile() {
        viewModelScope.launch {
@@ -39,7 +42,13 @@ class AccountViewModel(
         }
     }
 
-    fun changePhoto(){
-
+    fun changePhoto(uri: Uri){
+        profile.value?.copy(image = uri.path!!)?.let { updatedProfile ->
+            viewModelScope.launch {
+                updateProfileUseCase.updateImage(updatedProfile.toDomainProfile()).onSuccess {
+                    loadProfile()
+                }
+            }
+        }
     }
 }

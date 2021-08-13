@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/login_cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                     android:paddingBottom="5dp"
                     android:text="@string/welcome"
                     android:textAlignment="center"
-                    android:textColor="@color/primary"
+                    android:textColor="?attr/colorSecondary"
                     android:textSize="34sp"
                     android:textStyle="bold" />
 
@@ -197,10 +197,10 @@
                     android:layout_marginBottom="5dp"
                     android:onClick="@{() -> viewModel.openLoginScreen()}"
                     android:text="@string/login"
-                    android:textColor="?attr/colorPrimary" />
+                    android:textColor="?attr/colorSecondaryVariant" />
             </LinearLayout>
 
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

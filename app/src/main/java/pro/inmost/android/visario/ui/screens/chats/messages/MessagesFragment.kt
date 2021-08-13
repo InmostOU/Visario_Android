@@ -30,13 +30,13 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     }
 
     private fun updateTitle(title: String) {
-        if (title != binding.appBar.title){
-            binding.appBar.title = title
+        if (title != binding.toolbar.title){
+            binding.toolbar.title = title
         }
     }
 
     private fun observeEvents() {
-        binding.appBar.toolbar.setNavigationOnClickListener { navigateBack() }
+        binding.toolbar.setNavigationOnClickListener { navigateBack() }
     }
 
     private fun observeData() {

@@ -54,7 +54,7 @@ val viewModelsModule = module {
 
     viewModel { LoginViewModel(get<LoginUseCaseImpl>(), get()) }
     viewModel { RegisterViewModel(get<RegistrationUseCaseImpl>()) }
-    viewModel { AccountViewModel(get<LogoutUseCaseImpl>(), get(), get<FetchProfileUseCaseImpl>()) }
+    viewModel { AccountViewModel(get<LogoutUseCaseImpl>(), get(), get<FetchProfileUseCaseImpl>(), get<UpdateProfileUseCaseImpl>()) }
     viewModel { EditProfileViewModel(get<UpdateProfileUseCaseImpl>(), get<FetchProfileUseCaseImpl>()) }
     viewModel { SecurityViewModel() }
 

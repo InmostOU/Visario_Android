@@ -13,18 +13,15 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:background="@color/chat_background">
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
-                style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -34,13 +31,13 @@
                 app:title="@{viewModel.profile.fullName}"
                 app:subtitle="@string/online"
                 tools:title="Albert Einstein"
-                app:collapsedTitleTextAppearance="@style/CollapsedUserTitle"
-                app:collapsedSubtitleTextAppearance="@style/CollapsedUserSubTitle"
+                tools:subtitle="Online"
+                app:collapsedTitleTextAppearance="@style/ToolbarTitle"
+                app:collapsedSubtitleTextAppearance="@style/ToolbarSubtitle"
                 app:expandedTitleTextAppearance="@style/ExpandedUserTitle"
                 app:expandedSubtitleTextAppearance="@style/ExpandedUserSubTitle"
-                app:expandedTitleMarginEnd="64dp"
-                app:expandedTitleMarginStart="22dp"
-                app:expandedTitleMarginBottom="16dp"
+                app:expandedTitleMarginStart="@dimen/user_name_margin_start"
+                app:expandedTitleMarginBottom="@dimen/user_name_margin_bottom"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
@@ -58,9 +55,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:menu="@menu/settings"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight" />
+                    app:menu="@menu/account"
+                   />
             </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -68,15 +64,12 @@
             android:id="@+id/button_change_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:backgroundTint="?attr/colorSurface"
             android:layout_marginEnd="16dp"
             app:maxImageSize="28dp"
-            app:tint="?attr/colorOnBackground"
             android:src="@drawable/ic_outline_add_a_photo_24"
             app:fabSize="normal"
             app:layout_anchor="@id/appbar"
             app:layout_anchorGravity="bottom|end"
-            android:onClick="@{() -> viewModel.changePhoto()}"
             android:contentDescription="@string/start_video_call" />
 
         <androidx.core.widget.NestedScrollView
@@ -109,7 +102,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:textSize="16sp"
-                            android:textColor="?attr/colorSecondary"
+                            android:textColor="?attr/colorSecondaryVariant"
                             android:textStyle="bold"
                             android:text="@string/info"/>
 
@@ -153,6 +146,7 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
+                                android:backgroundTint="@color/dividerColor"
                                 android:background="?attr/dividerHorizontal"/>
 
                         </LinearLayout>
@@ -190,6 +184,7 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
+                                android:backgroundTint="@color/dividerColor"
                                 android:background="?attr/dividerHorizontal"/>
 
                         </LinearLayout>
@@ -232,6 +227,7 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
+                                android:backgroundTint="@color/dividerColor"
                                 android:background="?attr/dividerHorizontal"/>
 
                         </LinearLayout>
@@ -274,6 +270,7 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
+                                android:backgroundTint="@color/dividerColor"
                                 android:background="?attr/dividerHorizontal"/>
 
                         </LinearLayout>
@@ -339,7 +336,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:textSize="16sp"
-                            android:textColor="?attr/colorSecondary"
+                            android:textColor="?attr/colorSecondaryVariant"
                             android:textStyle="bold"
                             android:text="@string/settings"/>
 
@@ -359,7 +356,7 @@
                                 android:textStyle="bold"
                                 android:layout_marginTop="8dp"
                                 android:drawablePadding="16dp"
-                                app:drawableTint="?attr/colorOnSurface"
+                                app:drawableTint="?attr/colorPrimary"
                                 app:drawableEndCompat="@drawable/ic_arrow_right_24"
                                 app:drawableStartCompat="@drawable/ic_round_security_24"
                                 android:textColor="?android:attr/textColorPrimary"
