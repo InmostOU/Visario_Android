@@ -1,21 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">@color/purple_500</color>
+    <color name="primaryColor">#607D8B</color>
+    <color name="primaryColorDark">#29434e</color>
+    <color name="primaryLightColor">#819ca9</color>
+    <color name="colorOnPrimary">#eceff1</color>
+    <color name="secondaryColor">#F89D3C</color>
+    <color name="secondaryColorDark">#FF5722</color>
+    <color name="colorOnSecondary">#F3F3F3</color>
+    <color name="secondaryLightColor">#ffd95b</color>
+    <color name="colorBackground">#EFF9FF</color>
+    <color name="colorBackgroundDark">#213843</color>
+    <color name="dividerColor">#959595</color>
+
+    <color name="surfaceColor">#F9FDFF</color>
+    <color name="surfaceColorDark">#1C2F39</color>
+    <color name="onSurfaceColor">#212121</color>
+    <color name="onSurfaceColorDark">#eceff1</color>
+
+    <color name="primaryTextColor">#212121</color>
+    <color name="primaryTextColorDark">#FDFDFD</color>
+    <color name="secondaryTextColor">#A6212121</color>
+    <color name="secondaryTextColorDark">#A4ECECEC</color>
+
+
     <color name="splash_background">@color/white</color>
     <color name="text_title">#FF000000</color>
     <color name="text_subtitle">#3E3E3E</color>
     <color name="toolbar">#FFFFFFFF</color>
+    <color name="surface">#D8000000</color>
 
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red_600">#E53935</color>
-    <color name="outgoing_message_bubble">#CBEBFC</color>
+    <color name="outgoing_message_bubble">#D9F2FF</color>
     <color name="incoming_message_bubble">#FFFFFF</color>
     <color name="chat_background">#EFEFEF</color>
     <color name="sender_background">#FFFFFF</color>
+
+    <color name="ucrop_color_toolbar">@color/primaryColor</color>
+    <color name="ucrop_color_statusbar">@color/primaryLightColor</color>
+    <color name="ucrop_color_widget_active">@color/primaryColor</color>
 </resources>

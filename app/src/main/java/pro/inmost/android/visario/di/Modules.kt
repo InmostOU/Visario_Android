@@ -15,6 +15,8 @@ import pro.inmost.android.visario.domain.usecases.channels.UpdateChannelUseCaseI
 import pro.inmost.android.visario.domain.usecases.contacts.*
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCaseImpl
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.ui.screens.auth.login.LoginViewModel
 import pro.inmost.android.visario.ui.screens.auth.register.RegisterViewModel
@@ -25,7 +27,14 @@ import pro.inmost.android.visario.ui.screens.contacts.ContactsViewModel
 import pro.inmost.android.visario.ui.screens.contacts.detail.ContactDetailViewModel
 import pro.inmost.android.visario.ui.screens.contacts.edit.EditContactViewModel
 import pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchViewModel
-import pro.inmost.android.visario.ui.screens.settings.SettingsViewModel
+import pro.inmost.android.visario.ui.screens.account.AccountViewModel
+import pro.inmost.android.visario.ui.screens.account.edit.EditProfileViewModel
+import pro.inmost.android.visario.ui.screens.account.security.SecurityViewModel
+import pro.inmost.android.visario.ui.screens.account.security.privacy.birthdate.BirthdateSetupViewModel
+import pro.inmost.android.visario.ui.screens.account.security.privacy.email.EmailSetupViewModel
+import pro.inmost.android.visario.ui.screens.account.security.privacy.password.PasswordSetupViewModel
+import pro.inmost.android.visario.ui.screens.account.security.privacy.phonenumber.PhoneNumberSetupViewModel
+
 
 val appModule = module {
     factory { AppDatabase.getInstance(androidApplication().applicationContext) }
@@ -45,7 +54,14 @@ val viewModelsModule = module {
 
     viewModel { LoginViewModel(get<LoginUseCaseImpl>(), get()) }
     viewModel { RegisterViewModel(get<RegistrationUseCaseImpl>()) }
-    viewModel { SettingsViewModel(get<LogoutUseCaseImpl>(), get()) }
+    viewModel { AccountViewModel(get<LogoutUseCaseImpl>(), get(), get<FetchProfileUseCaseImpl>(), get<UpdateProfileUseCaseImpl>()) }
+    viewModel { EditProfileViewModel(get<UpdateProfileUseCaseImpl>(), get<FetchProfileUseCaseImpl>()) }
+    viewModel { SecurityViewModel() }
+
+    viewModel { PhoneNumberSetupViewModel(get<FetchProfileUseCaseImpl>(),get<UpdateProfileUseCaseImpl>()) }
+    viewModel { EmailSetupViewModel(get<FetchProfileUseCaseImpl>(), get<UpdateProfileUseCaseImpl>()) }
+    viewModel { BirthdateSetupViewModel(get<FetchProfileUseCaseImpl>(), get<UpdateProfileUseCaseImpl>()) }
+    viewModel { PasswordSetupViewModel(get<FetchProfileUseCaseImpl>(), get<UpdateProfileUseCaseImpl>()) }
 }
 
 val repositories = module {
@@ -53,12 +69,14 @@ val repositories = module {
     factory { ChannelsRepositoryImpl(get(), get(), get<MessagesRepositoryImpl>()) }
     factory { MessagesRepositoryImpl(get(), get()) }
     factory { ContactsRepositoryImpl(get(), get()) }
+    factory { ProfileRepositoryImpl(get(), get()) }
 }
 
 val dao = module {
     factory { (get() as AppDatabase).channelsDao() }
     factory { (get() as AppDatabase).messagesDao() }
     factory { (get() as AppDatabase).contactsDao() }
+    factory { (get() as AppDatabase).profileDao() }
 }
 
 val contactsUseCases = module {
@@ -139,3 +157,24 @@ val messagesUseCases = module {
         )
     }
 }
+
+val profileUseCases = module {
+    factory {
+        UpdateProfileUseCaseImpl(get<ProfileRepositoryImpl>())
+    }
+    factory {
+        FetchProfileUseCaseImpl(get<ProfileRepositoryImpl>())
+    }
+}
+
+val allModules = listOf(
+    appModule,
+    viewModelsModule,
+    repositories,
+    dao,
+    contactsUseCases,
+    channelsUseCases,
+    accountUseCases,
+    messagesUseCases,
+    profileUseCases
+)

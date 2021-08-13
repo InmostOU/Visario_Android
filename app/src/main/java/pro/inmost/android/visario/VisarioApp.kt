@@ -12,18 +12,7 @@ class VisarioApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(applicationContext)
-            modules(
-                listOf(
-                    appModule,
-                    viewModelsModule,
-                    repositories,
-                    dao,
-                    contactsUseCases,
-                    channelsUseCases,
-                    accountUseCases,
-                    messagesUseCases
-                )
-            )
+            modules(allModules)
         }
     }
 }

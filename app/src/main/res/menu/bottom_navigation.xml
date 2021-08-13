@@ -17,8 +17,8 @@
         android:title="@string/title_contacts" />
 
     <item
-        android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_round_settings_24"
-        android:title="@string/title_settings" />
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/ic_manage_accounts_24"
+        android:title="@string/title_account" />
 
 </menu>

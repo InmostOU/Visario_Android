@@ -43,7 +43,7 @@ class Validator {
                 _lastNameInvalid.value = R.string.empty_field
                 valid = false
             }
-            if (dateOfBirth == -1L) {
+            if (birthdate == -1L) {
                 _birthdayInvalid.value = R.string.invalid_date
                 valid = false
             }

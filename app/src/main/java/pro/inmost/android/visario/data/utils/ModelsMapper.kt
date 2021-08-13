@@ -1,10 +1,7 @@
 package pro.inmost.android.visario.data.utils
 
-import pro.inmost.android.visario.data.entities.ChannelData
-import pro.inmost.android.visario.data.entities.ChannelWithMessages
-import pro.inmost.android.visario.data.entities.ContactData
-import pro.inmost.android.visario.data.entities.MessageData
 import pro.inmost.android.visario.data.api.dto.requests.RegistrationRequest
+import pro.inmost.android.visario.data.entities.*
 import pro.inmost.android.visario.domain.entities.*
 
 fun ChannelData.toDomainChannel(messages: List<Message>) = Channel(
@@ -77,7 +74,7 @@ fun User.toRegistrationRequest(): RegistrationRequest {
         email = this.email,
         firstName = this.firstName,
         lastName = this.lastName,
-        birthday = this.dateOfBirth,
+        birthday = this.birthdate,
         password = this.password,
         matchingPassword = this.password
     )
@@ -113,6 +110,36 @@ fun Contact.toDataContact() = ContactData(
     favorite = this.favorite,
     muted = this.muted,
     inMyContacts = this.inMyContacts
+)
+
+fun ProfileData.toDomainProfile() = Profile(
+    id = id,
+    userUrl = userArn,
+    firstName = firstName,
+    lastName = lastName,
+    username = username,
+    about = about,
+    birthdate = birthday,
+    phoneNumber = phoneNumber,
+    image = image,
+    email = email,
+    showEmailTo = showEmailTo,
+    showPhoneNumberTo = showPhoneNumberTo
+)
+
+fun Profile.toDataProfile() = ProfileData(
+    id = id,
+    userArn = userUrl,
+    firstName = firstName,
+    lastName = lastName,
+    username = username,
+    about = about,
+    birthday = birthdate,
+    phoneNumber = phoneNumber,
+    image = image,
+    email = email,
+    showEmailTo = showEmailTo,
+    showPhoneNumberTo = showPhoneNumberTo
 )
 
 fun List<ContactData>.toDomainContacts() = map { it.toDomainContact() }

@@ -8,5 +8,5 @@ data class User(
     val matchingPassword: String,
     val firstName: String,
     val lastName: String,
-    val dateOfBirth: Long
+    val birthdate: Long
 )

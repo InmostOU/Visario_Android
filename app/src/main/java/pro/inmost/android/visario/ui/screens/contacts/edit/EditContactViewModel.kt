@@ -35,7 +35,7 @@ class EditContactViewModel(
             contact.value?.let { contact ->
                 firstName.value?.let { name ->
                     contact.firstName = name
-                    contact.lastName = name
+                    contact.lastName = lastName.value ?: ""
                     if (contact.inMyContacts){
                         updateUseCase.update(contact.toDomainContact())
                     } else {

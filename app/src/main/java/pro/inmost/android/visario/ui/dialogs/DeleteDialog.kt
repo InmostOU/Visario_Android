@@ -2,6 +2,7 @@ package pro.inmost.android.visario.ui.dialogs
 
 import android.app.AlertDialog
 import android.content.Context
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import pro.inmost.android.visario.R
 
 class DeleteDialog(
@@ -9,7 +10,7 @@ class DeleteDialog(
     private val message: String
 ) {
     fun show(callback: () -> Unit) {
-        AlertDialog.Builder(context)
+        MaterialAlertDialogBuilder(context)
             .setTitle(R.string.delete)
             .setIcon(R.drawable.ic_round_delete_forever_24)
             .setMessage(message)

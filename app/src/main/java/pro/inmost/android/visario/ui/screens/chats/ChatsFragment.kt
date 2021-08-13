@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.screens.chats
 
+import android.view.View
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.data.api.utils.logInfo
@@ -19,6 +20,8 @@ class ChatsFragment : BaseFragment<FragmentChatsBinding>(R.layout.fragment_chats
             binding.model = chat
         }
 
+    override var bottomNavViewVisibility: Int = View.VISIBLE
+
     override fun onCreated() {
         binding.chatList.adapter = listAdapter
         observeData()
@@ -33,7 +36,6 @@ class ChatsFragment : BaseFragment<FragmentChatsBinding>(R.layout.fragment_chats
 
     private fun observeData() {
         viewModel.channels.observe(viewLifecycleOwner){ list ->
-            logInfo("receive channel list: $list")
             listAdapter.submitList(list)
         }
     }

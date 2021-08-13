@@ -26,7 +26,7 @@
             app:elevation="0dp"
             app:navigationIconTint="?attr/colorOnSurface"
             app:navigationIcon="@drawable/ic_baseline_close_24"
-            app:title="Add contact">
+            app:title="@string/edit_contact">
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:text="@string/save"
-                android:textColor="?attr/colorPrimary"/>
+                android:textColor="?attr/colorSecondary"/>
 
         </com.google.android.material.appbar.MaterialToolbar>
 

@@ -16,7 +16,8 @@ fun Contact.toUIContact() = ContactUI(
     online = this.online,
     favorite = this.favorite,
     muted = this.muted,
-    inMyContacts = this.inMyContacts
+    inMyContacts = this.inMyContacts,
+    birthdate = 0L
 )
 
 fun ContactUI.toDomainContact() = Contact(
@@ -75,6 +76,37 @@ fun Message.toUIMessage() = MessageUI(
     type = this.type,
     redacted = this.redacted,
     fromCurrentUser = this.fromCurrentUser
+)
+
+fun ProfileUI.toDomainProfile() = Profile(
+    id = id,
+    userUrl = userUrl,
+    firstName = firstName,
+    lastName = lastName,
+    username = username,
+    about = about,
+    birthdate = birthdate,
+    phoneNumber = phoneNumber,
+    image = image,
+    email = email,
+    showEmailTo = showEmailTo.name,
+    showPhoneNumberTo = showPhoneNumberTo.name
+)
+
+fun Profile.toUIProfile() = ProfileUI(
+    id = id,
+    userUrl = userUrl,
+    firstName = firstName,
+    lastName = lastName,
+    username = username,
+    about = about,
+    birthdate = birthdate,
+    phoneNumber = phoneNumber,
+    image = image,
+    email = email,
+    showEmailTo = Viewers.valueOf(showEmailTo),
+    showPhoneNumberTo = Viewers.valueOf(showPhoneNumberTo),
+    showBirthdateTo = Viewers.EVERYONE
 )
 
 fun List<Contact>.toUIContacts() = map { it.toUIContact() }

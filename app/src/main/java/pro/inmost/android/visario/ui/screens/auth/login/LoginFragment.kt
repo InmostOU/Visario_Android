@@ -14,8 +14,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private val viewModel: LoginViewModel by viewModel()
     private var authListener: AuthListener? = null
 
-    override var bottomNavViewVisibility: Int = View.GONE
-
     override fun onCreated() {
         binding.viewModel = viewModel
         subscribeEvents()

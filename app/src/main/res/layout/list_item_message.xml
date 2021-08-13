@@ -21,11 +21,12 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:minWidth="100dp"
+            android:backgroundTint="@{message.fromCurrentUser ? @color/outgoing_message_bubble : @color/incoming_message_bubble}"
             tools:background="@drawable/shape_bg_incoming_bubble"
             android:background="@{message.fromCurrentUser ? @drawable/shape_bg_outgoing_bubble : @drawable/shape_bg_incoming_bubble}">
 
@@ -37,7 +38,7 @@
                 android:paddingEnd="16dp"
                 android:paddingTop="4dp">
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/message_sender"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -49,11 +50,12 @@
                     android:textSize="@dimen/message_sender_text_size"
                     android:textStyle="bold"
                     android:layout_marginEnd="16dp"
+                    android:letterSpacing="0.04"
                     app:layout_constraintEnd_toStartOf="@+id/message_time"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/message_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -62,24 +64,25 @@
                     tools:text="12:00"
                     android:layout_marginStart="8dp"
                     android:text="@{message.createdDateFormat}"
-                    android:textColor="?android:attr/textColorPrimary"
+                    android:textColor="?android:attr/textColorSecondary"
                     android:textSize="@dimen/message_time_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/send_status"
                     android:layout_width="@dimen/message_done_mark_size"
                     android:layout_height="@dimen/message_done_mark_size"
                     android:layout_marginStart="8dp"
                     android:layout_gravity="bottom"
                     android:visibility="@{message.fromCurrentUser ? View.VISIBLE : View.GONE}"
+                    app:tint="?attr/colorOnSurface"
                     android:src="@drawable/ic_baseline_done_24"/>
 
             </LinearLayout>
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/message_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,9 +97,10 @@
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="@dimen/message_text_size" />
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
 
     </LinearLayout>
+
 </layout>

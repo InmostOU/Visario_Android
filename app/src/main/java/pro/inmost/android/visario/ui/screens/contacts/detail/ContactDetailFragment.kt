@@ -1,27 +1,27 @@
 package pro.inmost.android.visario.ui.screens.contacts.detail
 
-import android.view.View
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.databinding.FragmentDetailContactBinding
+import pro.inmost.android.visario.databinding.FragmentContactDetailBinding
 import pro.inmost.android.visario.ui.dialogs.DeleteDialog
 import pro.inmost.android.visario.ui.entities.ContactUI
 import pro.inmost.android.visario.ui.main.BaseFragment
 import pro.inmost.android.visario.ui.utils.navigate
 import pro.inmost.android.visario.ui.utils.navigateBack
 
-class ContactDetailFragment : BaseFragment<FragmentDetailContactBinding>(R.layout.fragment_detail_contact) {
+class ContactDetailFragment : BaseFragment<FragmentContactDetailBinding>(R.layout.fragment_contact_detail) {
     private val viewModel: ContactDetailViewModel by viewModel()
     private val args: ContactDetailFragmentArgs by navArgs()
 
-    override var bottomNavViewVisibility: Int = View.GONE
-
     override fun onCreated() {
         binding.viewModel = viewModel
-        viewModel.loadContact(args.contact)
         observeEvents()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadContact(args.contact)
     }
 
     private fun observeEvents() {

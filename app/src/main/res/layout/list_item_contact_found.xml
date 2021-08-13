@@ -28,13 +28,15 @@
             android:focusable="true"
             android:layout_marginBottom="12dp">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/contact_icon"
                 android:layout_width="@dimen/chat_image_size"
                 android:layout_height="@dimen/chat_image_size"
                 android:layout_gravity="center"
-                app:tint="?attr/colorOnSurface"
-                android:src="@drawable/ic_contact"/>
+                android:scaleType="centerCrop"
+                app:loadImageOrPlaceholder="@{model.image}"
+                tools:src="@drawable/contact_placeholder"
+                android:contentDescription="@string/user_image" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -75,10 +77,12 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                app:tint="?attr/colorOnSurface"
+                app:tint="?attr/colorSecondaryVariant"
                 android:padding="8dp"
+                android:enabled="@{!model.inMyContacts}"
                 android:onClick="@{() -> viewModel.addContact(model)}"
-                android:src="@drawable/ic_round_person_add_alt_1_24"
+                android:src="@{model.inMyContacts ? @drawable/ic_baseline_done_24 : @drawable/ic_round_person_add_alt_1_24}"
+                tools:src="@drawable/ic_round_person_add_alt_1_24"
                 android:contentDescription="@string/add_contact" />
 
         </LinearLayout>
@@ -86,6 +90,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:backgroundTint="@color/dividerColor"
             android:background="?attr/dividerHorizontal"/>
     </LinearLayout>
 

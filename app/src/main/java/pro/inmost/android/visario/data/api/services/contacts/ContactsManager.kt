@@ -4,6 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.api.dto.requests.ContactRequest
+import pro.inmost.android.visario.data.api.dto.requests.EditContactRequest
 import pro.inmost.android.visario.data.api.utils.logError
 import pro.inmost.android.visario.data.api.utils.logInfo
 
@@ -29,7 +30,6 @@ class ContactsManager(private val service: ContactsService) {
     suspend fun addContact(username: String) = withContext(Dispatchers.IO){
         kotlin.runCatching {
             val response = service.addContact(ContactRequest(username))
-            logInfo("addContact response: $response")
             if (response.status == ChimeApi.STATUS_OK){
                 Result.success(Unit)
             } else {
@@ -39,6 +39,38 @@ class ContactsManager(private val service: ContactsService) {
             }
         }.getOrElse  {
             logError("addContact error: " + it.message)
+            Result.failure(it)
+        }
+    }
+
+    suspend fun editContact(request: EditContactRequest) = withContext(Dispatchers.IO){
+        kotlin.runCatching {
+            val response = service.editContact(request)
+            if (response.status == ChimeApi.STATUS_OK){
+                Result.success(Unit)
+            } else {
+                val message = "editContact error: ${response.status} ${response.message}"
+                logError(message)
+                Result.failure(Throwable(message))
+            }
+        }.getOrElse  {
+            logError("editContact error: " + it.message ?: "")
+            Result.failure(it)
+        }
+    }
+
+    suspend fun deleteContact(username: String) = withContext(Dispatchers.IO){
+        kotlin.runCatching {
+            val response = service.deleteContact(ContactRequest(username))
+            if (response.status == ChimeApi.STATUS_OK){
+                Result.success(Unit)
+            } else {
+                val message = "deleteContact error: ${response.status} ${response.message}"
+                logError(message)
+                Result.failure(Throwable(message))
+            }
+        }.getOrElse  {
+            logError("deleteContact error: " + it.message ?: "")
             Result.failure(it)
         }
     }
@@ -56,23 +88,6 @@ class ContactsManager(private val service: ContactsService) {
             }
         }.getOrElse {
             logError("searchContacts error: " + it.message ?: "")
-            Result.failure(it)
-        }
-    }
-
-    suspend fun deleteContact(username: String) = withContext(Dispatchers.IO){
-        kotlin.runCatching {
-            val response = service.deleteContact(ContactRequest(username))
-            logInfo("deleteContact response: $response")
-            if (response.status == ChimeApi.STATUS_OK){
-                Result.success(Unit)
-            } else {
-                val message = "deleteContact error: ${response.status} ${response.message}"
-                logError(message)
-                Result.failure(Throwable(message))
-            }
-        }.getOrElse  {
-            logError("deleteContact error: " + it.message ?: "")
             Result.failure(it)
         }
     }

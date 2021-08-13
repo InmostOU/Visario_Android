@@ -26,7 +26,10 @@ class ContactsSearchFragment :
             binding.model = contact
         }
 
-    override var bottomNavViewVisibility: Int = View.GONE
+    override fun onResume() {
+        super.onResume()
+        viewModel.updateLastSearch()
+    }
 
     override fun onCreated() {
         binding.contactList.adapter = listAdapter

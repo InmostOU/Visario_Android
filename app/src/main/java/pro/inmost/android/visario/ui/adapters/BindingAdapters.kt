@@ -14,16 +14,23 @@ fun TextInputEditText.showError(textResId: Int) {
     }
 }
 
-@BindingAdapter(value = ["loadImage"])
-fun ImageView.loadImage(image: String?) {
-    if (image.isNullOrBlank()) return
-    Glide.with(context).load(image).into(this)
+@BindingAdapter(value = ["loadImageOrPlaceholder"])
+fun ImageView.loadImageOrPlaceholder(image: String?) {
+    if (image.isNullOrBlank()){
+        Glide.with(context).load(R.drawable.contact_placeholder).into(this)
+    } else{
+        kotlin.runCatching {
+            Glide.with(context).load(image).into(this)
+        }.onFailure {
+            Glide.with(context).load(R.drawable.contact_placeholder).into(this)
+        }
+    }
 }
 
-@BindingAdapter(value = ["chooseMenu"])
-fun MaterialToolbar.chooseMenu(myContact: Boolean?) {
+@BindingAdapter(value = ["chooseContactMenu"])
+fun MaterialToolbar.chooseContactMenu(myContact: Boolean?) {
     myContact ?: return
-
+    menu.clear()
     val menu = if (myContact){
         R.menu.contact_detail
     } else {

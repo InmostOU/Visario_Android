@@ -11,8 +11,6 @@ import pro.inmost.android.visario.ui.utils.navigateBack
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment_register) {
     private val viewModel: RegisterViewModel by viewModel()
 
-    override var bottomNavViewVisibility: Int = View.GONE
-
     override fun onCreated() {
         binding.viewModel = viewModel
         subscribeEvents()

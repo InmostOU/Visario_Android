@@ -3,6 +3,8 @@ package pro.inmost.android.visario.ui.utils
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
@@ -13,10 +15,14 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
+import pro.inmost.android.visario.R
 import kotlin.math.ceil
 
 
@@ -136,4 +142,18 @@ fun SearchView.onQuerySubmit(query: (String) -> Unit) {
             return false
         }
     })
+}
+
+fun <T> Fragment.getNavigationResult(key: String = "result") =
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
+
+fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
+    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
+}
+fun <T> Fragment.removeNavigationResult(key: String = "result") {
+    findNavController().previousBackStackEntry?.savedStateHandle?.remove<T>(key)
+}
+
+inline fun CharSequence.ifNotEmpty(action: () -> Unit) {
+    if (isNotBlank()) action()
 }

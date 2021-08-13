@@ -12,5 +12,5 @@ interface ContactsRepository {
     suspend fun refreshData()
     suspend fun addContact(username: String): Result<Unit>
     suspend fun deleteContact(username: String): Result<Unit>
-    suspend fun updateContact(contact: Contact)
+    suspend fun updateContact(contact: Contact): Result<Unit>
 }

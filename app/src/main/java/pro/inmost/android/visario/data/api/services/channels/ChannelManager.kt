@@ -12,7 +12,6 @@ class ChannelManager(private val service: ChannelsService) {
     suspend fun getChannels() = withContext(IO){
         kotlin.runCatching {
             val response = service.getChannels()
-            logInfo("getChannels response: $response")
             if (response.status == STATUS_OK){
                 Result.success(response.data)
             } else {

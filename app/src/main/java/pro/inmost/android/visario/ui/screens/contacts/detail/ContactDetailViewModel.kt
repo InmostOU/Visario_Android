@@ -27,11 +27,11 @@ class ContactDetailViewModel(
 
 
     fun loadContact(contact: ContactUI){
+        _contact.value = contact
         viewModelScope.launch {
             fetchContactsUseCase.fetch(contact.username).onSuccess {
-                contact.inMyContacts = true
+                _contact.value = it.toUIContact()
             }
-            _contact.value = contact
         }
     }
 
@@ -55,10 +55,6 @@ class ContactDetailViewModel(
 
     }
 
-    fun callByCell(){
-
-    }
-
     fun sendMail(){
 
     }
@@ -70,7 +66,7 @@ class ContactDetailViewModel(
     fun deleteContact(username: String) {
         viewModelScope.launch {
             deleteContactsUseCase.delete(username).onSuccess {
-                loadContact(username)
+                _closeFragmentEvent.call()
             }
         }
     }
