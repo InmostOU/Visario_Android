@@ -20,8 +20,7 @@
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/title_chats"
                 app:elevation="8dp"
-                app:titleTextColor="?attr/colorOnPrimary"
-                android:backgroundTint="?attr/colorSurface"/>
+                app:titleTextColor="?attr/colorOnPrimary" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

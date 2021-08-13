@@ -1,46 +1,23 @@
 package pro.inmost.android.visario.ui.screens.account
 
-import android.app.Activity
 import android.content.Context
-import android.graphics.PorterDuff
+import android.net.Uri
 import android.view.View
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentAccountBinding
+import pro.inmost.android.visario.ui.dialogs.ImagePickerDialog
 import pro.inmost.android.visario.ui.main.BaseFragment
 import pro.inmost.android.visario.ui.main.MainActivity
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
-import pro.inmost.android.visario.ui.utils.MediaPicker
-import pro.inmost.android.visario.ui.utils.log
-import pro.inmost.android.visario.ui.utils.navigate
+import pro.inmost.android.visario.ui.utils.*
 
 
 class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_account) {
     private val viewModel: AccountViewModel by viewModel()
     private var authListener: AuthListener? = null
     override var bottomNavViewVisibility: Int = View.VISIBLE
-    private val profileImageResult =
-        registerForActivityResult(StartActivityForResult()) { result: ActivityResult ->
-            val resultCode = result.resultCode
-            val data = result.data
 
-            when (resultCode) {
-                Activity.RESULT_OK -> {
-                    val fileUri = data?.data!!
-                    viewModel.changePhoto(fileUri)
-                }
-                ImagePicker.RESULT_ERROR -> {
-                    log("image picker: " + ImagePicker.getError(data))
-                }
-                else -> {
-                    log("image picker: Task Cancelled")
-                }
-            }
-        }
 
     override fun onCreated() {
         binding.viewModel = viewModel
@@ -65,12 +42,15 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
         }
         binding.privacyLayout.setOnClickListener { openSecurityFragment() }
 
-        binding.buttonChangeImage.setOnClickListener { openImagePicker() }
+        binding.buttonChangeImage.setOnClickListener { openMediaPicker() }
     }
 
-    private fun openImagePicker() {
-        MediaPicker(this).startImagePicker(profileImageResult)
+    private fun openMediaPicker() {
+        ImagePickerDialog.show(childFragmentManager){ result ->
+            viewModel.changePhoto(result)
+        }
     }
+
 
     private fun openSecurityFragment() {
         navigate {

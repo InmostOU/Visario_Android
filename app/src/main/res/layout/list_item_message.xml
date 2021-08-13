@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:minWidth="100dp"
-            android:backgroundTint="@color/incoming_message_bubble"
+            android:backgroundTint="@{message.fromCurrentUser ? @color/outgoing_message_bubble : @color/incoming_message_bubble}"
             tools:background="@drawable/shape_bg_incoming_bubble"
             android:background="@{message.fromCurrentUser ? @drawable/shape_bg_outgoing_bubble : @drawable/shape_bg_incoming_bubble}">
 

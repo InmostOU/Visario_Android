@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/navigation_contact_detail"
         android:name="pro.inmost.android.visario.ui.screens.contacts.detail.ContactDetailFragment"
-        tools:layout="@layout/fragment_detail_contact">
+        tools:layout="@layout/fragment_contact_detail">
 
         <action
             android:id="@+id/action_navigation_contact_detail_to_navigation_contact_edit"
@@ -80,7 +80,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_settings"
+        android:id="@+id/navigation_account"
         android:name="pro.inmost.android.visario.ui.screens.account.AccountFragment"
         tools:layout="@layout/fragment_account">
         <action

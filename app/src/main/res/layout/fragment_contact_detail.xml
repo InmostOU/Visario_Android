@@ -37,8 +37,8 @@
                 app:collapsedSubtitleTextAppearance="@style/ToolbarSubtitle"
                 app:expandedTitleTextAppearance="@style/ExpandedUserTitle"
                 app:expandedSubtitleTextAppearance="@style/ExpandedUserSubTitle"
-                app:expandedTitleMarginStart="22dp"
-                app:expandedTitleMarginBottom="16dp"
+                app:expandedTitleMarginStart="@dimen/user_name_margin_start"
+                app:expandedTitleMarginBottom="@dimen/user_name_margin_bottom"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView

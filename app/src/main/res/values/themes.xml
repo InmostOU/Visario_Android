@@ -34,7 +34,7 @@
         <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:colorSecondary" tools:ignore="NewApi">?attr/colorSecondary</item>
-        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:navigationBarColor">?android:attr/colorBackground</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 

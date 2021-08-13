@@ -37,7 +37,7 @@
     <color name="chat_background">#EFEFEF</color>
     <color name="sender_background">#FFFFFF</color>
 
-    <color name="ucrop_color_toolbar">@color/surface</color>
-    <color name="ucrop_color_statusbar">@color/surface</color>
-    <color name="ucrop_color_widget_active">@color/surface</color>
+    <color name="ucrop_color_toolbar">@color/primaryColor</color>
+    <color name="ucrop_color_statusbar">@color/primaryLightColor</color>
+    <color name="ucrop_color_widget_active">@color/primaryColor</color>
 </resources>

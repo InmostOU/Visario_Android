@@ -144,6 +144,16 @@ fun SearchView.onQuerySubmit(query: (String) -> Unit) {
     })
 }
 
+fun <T> Fragment.getNavigationResult(key: String = "result") =
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
+
+fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
+    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
+}
+fun <T> Fragment.removeNavigationResult(key: String = "result") {
+    findNavController().previousBackStackEntry?.savedStateHandle?.remove<T>(key)
+}
+
 inline fun CharSequence.ifNotEmpty(action: () -> Unit) {
     if (isNotBlank()) action()
 }

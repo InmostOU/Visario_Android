@@ -12,7 +12,9 @@
         <entry key="app/src/main/res/drawable/shape_bg_incoming_bubble.xml" value="0.2416988416988417" />
         <entry key="app/src/main/res/drawable/shape_circle.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2152777777777778" />
+        <entry key="app/src/main/res/layout/bottom_sheet_media_chooser.xml" value="0.232421875" />
         <entry key="app/src/main/res/layout/dealog_add_contact.xml" value="0.18469055374592833" />
+        <entry key="app/src/main/res/layout/dialog_image_picker.xml" value="0.232421875" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.19027777777777777" />
         <entry key="app/src/main/res/layout/fragment_calls.xml" value="0.20639332870048646" />
         <entry key="app/src/main/res/layout/fragment_chats.xml" value="0.2152777777777778" />
