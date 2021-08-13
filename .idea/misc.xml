@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.2152777777777778" />
         <entry key="app/src/main/res/drawable/ic_chat_icon.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/drawable/ic_email.xml" value="0.2416988416988417" />
+        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.133984375" />
         <entry key="app/src/main/res/drawable/ic_not_found.xml" value="0.2416988416988417" />
         <entry key="app/src/main/res/drawable/shape_bg_incoming_bubble.xml" value="0.2416988416988417" />
         <entry key="app/src/main/res/drawable/shape_circle.xml" value="0.17916666666666667" />
@@ -49,6 +50,8 @@
         <entry key="app/src/main/res/menu/contact_list.xml" value="0.10197368421052631" />
         <entry key="app/src/main/res/menu/contacts_menu.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/menu/settings.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.133984375" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2326388888888889" />
         <entry key="app/src/main/res/xml/provider_paths.xml" value="0.2076388888888889" />
       </map>
     </option>

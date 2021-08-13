@@ -1,7 +1,7 @@
 package pro.inmost.android.visario.ui.dialogs
 
-import android.app.AlertDialog
 import android.content.Context
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import pro.inmost.android.visario.R
 
 class InfoDialog(
@@ -11,9 +11,10 @@ class InfoDialog(
 ) {
 
     fun show(callback: () -> Unit) {
-        AlertDialog.Builder(context)
+        MaterialAlertDialogBuilder(context)
             .setTitle(title)
             .setMessage(message)
+            .setIconAttribute(R.attr.colorSecondaryVariant)
             .setCancelable(false)
             .setPositiveButton(R.string.ok) { dialog, _ ->
                 callback()

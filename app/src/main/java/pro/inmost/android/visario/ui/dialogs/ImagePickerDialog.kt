@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentManager
+import com.esafirm.imagepicker.features.ImagePickerLauncher
+import com.esafirm.imagepicker.features.registerImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.DialogImagePickerBinding
@@ -35,6 +37,18 @@ class ImagePickerDialog(val callback: (Uri) -> Unit) : BottomSheetDialogFragment
             }
         }
 
+    private lateinit var launcher: ImagePickerLauncher
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        launcher = registerImagePicker {
+            val uri = it[0].uri
+            setResultAndClose(uri)
+        }
+    }
+
+
+
     override fun getTheme(): Int = R.style.CustomBottomSheetDialog
 
     override fun onCreateView(
@@ -58,7 +72,7 @@ class ImagePickerDialog(val callback: (Uri) -> Unit) : BottomSheetDialogFragment
     }
 
     private fun startCameraPicker() {
-        MediaPicker(this).takePhoto(profileImageResult)
+       // MediaPicker(this).takePhoto(profileImageResult)
     }
 
     private fun setResultAndClose(uri: Uri) {

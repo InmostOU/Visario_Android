@@ -50,7 +50,7 @@ class AccountManager(private val service: AccountService) {
     }
 
     fun updateProfileImage(file: File): Result<Unit> {
-        val bytes = file.readBytes()
+     //   val bytes = file.readBytes()
         // TODO
         return Result.success(Unit)
     }

@@ -1,9 +1,12 @@
 package pro.inmost.android.visario.ui.utils
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
+import com.esafirm.imagepicker.features.*
 import com.github.dhaval2404.imagepicker.ImagePicker
+import pro.inmost.android.visario.R
 import java.io.File
 
 class MediaPicker(private val fragment: Fragment) {
@@ -37,5 +40,28 @@ class MediaPicker(private val fragment: Fragment) {
             .createIntent { intent ->
                 resultLauncher.launch(intent)
             }
+    }
+
+    fun pickImage(launcher: ImagePickerLauncher){
+        val config = ImagePickerConfig {
+            mode = ImagePickerMode.SINGLE // default is multi image mode
+            language = "in" // Set image picker language
+            theme = R.style.Theme_Visario
+
+            // set whether pick action or camera action should return immediate result or not. Only works in single mode for image picker
+         //   returnMode = if (returnAfterCapture) ReturnMode.ALL else ReturnMode.NONE
+            isSaveImage = true
+            isFolderMode = false // set folder mode (false by default)
+            isIncludeVideo = false // include video (false by default)
+            isOnlyVideo = false // include video (false by default)
+            arrowColor = Color.WHITE // set toolbar arrow up color
+            folderTitle = "Folder" // folder selection title
+            imageTitle = "Tap to select" // image selection title
+            doneButtonText = "DONE" // done button text
+            limit = 10 // max images can be selected (99 by default)
+            isShowCamera = true // show camera or not (true by default)
+            savePath = ImagePickerSavePath(File(fragment.requireActivity().cacheDir, CACHED_PROFILE_IMAGES_DIR).absolutePath, isRelative = false) // can be a full path
+        }
+        launcher.launch(config)
     }
 }

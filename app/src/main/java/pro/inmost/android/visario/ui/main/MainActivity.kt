@@ -1,8 +1,12 @@
 package pro.inmost.android.visario.ui.main
 
+import android.content.res.Resources
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -37,6 +41,7 @@ class MainActivity : AppCompatActivity(), AuthListener {
             hideSplash()
         }
     }
+
 
     private fun checkAuth() {
         if (credentialsStore.isCredentialsNotEmpty()){
