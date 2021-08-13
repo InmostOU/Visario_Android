@@ -44,7 +44,7 @@
                 <ImageView
                     android:id="@+id/picture"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="@dimen/profile_photo_height"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     app:loadImageOrPlaceholder="@{viewModel.contact.image}"

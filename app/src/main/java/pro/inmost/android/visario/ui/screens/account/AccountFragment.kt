@@ -42,7 +42,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
         }
         binding.privacyLayout.setOnClickListener { openSecurityFragment() }
 
-        binding.buttonChangeImage.setOnClickListener { openMediaPicker() }
+        binding.changePhotoButton.setOnClickListener { openMediaPicker() }
     }
 
     private fun openMediaPicker() {
