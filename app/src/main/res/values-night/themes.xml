@@ -3,7 +3,7 @@
     <style name="Theme.Visario" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryLightColor</item>
-        <item name="colorPrimaryVariant">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryColorDark</item>
         <item name="colorPrimaryDark">@color/primaryColorDark</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorSecondary">@color/secondaryColorDark</item>

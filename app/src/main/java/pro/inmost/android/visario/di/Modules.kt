@@ -17,6 +17,7 @@ import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseI
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCaseImpl
+import pro.inmost.android.visario.ui.dialogs.media.ImagePickerViewModel
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.ui.screens.auth.login.LoginViewModel
 import pro.inmost.android.visario.ui.screens.auth.register.RegisterViewModel
@@ -62,6 +63,7 @@ val viewModelsModule = module {
     viewModel { EmailSetupViewModel(get<FetchProfileUseCaseImpl>(), get<UpdateProfileUseCaseImpl>()) }
     viewModel { BirthdateSetupViewModel(get<FetchProfileUseCaseImpl>(), get<UpdateProfileUseCaseImpl>()) }
     viewModel { PasswordSetupViewModel(get<FetchProfileUseCaseImpl>(), get<UpdateProfileUseCaseImpl>()) }
+    viewModel { ImagePickerViewModel() }
 }
 
 val repositories = module {

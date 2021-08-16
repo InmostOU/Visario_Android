@@ -83,4 +83,10 @@
     <string name="contact_photo">Contact\'s photo</string>
     <string name="take_a_photo">Take a Photo</string>
     <string name="gallery">Gallery</string>
+    <string name="choose">Choose</string>
+    <string name="select_image">Select image</string>
+    <string name="permissions_denied">Permissions denied</string>
+    <string name="allow">Allow</string>
+    <string name="camera">Camera</string>
+    <string name="crop_image">Crop image</string>
 </resources>

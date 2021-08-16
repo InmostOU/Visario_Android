@@ -43,7 +43,7 @@ class AccountViewModel(
     }
 
     fun changePhoto(uri: Uri){
-        profile.value?.copy(image = uri.path!!)?.let { updatedProfile ->
+        profile.value?.copy(image = uri.toString())?.let { updatedProfile ->
             viewModelScope.launch {
                 updateProfileUseCase.updateImage(updatedProfile.toDomainProfile()).onSuccess {
                     loadProfile()
