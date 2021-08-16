@@ -1,23 +1,19 @@
 package pro.inmost.android.visario.ui.screens.contacts
 
 import android.view.View
-import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentContactsBinding
 import pro.inmost.android.visario.databinding.ListItemContactBinding
-import pro.inmost.android.visario.domain.entities.Contact
 import pro.inmost.android.visario.ui.main.BaseFragment
-import pro.inmost.android.visario.ui.adapters.GenericListAdapter
+import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.entities.ContactUI
 import pro.inmost.android.visario.ui.utils.*
 
 class ContactsFragment : BaseFragment<FragmentContactsBinding>(R.layout.fragment_contacts) {
     private val viewModel: ContactsViewModel by viewModel()
     private val listAdapter =
-        GenericListAdapter<ContactUI, ListItemContactBinding>(R.layout.list_item_contact) { contact, binding ->
+        GenericListAdapterWithDiffUtil<ContactUI, ListItemContactBinding>(R.layout.list_item_contact) { contact, binding ->
             binding.viewModel = viewModel
             binding.model = contact
         }

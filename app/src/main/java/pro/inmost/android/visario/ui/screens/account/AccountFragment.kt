@@ -1,16 +1,18 @@
 package pro.inmost.android.visario.ui.screens.account
 
+import android.Manifest
 import android.content.Context
-import android.net.Uri
 import android.view.View
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentAccountBinding
-import pro.inmost.android.visario.ui.dialogs.ImagePickerDialog
+import pro.inmost.android.visario.ui.dialogs.media.ImagePickerDialog
 import pro.inmost.android.visario.ui.main.BaseFragment
 import pro.inmost.android.visario.ui.main.MainActivity
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
-import pro.inmost.android.visario.ui.utils.*
+import pro.inmost.android.visario.ui.utils.checkPermissions
+import pro.inmost.android.visario.ui.utils.navigate
+import pro.inmost.android.visario.ui.utils.snackbarWithAction
 
 
 class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_account) {
@@ -46,8 +48,14 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
     }
 
     private fun openMediaPicker() {
-        ImagePickerDialog.show(childFragmentManager){ result ->
-            viewModel.changePhoto(result)
+        checkPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA){ granted ->
+            if (granted){
+                ImagePickerDialog.show(childFragmentManager, true){ result ->
+                    viewModel.changePhoto(result)
+                }
+            } else {
+                snackbarWithAction(R.string.permissions_denied){ openMediaPicker() }
+            }
         }
     }
 

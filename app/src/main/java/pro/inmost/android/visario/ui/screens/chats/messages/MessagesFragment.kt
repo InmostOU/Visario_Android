@@ -1,13 +1,11 @@
 package pro.inmost.android.visario.ui.screens.chats.messages
 
-import android.view.View
 import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentMessagesBinding
 import pro.inmost.android.visario.databinding.ListItemMessageBinding
-import pro.inmost.android.visario.domain.entities.Message
-import pro.inmost.android.visario.ui.adapters.GenericListAdapter
+import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.entities.MessageUI
 import pro.inmost.android.visario.ui.main.BaseFragment
 import pro.inmost.android.visario.ui.utils.navigateBack
@@ -16,7 +14,7 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     private val viewModel: MessagesViewModel by viewModel()
     private val args: MessagesFragmentArgs by navArgs()
     private val listAdapter =
-        GenericListAdapter<MessageUI, ListItemMessageBinding>(R.layout.list_item_message) { message, binding ->
+        GenericListAdapterWithDiffUtil<MessageUI, ListItemMessageBinding>(R.layout.list_item_message) { message, binding ->
             binding.viewModel = viewModel
             binding.message = message
         }

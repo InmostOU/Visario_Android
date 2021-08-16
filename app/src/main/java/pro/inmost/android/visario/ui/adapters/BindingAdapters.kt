@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.adapters
 
+import android.net.Uri
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -20,11 +21,17 @@ fun ImageView.loadImageOrPlaceholder(image: String?) {
         Glide.with(context).load(R.drawable.contact_placeholder).into(this)
     } else{
         kotlin.runCatching {
-            Glide.with(context).load(image).into(this)
+            Glide.with(context).load(Uri.parse(image)).into(this)
         }.onFailure {
             Glide.with(context).load(R.drawable.contact_placeholder).into(this)
         }
     }
+}
+
+@BindingAdapter(value = ["loadImage"])
+fun ImageView.loadImager(uri: Uri?) {
+    uri ?: return
+    Glide.with(context).load(uri).into(this)
 }
 
 @BindingAdapter(value = ["chooseContactMenu"])

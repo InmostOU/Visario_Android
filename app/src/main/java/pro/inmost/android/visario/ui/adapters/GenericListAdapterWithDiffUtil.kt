@@ -1,30 +1,18 @@
 package pro.inmost.android.visario.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import pro.inmost.android.visario.ui.utils.layoutInflater
 
-open class GenericListAdapter<T, B : ViewDataBinding>(
+open class GenericListAdapterWithDiffUtil<T, B : ViewDataBinding>(
     @LayoutRes private val layRes: Int,
     inline val bind: (item: T, binding: B) -> Unit
-) : RecyclerView.Adapter<GenericViewHolder<B>>() {
-    private var data = mutableListOf<T>()
-
-    fun addItem(item: T){
-        data.add(item)
-        notifyItemInserted(data.size - 1)
-    }
-
-    fun deleteItem(item: T){
-        val index = data.indexOf(item)
-        data.remove(item)
-        notifyItemRemoved(index)
-    }
-
-    override fun getItemCount(): Int = data.size
+) : ListAdapter<T, GenericViewHolder<B>>(BaseDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenericViewHolder<B> {
         val binding = DataBindingUtil.inflate<B>(parent.layoutInflater, layRes, parent, false)
@@ -32,6 +20,19 @@ open class GenericListAdapter<T, B : ViewDataBinding>(
     }
 
     override fun onBindViewHolder(holder: GenericViewHolder<B>, position: Int) {
-        bind(data[position], holder.binding)
+        bind(getItem(position), holder.binding)
     }
+
+    class BaseDiffUtil<E> : DiffUtil.ItemCallback<E>() {
+        override fun areItemsTheSame(oldItem: E, newItem: E): Boolean {
+            return oldItem.toString() == newItem.toString()
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: E, newItem: E): Boolean {
+            return oldItem == newItem
+        }
+
+    }
+
 }

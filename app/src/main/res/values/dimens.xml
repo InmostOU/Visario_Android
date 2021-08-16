@@ -26,4 +26,6 @@
     <dimen name="section_title_size">18sp</dimen>
     <dimen name="bottom_sheet_menu_text_size">16sp</dimen>
     <dimen name="profile_photo_height">300dp</dimen>
+    <dimen name="list_item_image_margin">6dp</dimen>
+    <dimen name="bottom_camera_button_height">48dp</dimen>
 </resources>

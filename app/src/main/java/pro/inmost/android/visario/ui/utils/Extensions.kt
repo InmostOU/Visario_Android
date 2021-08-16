@@ -3,9 +3,6 @@ package pro.inmost.android.visario.ui.utils
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.util.Patterns
@@ -15,13 +12,13 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
 import pro.inmost.android.visario.R
 import kotlin.math.ceil
 
@@ -54,6 +51,12 @@ fun Fragment.snackbar(msg: String) {
 
 fun Fragment.snackbar(textResId: Int) {
     Snackbar.make(requireView(), requireContext().getString(textResId), Snackbar.LENGTH_SHORT)
+        .show()
+}
+
+fun Fragment.snackbarWithAction(textResId: Int, callback: () -> Unit) {
+    Snackbar.make(requireView(), requireContext().getString(textResId), Snackbar.LENGTH_SHORT)
+        .setAction(R.string.allow){ callback() }
         .show()
 }
 
@@ -95,12 +98,8 @@ fun Activity.makeStatusBarTransparent() {
     window.apply {
         clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        } else {
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        }
+        decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         statusBarColor = Color.TRANSPARENT
     }
 }
@@ -152,6 +151,26 @@ fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
 }
 fun <T> Fragment.removeNavigationResult(key: String = "result") {
     findNavController().previousBackStackEntry?.savedStateHandle?.remove<T>(key)
+}
+
+fun Context.checkPermissions(vararg permissions: String, callback: (Boolean) -> Unit){
+    Dexter.withContext(this)
+        .withPermissions(*permissions)
+        .withListener(object : BaseMultiplePermissionsListener(){
+            override fun onPermissionsChecked(p0: MultiplePermissionsReport) {
+                callback(p0.areAllPermissionsGranted())
+            }
+        }).check()
+}
+
+fun Fragment.checkPermissions(vararg permissions: String, callback: (Boolean) -> Unit){
+    Dexter.withContext(requireContext())
+        .withPermissions(*permissions)
+        .withListener(object : BaseMultiplePermissionsListener(){
+            override fun onPermissionsChecked(p0: MultiplePermissionsReport) {
+                callback(p0.areAllPermissionsGranted())
+            }
+        }).check()
 }
 
 inline fun CharSequence.ifNotEmpty(action: () -> Unit) {
