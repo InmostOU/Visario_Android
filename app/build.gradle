@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "pro.inmost.android.visario"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -52,45 +52,53 @@ android {
 }
 
 dependencies {
+
+    // Room database
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
 
+    // Image
     implementation 'com.github.CanHub:Android-Image-Cropper:3.2.2'
-
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    // Views
+    implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:1.1.0"
+
+    // Utils extensions
     implementation 'com.github.pawegio:KAndroid:0.8.7@aar'
     implementation 'com.github.kirtan403.k4kotlin:k4kotlin-core:1.0.0-beta1'
     implementation 'com.github.kirtan403.k4kotlin:k4kotlin-androidx:1.0.0-beta1'
 
-    implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:1.1.0"
 
-    implementation "uk.co.lucasweb:aws-v4-signer-java:1.3"
-    implementation "commons-codec:commons-codec:1.15"
+    // Other utils
+    implementation "commons-codec:commons-codec:1.15" // decoder
+    implementation 'com.karumi:dexter:6.2.2' // permissions checker
+    implementation 'com.google.code.gson:gson:2.8.7' // json-serializer
 
+    // DI-framework
     def koin_version = "3.1.2"
     implementation "io.insert-koin:koin-android:$koin_version"
 
     implementation(name: 'amazon-chime-sdk', ext: 'aar')
     implementation(name: 'amazon-chime-sdk-media', ext: 'aar')
-
+    implementation "uk.co.lucasweb:aws-v4-signer-java:1.3"
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
     implementation 'com.amazonaws:aws-java-sdk-chime'
 
-    implementation "androidx.datastore:datastore-preferences-core:1.0.0"
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
-
-    implementation 'com.karumi:dexter:6.2.2'
-    implementation 'com.google.code.gson:gson:2.8.7'
-
+    // WEB
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
 
+    // Data store
+    implementation "androidx.datastore:datastore-preferences-core:1.0.0"
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
+    // Android
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation "androidx.activity:activity-ktx:1.3.1"
