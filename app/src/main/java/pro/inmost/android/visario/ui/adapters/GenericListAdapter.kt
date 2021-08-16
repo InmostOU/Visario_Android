@@ -5,7 +5,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import pro.inmost.android.visario.ui.utils.layoutInflater
+import pro.inmost.android.visario.ui.utils.extensions.layoutInflater
 
 open class GenericListAdapter<T, B : ViewDataBinding>(
     @LayoutRes private val layRes: Int,

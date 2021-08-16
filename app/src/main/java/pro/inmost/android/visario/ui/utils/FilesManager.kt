@@ -3,7 +3,7 @@ package pro.inmost.android.visario.ui.utils
 import android.content.Context
 import android.net.Uri
 import android.text.format.DateFormat
-import androidx.core.content.FileProvider
+import pro.inmost.android.visario.ui.utils.extensions.getUri
 import java.io.File
 
 object FilesManager {
@@ -24,5 +24,3 @@ object FilesManager {
         )
     }
 }
-
-fun File.getUri(context: Context) = FileProvider.getUriForFile(context, FILE_PROVIDER_AUTH, this)

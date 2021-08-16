@@ -1,7 +1,7 @@
 package pro.inmost.android.visario.data.database.dao
 
 import androidx.room.*
-import pro.inmost.android.visario.data.entities.ProfileData
+import pro.inmost.android.visario.data.entities.profile.ProfileData
 
 @Dao
 interface ProfileDao {

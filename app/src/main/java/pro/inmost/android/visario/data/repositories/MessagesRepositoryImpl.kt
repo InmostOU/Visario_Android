@@ -1,17 +1,15 @@
 package pro.inmost.android.visario.data.repositories
 
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.database.dao.MessagesDao
-import pro.inmost.android.visario.data.entities.MessageData
-import pro.inmost.android.visario.data.utils.launchIO
-import pro.inmost.android.visario.data.utils.toDomainMessages
-import pro.inmost.android.visario.domain.entities.Message
+import pro.inmost.android.visario.data.entities.message.MessageData
+import pro.inmost.android.visario.data.entities.message.toDomainMessages
+import pro.inmost.android.visario.data.utils.extensions.launchIO
+import pro.inmost.android.visario.domain.entities.message.Message
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
 
 class MessagesRepositoryImpl(

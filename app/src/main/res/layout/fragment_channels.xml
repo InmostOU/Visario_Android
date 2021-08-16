@@ -25,13 +25,13 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chat_list"
+            android:id="@+id/channel_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/app_bar"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/list_item_chat"/>
+            tools:listitem="@layout/list_item_channel"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_new_channel"

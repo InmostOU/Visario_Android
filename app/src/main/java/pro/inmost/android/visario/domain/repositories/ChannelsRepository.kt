@@ -1,7 +1,7 @@
 package pro.inmost.android.visario.domain.repositories
 
 import kotlinx.coroutines.flow.Flow
-import pro.inmost.android.visario.domain.entities.Channel
+import pro.inmost.android.visario.domain.entities.channel.Channel
 
 interface ChannelsRepository {
     fun getChannels(): Flow<List<Channel>>

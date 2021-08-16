@@ -8,17 +8,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.domain.entities.Credentials
-import pro.inmost.android.visario.domain.usecases.auth.credentials.UpdateCredentialsUseCase
+import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.domain.usecases.auth.login.LoginUseCase
-import pro.inmost.android.visario.ui.screens.auth.*
+import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
+import pro.inmost.android.visario.ui.screens.auth.Validator
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
+import pro.inmost.android.visario.ui.utils.extensions.snackbar
 import pro.inmost.android.visario.ui.utils.hideKeyboard
 import pro.inmost.android.visario.ui.utils.log
-import pro.inmost.android.visario.ui.utils.snackbar
 
 
 class LoginViewModel(

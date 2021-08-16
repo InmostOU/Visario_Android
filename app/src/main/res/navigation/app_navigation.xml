@@ -62,7 +62,7 @@
             app:destination="@id/navigation_contact_edit" />
         <argument
             android:name="contact"
-            app:argType="pro.inmost.android.visario.ui.entities.ContactUI" />
+            app:argType="pro.inmost.android.visario.ui.entities.contact.ContactUI" />
     </fragment>
 
     <fragment
@@ -72,7 +72,7 @@
 
         <argument
             android:name="contact"
-            app:argType="pro.inmost.android.visario.ui.entities.ContactUI" />
+            app:argType="pro.inmost.android.visario.ui.entities.contact.ContactUI" />
     </fragment>
 
     <fragment
@@ -89,7 +89,7 @@
 
     <fragment
         android:id="@+id/navigation_account"
-        android:name="pro.inmost.android.visario.ui.screens.account.AccountFragment"
+        android:name="pro.inmost.android.visario.ui.screens.account.account.AccountFragment"
         tools:layout="@layout/fragment_account">
         <action
             android:id="@+id/action_navigation_settings_to_navigation_profile_info_edit"
@@ -110,7 +110,7 @@
 
         <fragment
             android:id="@+id/navigation_security"
-            android:name="pro.inmost.android.visario.ui.screens.account.security.SecurityFragment"
+            android:name="pro.inmost.android.visario.ui.screens.account.settings.security.SecurityFragment"
             tools:layout="@layout/fragment_security">
             <action
                 android:id="@+id/action_navigation_security_to_navigation_privacy_phone_number"
@@ -127,19 +127,19 @@
         </fragment>
         <fragment
             android:id="@+id/navigation_privacy_phone_number"
-            android:name="pro.inmost.android.visario.ui.screens.account.security.privacy.phonenumber.PhoneNumberSetupFragment"
+            android:name="pro.inmost.android.visario.ui.screens.account.settings.privacy.phonenumber.PhoneNumberSetupFragment"
             tools:layout="@layout/fragment_privacy_phone_number" />
         <fragment
             android:id="@+id/navigation_privacy_password"
-            android:name="pro.inmost.android.visario.ui.screens.account.security.privacy.password.PasswordSetupFragment"
+            android:name="pro.inmost.android.visario.ui.screens.account.settings.privacy.password.PasswordSetupFragment"
             tools:layout="@layout/fragment_privacy_password" />
         <fragment
             android:id="@+id/navigation_privacy_email"
-            android:name="pro.inmost.android.visario.ui.screens.account.security.privacy.email.EmailSetupFragment"
+            android:name="pro.inmost.android.visario.ui.screens.account.settings.privacy.email.EmailSetupFragment"
             tools:layout="@layout/fragment_privacy_email" />
         <fragment
             android:id="@+id/navigation_privacy_birthdate"
-            android:name="pro.inmost.android.visario.ui.screens.account.security.privacy.birthdate.BirthdateSetupFragment"
+            android:name="pro.inmost.android.visario.ui.screens.account.settings.privacy.birthdate.BirthdateSetupFragment"
             tools:layout="@layout/fragment_privacy_birthdate" />
     </navigation>
 </navigation>

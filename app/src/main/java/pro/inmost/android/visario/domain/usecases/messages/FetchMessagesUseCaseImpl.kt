@@ -3,8 +3,8 @@ package pro.inmost.android.visario.domain.usecases.messages
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.isActive
-import pro.inmost.android.visario.data.utils.launchIO
-import pro.inmost.android.visario.domain.entities.Message
+import pro.inmost.android.visario.data.utils.extensions.launchIO
+import pro.inmost.android.visario.domain.entities.message.Message
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
 
 class FetchMessagesUseCaseImpl(private val repository: MessagesRepository) : FetchMessagesUseCase {

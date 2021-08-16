@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCase
-import pro.inmost.android.visario.ui.entities.ChannelUI
-import pro.inmost.android.visario.ui.entities.toUIChannels
+import pro.inmost.android.visario.ui.entities.channel.ChannelUI
+import pro.inmost.android.visario.ui.entities.channel.toUIChannels
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 
 class ChannelsViewModel(

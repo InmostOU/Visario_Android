@@ -4,24 +4,24 @@ import android.view.View
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentChannelsBinding
-import pro.inmost.android.visario.databinding.ListItemChatBinding
+import pro.inmost.android.visario.databinding.ListItemChannelBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
-import pro.inmost.android.visario.ui.entities.ChannelUI
-import pro.inmost.android.visario.ui.main.BaseFragment
-import pro.inmost.android.visario.ui.utils.navigate
+import pro.inmost.android.visario.ui.base.BaseFragment
+import pro.inmost.android.visario.ui.entities.channel.ChannelUI
+import pro.inmost.android.visario.ui.utils.extensions.navigate
 
 class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment_channels) {
     private val viewModel: ChannelsViewModel by viewModel()
     private val listAdapter =
-        GenericListAdapterWithDiffUtil<ChannelUI, ListItemChatBinding>(R.layout.list_item_chat) { chat, binding ->
+        GenericListAdapterWithDiffUtil<ChannelUI, ListItemChannelBinding>(R.layout.list_item_channel) { channel, binding ->
             binding.viewModel = viewModel
-            binding.model = chat
+            binding.model = channel
         }
 
     override var bottomNavViewVisibility: Int = View.VISIBLE
 
     override fun onCreated() {
-        binding.chatList.adapter = listAdapter
+        binding.channelList.adapter = listAdapter
         observeData()
         observeEvents()
     }

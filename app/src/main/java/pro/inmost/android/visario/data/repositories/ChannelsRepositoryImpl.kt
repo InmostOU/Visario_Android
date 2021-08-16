@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.database.dao.ChannelsDao
-import pro.inmost.android.visario.data.entities.ChannelData
-import pro.inmost.android.visario.data.utils.launchIO
-import pro.inmost.android.visario.data.utils.toDataChannel
-import pro.inmost.android.visario.data.utils.toDomainChannels
-import pro.inmost.android.visario.domain.entities.Channel
+import pro.inmost.android.visario.data.entities.channel.ChannelData
+import pro.inmost.android.visario.data.entities.channel.toDataChannel
+import pro.inmost.android.visario.data.entities.channel.toDomainChannels
+import pro.inmost.android.visario.data.utils.extensions.launchIO
+import pro.inmost.android.visario.domain.entities.channel.Channel
 import pro.inmost.android.visario.domain.repositories.ChannelsRepository
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
 

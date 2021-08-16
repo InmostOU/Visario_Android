@@ -4,10 +4,9 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi.Companion.STATUS_OK
 import pro.inmost.android.visario.data.api.dto.requests.UpdateProfileRequest
-import pro.inmost.android.visario.data.api.dto.responses.StandardResponse
 import pro.inmost.android.visario.data.api.utils.logError
 import pro.inmost.android.visario.data.api.utils.logInfo
-import pro.inmost.android.visario.data.entities.ProfileData
+import pro.inmost.android.visario.data.entities.profile.ProfileData
 import java.io.File
 
 class AccountManager(private val service: AccountService) {

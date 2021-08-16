@@ -4,8 +4,8 @@ import android.text.format.DateFormat
 import android.util.Base64
 import com.google.gson.annotations.SerializedName
 import pro.inmost.android.visario.data.api.services.Endpoints.SECRET_KEY
-import pro.inmost.android.visario.data.utils.sha256
-import pro.inmost.android.visario.data.utils.urlEncode
+import pro.inmost.android.visario.data.utils.extensions.sha256
+import pro.inmost.android.visario.data.utils.extensions.urlEncode
 import java.nio.charset.StandardCharsets.UTF_8
 import java.util.*
 import javax.crypto.Mac

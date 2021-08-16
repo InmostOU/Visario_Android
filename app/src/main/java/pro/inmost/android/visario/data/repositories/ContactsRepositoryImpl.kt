@@ -4,14 +4,14 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import pro.inmost.android.visario.data.database.dao.ContactsDao
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.api.dto.requests.EditContactRequest
-import pro.inmost.android.visario.data.utils.launchIO
-import pro.inmost.android.visario.data.utils.toDataContact
-import pro.inmost.android.visario.data.utils.toDomainContact
-import pro.inmost.android.visario.data.utils.toDomainContacts
-import pro.inmost.android.visario.domain.entities.Contact
+import pro.inmost.android.visario.data.database.dao.ContactsDao
+import pro.inmost.android.visario.data.entities.contact.toDataContact
+import pro.inmost.android.visario.data.entities.contact.toDomainContact
+import pro.inmost.android.visario.data.entities.contact.toDomainContacts
+import pro.inmost.android.visario.data.utils.extensions.launchIO
+import pro.inmost.android.visario.domain.entities.contact.Contact
 import pro.inmost.android.visario.domain.repositories.ContactsRepository
 
 class ContactsRepositoryImpl(

@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import pro.inmost.android.visario.domain.usecases.contacts.AddContactUseCase
+import pro.inmost.android.visario.data.utils.extensions.ifNotEmpty
 import pro.inmost.android.visario.domain.usecases.contacts.SearchContactsUseCase
-import pro.inmost.android.visario.ui.entities.ContactUI
-import pro.inmost.android.visario.ui.entities.toUIContacts
+import pro.inmost.android.visario.ui.entities.contact.ContactUI
+import pro.inmost.android.visario.ui.entities.contact.toUIContacts
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.ifNotEmpty
 
 class ContactsSearchViewModel(
     private val searchUseCase: SearchContactsUseCase,

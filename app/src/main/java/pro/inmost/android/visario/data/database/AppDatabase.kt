@@ -8,10 +8,10 @@ import pro.inmost.android.visario.data.database.dao.ChannelsDao
 import pro.inmost.android.visario.data.database.dao.ContactsDao
 import pro.inmost.android.visario.data.database.dao.MessagesDao
 import pro.inmost.android.visario.data.database.dao.ProfileDao
-import pro.inmost.android.visario.data.entities.ChannelData
-import pro.inmost.android.visario.data.entities.ContactData
-import pro.inmost.android.visario.data.entities.MessageData
-import pro.inmost.android.visario.data.entities.ProfileData
+import pro.inmost.android.visario.data.entities.channel.ChannelData
+import pro.inmost.android.visario.data.entities.contact.ContactData
+import pro.inmost.android.visario.data.entities.message.MessageData
+import pro.inmost.android.visario.data.entities.profile.ProfileData
 
 @Database(
     entities = [

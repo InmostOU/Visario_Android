@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.screens.account.security.SecurityViewModel" />
+            type="pro.inmost.android.visario.ui.screens.account.settings.security.SecurityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

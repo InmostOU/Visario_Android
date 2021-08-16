@@ -8,7 +8,7 @@
         <import type="android.view.View"/>
         <variable
             name="message"
-            type="pro.inmost.android.visario.ui.entities.MessageUI" />
+            type="pro.inmost.android.visario.ui.entities.message.MessageUI" />
         <variable
             name="viewModel"
             type="pro.inmost.android.visario.ui.screens.channels.messages.MessagesViewModel" />

@@ -4,7 +4,7 @@ import pro.inmost.android.visario.data.api.dto.requests.CreateChannelRequest
 import pro.inmost.android.visario.data.api.dto.responses.StandardDataResponse
 import pro.inmost.android.visario.data.api.dto.responses.StandardResponse
 import pro.inmost.android.visario.data.api.services.Endpoints
-import pro.inmost.android.visario.data.entities.ChannelData
+import pro.inmost.android.visario.data.entities.channel.ChannelData
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

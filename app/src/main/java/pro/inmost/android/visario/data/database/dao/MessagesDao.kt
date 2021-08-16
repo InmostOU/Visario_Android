@@ -2,8 +2,7 @@ package pro.inmost.android.visario.data.database.dao
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import pro.inmost.android.visario.data.entities.ChannelData
-import pro.inmost.android.visario.data.entities.MessageData
+import pro.inmost.android.visario.data.entities.message.MessageData
 
 @Dao
 interface MessagesDao {

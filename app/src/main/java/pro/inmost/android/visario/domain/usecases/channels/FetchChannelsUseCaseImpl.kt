@@ -3,9 +3,8 @@ package pro.inmost.android.visario.domain.usecases.channels
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.isActive
-import pro.inmost.android.visario.data.api.utils.logInfo
-import pro.inmost.android.visario.data.utils.launchIO
-import pro.inmost.android.visario.domain.entities.Channel
+import pro.inmost.android.visario.data.utils.extensions.launchIO
+import pro.inmost.android.visario.domain.entities.channel.Channel
 import pro.inmost.android.visario.domain.repositories.ChannelsRepository
 
 class FetchChannelsUseCaseImpl(

@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentImageResizerBinding
 import pro.inmost.android.visario.ui.utils.FilesManager
-import pro.inmost.android.visario.ui.utils.getUri
+import pro.inmost.android.visario.ui.utils.extensions.getUri
 
 class ImageResizerDialog(private val imageForCrop: Uri, val callback: (Uri) -> Unit) :
     DialogFragment(R.layout.fragment_image_resizer) {

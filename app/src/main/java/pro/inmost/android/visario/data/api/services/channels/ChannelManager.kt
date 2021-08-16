@@ -5,7 +5,7 @@ import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi.Companion.STATUS_OK
 import pro.inmost.android.visario.data.api.dto.requests.CreateChannelRequest
 import pro.inmost.android.visario.data.api.utils.logError
-import pro.inmost.android.visario.data.entities.ChannelData
+import pro.inmost.android.visario.data.entities.channel.ChannelData
 
 class ChannelManager(private val service: ChannelsService) {
 

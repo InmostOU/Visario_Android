@@ -4,11 +4,11 @@ import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentContactDetailBinding
+import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.dialogs.DeleteDialog
-import pro.inmost.android.visario.ui.entities.ContactUI
-import pro.inmost.android.visario.ui.main.BaseFragment
-import pro.inmost.android.visario.ui.utils.navigate
-import pro.inmost.android.visario.ui.utils.navigateBack
+import pro.inmost.android.visario.ui.entities.contact.ContactUI
+import pro.inmost.android.visario.ui.utils.extensions.navigate
+import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
 class ContactDetailFragment : BaseFragment<FragmentContactDetailBinding>(R.layout.fragment_contact_detail) {
     private val viewModel: ContactDetailViewModel by viewModel()

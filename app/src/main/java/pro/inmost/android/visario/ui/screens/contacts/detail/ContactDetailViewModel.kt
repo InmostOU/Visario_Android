@@ -5,11 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import pro.inmost.android.visario.domain.usecases.contacts.AddContactUseCase
 import pro.inmost.android.visario.domain.usecases.contacts.DeleteContactUseCase
 import pro.inmost.android.visario.domain.usecases.contacts.FetchContactsUseCase
-import pro.inmost.android.visario.ui.entities.ContactUI
-import pro.inmost.android.visario.ui.entities.toUIContact
+import pro.inmost.android.visario.ui.entities.contact.ContactUI
+import pro.inmost.android.visario.ui.entities.contact.toUIContact
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 
 class ContactDetailViewModel(

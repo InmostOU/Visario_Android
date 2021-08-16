@@ -1,6 +1,6 @@
 package pro.inmost.android.visario.domain.usecases.auth.login
 
-import pro.inmost.android.visario.domain.entities.Credentials
+import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.domain.repositories.AccountRepository
 
 class LoginUseCaseImpl(private val repository: AccountRepository) : LoginUseCase {

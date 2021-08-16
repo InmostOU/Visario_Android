@@ -1,7 +1,7 @@
 package pro.inmost.android.visario.domain.repositories
 
 import kotlinx.coroutines.flow.Flow
-import pro.inmost.android.visario.domain.entities.Contact
+import pro.inmost.android.visario.domain.entities.contact.Contact
 
 interface ContactsRepository {
     fun observeContacts(): Flow<List<Contact>>

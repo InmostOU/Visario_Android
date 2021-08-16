@@ -9,10 +9,13 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.domain.entities.User
+import pro.inmost.android.visario.domain.entities.user.Register
 import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCase
 import pro.inmost.android.visario.ui.screens.auth.Validator
-import pro.inmost.android.visario.ui.utils.*
+import pro.inmost.android.visario.ui.utils.DateParser
+import pro.inmost.android.visario.ui.utils.SingleLiveEvent
+import pro.inmost.android.visario.ui.utils.extensions.snackbar
+import pro.inmost.android.visario.ui.utils.hideKeyboard
 
 class RegisterViewModel(private val registrationUseCase: RegistrationUseCase) : ViewModel() {
     val validator = Validator()
@@ -51,8 +54,8 @@ class RegisterViewModel(private val registrationUseCase: RegistrationUseCase) : 
 
     }
 
-    private fun createUser(): User {
-        return User(
+    private fun createUser(): Register {
+        return Register(
             username = username.value ?: "",
             email = email.value ?: "",
             firstName = firstName.value ?: "",

@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import pro.inmost.android.visario.ui.utils.layoutInflater
+import pro.inmost.android.visario.ui.utils.extensions.layoutInflater
 
 open class GenericListAdapterWithDiffUtil<T, B : ViewDataBinding>(
     @LayoutRes private val layRes: Int,

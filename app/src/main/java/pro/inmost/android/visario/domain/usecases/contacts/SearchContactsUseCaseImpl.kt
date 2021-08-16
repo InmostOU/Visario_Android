@@ -1,6 +1,6 @@
 package pro.inmost.android.visario.domain.usecases.contacts
 
-import pro.inmost.android.visario.domain.entities.Contact
+import pro.inmost.android.visario.domain.entities.contact.Contact
 import pro.inmost.android.visario.domain.repositories.ContactsRepository
 
 class SearchContactsUseCaseImpl(private val repository: ContactsRepository) : SearchContactsUseCase {

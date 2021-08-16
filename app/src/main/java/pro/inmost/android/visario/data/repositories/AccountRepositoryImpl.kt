@@ -2,11 +2,10 @@ package pro.inmost.android.visario.data.repositories
 
 import pro.inmost.android.visario.data.database.AppDatabase
 import pro.inmost.android.visario.data.api.ChimeApi
-import pro.inmost.android.visario.data.api.ChimeApi.Companion.STATUS_OK
-import pro.inmost.android.visario.domain.entities.Credentials
+import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.data.utils.toRegistrationRequest
 import pro.inmost.android.visario.domain.repositories.AccountRepository
-import pro.inmost.android.visario.domain.entities.User
+import pro.inmost.android.visario.domain.entities.user.Register
 
 class AccountRepositoryImpl(private val chimeApi: ChimeApi) : AccountRepository {
 
@@ -27,8 +26,8 @@ class AccountRepositoryImpl(private val chimeApi: ChimeApi) : AccountRepository 
         return chimeApi.auth.logout()
     }
 
-    override suspend fun register(user: User): Result<Unit> {
-        return chimeApi.auth.register(user.toRegistrationRequest())
+    override suspend fun register(register: Register): Result<Unit> {
+        return chimeApi.auth.register(register.toRegistrationRequest())
     }
 
     override fun updateCredentials(credentials: Credentials) {

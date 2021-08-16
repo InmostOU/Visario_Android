@@ -6,9 +6,9 @@ import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentMessagesBinding
 import pro.inmost.android.visario.databinding.ListItemMessageBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
-import pro.inmost.android.visario.ui.entities.MessageUI
-import pro.inmost.android.visario.ui.main.BaseFragment
-import pro.inmost.android.visario.ui.utils.navigateBack
+import pro.inmost.android.visario.ui.base.BaseFragment
+import pro.inmost.android.visario.ui.entities.message.MessageUI
+import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
 class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment_messages) {
     private val viewModel: MessagesViewModel by viewModel()

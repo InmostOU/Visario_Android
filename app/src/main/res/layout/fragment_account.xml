@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.screens.account.AccountViewModel" />
+            type="pro.inmost.android.visario.ui.screens.account.account.AccountViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

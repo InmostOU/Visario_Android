@@ -2,7 +2,7 @@ package pro.inmost.android.visario.data.database.dao
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import pro.inmost.android.visario.data.entities.ContactData
+import pro.inmost.android.visario.data.entities.contact.ContactData
 
 @Dao
 interface ContactsDao {

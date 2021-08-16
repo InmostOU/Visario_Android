@@ -3,8 +3,8 @@ package pro.inmost.android.visario.ui.screens.contacts
 import androidx.lifecycle.*
 import pro.inmost.android.visario.domain.usecases.contacts.FetchContactsUseCase
 import pro.inmost.android.visario.domain.usecases.contacts.SearchContactsUseCase
-import pro.inmost.android.visario.ui.entities.ContactUI
-import pro.inmost.android.visario.ui.entities.toUIContacts
+import pro.inmost.android.visario.ui.entities.contact.ContactUI
+import pro.inmost.android.visario.ui.entities.contact.toUIContacts
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 
 class ContactsViewModel(

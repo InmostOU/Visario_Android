@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
 import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCase
-import pro.inmost.android.visario.ui.entities.ProfileUI
-import pro.inmost.android.visario.ui.entities.toDomainProfile
-import pro.inmost.android.visario.ui.entities.toUIProfile
+import pro.inmost.android.visario.ui.entities.profile.ProfileUI
+import pro.inmost.android.visario.ui.entities.profile.toDomainProfile
+import pro.inmost.android.visario.ui.entities.profile.toUIProfile
 import pro.inmost.android.visario.ui.utils.DateParser
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 

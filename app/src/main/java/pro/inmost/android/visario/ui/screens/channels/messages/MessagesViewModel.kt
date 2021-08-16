@@ -6,8 +6,8 @@ import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCase
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCase
-import pro.inmost.android.visario.ui.entities.MessageUI
-import pro.inmost.android.visario.ui.entities.toUIMessages
+import pro.inmost.android.visario.ui.entities.message.MessageUI
+import pro.inmost.android.visario.ui.entities.message.toUIMessages
 import pro.inmost.android.visario.ui.utils.log
 
 class MessagesViewModel(

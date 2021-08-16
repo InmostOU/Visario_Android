@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.domain.usecases.channels.CreateChannelUseCase
-import pro.inmost.android.visario.ui.entities.ChannelMode
-import pro.inmost.android.visario.ui.entities.ChannelPrivacy
-import pro.inmost.android.visario.ui.entities.ChannelUI
-import pro.inmost.android.visario.ui.entities.toDomainChannel
+import pro.inmost.android.visario.ui.entities.channel.ChannelMode
+import pro.inmost.android.visario.ui.entities.channel.ChannelPrivacy
+import pro.inmost.android.visario.ui.entities.channel.ChannelUI
+import pro.inmost.android.visario.ui.entities.channel.toDomainChannel
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 import pro.inmost.android.visario.ui.utils.log
 

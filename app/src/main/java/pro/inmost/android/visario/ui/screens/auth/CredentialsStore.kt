@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import androidx.core.content.edit
 import pro.inmost.android.visario.BuildConfig
-import pro.inmost.android.visario.domain.entities.Credentials
+import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.domain.usecases.auth.credentials.UpdateCredentialsUseCase
 import pro.inmost.android.visario.ui.utils.log
 

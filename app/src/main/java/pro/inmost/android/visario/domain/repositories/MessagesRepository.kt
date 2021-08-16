@@ -1,7 +1,7 @@
 package pro.inmost.android.visario.domain.repositories
 
 import kotlinx.coroutines.flow.Flow
-import pro.inmost.android.visario.domain.entities.Message
+import pro.inmost.android.visario.domain.entities.message.Message
 
 interface MessagesRepository {
     fun getMessages(channelUrl: String): Flow<List<Message>>

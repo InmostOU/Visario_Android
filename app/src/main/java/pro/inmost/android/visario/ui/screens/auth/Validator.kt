@@ -3,8 +3,8 @@ package pro.inmost.android.visario.ui.screens.auth
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.domain.entities.User
-import pro.inmost.android.visario.ui.utils.isValidEmail
+import pro.inmost.android.visario.data.utils.extensions.isValidEmail
+import pro.inmost.android.visario.domain.entities.user.Register
 
 class Validator {
     private val _emailInvalid = MutableLiveData<Int>()
@@ -23,10 +23,10 @@ class Validator {
     val birthdayInvalid: LiveData<Int> = _birthdayInvalid
     val passInvalid: LiveData<Int> = _passInvalid
 
-    fun validate(user: User): Boolean {
+    fun validate(register: Register): Boolean {
         var valid = true
 
-        user.apply {
+        register.apply {
             if (!email.isValidEmail()) {
                 _emailInvalid.value = R.string.invalid_email
                 valid = false
