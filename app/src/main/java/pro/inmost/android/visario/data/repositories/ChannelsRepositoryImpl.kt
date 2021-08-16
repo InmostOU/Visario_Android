@@ -1,15 +1,17 @@
 package pro.inmost.android.visario.data.repositories
 
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.isActive
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
-import pro.inmost.android.visario.data.api.utils.logInfo
 import pro.inmost.android.visario.data.database.dao.ChannelsDao
 import pro.inmost.android.visario.data.entities.ChannelData
-import pro.inmost.android.visario.data.utils.*
+import pro.inmost.android.visario.data.utils.launchIO
+import pro.inmost.android.visario.data.utils.toDataChannel
+import pro.inmost.android.visario.data.utils.toDomainChannels
 import pro.inmost.android.visario.domain.entities.Channel
 import pro.inmost.android.visario.domain.repositories.ChannelsRepository
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
@@ -48,6 +50,13 @@ class ChannelsRepositoryImpl(
             channelsDao.update(channel.toDataChannel())
         }
     }
+
+    override suspend fun create(channel: Channel): Result<Unit> {
+        return api.channels.create(channel.toDataChannel()).onSuccess {
+            launchIO { refreshData() }
+        }
+    }
+
     private fun getSavedChannels() = channelsDao.getChannelsWithMessages()
 
     private suspend fun updateDatabase(data: List<ChannelData>) {

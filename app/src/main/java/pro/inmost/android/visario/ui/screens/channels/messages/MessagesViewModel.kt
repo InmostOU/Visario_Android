@@ -1,10 +1,9 @@
-package pro.inmost.android.visario.ui.screens.chats.messages
+package pro.inmost.android.visario.ui.screens.channels.messages
 
 import android.view.View
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.domain.entities.Message
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCase
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCase
 import pro.inmost.android.visario.ui.entities.MessageUI

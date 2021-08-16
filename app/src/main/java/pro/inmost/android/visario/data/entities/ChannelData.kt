@@ -8,7 +8,7 @@ data class ChannelData(
     @PrimaryKey
     val channelArn: String,
     val name: String,
-    val mode: String?,
-    val privacy: String?,
+    val mode: String,
+    val privacy: String,
     val metadata: String?
 )

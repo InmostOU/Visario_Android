@@ -89,4 +89,15 @@
     <string name="allow">Allow</string>
     <string name="camera">Camera</string>
     <string name="crop_image">Crop image</string>
+    <string name="new_channel">New Channel</string>
+    <string name="channel_name">Channel name</string>
+    <string name="description">Description (optional)</string>
+    <string name="channel_privacy">Channel privacy</string>
+    <string name="privacy_public">Public</string>
+    <string name="privacy_private">Private</string>
+    <string name="channel_privacy_desc">Private channels aren\'t discoverable by users outside the channel. Public channels are discoverable by anyone.</string>
+    <string name="channel_mode">Channel mode</string>
+    <string name="mode_restricted">Restricted</string>
+    <string name="mode_unrestricted">Unrestricted</string>
+    <string name="channel_mode_desc">Administrators, moderators, and channel members can add themselves and other members to unrestricted channels. Only administrators and moderators can add members to restricted channels.</string>
 </resources>

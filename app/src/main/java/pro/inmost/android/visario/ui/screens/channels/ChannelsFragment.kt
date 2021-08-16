@@ -1,17 +1,17 @@
-package pro.inmost.android.visario.ui.screens.chats
+package pro.inmost.android.visario.ui.screens.channels
 
 import android.view.View
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.databinding.FragmentChatsBinding
+import pro.inmost.android.visario.databinding.FragmentChannelsBinding
 import pro.inmost.android.visario.databinding.ListItemChatBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.entities.ChannelUI
 import pro.inmost.android.visario.ui.main.BaseFragment
 import pro.inmost.android.visario.ui.utils.navigate
 
-class ChatsFragment : BaseFragment<FragmentChatsBinding>(R.layout.fragment_chats) {
-    private val viewModel: ChatsViewModel by viewModel()
+class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment_channels) {
+    private val viewModel: ChannelsViewModel by viewModel()
     private val listAdapter =
         GenericListAdapterWithDiffUtil<ChannelUI, ListItemChatBinding>(R.layout.list_item_chat) { chat, binding ->
             binding.viewModel = viewModel
@@ -28,7 +28,14 @@ class ChatsFragment : BaseFragment<FragmentChatsBinding>(R.layout.fragment_chats
 
     private fun observeEvents() {
         viewModel.onChatClick.observe(viewLifecycleOwner){
-            openChat(it)
+            openChannel(it)
+        }
+        binding.buttonNewChannel.setOnClickListener { openCreateChannelFragment() }
+    }
+
+    private fun openCreateChannelFragment() {
+        navigate {
+            ChannelsFragmentDirections.actionNavigationChatsToNavigationChannelCreate()
         }
     }
 
@@ -38,9 +45,9 @@ class ChatsFragment : BaseFragment<FragmentChatsBinding>(R.layout.fragment_chats
         }
     }
 
-    private fun openChat(channel: ChannelUI) {
+    private fun openChannel(channel: ChannelUI) {
         navigate {
-            ChatsFragmentDirections.actionNavigationChatsToNavigationMessages(
+            ChannelsFragmentDirections.actionNavigationChatsToNavigationMessages(
                 channelName = channel.name,
                 channelUrl = channel.url
             )

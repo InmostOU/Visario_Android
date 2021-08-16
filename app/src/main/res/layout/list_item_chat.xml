@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.screens.chats.ChatsViewModel" />
+            type="pro.inmost.android.visario.ui.screens.channels.ChannelsViewModel" />
         <variable
             name="model"
             type="pro.inmost.android.visario.ui.entities.ChannelUI" />

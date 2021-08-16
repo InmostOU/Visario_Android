@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.screens.chats.messages
+package pro.inmost.android.visario.ui.screens.channels.messages
 
 import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel

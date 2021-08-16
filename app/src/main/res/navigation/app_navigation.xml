@@ -7,16 +7,24 @@
 
     <fragment
         android:id="@+id/navigation_chats"
-        android:name="pro.inmost.android.visario.ui.screens.chats.ChatsFragment"
-        tools:layout="@layout/fragment_chats">
+        android:name="pro.inmost.android.visario.ui.screens.channels.ChannelsFragment"
+        tools:layout="@layout/fragment_channels">
         <action
             android:id="@+id/action_navigation_chats_to_navigation_messages"
             app:destination="@id/navigation_messages" />
+        <action
+            android:id="@+id/action_navigation_chats_to_navigation_channel_create"
+            app:destination="@id/navigation_channel_create" />
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_channel_create"
+        android:name="pro.inmost.android.visario.ui.screens.channels.create.CreateChannelFragment"
+        tools:layout="@layout/fragment_channel_create"/>
+
+    <fragment
         android:id="@+id/navigation_messages"
-        android:name="pro.inmost.android.visario.ui.screens.chats.messages.MessagesFragment"
+        android:name="pro.inmost.android.visario.ui.screens.channels.messages.MessagesFragment"
         tools:layout="@layout/fragment_messages">
 
         <argument

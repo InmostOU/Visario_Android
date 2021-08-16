@@ -4,4 +4,8 @@ data class StandardDataResponse<T>(
     val status: Int,
     val message: String,
     val data: List<T>
-)
+){
+    override fun toString(): String {
+        return "${status}: $message}"
+    }
+}

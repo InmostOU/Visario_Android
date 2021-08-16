@@ -6,13 +6,14 @@ internal object Endpoints {
     const val MESSAGES_SESSION = "/messages/messaging-session"
     const val SESSION_CONNECT = "connect"
 
-    const val GET_CURRENT_USER_PROFILE = "user/profile"
+    const val GET_CURRENT_USER_PROFILE = "/user/profile"
     const val UPDATE_PROFILE = "/user/profile/update"
 
     const val LOGIN = "auth/login"
     const val REGISTER = "auth/register"
 
-    const val CHANNEL_LIST = "channels/getChannelsMemberships"
+    const val CHANNEL_LIST = "/channels/getChannelsMemberships"
+    const val CHANNEL_CREATE = "/channels/create"
 
     const val GET_CONTACTS = "/contact/getAllContacts"
     const val ADD_CONTACT = "/contact/add"

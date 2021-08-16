@@ -5,7 +5,7 @@ data class ChannelUI (
     val name: String,
     val mode: ChannelMode,
     val privacy: ChannelPrivacy,
-    var messages: List<MessageUI>
+    var messages: List<MessageUI> = listOf()
 ){
     val lastMessage: String
         get() = messages.firstOrNull()?.text ?: ""

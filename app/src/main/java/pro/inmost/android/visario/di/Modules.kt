@@ -3,14 +3,15 @@ package pro.inmost.android.visario.di
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import pro.inmost.android.visario.data.database.AppDatabase
 import pro.inmost.android.visario.data.api.ChimeApi
+import pro.inmost.android.visario.data.database.AppDatabase
 import pro.inmost.android.visario.data.repositories.*
-import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.credentials.UpdateCredentialsUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.login.LoginUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.channels.CreateChannelUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.channels.UpdateChannelUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.contacts.*
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
@@ -18,16 +19,6 @@ import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImp
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCaseImpl
 import pro.inmost.android.visario.ui.dialogs.media.ImagePickerViewModel
-import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
-import pro.inmost.android.visario.ui.screens.auth.login.LoginViewModel
-import pro.inmost.android.visario.ui.screens.auth.register.RegisterViewModel
-import pro.inmost.android.visario.ui.screens.calls.CallsViewModel
-import pro.inmost.android.visario.ui.screens.chats.ChatsViewModel
-import pro.inmost.android.visario.ui.screens.chats.messages.MessagesViewModel
-import pro.inmost.android.visario.ui.screens.contacts.ContactsViewModel
-import pro.inmost.android.visario.ui.screens.contacts.detail.ContactDetailViewModel
-import pro.inmost.android.visario.ui.screens.contacts.edit.EditContactViewModel
-import pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchViewModel
 import pro.inmost.android.visario.ui.screens.account.AccountViewModel
 import pro.inmost.android.visario.ui.screens.account.edit.EditProfileViewModel
 import pro.inmost.android.visario.ui.screens.account.security.SecurityViewModel
@@ -35,6 +26,17 @@ import pro.inmost.android.visario.ui.screens.account.security.privacy.birthdate.
 import pro.inmost.android.visario.ui.screens.account.security.privacy.email.EmailSetupViewModel
 import pro.inmost.android.visario.ui.screens.account.security.privacy.password.PasswordSetupViewModel
 import pro.inmost.android.visario.ui.screens.account.security.privacy.phonenumber.PhoneNumberSetupViewModel
+import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
+import pro.inmost.android.visario.ui.screens.auth.login.LoginViewModel
+import pro.inmost.android.visario.ui.screens.auth.register.RegisterViewModel
+import pro.inmost.android.visario.ui.screens.calls.CallsViewModel
+import pro.inmost.android.visario.ui.screens.channels.ChannelsViewModel
+import pro.inmost.android.visario.ui.screens.channels.create.CreateChannelViewModel
+import pro.inmost.android.visario.ui.screens.channels.messages.MessagesViewModel
+import pro.inmost.android.visario.ui.screens.contacts.ContactsViewModel
+import pro.inmost.android.visario.ui.screens.contacts.detail.ContactDetailViewModel
+import pro.inmost.android.visario.ui.screens.contacts.edit.EditContactViewModel
+import pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchViewModel
 
 
 val appModule = module {
@@ -44,7 +46,8 @@ val appModule = module {
 }
 
 val viewModelsModule = module {
-    viewModel { ChatsViewModel(get<FetchChannelsUseCaseImpl>(), get<UpdateChannelUseCaseImpl>()) }
+    viewModel { ChannelsViewModel(get<FetchChannelsUseCaseImpl>()) }
+    viewModel { CreateChannelViewModel(get<CreateChannelUseCaseImpl>()) }
     viewModel { MessagesViewModel(get<FetchMessagesUseCaseImpl>(), get<SendMessageUseCaseImpl>()) }
     viewModel { CallsViewModel() }
 
@@ -119,6 +122,11 @@ val channelsUseCases = module {
 
     factory {
         UpdateChannelUseCaseImpl(
+            repository = get<ChannelsRepositoryImpl>()
+        )
+    }
+    factory {
+        CreateChannelUseCaseImpl(
             repository = get<ChannelsRepositoryImpl>()
         )
     }

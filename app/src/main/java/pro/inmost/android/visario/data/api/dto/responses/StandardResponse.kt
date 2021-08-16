@@ -10,6 +10,6 @@ data class StandardResponse (
 ) {
 
     override fun toString(): String {
-        return "${status};$message;$path;${DateFormat.format("dd-MM-yyyy HH:mm:ss", timestamp)}"
+        return "${status}: $message;$path;${DateFormat.format("dd-MM-yyyy HH:mm:ss", timestamp)}"
     }
 }

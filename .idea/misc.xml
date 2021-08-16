@@ -19,6 +19,8 @@
         <entry key="app/src/main/res/layout/dialog_image_picker.xml" value="0.232421875" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.19027777777777777" />
         <entry key="app/src/main/res/layout/fragment_calls.xml" value="0.20639332870048646" />
+        <entry key="app/src/main/res/layout/fragment_channel_create.xml" value="0.232421875" />
+        <entry key="app/src/main/res/layout/fragment_channels.xml" value="0.1951388888888889" />
         <entry key="app/src/main/res/layout/fragment_chats.xml" value="0.2152777777777778" />
         <entry key="app/src/main/res/layout/fragment_contact_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_contact_edit.xml" value="0.19381107491856678" />

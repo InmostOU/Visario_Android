@@ -11,7 +11,7 @@
             type="pro.inmost.android.visario.ui.entities.MessageUI" />
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.screens.chats.messages.MessagesViewModel" />
+            type="pro.inmost.android.visario.ui.screens.channels.messages.MessagesViewModel" />
     </data>
 
     <LinearLayout

@@ -26,7 +26,6 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_constraintTop_toTopOf="parent"
                 app:navigationIconTint="?attr/colorOnPrimary"
-                android:backgroundTint="?attr/colorSurface"
                 app:title="@string/edit_info"
                 app:titleTextColor="?attr/colorOnPrimary"
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_24">
@@ -38,7 +37,7 @@
                     android:src="@drawable/ic_baseline_done_24"
                     android:layout_marginEnd="8dp"
                     android:padding="8dp"
-                    app:tint="?attr/colorOnPrimary"
+                    app:tint="@color/button_enabled_tint_selector"
                     android:enabled="@{viewModel.dataValid}"
                     android:onClick="@{() -> viewModel.updateProfile()}"
                     android:layout_gravity="end"
