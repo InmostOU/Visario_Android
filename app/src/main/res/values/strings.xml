@@ -44,6 +44,7 @@
     <string name="phone">phone</string>
     <string name="open_contact_menu">Open contact menu</string>
     <string name="invite_to_channel">Invite to Channel</string>
+    <string name="add_member">Add member</string>
     <string name="delete_contact">Delete contact</string>
     <string name="block_user">Block user</string>
     <string name="not_found">Not found</string>
@@ -100,4 +101,5 @@
     <string name="mode_restricted">Restricted</string>
     <string name="mode_unrestricted">Unrestricted</string>
     <string name="channel_mode_desc">Administrators, moderators, and channel members can add themselves and other members to unrestricted channels. Only administrators and moderators can add members to restricted channels.</string>
+    <string name="leave_channel">Leave channel</string>
 </resources>

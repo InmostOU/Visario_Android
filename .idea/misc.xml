@@ -17,7 +17,7 @@
         <entry key="app/src/main/res/layout/bottom_sheet_media_chooser.xml" value="0.232421875" />
         <entry key="app/src/main/res/layout/dealog_add_contact.xml" value="0.18469055374592833" />
         <entry key="app/src/main/res/layout/dialog_image_picker.xml" value="0.232421875" />
-        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.19027777777777777" />
+        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_calls.xml" value="0.20639332870048646" />
         <entry key="app/src/main/res/layout/fragment_channel_create.xml" value="0.232421875" />
         <entry key="app/src/main/res/layout/fragment_channels.xml" value="0.1951388888888889" />
@@ -52,6 +52,7 @@
         <entry key="app/src/main/res/layout/view_splash_screen.xml" value="0.20625" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.22013888888888888" />
+        <entry key="app/src/main/res/menu/channel.xml" value="0.232421875" />
         <entry key="app/src/main/res/menu/contact_detail.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/menu/contact_detail_menu.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/menu/contact_detail_unlisted.xml" value="0.19572368421052633" />

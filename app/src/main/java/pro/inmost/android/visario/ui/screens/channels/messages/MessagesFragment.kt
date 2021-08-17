@@ -35,6 +35,15 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
 
     private fun observeEvents() {
         binding.toolbar.setNavigationOnClickListener { navigateBack() }
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            when(item.itemId){
+                R.id.menu_channel_leave -> { viewModel.leaveChannel() }
+                R.id.menu_channel_invite ->{}
+            }
+
+            true
+        }
+        viewModel.closeChannel.observe(viewLifecycleOwner){ navigateBack() }
     }
 
     private fun observeData() {

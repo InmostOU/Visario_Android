@@ -10,7 +10,10 @@ fun ChannelData.toDomainChannel(messages: List<Message>) = Channel(
     name = this.name,
     mode = this.mode,
     privacy = this.privacy,
-    messages = messages
+    messages = messages,
+    isMember = this.isMember,
+    isModerator = this.isModerator,
+    description = this.description
 )
 
 fun Channel.toChannelWithMessages(): ChannelWithMessages? {
@@ -28,7 +31,10 @@ fun Channel.toDataChannel(): ChannelData {
         name = this.name,
         mode = this.mode,
         privacy = this.privacy,
-        metadata = ""
+        metadata = "",
+        isMember = this.isMember,
+        isModerator = this.isModerator,
+        description = this.description
     )
 }
 
@@ -37,7 +43,10 @@ fun ChannelWithMessages.toDomainChannel() = Channel(
     name = channel.name,
     mode = channel.mode,
     privacy = channel.privacy,
-    messages = this.messages.toDomainMessages()
+    messages = this.messages.toDomainMessages(),
+    isMember = channel.isMember,
+    isModerator = channel.isModerator,
+    description = channel.description
 )
 
 fun List<ChannelWithMessages>.toDomainChannels() = map { it.toDomainChannel() }

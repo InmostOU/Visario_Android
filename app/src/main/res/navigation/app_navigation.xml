@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_chats"
-        android:name="pro.inmost.android.visario.ui.screens.channels.ChannelsFragment"
+        android:name="pro.inmost.android.visario.ui.screens.channels.list.ChannelsFragment"
         tools:layout="@layout/fragment_channels">
         <action
             android:id="@+id/action_navigation_chats_to_navigation_messages"

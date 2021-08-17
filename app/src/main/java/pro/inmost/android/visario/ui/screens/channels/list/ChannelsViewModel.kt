@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.screens.channels
+package pro.inmost.android.visario.ui.screens.channels.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

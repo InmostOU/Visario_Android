@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.DatePicker
 import com.google.android.material.textfield.TextInputEditText
+import pro.inmost.android.visario.ui.utils.DateParser
 import java.util.*
 
 class DatePickerEditText(
@@ -31,6 +32,7 @@ class DatePickerEditText(
 
     override fun onClick(v: View?) {
         val calendar: Calendar = Calendar.getInstance(TimeZone.getDefault())
+        calendar.timeInMillis = DateParser.parseToMillis(text.toString())
         val dialog = DatePickerDialog(
             context, this,
             calendar.get(Calendar.YEAR),
@@ -49,7 +51,7 @@ class DatePickerEditText(
                 .append("-")
                 .append(if (month + 1 < 10) "0${month+1}" else month + 1)
                 .append("-")
-                .append(if (day + 1 < 10) "0${day+1}" else day + 1)
+                .append(if (day < 10) "0${day}" else day)
         )
     }
 }

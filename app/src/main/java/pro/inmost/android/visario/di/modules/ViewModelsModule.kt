@@ -7,6 +7,7 @@ import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.channels.CreateChannelUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.contacts.*
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
@@ -15,16 +16,16 @@ import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCaseIm
 import pro.inmost.android.visario.ui.dialogs.media.ImagePickerViewModel
 import pro.inmost.android.visario.ui.screens.account.account.AccountViewModel
 import pro.inmost.android.visario.ui.screens.account.edit.EditProfileViewModel
-import pro.inmost.android.visario.ui.screens.account.settings.security.SecurityViewModel
 import pro.inmost.android.visario.ui.screens.account.settings.privacy.birthdate.BirthdateSetupViewModel
 import pro.inmost.android.visario.ui.screens.account.settings.privacy.email.EmailSetupViewModel
 import pro.inmost.android.visario.ui.screens.account.settings.privacy.password.PasswordSetupViewModel
 import pro.inmost.android.visario.ui.screens.account.settings.privacy.phonenumber.PhoneNumberSetupViewModel
+import pro.inmost.android.visario.ui.screens.account.settings.security.SecurityViewModel
 import pro.inmost.android.visario.ui.screens.auth.login.LoginViewModel
 import pro.inmost.android.visario.ui.screens.auth.register.RegisterViewModel
 import pro.inmost.android.visario.ui.screens.calls.CallsViewModel
-import pro.inmost.android.visario.ui.screens.channels.ChannelsViewModel
 import pro.inmost.android.visario.ui.screens.channels.create.CreateChannelViewModel
+import pro.inmost.android.visario.ui.screens.channels.list.ChannelsViewModel
 import pro.inmost.android.visario.ui.screens.channels.messages.MessagesViewModel
 import pro.inmost.android.visario.ui.screens.contacts.ContactsViewModel
 import pro.inmost.android.visario.ui.screens.contacts.detail.ContactDetailViewModel
@@ -34,7 +35,7 @@ import pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchViewM
 val viewModelsModule = module {
     viewModel { ChannelsViewModel(get<FetchChannelsUseCaseImpl>()) }
     viewModel { CreateChannelViewModel(get<CreateChannelUseCaseImpl>()) }
-    viewModel { MessagesViewModel(get<FetchMessagesUseCaseImpl>(), get<SendMessageUseCaseImpl>()) }
+    viewModel { MessagesViewModel(get<FetchMessagesUseCaseImpl>(), get<SendMessageUseCaseImpl>(),get<LeaveChannelUseCaseImpl>()) }
     viewModel { CallsViewModel() }
 
     viewModel { ContactsViewModel(get<FetchContactsUseCaseImpl>(), get<SearchContactsUseCaseImpl>()) }

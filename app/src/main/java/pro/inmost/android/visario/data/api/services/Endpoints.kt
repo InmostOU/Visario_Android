@@ -6,20 +6,23 @@ internal object Endpoints {
     const val MESSAGES_SESSION = "/messages/messaging-session"
     const val SESSION_CONNECT = "connect"
 
-    const val GET_CURRENT_USER_PROFILE = "/user/profile"
-    const val UPDATE_PROFILE = "/user/profile/update"
+    const val PROFILE_GET = "/user/profile"
+    const val PROFILE_UPDATE = "/user/profile/update"
 
     const val LOGIN = "auth/login"
     const val REGISTER = "auth/register"
 
     const val CHANNEL_LIST = "/channels/getChannelsMemberships"
     const val CHANNEL_CREATE = "/channels/create"
+    const val CHANNEL_LEAVE = "/channels/leaveChannel"
+    const val CHANNEL_FIND_BY_NAME = "/channels/findByName"
+    const val CHANNEL_ADD_MEMBER = "/channels/addMemberToChannel"
 
-    const val GET_CONTACTS = "/contact/getAllContacts"
-    const val ADD_CONTACT = "/contact/add"
-    const val FIND_CONTACT = "/contact/findUserByUsername"
-    const val DELETE_CONTACT = "/contact/delete"
-    const val EDIT_CONTACT = "/contact/edit"
+    const val CONTACTS_GET = "/contact/getAllContacts"
+    const val CONTACT_ADD = "/contact/add"
+    const val CONTACT_FIND = "/contact/findUserByUsername"
+    const val CONTACT_DELETE = "/contact/delete"
+    const val CONTACT_EDIT = "/contact/edit"
 
 
     const val SECRET_KEY = ""

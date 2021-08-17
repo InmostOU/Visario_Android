@@ -57,6 +57,12 @@ class ChannelsRepositoryImpl(
         }
     }
 
+    override suspend fun leave(channelUrl: String): Result<Unit> {
+        return api.channels.leave(channelUrl).onSuccess {
+            launchIO { refreshData() }
+        }
+    }
+
     private fun getSavedChannels() = channelsDao.getChannelsWithMessages()
 
     private suspend fun updateDatabase(data: List<ChannelData>) {

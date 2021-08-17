@@ -63,7 +63,6 @@ class EditProfileViewModel(
                 }
             }
         }
-
     }
 
     fun updateProfile() {

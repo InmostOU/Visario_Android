@@ -8,6 +8,7 @@ import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.channels.CreateChannelUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.channels.UpdateChannelUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.contacts.*
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
@@ -60,6 +61,11 @@ val useCases = module {
     }
     factory {
         CreateChannelUseCaseImpl(
+            repository = get<ChannelsRepositoryImpl>()
+        )
+    }
+    factory {
+        LeaveChannelUseCaseImpl(
             repository = get<ChannelsRepositoryImpl>()
         )
     }

@@ -7,5 +7,8 @@ data class Channel (
     val name: String,
     val mode: String,
     val privacy: String,
+    val description: String,
+    val isMember: Boolean,
+    val isModerator: Boolean,
     var messages: List<Message>
 )

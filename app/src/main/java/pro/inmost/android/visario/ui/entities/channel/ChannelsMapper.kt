@@ -9,7 +9,10 @@ fun Channel.toUIChannel() = ChannelUI(
     name = this.name,
     mode = ChannelMode.valueOf(this.mode),
     privacy = ChannelPrivacy.valueOf(this.privacy),
-    messages = this.messages.toUIMessages()
+    messages = this.messages.toUIMessages(),
+    isMember = this.isMember,
+    isModerator = this.isModerator,
+    description = this.description
 )
 
 fun ChannelUI.toDomainChannel() = Channel(
@@ -17,7 +20,10 @@ fun ChannelUI.toDomainChannel() = Channel(
     name = this.name,
     mode = this.mode.name,
     privacy = this.privacy.name,
-    messages = this.messages.toDomainMessages()
+    messages = this.messages.toDomainMessages(),
+    isMember = this.isMember,
+    isModerator = this.isModerator,
+    description = this.description
 )
 
 fun List<Channel>.toUIChannels() = map { it.toUIChannel() }

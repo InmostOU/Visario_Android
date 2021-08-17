@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.screens.channels
+package pro.inmost.android.visario.ui.screens.channels.list
 
 import android.view.View
 import org.koin.androidx.viewmodel.ext.android.viewModel

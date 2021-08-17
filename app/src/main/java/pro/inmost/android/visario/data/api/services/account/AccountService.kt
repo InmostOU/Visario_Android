@@ -9,9 +9,9 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface AccountService {
-    @GET(Endpoints.GET_CURRENT_USER_PROFILE)
+    @GET(Endpoints.PROFILE_GET)
     suspend fun getUserProfile(): ProfileData
 
-    @POST(Endpoints.UPDATE_PROFILE)
+    @POST(Endpoints.PROFILE_UPDATE)
     suspend fun updateProfile(@Body request: UpdateProfileRequest): StandardResponse
 }

@@ -8,5 +8,6 @@ interface ChannelsRepository {
     fun getChannel(channelUrl: String): Flow<Channel>
     suspend fun update(channel: Channel): Result<Unit>
     suspend fun create(channel: Channel): Result<Unit>
+    suspend fun leave(channelUrl: String): Result<Unit>
     suspend fun refreshData()
 }

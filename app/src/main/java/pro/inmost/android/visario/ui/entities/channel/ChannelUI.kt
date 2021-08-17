@@ -7,6 +7,9 @@ data class ChannelUI (
     val name: String,
     val mode: ChannelMode,
     val privacy: ChannelPrivacy,
+    val description: String,
+    val isMember: Boolean,
+    val isModerator: Boolean,
     var messages: List<MessageUI> = listOf()
 ){
     val lastMessage: String
