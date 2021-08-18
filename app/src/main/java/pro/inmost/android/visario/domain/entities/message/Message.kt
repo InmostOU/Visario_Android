@@ -11,5 +11,6 @@ data class Message(
     val redacted: Boolean = false,
     val lastEditedTimestamp: Long = 0,
     val fromCurrentUser: Boolean = false,
-    val read: Boolean = false
+    val readByMe: Boolean = false,
+    val status: MessageStatus = MessageStatus.SENDING
 )

@@ -28,4 +28,6 @@
     <dimen name="profile_photo_height">300dp</dimen>
     <dimen name="list_item_image_margin">6dp</dimen>
     <dimen name="bottom_camera_button_height">48dp</dimen>
+    <dimen name="register_card_margin_horizontal">16dp</dimen>
+    <dimen name="register_card_margin_vertical">46dp</dimen>
 </resources>

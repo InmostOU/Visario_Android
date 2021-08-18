@@ -12,7 +12,6 @@ import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.entities.user.Register
 import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCase
 import pro.inmost.android.visario.ui.screens.auth.Validator
-import pro.inmost.android.visario.ui.utils.DateParser
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 import pro.inmost.android.visario.ui.utils.extensions.snackbar
 import pro.inmost.android.visario.ui.utils.hideKeyboard
@@ -23,7 +22,6 @@ class RegisterViewModel(private val registrationUseCase: RegistrationUseCase) : 
     val email = MutableLiveData<String>()
     val firstName = MutableLiveData<String>()
     val lastName = MutableLiveData<String>()
-    val birthday = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val confirmPassword = MutableLiveData<String>()
 
@@ -60,7 +58,6 @@ class RegisterViewModel(private val registrationUseCase: RegistrationUseCase) : 
             email = email.value ?: "",
             firstName = firstName.value ?: "",
             lastName = lastName.value ?: "",
-            birthdate = DateParser.parseToMillis(birthday.value),
             password = password.value ?: "",
             matchingPassword = confirmPassword.value ?: ""
         )

@@ -17,5 +17,6 @@ data class MessageData(
     val senderName: String,
     val type: String,
     val fromCurrentUser: Boolean = false,
-    var read: Boolean = false
+    var readByMe: Boolean = false,
+    var status: String? = MessageDataStatus.DELIVERED
 )

@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
 import pro.inmost.android.visario.R
+import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
 
 @BindingAdapter(value = ["showError"])
 fun TextInputEditText.showError(textResId: Int) {
@@ -21,10 +22,24 @@ fun ImageView.loadImageOrPlaceholder(image: String?) {
         Glide.with(context).load(R.drawable.contact_placeholder).into(this)
     } else{
         kotlin.runCatching {
-            Glide.with(context).load(Uri.parse(image)).into(this)
+            Glide.with(context).load(image).into(this)
         }.onFailure {
             Glide.with(context).load(R.drawable.contact_placeholder).into(this)
         }
+    }
+}
+
+@BindingAdapter(value = ["messageStatusIcon"])
+fun ImageView.messageStatusIcon(status: MessageUIStatus?) {
+    val icon = when (status){
+        MessageUIStatus.SENDING -> R.drawable.ic_baseline_access_time_24
+        MessageUIStatus.DELIVERED -> R.drawable.ic_baseline_done_24
+        MessageUIStatus.FAIL -> R.drawable.ic_baseline_error_outline_24
+        MessageUIStatus.READ -> R.drawable.ic_baseline_done_all_24
+        else -> null
+    }
+    kotlin.runCatching {
+        Glide.with(context).load(icon).into(this)
     }
 }
 

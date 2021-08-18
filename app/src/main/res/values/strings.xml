@@ -8,7 +8,7 @@
     <string name="username">Username</string>
     <string name="username_lowercase">username</string>
     <string name="first_name">First name</string>
-    <string name="last_name">Last name</string>
+    <string name="last_name">Last name (optional)</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="date_of_birth_lowercase">date of birth</string>
     <string name="confirm_password">Confirm password</string>
@@ -19,7 +19,14 @@
     <string name="title_account">Account</string>
 
 
-    <string name="empty_field">Should not be empty</string>
+    <string name="empty_field">Must not be empty</string>
+    <string name="long_field">Must be a maximum of 100 characters</string>
+
+    <string name="short_pass">Must be a minimum of 6 characters</string>
+    <string name="at_least_one_char">Must be include at least 1 latin character</string>
+    <string name="at_least_one_dig">Must be include at least 1 digit</string>
+    <string name="at_least_one_special">Must be include at least 1 non-character symbol</string>
+
     <string name="password_not_confirmed">Password not confirmed</string>
     <string name="invalid_email">Invalid email</string>
     <string name="invalid_date">Invalid date</string>
@@ -102,4 +109,5 @@
     <string name="mode_unrestricted">Unrestricted</string>
     <string name="channel_mode_desc">Administrators, moderators, and channel members can add themselves and other members to unrestricted channels. Only administrators and moderators can add members to restricted channels.</string>
     <string name="leave_channel">Leave channel</string>
+    <string name="upload_failed">Upload failed</string>
 </resources>

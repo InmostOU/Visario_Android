@@ -17,7 +17,7 @@ data class ChannelUI (
     val lastMessageTime: String
         get() = messages.firstOrNull()?.createdDateFormat ?: ""
     val newMessagesCount: Int
-        get() = messages.count { it.read }
+        get() = messages.count { it.readByMe }
     val hasNewMessages: Boolean
         get() = newMessagesCount > 0
 }

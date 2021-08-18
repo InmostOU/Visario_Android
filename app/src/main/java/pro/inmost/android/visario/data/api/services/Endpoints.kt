@@ -8,6 +8,7 @@ internal object Endpoints {
 
     const val PROFILE_GET = "/user/profile"
     const val PROFILE_UPDATE = "/user/profile/update"
+    const val PROFILE_UPLOAD_PHOTO = "/user/uploadUserPhoto"
 
     const val LOGIN = "auth/login"
     const val REGISTER = "auth/register"

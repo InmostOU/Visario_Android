@@ -7,6 +7,8 @@ import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.database.dao.MessagesDao
 import pro.inmost.android.visario.data.entities.message.MessageData
+import pro.inmost.android.visario.data.entities.message.MessageDataStatus
+import pro.inmost.android.visario.data.entities.message.toDataMessage
 import pro.inmost.android.visario.data.entities.message.toDomainMessages
 import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.message.Message
@@ -18,18 +20,28 @@ class MessagesRepositoryImpl(
 ) : MessagesRepository {
 
     override fun getMessages(channelUrl: String): Flow<List<Message>> {
-        val savedMessages = dao.getChannelMessages(channelUrl).map { it.toDomainMessages() }
         launchIO { refreshData(channelUrl) }
-        return savedMessages
+        return dao.getChannelMessages(channelUrl).map { it.toDomainMessages() }
     }
 
-    override suspend fun sendMessage(channelUrl: String, text: String) = withContext(IO) {
-        api.messages.sendMessage(channelUrl, text)
+    override suspend fun sendMessage(message: Message) = withContext(IO) {
+        val data = message.toDataMessage()
+        dao.insert(data)
+        api.messages.sendMessage(data.channelArn, data.content).onSuccess {
+            data.status = MessageDataStatus.DELIVERED
+            dao.update(data)
+        }.onFailure {
+            data.status = MessageDataStatus.FAIL
+            dao.update(data)
+        }
     }
 
     private suspend fun updateDatabase(channelArn: String, messages: List<MessageData>) {
         messages.forEach {
-            if (dao.isRowIsExist(it.messageId)) it.read = true
+            if (dao.isRowIsExist(it.messageId)) {
+                it.readByMe = true
+                it.status = MessageDataStatus.DELIVERED
+            }
         }
         dao.updateChannelMessages(channelArn, messages)
     }

@@ -28,6 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         private var databaseName: String = "visario_android_db"
+        private var instance: AppDatabase? = null
 
         fun updateName(user: String) {
             databaseName = "visario_android_db_${user.hashCode()}"

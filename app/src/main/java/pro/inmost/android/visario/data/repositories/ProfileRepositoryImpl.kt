@@ -1,6 +1,8 @@
 package pro.inmost.android.visario.data.repositories
 
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.database.dao.ProfileDao
@@ -15,32 +17,26 @@ class ProfileRepositoryImpl(
     private val api: ChimeApi
 ) : ProfileRepository {
 
-    override suspend fun getProfile(): Result<Profile>{
-        val cachedProfile = withContext(IO) { profileDao.get() }
-        var result: Result<Profile>? = null
+    override suspend fun getProfile(): Flow<Profile>{
+        if (profileDao.get() == null) refresh()
+        return profileDao.getObservable().mapNotNull { it?.toDomainProfile() }
+    }
 
-        if (cachedProfile != null){
-            result = Result.success(cachedProfile.toDomainProfile())
-        } else {
-            api.user.getCurrentUserProfile().onSuccess {
-                withContext(IO) { profileDao.insert(it) }
-                result = Result.success(it.toDomainProfile())
-            }.onFailure {
-                result = Result.failure(it)
-            }
+    override suspend fun refresh() {
+        api.user.getCurrentUserProfile().onSuccess {
+            withContext(IO) { profileDao.insert(it) }
         }
-        return result ?: Result.failure(Throwable("Get profile: unknown error"))
     }
 
     override suspend fun updateProfileInfo(profile: Profile): Result<Unit> {
-        val profileData = profile.toDataProfile()
-        withContext(IO){ profileDao.update(profileData) }
-        return api.user.updateProfile(profileData)
+        return api.user.updateProfile(profile.toDataProfile()).onSuccess {
+            refresh()
+        }
     }
 
-    override suspend fun updateProfilePhoto(profile: Profile): Result<Unit> {
-        val profileForUpdate = profile.toDataProfile()
-        profileDao.update(profileForUpdate)
-        return api.user.updateProfileImage(File(profile.image))
+    override suspend fun uploadProfilePhoto(file: File): Result<Unit> {
+        return api.user.updateProfileImage(file).onSuccess {
+            refresh()
+        }
     }
 }

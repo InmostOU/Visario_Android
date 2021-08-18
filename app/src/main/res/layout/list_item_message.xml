@@ -6,6 +6,7 @@
     <data>
         <import type="android.view.Gravity" />
         <import type="android.view.View"/>
+        <import type="pro.inmost.android.visario.ui.entities.message.MessageUIStatus"/>
         <variable
             name="message"
             type="pro.inmost.android.visario.ui.entities.message.MessageUI" />
@@ -21,12 +22,13 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:minWidth="100dp"
             android:backgroundTint="@{message.fromCurrentUser ? @color/outgoing_message_bubble : @color/incoming_message_bubble}"
+            tools:backgroundTint="@color/incoming_message_bubble"
             tools:background="@drawable/shape_bg_incoming_bubble"
             android:background="@{message.fromCurrentUser ? @drawable/shape_bg_outgoing_bubble : @drawable/shape_bg_incoming_bubble}">
 
@@ -75,9 +77,10 @@
                     android:layout_height="@dimen/message_done_mark_size"
                     android:layout_marginStart="8dp"
                     android:layout_gravity="bottom"
-                    android:visibility="@{message.fromCurrentUser ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{message.fromCurrentUser ? View.VISIBLE : View.INVISIBLE}"
+                    app:messageStatusIcon="@{message.status}"
                     app:tint="?attr/colorOnSurface"
-                    android:src="@drawable/ic_baseline_done_24"/>
+                    tools:src="@drawable/ic_baseline_done_24"/>
 
             </LinearLayout>
 
@@ -97,7 +100,7 @@
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="@dimen/message_text_size" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
 
 

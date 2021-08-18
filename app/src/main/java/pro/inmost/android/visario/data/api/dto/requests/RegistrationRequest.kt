@@ -6,6 +6,5 @@ data class RegistrationRequest(
     val password: String,
     val matchingPassword: String,
     val firstName: String,
-    val lastName: String,
-    val birthday: Long
+    val lastName: String
 )

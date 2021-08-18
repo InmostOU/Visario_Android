@@ -8,7 +8,7 @@ import pro.inmost.android.visario.domain.usecases.auth.credentials.UpdateCredent
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 
 val appModule = module {
-    factory { AppDatabase.getInstance(androidApplication().applicationContext) }
+    single { AppDatabase.getInstance(androidApplication().applicationContext) }
     single { ChimeApi() }
     single { CredentialsStore(androidApplication().applicationContext, get<UpdateCredentialsUseCaseImpl>()) }
 }

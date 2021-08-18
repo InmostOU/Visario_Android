@@ -16,10 +16,10 @@ interface MessagesDao {
     @Query("SELECT * FROM messages")
     suspend fun getAll(): List<MessageData>
 
-    @Query("SELECT * FROM messages")
+    @Query("SELECT * FROM messages ORDER BY createdTimestamp DESC")
     fun getAllObservable(): Flow<List<MessageData>>
 
-    @Query("SELECT * FROM messages WHERE channelArn =:channelArn")
+    @Query("SELECT * FROM messages WHERE channelArn =:channelArn ORDER BY createdTimestamp DESC")
     fun getChannelMessages(channelArn: String): Flow<List<MessageData>>
 
     @Query("SELECT EXISTS(SELECT * FROM messages WHERE messageId = :id)")
@@ -39,7 +39,7 @@ interface MessagesDao {
 
     @Transaction
     suspend fun updateChannelMessages(channelArn: String, items: List<MessageData>){
-        delete(channelArn)
+      //  delete(channelArn)
         insert(*items.toTypedArray())
     }
 }

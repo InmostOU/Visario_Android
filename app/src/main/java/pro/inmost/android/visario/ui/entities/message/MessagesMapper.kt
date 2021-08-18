@@ -1,6 +1,7 @@
 package pro.inmost.android.visario.ui.entities.message
 
 import pro.inmost.android.visario.domain.entities.message.Message
+import pro.inmost.android.visario.domain.entities.message.MessageStatus
 
 fun MessageUI.toDomainMessage() = Message(
     messageId = this.messageId,
@@ -12,7 +13,8 @@ fun MessageUI.toDomainMessage() = Message(
     lastEditedTimestamp = this.lastEditedTimestamp,
     type = this.type,
     redacted = this.redacted,
-    fromCurrentUser = this.fromCurrentUser
+    fromCurrentUser = this.fromCurrentUser,
+    status = MessageStatus.valueOf(this.status.name)
 )
 
 fun Message.toUIMessage() = MessageUI(
@@ -25,10 +27,9 @@ fun Message.toUIMessage() = MessageUI(
     lastEditedTimestamp = this.lastEditedTimestamp,
     type = this.type,
     redacted = this.redacted,
-    fromCurrentUser = this.fromCurrentUser
+    fromCurrentUser = this.fromCurrentUser,
+    status = MessageUIStatus.valueOf(this.status.name)
 )
-
-
 
 fun List<Message>.toUIMessages() = map { it.toUIMessage() }
 fun List<MessageUI>.toDomainMessages() = map { it.toDomainMessage() }

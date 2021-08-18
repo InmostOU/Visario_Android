@@ -7,6 +7,5 @@ data class Register(
     val password: String,
     val matchingPassword: String,
     val firstName: String,
-    val lastName: String,
-    val birthdate: Long
+    val lastName: String
 )

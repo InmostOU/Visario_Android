@@ -10,11 +10,17 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.livinglifetechway.k4kotlin.core.saveFile
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.resolution
+import id.zelory.compressor.constraint.size
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentImageResizerBinding
 import pro.inmost.android.visario.ui.utils.FilesManager
+import pro.inmost.android.visario.ui.utils.extensions.biggerThan
 import pro.inmost.android.visario.ui.utils.extensions.getUri
+import java.io.File
 
 class ImageResizerDialog(private val imageForCrop: Uri, val callback: (Uri) -> Unit) :
     DialogFragment(R.layout.fragment_image_resizer) {
@@ -50,10 +56,22 @@ class ImageResizerDialog(private val imageForCrop: Uri, val callback: (Uri) -> U
         }
     }
 
-    private fun saveToFile(image: Bitmap?): Uri {
+    private suspend fun saveToFile(image: Bitmap?): Uri {
         val destFile = FilesManager.createImageFile(requireContext())
-        image?.saveFile(destFile, Bitmap.CompressFormat.PNG, 90)
-        return destFile.getUri(requireContext())
+        image?.saveFile(destFile, Bitmap.CompressFormat.JPEG, 90)
+        return if (destFile.biggerThan(5000)){
+            decreaseSize(destFile).getUri(requireContext())
+        } else {
+            destFile.getUri(requireContext())
+        }
+    }
+
+    private suspend fun decreaseSize(file: File): File {
+        return Compressor.compress(requireContext(), file) {
+            resolution(1080, 1080)
+            quality(80)
+            size(4_194_305) // 4 MB
+        }
     }
 
     private fun setResultAndClose(uri: Uri) {

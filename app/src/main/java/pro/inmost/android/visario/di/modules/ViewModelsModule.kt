@@ -35,7 +35,7 @@ import pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchViewM
 val viewModelsModule = module {
     viewModel { ChannelsViewModel(get<FetchChannelsUseCaseImpl>()) }
     viewModel { CreateChannelViewModel(get<CreateChannelUseCaseImpl>()) }
-    viewModel { MessagesViewModel(get<FetchMessagesUseCaseImpl>(), get<SendMessageUseCaseImpl>(),get<LeaveChannelUseCaseImpl>()) }
+    viewModel { MessagesViewModel(get<FetchMessagesUseCaseImpl>(), get<FetchProfileUseCaseImpl>(), get<SendMessageUseCaseImpl>(),get<LeaveChannelUseCaseImpl>()) }
     viewModel { CallsViewModel() }
 
     viewModel { ContactsViewModel(get<FetchContactsUseCaseImpl>(), get<SearchContactsUseCaseImpl>()) }

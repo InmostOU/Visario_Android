@@ -9,12 +9,14 @@ data class MessageUI(
     val senderUrl: String,
     val senderName: String,
     val createdTimestamp: Long,
-    val type: String,
-    val redacted: Boolean = false,
     val lastEditedTimestamp: Long = 0,
+    val redacted: Boolean = false,
     val fromCurrentUser: Boolean = false,
-    val read: Boolean = false
+    val readByMe: Boolean = false,
+    val type: String = "STANDARD",
+    val status: MessageUIStatus = MessageUIStatus.SENDING
 ) {
+
     val createdDateFormat: String
         get() = DateFormat.format("hh:mm", createdTimestamp).toString()
 

@@ -14,7 +14,7 @@ object FilesManager {
 
     fun createImageFile(context: Context): File {
         val timeStamp = DateFormat.format("yyyyMMdd_hh-mm-ss", System.currentTimeMillis())
-        val storageDir = File(context.cacheDir, "Photos")
+        val storageDir = File(context.filesDir, "Photos")
         if (!storageDir.exists()) storageDir.mkdirs()
 
         return File.createTempFile(

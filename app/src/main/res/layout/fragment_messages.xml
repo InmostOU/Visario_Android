@@ -83,9 +83,12 @@
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
                     android:padding="4dp"
-                    android:onClick="@{(view) -> viewModel.sendMessage(view)}"
+                    android:onClick="@{() -> viewModel.sendMessage()}"
+                    android:enabled="@{viewModel.message.length() > 0}"
+                    android:alpha="@{viewModel.message.length() > 0 ? 1.0f : 0.5f}"
+                    tools:enabled="false"
+                    app:tint="?attr/colorSecondary"
                     android:background="@android:color/transparent"
-                    android:tint="?attr/colorSecondary"
                     android:src="@drawable/ic_baseline_send_24"/>
 
             </LinearLayout>

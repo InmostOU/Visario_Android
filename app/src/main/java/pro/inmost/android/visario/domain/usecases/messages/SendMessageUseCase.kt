@@ -1,5 +1,7 @@
 package pro.inmost.android.visario.domain.usecases.messages
 
+import pro.inmost.android.visario.domain.entities.message.Message
+
 interface SendMessageUseCase {
-    suspend fun send(channel: String, message: String): Result<Unit>
+    suspend fun send(message: Message): Result<Unit>
 }

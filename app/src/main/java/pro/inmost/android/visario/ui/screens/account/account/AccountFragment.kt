@@ -47,10 +47,12 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
     }
 
     private fun openMediaPicker() {
-        checkPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA){ granted ->
+        checkPermissions(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA){ granted ->
             if (granted){
                 ImagePickerDialog.show(childFragmentManager, true){ result ->
-                    viewModel.changePhoto(result)
+                    viewModel.changePhoto(requireContext(), result)
                 }
             } else {
                 snackbarWithAction(R.string.permissions_denied){ openMediaPicker() }

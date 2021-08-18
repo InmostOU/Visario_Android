@@ -4,6 +4,7 @@ import android.widget.RadioGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
@@ -25,7 +26,7 @@ class EmailSetupViewModel(
 
     private fun loadProfile() {
         viewModelScope.launch {
-            fetchProfileUseCase.fetch().onSuccess {
+            fetchProfileUseCase.fetch().collect {
                 profile.value = it.toUIProfile()
             }
         }

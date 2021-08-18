@@ -1,11 +1,11 @@
 package pro.inmost.android.visario.data.repositories
 
-import pro.inmost.android.visario.data.database.AppDatabase
 import pro.inmost.android.visario.data.api.ChimeApi
+import pro.inmost.android.visario.data.api.dto.requests.toRegistrationRequest
+import pro.inmost.android.visario.data.database.AppDatabase
 import pro.inmost.android.visario.domain.entities.user.Credentials
-import pro.inmost.android.visario.data.utils.toRegistrationRequest
-import pro.inmost.android.visario.domain.repositories.AccountRepository
 import pro.inmost.android.visario.domain.entities.user.Register
+import pro.inmost.android.visario.domain.repositories.AccountRepository
 
 class AccountRepositoryImpl(private val chimeApi: ChimeApi) : AccountRepository {
 

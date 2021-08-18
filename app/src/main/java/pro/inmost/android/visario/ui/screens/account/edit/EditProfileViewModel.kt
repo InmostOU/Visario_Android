@@ -4,6 +4,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
 import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCase
@@ -45,15 +46,13 @@ class EditProfileViewModel(
             updateValue()
         }
     }
-
-
     val quitEvent = SingleLiveEvent<Unit>()
 
     init { loadProfile() }
 
     private fun loadProfile() {
         viewModelScope.launch {
-            fetchProfileUseCase.fetch().onSuccess { result ->
+            fetchProfileUseCase.fetch().collect { result ->
                 profile = result.toUIProfile().also {
                     firstName.value = it.firstName
                     lastName.value = it.lastName

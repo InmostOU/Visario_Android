@@ -1,6 +1,7 @@
 package pro.inmost.android.visario.data.entities.message
 
 import pro.inmost.android.visario.domain.entities.message.Message
+import pro.inmost.android.visario.domain.entities.message.MessageStatus
 
 fun Message.toDataMessage() = MessageData(
     messageId = this.messageId,
@@ -14,7 +15,8 @@ fun Message.toDataMessage() = MessageData(
     type = this.type,
     fromCurrentUser = this.fromCurrentUser,
     channelArn = this.channelUrl,
-    read = this.read
+    readByMe = this.readByMe,
+    status = this.status.name
 )
 
 fun MessageData.toDomainMessage() = Message(
@@ -28,7 +30,8 @@ fun MessageData.toDomainMessage() = Message(
     type = this.type,
     redacted = this.redacted,
     fromCurrentUser = this.fromCurrentUser,
-    read = this.read
+    readByMe = this.readByMe,
+    status = if (this.status == null ) MessageStatus.DELIVERED else MessageStatus.valueOf(this.status!!)
 )
 
 fun List<MessageData>.toDomainMessages() = map { it.toDomainMessage()}
