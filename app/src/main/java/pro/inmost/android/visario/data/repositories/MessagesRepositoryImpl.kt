@@ -13,6 +13,7 @@ import pro.inmost.android.visario.data.entities.message.toDomainMessages
 import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.message.Message
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
+import pro.inmost.android.visario.ui.utils.log
 
 class MessagesRepositoryImpl(
     private val api: ChimeApi,
@@ -27,10 +28,13 @@ class MessagesRepositoryImpl(
     override suspend fun sendMessage(message: Message) = withContext(IO) {
         val data = message.toDataMessage()
         dao.insert(data)
-        api.messages.sendMessage(data.channelArn, data.content).onSuccess {
+        log("message sending")
+        api.messages.sendMessage(data.channelArn, data).onSuccess {
+            log("message sent success")
             data.status = MessageDataStatus.DELIVERED
             dao.update(data)
         }.onFailure {
+            log("message sent failed")
             data.status = MessageDataStatus.FAIL
             dao.update(data)
         }
