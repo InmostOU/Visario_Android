@@ -7,9 +7,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import pro.inmost.android.visario.ui.entities.BaseEntity
 import pro.inmost.android.visario.ui.utils.extensions.layoutInflater
 
-open class GenericListAdapterWithDiffUtil<T, B : ViewDataBinding>(
+class GenericListAdapterWithDiffUtil<T : BaseEntity, B : ViewDataBinding>(
     @LayoutRes private val layRes: Int,
     inline val bind: (item: T, binding: B) -> Unit
 ) : ListAdapter<T, GenericViewHolder<B>>(BaseDiffUtil()) {
@@ -23,9 +24,9 @@ open class GenericListAdapterWithDiffUtil<T, B : ViewDataBinding>(
         bind(getItem(position), holder.binding)
     }
 
-    class BaseDiffUtil<E> : DiffUtil.ItemCallback<E>() {
+    class BaseDiffUtil<E : BaseEntity> : DiffUtil.ItemCallback<E>() {
         override fun areItemsTheSame(oldItem: E, newItem: E): Boolean {
-            return oldItem.toString() == newItem.toString()
+            return oldItem.baseId == newItem.baseId
         }
 
         @SuppressLint("DiffUtilEquals")

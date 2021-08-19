@@ -31,7 +31,7 @@ class CreateChannelViewModel(
         val channel = ChannelUI(
             url = "",
             name = name.value ?: "",
-            mode = if (restricted.value == true) ChannelMode.RESTRICTED else ChannelMode.UNRESTRICTED,
+            mode = if (public.value == true || restricted.value == true) ChannelMode.RESTRICTED else ChannelMode.UNRESTRICTED,
             privacy = if (public.value == true) ChannelPrivacy.PUBLIC else ChannelPrivacy.PRIVATE,
             description = description.value ?: "",
             isMember = true,

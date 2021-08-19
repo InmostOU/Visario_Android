@@ -133,6 +133,7 @@
                         android:layout_height="@dimen/login_edit_text_height"
                         android:layout_marginTop="@dimen/login_fields_margin_top"
                         android:layout_marginStart="@dimen/login_fields_margin_startEnd"
+                        app:passwordToggleEnabled="true"
                         android:layout_marginEnd="@dimen/login_fields_margin_startEnd">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -152,6 +153,7 @@
                         android:layout_height="@dimen/login_edit_text_height"
                         android:layout_marginTop="@dimen/login_fields_margin_top"
                         android:layout_marginStart="@dimen/login_fields_margin_startEnd"
+                        app:passwordToggleEnabled="true"
                         android:layout_marginEnd="@dimen/login_fields_margin_startEnd">
 
                         <com.google.android.material.textfield.TextInputEditText

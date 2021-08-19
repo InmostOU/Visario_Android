@@ -17,7 +17,6 @@ import pro.inmost.android.visario.domain.entities.channel.Channel
 import pro.inmost.android.visario.domain.entities.contact.Contact
 import pro.inmost.android.visario.domain.repositories.ChannelsRepository
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
-import pro.inmost.android.visario.ui.utils.log
 
 class ChannelsRepositoryImpl(
     private val api: ChimeApi,
@@ -68,11 +67,14 @@ class ChannelsRepositoryImpl(
 
     override suspend fun addMember(channelUrl: String, contact: Contact): Result<Unit> {
         val contactData = contact.toDataContact()
-        log("invite: channelArn: $channelUrl, contact: $contact")
         return api.channels.addMember(channelUrl, contactData.userArn)
     }
 
-    private fun getSavedChannels() = channelsDao.getChannelsWithMessages()
+    private fun getSavedChannels() = channelsDao.getChannelsWithMessages().map { data ->
+        data.sortedDescending().onEach {
+            it.messages = it.messages.sortedDescending()
+        }
+    }
 
     private suspend fun updateDatabase(data: List<ChannelData>) {
         channelsDao.fullUpdate(data)

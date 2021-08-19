@@ -12,7 +12,7 @@ fun Channel.toUIChannel() = ChannelUI(
     messages = this.messages.toUIMessages(),
     isMember = this.isMember,
     isModerator = this.isModerator,
-    description = this.description
+    description = this.description,
 )
 
 fun ChannelUI.toDomainChannel() = Channel(

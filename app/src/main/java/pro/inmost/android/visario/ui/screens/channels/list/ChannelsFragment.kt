@@ -27,10 +27,22 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
     }
 
     private fun observeEvents() {
-        viewModel.onChatClick.observe(viewLifecycleOwner){
+        viewModel.onChatClick.observe(viewLifecycleOwner) {
             openChannel(it)
         }
         binding.buttonNewChannel.setOnClickListener { openCreateChannelFragment() }
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            when(item.itemId){
+                R.id.menu_search_channels -> { openSearchChannelsFragment() }
+            }
+            true
+        }
+    }
+
+    private fun openSearchChannelsFragment() {
+        navigate {
+            ChannelsFragmentDirections.actionNavigationChatsToNavigationChannelSearch()
+        }
     }
 
     private fun openCreateChannelFragment() {
@@ -40,7 +52,7 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
     }
 
     private fun observeData() {
-        viewModel.channels.observe(viewLifecycleOwner){ list ->
+        viewModel.channels.observe(viewLifecycleOwner) { list ->
             listAdapter.submitList(list)
         }
     }

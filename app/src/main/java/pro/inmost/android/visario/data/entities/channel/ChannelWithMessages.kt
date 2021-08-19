@@ -10,5 +10,13 @@ data class ChannelWithMessages(
         parentColumn = "channelArn",
         entityColumn = "channelArn",
     )
-    val messages: List<MessageData>
-)
+    var messages: List<MessageData>
+) : Comparable<ChannelWithMessages>{
+
+    override fun compareTo(other: ChannelWithMessages): Int {
+        val lastMessageTime = kotlin.runCatching { messages.sortedDescending()[0].createdTimestamp }.getOrElse { 0 }
+        val lastMessageTime2 = kotlin.runCatching { other.messages.sortedDescending()[0].createdTimestamp }.getOrElse { 0 }
+        return lastMessageTime.compareTo(lastMessageTime2)
+    }
+
+}

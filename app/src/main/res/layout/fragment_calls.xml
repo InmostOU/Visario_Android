@@ -16,7 +16,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/title_calls"
+                app:title="@string/title_chats"
                 app:elevation="8dp"
                 app:titleTextColor="?attr/colorOnPrimary"
                 android:backgroundTint="?attr/colorSurface"/>

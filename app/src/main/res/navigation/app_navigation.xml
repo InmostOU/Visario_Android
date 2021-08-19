@@ -15,12 +15,20 @@
         <action
             android:id="@+id/action_navigation_chats_to_navigation_channel_create"
             app:destination="@id/navigation_channel_create" />
+        <action
+            android:id="@+id/action_navigation_chats_to_navigation_channel_search"
+            app:destination="@id/navigation_channel_search" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_channel_create"
         android:name="pro.inmost.android.visario.ui.screens.channels.create.CreateChannelFragment"
         tools:layout="@layout/fragment_channel_create"/>
+
+    <fragment
+        android:id="@+id/navigation_channel_search"
+        android:name="pro.inmost.android.visario.ui.screens.channels.search.SearchChannelsFragment"
+        tools:layout="@layout/fragment_channels_search"/>
 
     <fragment
         android:id="@+id/navigation_messages"

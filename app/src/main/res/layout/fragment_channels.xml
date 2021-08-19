@@ -18,8 +18,11 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/title_chats"
+                app:title="@string/title_channels"
                 app:elevation="8dp"
+                app:menu="@menu/channel_list"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
                 app:titleTextColor="?attr/colorOnPrimary" />
 
         </com.google.android.material.appbar.AppBarLayout>

@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.entities.channel
 
+import pro.inmost.android.visario.ui.entities.BaseEntity
 import pro.inmost.android.visario.ui.entities.message.MessageUI
 
 data class ChannelUI (
@@ -11,13 +12,13 @@ data class ChannelUI (
     val isMember: Boolean,
     val isModerator: Boolean,
     var messages: List<MessageUI> = listOf()
-){
+): BaseEntity(url){
     val lastMessage: String
         get() = messages.firstOrNull()?.text ?: ""
     val lastMessageTime: String
         get() = messages.firstOrNull()?.createdDateFormat ?: ""
     val newMessagesCount: Int
-        get() = messages.count { it.readByMe }
+        get() = messages.count { !it.readByMe }
     val hasNewMessages: Boolean
         get() = newMessagesCount > 0
 }

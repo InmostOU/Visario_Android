@@ -3,6 +3,7 @@ package pro.inmost.android.visario.ui.entities.contact
 import android.os.Parcelable
 import android.text.format.DateFormat
 import kotlinx.parcelize.Parcelize
+import pro.inmost.android.visario.ui.entities.BaseEntity
 import pro.inmost.android.visario.ui.utils.PROFILE_DATE_FORMAT
 
 @Parcelize
@@ -21,7 +22,7 @@ data class ContactUI(
     var favorite: Boolean = false,
     var muted: Boolean = false,
     var inMyContacts: Boolean = false
-) : Parcelable {
+): BaseEntity(url), Parcelable {
 
     val fullName get() = "$firstName $lastName"
     val phoneShowing get() = phoneNumber.isNotBlank()

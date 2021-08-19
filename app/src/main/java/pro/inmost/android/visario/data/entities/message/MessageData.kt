@@ -19,4 +19,9 @@ data class MessageData(
     val fromCurrentUser: Boolean = false,
     var readByMe: Boolean = false,
     var status: String? = MessageDataStatus.DELIVERED
-)
+): Comparable<MessageData> {
+
+    override fun compareTo(other: MessageData): Int {
+        return createdTimestamp.compareTo(other.createdTimestamp)
+    }
+}

@@ -25,7 +25,11 @@ class ChannelManager(private val service: ChannelsService) {
 
     suspend fun create(data: ChannelData): Result<Unit> = withContext(IO){
         kotlin.runCatching {
-            val request = CreateChannelRequest(data.name, data.privacy, data.mode)
+            val request = CreateChannelRequest(
+                name = data.name,
+                privacy = data.privacy,
+                mode = data.mode
+            )
             service.create(request).getResult()
         }.getOrElse {
             logError(it.message ?: "")

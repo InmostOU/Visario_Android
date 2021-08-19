@@ -72,7 +72,8 @@
                     android:layout_height="@dimen/login_edit_text_height"
                     android:layout_marginTop="@dimen/login_fields_margin_top"
                     android:layout_marginStart="@dimen/login_fields_margin_startEnd"
-                    android:layout_marginEnd="@dimen/login_fields_margin_startEnd">
+                    android:layout_marginEnd="@dimen/login_fields_margin_startEnd"
+                    app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_text_password"
