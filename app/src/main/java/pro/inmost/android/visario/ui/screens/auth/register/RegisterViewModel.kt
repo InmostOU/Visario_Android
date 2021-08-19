@@ -44,8 +44,7 @@ class RegisterViewModel(private val registrationUseCase: RegistrationUseCase) : 
             }.onSuccess {
                 _showInfoDialogAndQuit.call()
             }.onFailure {
-                val message = it.message ?: view.context.getString(R.string.unknown_error)
-                view.snackbar(message)
+                view.snackbar(R.string.register_failed)
             }
             view.isEnabled = true
         }

@@ -16,7 +16,6 @@ import pro.inmost.android.visario.ui.screens.auth.Validator
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 import pro.inmost.android.visario.ui.utils.extensions.snackbar
 import pro.inmost.android.visario.ui.utils.hideKeyboard
-import pro.inmost.android.visario.ui.utils.log
 
 
 class LoginViewModel(
@@ -51,8 +50,7 @@ class LoginViewModel(
                 updateCredentials(it)
                 _loginSuccessful.call()
             }.onFailure {
-                val message = it.message ?: view.context.getString(R.string.unknown_error)
-                view.snackbar(message)
+                view.snackbar(R.string.login_failed)
             }
             view.isEnabled = true
         }
@@ -60,7 +58,6 @@ class LoginViewModel(
     }
 
     private fun updateCredentials(credentials: Credentials) {
-        log("creds: $credentials")
         credentialsStore.saveCredentials(credentials)
     }
 }

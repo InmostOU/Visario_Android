@@ -7,6 +7,8 @@ import pro.inmost.android.visario.databinding.FragmentMessagesBinding
 import pro.inmost.android.visario.databinding.ListItemMessageBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseFragment
+import pro.inmost.android.visario.ui.dialogs.alerts.LeaveChannelDialog
+import pro.inmost.android.visario.ui.dialogs.select.contacts.ContactsSelectorDialog
 import pro.inmost.android.visario.ui.entities.message.MessageUI
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
@@ -37,13 +39,23 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
         binding.toolbar.setNavigationOnClickListener { navigateBack() }
         binding.toolbar.setOnMenuItemClickListener { item ->
             when(item.itemId){
-                R.id.menu_channel_leave -> { viewModel.leaveChannel() }
-                R.id.menu_channel_invite ->{}
+                R.id.menu_channel_leave -> { leaveChannel() }
+                R.id.menu_channel_invite ->{ showInvitationDialog(viewModel.currentChannelUrl) }
             }
 
             true
         }
         viewModel.closeChannel.observe(viewLifecycleOwner){ navigateBack() }
+    }
+
+    private fun leaveChannel(){
+        LeaveChannelDialog(requireContext()).show {
+            viewModel.leaveChannel()
+        }
+    }
+
+    private fun showInvitationDialog(channelUrl: String) {
+        ContactsSelectorDialog.show(childFragmentManager, channelUrl)
     }
 
     private fun observeData() {

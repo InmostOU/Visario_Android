@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.screens.contacts.ContactsViewModel" />
+            type="pro.inmost.android.visario.ui.screens.contacts.list.ContactsViewModel" />
         <variable
             name="model"
             type="pro.inmost.android.visario.ui.entities.contact.ContactUI" />

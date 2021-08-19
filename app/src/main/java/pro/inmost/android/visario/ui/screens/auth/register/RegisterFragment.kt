@@ -3,7 +3,7 @@ package pro.inmost.android.visario.ui.screens.auth.register
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentRegisterBinding
-import pro.inmost.android.visario.ui.dialogs.InfoDialog
+import pro.inmost.android.visario.ui.dialogs.alerts.InfoDialog
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 

@@ -22,10 +22,11 @@ class MessagesViewModel(
     private val fetchMessagesUseCase: FetchMessagesUseCase,
     private val fetchProfileUseCase: FetchProfileUseCase,
     private val sendMessageUseCase: SendMessageUseCase,
-    private val leaveChannelUseCase: LeaveChannelUseCase
+    private val leaveChannelUseCase: LeaveChannelUseCase,
 ) : ViewModel() {
     private var profile: ProfileUI? = null
-    private var currentChannelUrl: String = ""
+    var currentChannelUrl: String = ""
+        private set
     val message = MutableLiveData<String>()
     private val _closeChannel = SingleLiveEvent<Unit>()
     val closeChannel: LiveData<Unit> = _closeChannel

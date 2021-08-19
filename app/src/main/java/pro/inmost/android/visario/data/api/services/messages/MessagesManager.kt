@@ -2,7 +2,7 @@ package pro.inmost.android.visario.data.api.services.messages
 
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
-import pro.inmost.android.visario.data.api.dto.requests.MessageRequest
+import pro.inmost.android.visario.data.api.dto.requests.messages.MessageRequest
 import pro.inmost.android.visario.data.api.utils.logError
 
 class MessagesManager(

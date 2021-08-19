@@ -3,6 +3,7 @@ package pro.inmost.android.visario.ui.utils.extensions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import com.google.android.material.snackbar.Snackbar
 
@@ -28,6 +29,14 @@ fun View.gone() {
 
 fun View.visibility(visible: Boolean){
     visibility = if (visible) View.VISIBLE else View.GONE
+}
+
+fun View.toast(msg: String) {
+    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+}
+
+fun View.toast(textResId: Int) {
+    Toast.makeText(context, context.getString(textResId), Toast.LENGTH_SHORT).show()
 }
 
 val View.layoutInflater: LayoutInflater get() = LayoutInflater.from(context)

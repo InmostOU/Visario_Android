@@ -8,7 +8,7 @@ import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentAccountBinding
 import pro.inmost.android.visario.ui.activities.MainActivity
 import pro.inmost.android.visario.ui.base.BaseFragment
-import pro.inmost.android.visario.ui.dialogs.media.ImagePickerDialog
+import pro.inmost.android.visario.ui.dialogs.select.media.ImageSelectorDialog
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
 import pro.inmost.android.visario.ui.utils.extensions.checkPermissions
 import pro.inmost.android.visario.ui.utils.extensions.navigate
@@ -51,7 +51,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA){ granted ->
             if (granted){
-                ImagePickerDialog.show(childFragmentManager, true){ result ->
+                ImageSelectorDialog.show(childFragmentManager, true){ result ->
                     viewModel.changePhoto(requireContext(), result)
                 }
             } else {

@@ -110,4 +110,11 @@
     <string name="channel_mode_desc">Administrators, moderators, and channel members can add themselves and other members to unrestricted channels. Only administrators and moderators can add members to restricted channels.</string>
     <string name="leave_channel">Leave channel</string>
     <string name="upload_failed">Upload failed</string>
+    <string name="select_contacts">Select contacts</string>
+    <string name="invite">Invite</string>
+    <string name="invitation_failed">Invitation failed</string>
+    <string name="leave">Leave</string>
+    <string name="dialog_message_leave_channel">Are you sure you want to leave and remove the channel?</string>
+    <string name="login_failed">Login failed</string>
+    <string name="register_failed">Register failed</string>
 </resources>

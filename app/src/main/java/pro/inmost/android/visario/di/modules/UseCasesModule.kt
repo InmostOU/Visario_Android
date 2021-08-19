@@ -6,10 +6,7 @@ import pro.inmost.android.visario.domain.usecases.auth.credentials.UpdateCredent
 import pro.inmost.android.visario.domain.usecases.auth.login.LoginUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.channels.CreateChannelUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.channels.UpdateChannelUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.channels.*
 import pro.inmost.android.visario.domain.usecases.contacts.*
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
@@ -70,6 +67,11 @@ val useCases = module {
         )
     }
 
+    factory {
+        AddMemberToChannelUseCaseImpl(
+            repository = get<ChannelsRepositoryImpl>()
+        )
+    }
 
     // ACCOUNT
     factory {

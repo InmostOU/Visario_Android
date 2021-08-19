@@ -1,9 +1,9 @@
 package pro.inmost.android.visario.data.api.services.messages
 
-import pro.inmost.android.visario.data.api.dto.requests.MessageRequest
-import pro.inmost.android.visario.data.api.dto.responses.StandardDataResponse
+import pro.inmost.android.visario.data.api.dto.requests.messages.MessageRequest
+import pro.inmost.android.visario.data.api.dto.responses.base.BaseDataResponse
+import pro.inmost.android.visario.data.api.dto.responses.base.BaseResponse
 import pro.inmost.android.visario.data.api.services.Endpoints
-import pro.inmost.android.visario.data.api.dto.responses.StandardResponse
 import pro.inmost.android.visario.data.entities.message.MessageData
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -14,10 +14,10 @@ interface MessagingService {
     @GET(Endpoints.MESSAGE_LIST)
     suspend fun getMessages(
         @Query("channelArn") channelArn: String
-    ): StandardDataResponse<MessageData>
+    ): BaseDataResponse<List<MessageData>>
 
     @POST(Endpoints.MESSAGE_SEND)
     suspend fun sendMessage(
         @Body body: MessageRequest
-    ): StandardResponse
+    ): BaseResponse
 }

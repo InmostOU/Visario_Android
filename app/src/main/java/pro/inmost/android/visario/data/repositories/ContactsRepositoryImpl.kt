@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
-import pro.inmost.android.visario.data.api.dto.requests.EditContactRequest
+import pro.inmost.android.visario.data.api.dto.requests.contacts.EditContactRequest
 import pro.inmost.android.visario.data.database.dao.ContactsDao
 import pro.inmost.android.visario.data.entities.contact.toDataContact
 import pro.inmost.android.visario.data.entities.contact.toDomainContact

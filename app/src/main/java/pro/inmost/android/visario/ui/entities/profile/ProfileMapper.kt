@@ -28,7 +28,7 @@ fun Profile.toUIProfile() = ProfileUI(
     phoneNumber = phoneNumber,
     image = image,
     email = email,
-    showEmailTo = AllowedProfileViewers.valueOf(showEmailTo),
-    showPhoneNumberTo = AllowedProfileViewers.valueOf(showPhoneNumberTo),
+    showEmailTo = kotlin.runCatching { AllowedProfileViewers.valueOf(showEmailTo) }.getOrElse { AllowedProfileViewers.EVERYONE },
+    showPhoneNumberTo = kotlin.runCatching { AllowedProfileViewers.valueOf(showPhoneNumberTo) }.getOrElse { AllowedProfileViewers.EVERYONE },
     showBirthdateTo = AllowedProfileViewers.EVERYONE
 )

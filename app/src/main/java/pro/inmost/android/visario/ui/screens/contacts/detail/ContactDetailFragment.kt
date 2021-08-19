@@ -5,7 +5,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentContactDetailBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
-import pro.inmost.android.visario.ui.dialogs.DeleteDialog
+import pro.inmost.android.visario.ui.dialogs.alerts.DeleteDialog
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 import pro.inmost.android.visario.ui.utils.extensions.navigate
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack

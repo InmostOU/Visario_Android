@@ -11,10 +11,13 @@ import pro.inmost.android.visario.data.database.dao.ChannelsDao
 import pro.inmost.android.visario.data.entities.channel.ChannelData
 import pro.inmost.android.visario.data.entities.channel.toDataChannel
 import pro.inmost.android.visario.data.entities.channel.toDomainChannels
+import pro.inmost.android.visario.data.entities.contact.toDataContact
 import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.channel.Channel
+import pro.inmost.android.visario.domain.entities.contact.Contact
 import pro.inmost.android.visario.domain.repositories.ChannelsRepository
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
+import pro.inmost.android.visario.ui.utils.log
 
 class ChannelsRepositoryImpl(
     private val api: ChimeApi,
@@ -61,6 +64,12 @@ class ChannelsRepositoryImpl(
         return api.channels.leave(channelUrl).onSuccess {
             launchIO { refreshData() }
         }
+    }
+
+    override suspend fun addMember(channelUrl: String, contact: Contact): Result<Unit> {
+        val contactData = contact.toDataContact()
+        log("invite: channelArn: $channelUrl, contact: $contact")
+        return api.channels.addMember(channelUrl, contactData.userArn)
     }
 
     private fun getSavedChannels() = channelsDao.getChannelsWithMessages()

@@ -9,7 +9,7 @@
             type="android.net.Uri" />
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.dialogs.media.ImagePickerViewModel" />
+            type="pro.inmost.android.visario.ui.dialogs.select.media.ImageSelectorViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

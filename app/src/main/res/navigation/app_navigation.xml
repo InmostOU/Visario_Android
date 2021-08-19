@@ -42,7 +42,7 @@
 
     <fragment
         android:id="@+id/navigation_contacts"
-        android:name="pro.inmost.android.visario.ui.screens.contacts.ContactsFragment"
+        android:name="pro.inmost.android.visario.ui.screens.contacts.list.ContactsFragment"
         tools:layout="@layout/fragment_contacts">
         <action
             android:id="@+id/action_navigation_contacts_to_navigation_contacts_search"
