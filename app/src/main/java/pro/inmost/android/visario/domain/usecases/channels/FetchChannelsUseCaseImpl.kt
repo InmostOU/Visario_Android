@@ -24,4 +24,8 @@ class FetchChannelsUseCaseImpl(
     override fun getChannel(channel: String): Flow<Channel> {
         return repository.getChannel(channel)
     }
+
+    override suspend fun search(channel: String): List<Channel> {
+        return repository.search(channel)
+    }
 }

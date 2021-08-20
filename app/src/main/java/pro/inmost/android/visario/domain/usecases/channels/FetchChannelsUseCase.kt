@@ -6,4 +6,5 @@ import pro.inmost.android.visario.domain.entities.channel.Channel
 interface FetchChannelsUseCase {
     fun getChannels(): Flow<List<Channel>>
     fun getChannel(channel: String): Flow<Channel>
+    suspend fun search(channel: String): List<Channel>
 }

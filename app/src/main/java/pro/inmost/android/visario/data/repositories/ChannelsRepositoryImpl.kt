@@ -11,6 +11,7 @@ import pro.inmost.android.visario.data.database.dao.ChannelsDao
 import pro.inmost.android.visario.data.entities.channel.ChannelData
 import pro.inmost.android.visario.data.entities.channel.toDataChannel
 import pro.inmost.android.visario.data.entities.channel.toDomainChannels
+import pro.inmost.android.visario.data.entities.channel.toDomainChannelsWithoutMessages
 import pro.inmost.android.visario.data.entities.contact.toDataContact
 import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.channel.Channel
@@ -37,6 +38,13 @@ class ChannelsRepositoryImpl(
             }
             updateDatabase(data)
         }
+    }
+
+    override suspend fun search(channel: String): List<Channel> {
+        api.channels.search(channel).onSuccess {
+            return it.toDomainChannelsWithoutMessages()
+        }
+        return emptyList()
     }
 
     override fun getChannel(channelUrl: String) = flow {

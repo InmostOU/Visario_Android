@@ -12,4 +12,5 @@ interface ChannelsRepository {
     suspend fun leave(channelUrl: String): Result<Unit>
     suspend fun addMember(channelUrl: String, contact: Contact): Result<Unit>
     suspend fun refreshData()
+    suspend fun search(channel: String): List<Channel>
 }

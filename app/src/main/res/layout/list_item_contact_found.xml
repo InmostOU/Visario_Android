@@ -34,7 +34,8 @@
                 android:layout_height="@dimen/chat_image_size"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                app:loadImageOrPlaceholder="@{model.image}"
+                app:shapeAppearanceOverlay="@style/CircleImage"
+                app:loadContactImage="@{model.image}"
                 tools:src="@drawable/contact_placeholder"
                 android:contentDescription="@string/user_image" />
 

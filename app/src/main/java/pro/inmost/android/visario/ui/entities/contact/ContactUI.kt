@@ -22,7 +22,7 @@ data class ContactUI(
     var favorite: Boolean = false,
     var muted: Boolean = false,
     var inMyContacts: Boolean = false
-): BaseEntity(url), Parcelable {
+): BaseEntity, Parcelable {
 
     val fullName get() = "$firstName $lastName"
     val phoneShowing get() = phoneNumber.isNotBlank()
@@ -33,4 +33,7 @@ data class ContactUI(
 
     val birthdateFormat: String
         get() = DateFormat.format(PROFILE_DATE_FORMAT, birthdate).toString()
+
+    override val baseId: String
+        get() = url
 }

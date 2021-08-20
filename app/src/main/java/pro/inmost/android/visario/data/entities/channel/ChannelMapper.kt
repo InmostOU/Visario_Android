@@ -51,3 +51,4 @@ fun ChannelWithMessages.toDomainChannel() = Channel(
 
 fun List<ChannelWithMessages>.toDomainChannels() = map { it.toDomainChannel() }
 fun List<Channel>.toChannelsWithMessages() = map { it.toChannelWithMessages() }
+fun List<ChannelData>.toDomainChannelsWithoutMessages() = map { it.toDomainChannel(listOf()) }

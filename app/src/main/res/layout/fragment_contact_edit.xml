@@ -62,7 +62,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:shapeAppearanceOverlay="@style/CircleImage"
-            app:loadImageOrPlaceholder="@{viewModel.contact.image}"
+            app:loadContactImage="@{viewModel.contact.image}"
             tools:srcCompat="@drawable/contact_placeholder"/>
 
 

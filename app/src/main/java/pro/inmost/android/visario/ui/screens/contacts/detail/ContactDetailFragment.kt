@@ -51,7 +51,7 @@ class ContactDetailFragment : BaseFragment<FragmentContactDetailBinding>(R.layou
 
     private fun deleteContact(contact: ContactUI) {
         DeleteDialog(requireContext(), getString(R.string.delete_contact_confirm)).show {
-            viewModel.deleteContact(contact.username)
+            viewModel.deleteContact(contact.id)
         }
     }
 

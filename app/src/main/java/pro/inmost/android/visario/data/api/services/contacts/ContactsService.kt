@@ -1,6 +1,7 @@
 package pro.inmost.android.visario.data.api.services.contacts
 
-import pro.inmost.android.visario.data.api.dto.requests.contacts.AddDeleteContactRequest
+import pro.inmost.android.visario.data.api.dto.requests.contacts.AddContactRequest
+import pro.inmost.android.visario.data.api.dto.requests.contacts.DeleteContactRequest
 import pro.inmost.android.visario.data.api.dto.requests.contacts.EditContactRequest
 import pro.inmost.android.visario.data.api.dto.responses.base.BaseDataResponse
 import pro.inmost.android.visario.data.api.dto.responses.base.BaseResponse
@@ -17,13 +18,13 @@ interface ContactsService {
     suspend fun getContacts(): BaseDataResponse<List<ContactData>>
 
     @POST(Endpoints.CONTACT_ADD)
-    suspend fun addContact(@Body request: AddDeleteContactRequest): BaseResponse
+    suspend fun addContact(@Body request: AddContactRequest): BaseResponse
 
     @GET(Endpoints.CONTACT_FIND)
     suspend fun search(@Query("username") username: String): BaseDataResponse<List<ContactData>>
 
     @POST(Endpoints.CONTACT_DELETE)
-    suspend fun deleteContact(@Body request: AddDeleteContactRequest): BaseResponse
+    suspend fun deleteContact(@Body request: DeleteContactRequest): BaseResponse
 
     @POST(Endpoints.CONTACT_EDIT)
     suspend fun editContact(@Body request: EditContactRequest): BaseResponse

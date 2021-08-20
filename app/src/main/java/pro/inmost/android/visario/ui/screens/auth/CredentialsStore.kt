@@ -20,12 +20,12 @@ class CredentialsStore(context: Context, private val updateCredentialsUseCase: U
             currentUser = getCurrentUser(),
             accessToken = getAccessToken(),
             refreshToken = getRefreshToken()
-        )
+        ).also {
+            log("credentials: $it")
+        }
     }
 
     fun saveCredentials(credentials: Credentials){
-        log("credentials: $credentials")
-
         credentials.apply {
             saveAccessToken(accessToken)
             saveRefreshToken(refreshToken)

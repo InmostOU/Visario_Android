@@ -27,4 +27,5 @@ data class ProfileUI(
 
     val birthdateFormat: String
         get() = DateFormat.format(PROFILE_DATE_FORMAT, birthdate).toString()
+
 }

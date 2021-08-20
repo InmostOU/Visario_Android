@@ -62,9 +62,9 @@ class ContactDetailViewModel(
         _openEditContactEvent.value = contact.value
     }
 
-    fun deleteContact(username: String) {
+    fun deleteContact(id: Int) {
         viewModelScope.launch {
-            deleteContactsUseCase.delete(username).onSuccess {
+            deleteContactsUseCase.delete(id).onSuccess {
                 _closeFragmentEvent.call()
             }
         }

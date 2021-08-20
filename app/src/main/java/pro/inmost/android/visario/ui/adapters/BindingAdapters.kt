@@ -4,6 +4,7 @@ import android.net.Uri
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
 import pro.inmost.android.visario.R
@@ -16,16 +17,16 @@ fun TextInputEditText.showError(textResId: Int) {
     }
 }
 
-@BindingAdapter(value = ["loadImageOrPlaceholder"])
-fun ImageView.loadImageOrPlaceholder(image: String?) {
-    if (image.isNullOrBlank()){
+@BindingAdapter(value = ["loadContactImage"])
+fun ImageView.loadContactImage(image: String?) {
+    kotlin.runCatching {
+        Glide.with(context)
+            .load(image)
+            .placeholder(R.drawable.contact_placeholder)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .into(this)
+    }.onFailure {
         Glide.with(context).load(R.drawable.contact_placeholder).into(this)
-    } else{
-        kotlin.runCatching {
-            Glide.with(context).load(image).into(this)
-        }.onFailure {
-            Glide.with(context).load(R.drawable.contact_placeholder).into(this)
-        }
     }
 }
 

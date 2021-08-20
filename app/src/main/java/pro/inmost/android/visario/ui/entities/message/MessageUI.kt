@@ -16,11 +16,13 @@ data class MessageUI(
     val readByMe: Boolean = false,
     val type: String = "STANDARD",
     val status: MessageUIStatus = MessageUIStatus.SENDING
-): BaseEntity(messageId) {
+): BaseEntity {
 
     val createdDateFormat: String
         get() = DateFormat.format("hh:mm", createdTimestamp).toString()
 
     val editedDateFormat: String
         get() = DateFormat.format("hh:mm", lastEditedTimestamp).toString()
+    override val baseId: String
+        get() = messageId
 }

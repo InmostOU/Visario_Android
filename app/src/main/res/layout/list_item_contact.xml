@@ -36,7 +36,7 @@
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 app:shapeAppearanceOverlay="@style/CircleImage"
-                app:loadImageOrPlaceholder="@{model.image}"
+                app:loadContactImage="@{model.image}"
                 tools:src="@drawable/contact_placeholder"/>
 
             <LinearLayout

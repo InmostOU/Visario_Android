@@ -47,7 +47,7 @@
                     android:layout_height="@dimen/profile_photo_height"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    app:loadImageOrPlaceholder="@{viewModel.contact.image}"
+                    app:loadContactImage="@{viewModel.contact.image}"
                     tools:src="@drawable/einstein"
                     app:layout_collapseMode="parallax"
                     android:contentDescription="@string/contact_photo" />

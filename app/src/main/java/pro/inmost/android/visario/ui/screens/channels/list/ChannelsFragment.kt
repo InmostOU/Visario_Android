@@ -21,6 +21,7 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
     override var bottomNavViewVisibility: Int = View.VISIBLE
 
     override fun onCreated() {
+        binding.viewModel = viewModel
         binding.channelList.adapter = listAdapter
         observeData()
         observeEvents()
@@ -52,9 +53,19 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
     }
 
     private fun observeData() {
+        showProgressBar()
         viewModel.channels.observe(viewLifecycleOwner) { list ->
+            hideProgressBar()
             listAdapter.submitList(list)
         }
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBar.visibility = View.INVISIBLE
+    }
+
+    private fun showProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun openChannel(channel: ChannelUI) {

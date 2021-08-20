@@ -15,7 +15,7 @@
     <color name="surfaceColor">#F9FDFF</color>
     <color name="surfaceColorDark">#1C2F39</color>
     <color name="onSurfaceColor">#212121</color>
-    <color name="onSurfaceColorDark">#eceff1</color>
+    <color name="onSurfaceColorDark">#F4F4F4</color>
 
     <color name="primaryTextColor">#212121</color>
     <color name="primaryTextColorDark">#FDFDFD</color>

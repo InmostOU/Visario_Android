@@ -27,6 +27,7 @@ class ChannelManager(private val service: ChannelsService) {
         kotlin.runCatching {
             val request = CreateChannelRequest(
                 name = data.name,
+                description = data.description,
                 privacy = data.privacy,
                 mode = data.mode
             )

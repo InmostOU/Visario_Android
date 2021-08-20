@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.dialogs.select.contacts.ContactsSelectorViewModel" />
+            type="pro.inmost.android.visario.ui.dialogs.select.contacts.ContactsInviterViewModel" />
         <variable
             name="model"
             type="pro.inmost.android.visario.ui.entities.contact.ContactUI" />
@@ -35,7 +35,7 @@
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 app:shapeAppearanceOverlay="@style/CircleImage"
-                app:loadImageOrPlaceholder="@{model.image}"
+                app:loadContactImage="@{model.image}"
                 tools:src="@drawable/contact_placeholder"/>
 
             <LinearLayout

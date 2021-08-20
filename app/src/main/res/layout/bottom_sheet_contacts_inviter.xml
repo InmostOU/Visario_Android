@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.dialogs.select.contacts.ContactsSelectorViewModel" />
+            type="pro.inmost.android.visario.ui.dialogs.select.contacts.ContactsInviterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

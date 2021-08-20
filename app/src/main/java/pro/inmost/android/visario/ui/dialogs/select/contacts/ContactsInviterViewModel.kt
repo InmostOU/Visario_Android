@@ -1,6 +1,7 @@
 package pro.inmost.android.visario.ui.dialogs.select.contacts
 
 import android.view.View
+import android.widget.Button
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -14,7 +15,7 @@ import pro.inmost.android.visario.ui.entities.contact.toDomainContact
 import pro.inmost.android.visario.ui.entities.contact.toUIContacts
 import pro.inmost.android.visario.ui.utils.extensions.toast
 
-class ContactsSelectorViewModel(
+class ContactsInviterViewModel(
     private val fetchContactsUseCase: FetchContactsUseCase,
     private val addMemberToChannelUseCase: AddMemberToChannelUseCase
 ) : ViewModel() {
@@ -25,7 +26,9 @@ class ContactsSelectorViewModel(
     fun inviteContact(view: View,  contact: ContactUI){
         view.isEnabled = false
         viewModelScope.launch {
-            addMemberToChannelUseCase.invite(channelUrl, contact.toDomainContact()).onFailure {
+            addMemberToChannelUseCase.invite(channelUrl, contact.toDomainContact()).onSuccess {
+                (view as Button).text = view.context.getString(R.string.invited)
+            }.onFailure {
                 view.isEnabled = true
                 view.toast(R.string.invitation_failed)
             }

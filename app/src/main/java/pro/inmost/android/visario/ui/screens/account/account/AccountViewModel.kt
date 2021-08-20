@@ -46,7 +46,9 @@ class AccountViewModel(
                 phoneNumber.value = it.phoneNumber
                 birthdate.value = it.birthdateFormat
                 about.value = it.about
-                image.value = it.image
+                if (image.value != it.image) {
+                    image.value = it.image
+                }
             }
         }
     }

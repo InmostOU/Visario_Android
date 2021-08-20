@@ -2,7 +2,8 @@ package pro.inmost.android.visario.data.api.services.contacts
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import pro.inmost.android.visario.data.api.dto.requests.contacts.AddDeleteContactRequest
+import pro.inmost.android.visario.data.api.dto.requests.contacts.AddContactRequest
+import pro.inmost.android.visario.data.api.dto.requests.contacts.DeleteContactRequest
 import pro.inmost.android.visario.data.api.dto.requests.contacts.EditContactRequest
 import pro.inmost.android.visario.data.api.utils.logError
 
@@ -19,7 +20,7 @@ class ContactsManager(private val service: ContactsService) {
 
     suspend fun addContact(username: String) = withContext(Dispatchers.IO){
         kotlin.runCatching {
-            service.addContact(AddDeleteContactRequest(username)).getResult()
+            service.addContact(AddContactRequest(username)).getResult()
         }.getOrElse  {
             logError("addContact error: " + it.message)
             Result.failure(it)
@@ -35,9 +36,9 @@ class ContactsManager(private val service: ContactsService) {
         }
     }
 
-    suspend fun deleteContact(username: String) = withContext(Dispatchers.IO){
+    suspend fun deleteContact(id: Int) = withContext(Dispatchers.IO){
         kotlin.runCatching {
-            service.deleteContact(AddDeleteContactRequest(username)).getResult()
+            service.deleteContact(DeleteContactRequest(id)).getResult()
         }.getOrElse  {
             logError("deleteContact error: " + it.message ?: "")
             Result.failure(it)
