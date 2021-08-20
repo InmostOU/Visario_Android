@@ -25,8 +25,8 @@ class AccountViewModel(
     private val fetchProfileUseCase: FetchProfileUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase
 ) : ViewModel() {
-    private val _logout = SingleLiveEvent<Unit>()
-    val logout: LiveData<Unit> = _logout
+    private val _logoutEvent = SingleLiveEvent<Unit>()
+    val logoutEvent: LiveData<Unit> = _logoutEvent
 
     val username = MutableLiveData<String>()
     val fullName = MutableLiveData<String>()
@@ -57,7 +57,7 @@ class AccountViewModel(
         credentialsStore.clear()
         viewModelScope.launch {
             logoutUseCase.logout()
-            _logout.call()
+            _logoutEvent.call()
         }
     }
 

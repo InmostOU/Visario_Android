@@ -7,7 +7,7 @@ import pro.inmost.android.visario.databinding.FragmentMessagesBinding
 import pro.inmost.android.visario.databinding.ListItemMessageBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseFragment
-import pro.inmost.android.visario.ui.dialogs.alerts.LeaveChannelDialog
+import pro.inmost.android.visario.ui.dialogs.alerts.SimpleAlertDialog
 import pro.inmost.android.visario.ui.dialogs.select.contacts.ContactsInviterDialog
 import pro.inmost.android.visario.ui.entities.message.MessageUI
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
@@ -49,7 +49,13 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     }
 
     private fun leaveChannel(){
-        LeaveChannelDialog(requireContext()).show {
+        SimpleAlertDialog(
+            requireContext(),
+            title = R.string.leave,
+            message = R.string.dialog_message_leave_channel,
+            icon = R.drawable.ic_baseline_logout_24,
+            positiveButtonText = R.string.leave
+        ).show {
             viewModel.leaveChannel()
         }
     }

@@ -8,6 +8,7 @@ import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentAccountBinding
 import pro.inmost.android.visario.ui.activities.MainActivity
 import pro.inmost.android.visario.ui.base.BaseFragment
+import pro.inmost.android.visario.ui.dialogs.alerts.SimpleAlertDialog
 import pro.inmost.android.visario.ui.dialogs.select.media.ImageSelectorDialog
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
 import pro.inmost.android.visario.ui.utils.extensions.checkPermissions
@@ -31,19 +32,30 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
     }
 
     private fun observeEvents() {
-        viewModel.logout.observe(viewLifecycleOwner){
+        viewModel.logoutEvent.observe(viewLifecycleOwner){
             authListener?.onLogout()
         }
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when(menuItem.itemId){
                 R.id.menu_profile_edit -> openEditInfoFragment()
-                R.id.menu_log_out -> viewModel.logout()
+                R.id.menu_log_out -> { logout() }
             }
             true
         }
         binding.privacyLayout.setOnClickListener { openSecurityFragment() }
 
         binding.changePhotoButton.setOnClickListener { openMediaPicker() }
+    }
+
+    private fun logout() {
+        SimpleAlertDialog(
+            requireContext(),
+            title = R.string.are_you_sure,
+            positiveButtonText = R.string.log_out,
+            icon = R.drawable.ic_baseline_logout_24
+        ).show {
+            viewModel.logout()
+        }
     }
 
     private fun openMediaPicker() {
