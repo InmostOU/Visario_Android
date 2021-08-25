@@ -26,6 +26,6 @@ internal object Endpoints {
     const val CONTACT_EDIT = "/contact/edit"
 
 
-    const val SECRET_KEY = ""
-    const val ACCESS_KEY_ID = ""
+    const val SECRET_KEY = "rNa+yYTTKX5mzLAjPtEQLa9SJ7ixPnowDdDrkyZE"
+    const val ACCESS_KEY_ID = "AKIAUBGB3I6BUMXOOWX7"
 }

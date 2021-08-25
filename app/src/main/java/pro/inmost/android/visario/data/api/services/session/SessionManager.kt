@@ -11,12 +11,11 @@ class SessionManager(private val service: SessionService) {
 
     }
 
-    private suspend fun getSessionEndpoint(): Result<String> {
+    suspend fun getSessionEndpoint(): Result<String> {
         val response = service.getMessagingSessionEndpoint()
        return if (response.url.isNotBlank()) {
             Result.success(response.url)
         } else {
-          //  Result.failure(Throwable("${response.status}: ${response.message}"))
             Result.failure(Throwable("Error"))
         }
     }

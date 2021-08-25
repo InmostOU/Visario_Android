@@ -3,6 +3,7 @@ package pro.inmost.android.visario.data.api.dto.requests.session
 import android.text.format.DateFormat
 import android.util.Base64
 import com.google.gson.annotations.SerializedName
+import pro.inmost.android.visario.data.api.services.Endpoints.ACCESS_KEY_ID
 import pro.inmost.android.visario.data.api.services.Endpoints.SECRET_KEY
 import pro.inmost.android.visario.data.utils.extensions.sha256
 import pro.inmost.android.visario.data.utils.extensions.urlEncode
@@ -16,11 +17,11 @@ data class SessionConnectRequest(
     @SerializedName("X-Amz-Algorithm")
     val algorithm: String = "HMAC-SHA256",
     @SerializedName("X-Amz-Credential")
-    var credential: String = "",
+    var credential: String = ACCESS_KEY_ID + "/" + DateFormat.format("yyyyMMdd", System.currentTimeMillis()).toString() + "/us-east-1/chime/aws4_request",
     @SerializedName("X-Amz-Date")
     val date: String = DateFormat.format("yyyyMMddTHHmmssZ", System.currentTimeMillis()).toString(),
     @SerializedName("X-Amz-Expires")
-    val expires: Int = 3600,
+    val expires: Int = 10,
     @SerializedName("X-Amz-SignedHeaders")
     val signedHeaders: String = "host",
     @SerializedName("sessionId")
@@ -30,7 +31,7 @@ data class SessionConnectRequest(
     @SerializedName("X-Amz-Signature")
     var signature: String = "",
 ) {
-    private val timestamp: String = DateFormat.format("yyyyMMdd", System.currentTimeMillis()).toString()
+    private val today: String = DateFormat.format("yyyyMMdd", System.currentTimeMillis()).toString()
 
 
     fun signAndGetRequestUrl(endpoint: String): String {
@@ -38,24 +39,29 @@ data class SessionConnectRequest(
         val service = "chime"
         val region = "us-east-1"
         val canonicalUri = "/connect"
-        val canonicalHeaders = "host:$endpoint\n"
+        val canonicalHeaders = "host:$endpoint"
         val canonicalQuery = getCanonicalQuery()
+
         val canonicalRequest = method + "\n" +
                 canonicalUri + "\n" +
                 canonicalQuery + "\n" +
                 canonicalHeaders + "\n" +
-                signedHeaders + "\n"
+                signedHeaders
+
         val stringToSign = algorithm + "\n" +
                 date + "\n" +
-                credential + "\n" +
+                today + "/" +
+                region + "/" +
+                service + "/" +
+                "aws4_request" + "\n" +
                 canonicalRequest.sha256()
-        val signingKey = getSignatureKey(SECRET_KEY, timestamp, region, service)
+        val signingKey = getSignatureKey(SECRET_KEY, today, region, service)
         signature = sign(signingKey, stringToSign)
-        return "wss://$endpoint$canonicalUri?$canonicalQuery"
+        return "wss://$endpoint$canonicalUri?$canonicalQuery&X-Amz-Signature=$signature"
     }
 
     fun signRequest(): String{
-        signature = generateSignature(SECRET_KEY, timestamp, getCanonicalQuery())
+        signature = generateSignature(SECRET_KEY, today, getCanonicalQuery())
         return signature
     }
 
