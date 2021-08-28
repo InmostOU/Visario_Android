@@ -38,13 +38,16 @@ class MessagesRepositoryImpl(
 
     private suspend fun updateDatabase(messages: List<MessageData>) {
         messages.forEach {
-            if (dao.isRowIsExist(it.messageId)) {
-                it.readByMe = true
-                it.status = MessageDataStatus.DELIVERED
-                dao.update(it)
-            } else {
-                dao.insert(it)
+            if (it.messageId != null){
+                if (dao.isRowIsExist(it.messageId)) {
+                    it.readByMe = true
+                    it.status = MessageDataStatus.DELIVERED
+                    dao.update(it)
+                } else {
+                    dao.insert(it)
+                }
             }
+
         }
     }
 

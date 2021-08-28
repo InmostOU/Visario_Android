@@ -1,12 +1,8 @@
 package pro.inmost.android.visario.ui.screens.channels.list
 
 import android.view.View
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.data.api.dto.requests.session.WebSocketClient
 import pro.inmost.android.visario.databinding.FragmentChannelsBinding
 import pro.inmost.android.visario.databinding.ListItemChannelBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
@@ -22,8 +18,6 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
             binding.model = channel
         }
 
-    private val webSocketClient: WebSocketClient by inject()
-
     override var bottomNavViewVisibility: Int = View.VISIBLE
 
     override fun onCreated() {
@@ -31,10 +25,6 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
         binding.channelList.adapter = listAdapter
         observeData()
         observeEvents()
-
-        lifecycleScope.launch {
-            webSocketClient.connect()
-        }
     }
 
     private fun observeEvents() {

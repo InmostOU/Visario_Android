@@ -30,4 +30,8 @@
     <dimen name="bottom_camera_button_height">48dp</dimen>
     <dimen name="register_card_margin_horizontal">16dp</dimen>
     <dimen name="register_card_margin_vertical">46dp</dimen>
+    <dimen name="bottom_sheet_meeting_menu_icons_size">26dp</dimen>
+    <dimen name="meeting_buttons_margin_bottom">16dp</dimen>
+    <dimen name="meeting_member_name_size">16sp</dimen>
+    <dimen name="meeting_member_avatar_size">48dp</dimen>
 </resources>

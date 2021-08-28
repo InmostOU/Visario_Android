@@ -9,4 +9,5 @@ val repositories = module {
     factory { MessagesRepositoryImpl(get(), get()) }
     factory { ContactsRepositoryImpl(get(), get()) }
     factory { ProfileRepositoryImpl(get(), get()) }
+    factory { MeetingsRepositoryImpl(get()) }
 }

@@ -11,10 +11,18 @@
         <entry key="app/src/main/res/drawable/ic_email.xml" value="0.2416988416988417" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.133984375" />
         <entry key="app/src/main/res/drawable/ic_not_found.xml" value="0.2416988416988417" />
+        <entry key="app/src/main/res/drawable/ic_outline_video_call_24.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/ic_round_person_add_alt_1_24.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/shape_bg_incoming_bubble.xml" value="0.2416988416988417" />
         <entry key="app/src/main/res/drawable/shape_circle.xml" value="0.17916666666666667" />
+        <entry key="app/src/main/res/layout-land/fragment_meeting.xml" value="0.35606820461384153" />
+        <entry key="app/src/main/res/layout-land/list_item_meeting_member.xml" value="0.3292806484295846" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2759259259259259" />
+        <entry key="app/src/main/res/layout/bottom_sheet_contacts_inviter.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/bottom_sheet_media_chooser.xml" value="0.232421875" />
+        <entry key="app/src/main/res/layout/bottom_sheet_meeting_create.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/bottom_sheet_meeting_create_menu.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/bottom_sheet_meetings_menu.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/bottom_sheet_select_contacts.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/bottom_sheet_select_image.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/dealog_add_contact.xml" value="0.18469055374592833" />
@@ -28,12 +36,18 @@
         <entry key="app/src/main/res/layout/fragment_chats.xml" value="0.2152777777777778" />
         <entry key="app/src/main/res/layout/fragment_contact_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_contact_edit.xml" value="0.19381107491856678" />
-        <entry key="app/src/main/res/layout/fragment_contacts.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/layout/fragment_contacts.xml" value="0.30512820512820515" />
         <entry key="app/src/main/res/layout/fragment_contacts_search.xml" value="0.18469055374592833" />
         <entry key="app/src/main/res/layout/fragment_detail_contact.xml" value="0.18958333333333333" />
         <entry key="app/src/main/res/layout/fragment_image_picker.xml" value="0.232421875" />
         <entry key="app/src/main/res/layout/fragment_image_resizer.xml" value="0.221484375" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.18472222222222223" />
+        <entry key="app/src/main/res/layout/fragment_meeting.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_meeting_create.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_meeting_join.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_meeting_list.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_meetings.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_meets.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_messages.xml" value="0.22972972972972974" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2152777777777778" />
         <entry key="app/src/main/res/layout/fragment_privacy_birthdate.xml" value="0.22013888888888888" />
@@ -51,6 +65,8 @@
         <entry key="app/src/main/res/layout/list_item_contact.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/layout/list_item_contact_found.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/layout/list_item_image.xml" value="0.232421875" />
+        <entry key="app/src/main/res/layout/list_item_meeting.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/list_item_meeting_member.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/list_item_message.xml" value="0.22972972972972974" />
         <entry key="app/src/main/res/layout/select_list_item_contact.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/view_app_bar.xml" value="0.18472222222222223" />
@@ -65,6 +81,8 @@
         <entry key="app/src/main/res/menu/contact_detail_unlisted.xml" value="0.19572368421052633" />
         <entry key="app/src/main/res/menu/contact_list.xml" value="0.2935185185185185" />
         <entry key="app/src/main/res/menu/contacts_menu.xml" value="0.19381107491856678" />
+        <entry key="app/src/main/res/menu/meeting.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/menu/messages_channel.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/menu/settings.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.133984375" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2326388888888889" />

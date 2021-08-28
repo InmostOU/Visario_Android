@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_chats">
+    app:startDestination="@+id/navigation_channels">
 
     <fragment
-        android:id="@+id/navigation_chats"
+        android:id="@+id/navigation_channels"
         android:name="pro.inmost.android.visario.ui.screens.channels.list.ChannelsFragment"
         tools:layout="@layout/fragment_channels">
         <action
@@ -44,9 +44,41 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_calls"
-        android:name="pro.inmost.android.visario.ui.screens.calls.CallsFragment"
-        tools:layout="@layout/fragment_calls" />
+        android:id="@+id/navigation_meetings"
+        android:name="pro.inmost.android.visario.ui.screens.meet.list.MeetingsFragment"
+        tools:layout="@layout/fragment_meeting_list" >
+        <action
+            android:id="@+id/action_navigation_meetings_to_navigation_meeting_create"
+            app:destination="@id/navigation_meeting_create" />
+        <action
+            android:id="@+id/action_navigation_meetings_to_navigation_meeting_join"
+            app:destination="@id/navigation_meeting_join" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_meeting_create"
+        android:name="pro.inmost.android.visario.ui.screens.meet.create.CreateMeetingFragment"
+        tools:layout="@layout/fragment_meeting_create" >
+        <action
+            android:id="@+id/action_navigation_meeting_create_to_navigation_meeting"
+            app:destination="@id/navigation_meeting"
+            app:popUpTo="@id/navigation_meeting_create"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_meeting_join"
+        android:name="pro.inmost.android.visario.ui.screens.meet.join.JoinMeetingFragment"
+        tools:layout="@layout/fragment_meeting_join" />
+
+    <fragment
+        android:id="@+id/navigation_meeting"
+        android:name="pro.inmost.android.visario.ui.screens.meet.meeting.MeetingFragment"
+        tools:layout="@layout/fragment_meeting" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_contacts"

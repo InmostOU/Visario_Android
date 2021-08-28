@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.utils.extensions
 
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,3 +74,6 @@ fun SearchView.onQuerySubmit(query: (String) -> Unit) {
         }
     })
 }
+
+val View.isPortraitOrientation: Boolean get() = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+val View.isLandscapeOrientation: Boolean get() = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE

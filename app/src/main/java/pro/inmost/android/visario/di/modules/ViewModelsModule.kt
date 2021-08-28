@@ -10,6 +10,8 @@ import pro.inmost.android.visario.domain.usecases.channels.CreateChannelUseCaseI
 import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.contacts.*
+import pro.inmost.android.visario.domain.usecases.meetings.CreateMeetingUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.meetings.JoinMeetingUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCaseImpl
@@ -25,15 +27,19 @@ import pro.inmost.android.visario.ui.screens.account.settings.privacy.phonenumbe
 import pro.inmost.android.visario.ui.screens.account.settings.security.SecurityViewModel
 import pro.inmost.android.visario.ui.screens.auth.login.LoginViewModel
 import pro.inmost.android.visario.ui.screens.auth.register.RegisterViewModel
-import pro.inmost.android.visario.ui.screens.calls.CallsViewModel
 import pro.inmost.android.visario.ui.screens.channels.create.CreateChannelViewModel
 import pro.inmost.android.visario.ui.screens.channels.list.ChannelsViewModel
 import pro.inmost.android.visario.ui.screens.channels.messages.MessagesViewModel
 import pro.inmost.android.visario.ui.screens.channels.search.SearchChannelsViewModel
+import pro.inmost.android.visario.ui.screens.chats.ChatsViewModel
 import pro.inmost.android.visario.ui.screens.contacts.detail.ContactDetailViewModel
 import pro.inmost.android.visario.ui.screens.contacts.edit.EditContactViewModel
 import pro.inmost.android.visario.ui.screens.contacts.list.ContactsViewModel
 import pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchViewModel
+import pro.inmost.android.visario.ui.screens.meet.create.CreateMeetingViewModel
+import pro.inmost.android.visario.ui.screens.meet.join.JoinMeetingViewModel
+import pro.inmost.android.visario.ui.screens.meet.list.MeetingsViewModel
+import pro.inmost.android.visario.ui.screens.meet.meeting.MeetingViewModel
 
 val viewModelsModule = module {
     viewModel { ChannelsViewModel(get<FetchChannelsUseCaseImpl>()) }
@@ -47,7 +53,11 @@ val viewModelsModule = module {
             get<LeaveChannelUseCaseImpl>()
         )
     }
-    viewModel { CallsViewModel() }
+    viewModel { MeetingsViewModel() }
+    viewModel { JoinMeetingViewModel(get<JoinMeetingUseCaseImpl>()) }
+    viewModel { CreateMeetingViewModel(get<CreateMeetingUseCaseImpl>()) }
+    viewModel { MeetingViewModel() }
+    viewModel { ChatsViewModel() }
 
     viewModel {
         ContactsViewModel(

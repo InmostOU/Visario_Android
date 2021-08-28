@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.VisarioApp
+import pro.inmost.android.visario.data.api.dto.requests.session.WebSocketClient
 import pro.inmost.android.visario.databinding.ActivityMainBinding
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
@@ -23,6 +24,8 @@ class MainActivity : AppCompatActivity(), AuthListener {
         (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment).navController
     }
     private val credentialsStore: CredentialsStore by inject()
+
+    private val webSocketClient: WebSocketClient by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="viewModel"
+            type="pro.inmost.android.visario.ui.screens.meet.meeting.MeetingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="?android:attr/textColorPrimary"
+            tools:title="Meeting name"
+            app:menu="@menu/meeting"
+            tools:subtitle="6 members"
+            app:navigationIconTint="?attr/colorOnSurface"
+            android:backgroundTint="@android:color/transparent"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"/>
+
+        <LinearLayout
+            android:id="@+id/members_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:orientation="vertical"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/video_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            app:backgroundTint="@color/red_600"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="@dimen/meeting_buttons_margin_bottom"
+            android:onClick="@{() -> viewModel.toggleVideo()}"
+            android:src="@{viewModel.camOn ? @drawable/ic_outline_videocam_24 : @drawable/ic_outline_videocam_off_24}"
+            tools:src="@drawable/ic_outline_videocam_24"
+            app:layout_constraintEnd_toStartOf="@id/audio_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/enabled_video" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/audio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            android:src="@{viewModel.micOn ? @drawable/ic_baseline_mic_24 : @drawable/ic_baseline_mic_off_24}"
+            tools:src="@drawable/ic_baseline_mic_24"
+            android:onClick="@{() -> viewModel.toggleMic()}"
+            android:layout_marginBottom="@dimen/meeting_buttons_margin_bottom"
+            app:backgroundTint="@color/red_600"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/enabled_audio" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/hang_up_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            android:src="@drawable/ic_round_call_end_24"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="@dimen/meeting_buttons_margin_bottom"
+            app:backgroundTint="@color/red_600"
+            app:layout_constraintStart_toEndOf="@id/audio_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/hang_up" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

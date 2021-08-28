@@ -13,6 +13,8 @@ internal object Endpoints {
     const val LOGIN = "auth/login"
     const val REGISTER = "auth/register"
 
+    const val WS_CHANNELS = "/websocket/getPresignedUrl"
+
     const val CHANNEL_LIST = "/channels/getChannelsMemberships"
     const val CHANNEL_CREATE = "/channels/create"
     const val CHANNEL_LEAVE = "/channels/leaveChannel"

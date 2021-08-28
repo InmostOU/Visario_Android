@@ -7,6 +7,7 @@
         <item name="colorPrimaryVariant">@color/primaryColorDark</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorAccent">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryColorDark</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
         <item name="colorSurface">@color/surfaceColor</item>
@@ -57,5 +58,18 @@
     </style>
     <style name="ToolbarSubtitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
         <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="CustomMaterialAlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/colorSecondary</item>
     </style>
 </resources>

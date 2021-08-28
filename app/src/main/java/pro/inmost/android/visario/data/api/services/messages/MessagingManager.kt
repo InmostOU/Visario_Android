@@ -6,7 +6,7 @@ import pro.inmost.android.visario.data.api.dto.requests.messages.SendMessageRequ
 import pro.inmost.android.visario.data.api.utils.logError
 import pro.inmost.android.visario.data.entities.message.MessageData
 
-class MessagesManager(
+class MessagingManager(
     private val service: MessagingService
 ) {
     suspend fun getMessages(channelArn: String) = withContext(IO){

@@ -53,6 +53,10 @@ android {
 
 dependencies {
 
+    // AWS Chime SDK
+    implementation(name: 'amazon-chime-sdk', ext: 'aar')
+    implementation(name: 'amazon-chime-sdk-media', ext: 'aar')
+
     // Room database
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"
@@ -83,12 +87,6 @@ dependencies {
     // DI-framework
     def koin_version = "3.1.2"
     implementation "io.insert-koin:koin-android:$koin_version"
-
-    implementation(name: 'amazon-chime-sdk', ext: 'aar')
-    implementation(name: 'amazon-chime-sdk-media', ext: 'aar')
-    implementation "uk.co.lucasweb:aws-v4-signer-java:1.3"
-    implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
-    implementation 'com.amazonaws:aws-java-sdk-chime'
 
     // WEB
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'

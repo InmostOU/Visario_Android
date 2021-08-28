@@ -1,7 +1,9 @@
 package pro.inmost.android.visario.ui.adapters
 
 import android.net.Uri
+import android.view.View
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -27,6 +29,13 @@ fun ImageView.loadContactImage(image: String?) {
             .into(this)
     }.onFailure {
         Glide.with(context).load(R.drawable.contact_placeholder).into(this)
+    }
+}
+
+@BindingAdapter(value = ["setRatio"])
+fun View.setRatio(ratio: String){
+    kotlin.runCatching {
+        (layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = ratio
     }
 }
 

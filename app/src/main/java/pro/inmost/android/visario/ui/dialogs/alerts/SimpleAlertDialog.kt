@@ -13,7 +13,7 @@ class SimpleAlertDialog(
 ) {
 
     fun show(callback: () -> Unit) {
-        val builder = MaterialAlertDialogBuilder(context)
+        val builder = MaterialAlertDialogBuilder(context, R.style.CustomMaterialAlertDialog)
             .setTitle(title)
             .setCancelable(false)
             .setPositiveButton(positiveButtonText) { dialog, _ ->

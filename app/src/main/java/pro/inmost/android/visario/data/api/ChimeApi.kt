@@ -10,7 +10,9 @@ import pro.inmost.android.visario.data.api.services.channels.ChannelManager
 import pro.inmost.android.visario.data.api.services.channels.ChannelsService
 import pro.inmost.android.visario.data.api.services.contacts.ContactsManager
 import pro.inmost.android.visario.data.api.services.contacts.ContactsService
-import pro.inmost.android.visario.data.api.services.messages.MessagesManager
+import pro.inmost.android.visario.data.api.services.meetings.MeetingManager
+import pro.inmost.android.visario.data.api.services.meetings.MeetingService
+import pro.inmost.android.visario.data.api.services.messages.MessagingManager
 import pro.inmost.android.visario.data.api.services.messages.MessagingService
 import pro.inmost.android.visario.data.api.services.session.SessionManager
 import pro.inmost.android.visario.data.api.services.session.SessionService
@@ -24,7 +26,10 @@ class ChimeApi {
     val channels get() = ChannelManager(
         serviceFactory.getService(ChannelsService::class.java)
     )
-    val messages get() = MessagesManager(
+    val meetings get() = MeetingManager(
+        serviceFactory.getService(MeetingService::class.java)
+    )
+    val messages get() = MessagingManager(
         serviceFactory.getService(MessagingService::class.java)
     )
     val contacts get() = ContactsManager(
