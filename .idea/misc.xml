@@ -5,6 +5,7 @@
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.30092592592592593" />
         <entry key="app/src/main/res/drawable/bottom_sheet_background.xml" value="0.19478827361563517" />
+        <entry key="app/src/main/res/drawable/bottom_sheet_handler.xml" value="0.31145833333333334" />
         <entry key="app/src/main/res/drawable/edit_text_background.xml" value="0.2416988416988417" />
         <entry key="app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.2152777777777778" />
         <entry key="app/src/main/res/drawable/ic_chat_icon.xml" value="0.17916666666666667" />
@@ -42,7 +43,7 @@
         <entry key="app/src/main/res/layout/fragment_image_picker.xml" value="0.232421875" />
         <entry key="app/src/main/res/layout/fragment_image_resizer.xml" value="0.221484375" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.18472222222222223" />
-        <entry key="app/src/main/res/layout/fragment_meeting.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_meeting.xml" value="0.30512820512820515" />
         <entry key="app/src/main/res/layout/fragment_meeting_create.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_meeting_join.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_meeting_list.xml" value="0.3098958333333333" />
@@ -59,6 +60,7 @@
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.21666666666666667" />
         <entry key="app/src/main/res/layout/fragment_security.xml" value="0.2935185185185185" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.2644444444444444" />
+        <entry key="app/src/main/res/layout/grid_item_meeting_member.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/list_item_channel.xml" value="0.232421875" />
         <entry key="app/src/main/res/layout/list_item_channel_found.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/list_item_chat.xml" value="0.19381107491856678" />

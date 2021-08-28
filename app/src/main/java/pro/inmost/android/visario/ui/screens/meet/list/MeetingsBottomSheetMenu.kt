@@ -20,6 +20,7 @@ class MeetingsBottomSheetMenu(val callback: (MenuItem) -> Unit) : BaseBottomShee
 
     enum class MenuItem{
         CREATE_NEW_MEETING,
+        SCHEDULE_MEETING,
         JOIN_MEETING
     }
 

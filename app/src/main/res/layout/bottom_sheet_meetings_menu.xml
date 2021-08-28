@@ -35,6 +35,30 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/schedule_meeting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="@dimen/bottom_sheet_meeting_menu_icons_size"
+                android:layout_height="@dimen/bottom_sheet_meeting_menu_icons_size"
+                app:tint="?attr/colorOnSurface"
+                android:src="@drawable/ic_baseline_edit_calendar_24"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/schedule_meeting"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/join_meeting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

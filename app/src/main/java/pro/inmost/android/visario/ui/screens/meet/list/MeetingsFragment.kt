@@ -5,8 +5,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentMeetingListBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
-import pro.inmost.android.visario.ui.screens.meet.list.MeetingsBottomSheetMenu.MenuItem.CREATE_NEW_MEETING
-import pro.inmost.android.visario.ui.screens.meet.list.MeetingsBottomSheetMenu.MenuItem.JOIN_MEETING
+import pro.inmost.android.visario.ui.screens.meet.list.MeetingsBottomSheetMenu.MenuItem.*
 import pro.inmost.android.visario.ui.utils.extensions.navigate
 
 class MeetingsFragment : BaseFragment<FragmentMeetingListBinding>(R.layout.fragment_meeting_list) {
@@ -28,8 +27,13 @@ class MeetingsFragment : BaseFragment<FragmentMeetingListBinding>(R.layout.fragm
             when(result){
                 CREATE_NEW_MEETING -> { openCreateMeetingFragment() }
                 JOIN_MEETING -> { openJoinMeetingFragment() }
+                SCHEDULE_MEETING -> { openScheduleMeetingFragment() }
             }
         }
+    }
+
+    private fun openScheduleMeetingFragment() {
+
     }
 
     private fun openJoinMeetingFragment() {

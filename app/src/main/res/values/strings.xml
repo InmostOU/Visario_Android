@@ -137,6 +137,8 @@
     <string name="member_joined">%1$s joined</string>
     <string name="member_left">%1$s left</string>
     <string name="leave_meeting_confirm">Are you sure you want to leave the meeting?</string>
+    <string name="schedule_meeting">Schedule a meeting</string>
+    <string name="member_mic_enabled">Member mic enabled</string>
 
 
     <plurals name="members">
@@ -144,5 +146,12 @@
         <item quantity="one">%d member</item>
         <item quantity="few">%d members</item>
         <item quantity="other">%d members</item>
+    </plurals>
+
+    <plurals name="more_members">
+        <item quantity="zero">+ %d more member</item>
+        <item quantity="one">+ %d more member</item>
+        <item quantity="few">+ %d more members</item>
+        <item quantity="other">+ %d more members</item>
     </plurals>
 </resources>

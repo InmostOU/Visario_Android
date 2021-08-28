@@ -13,6 +13,9 @@ open class GenericListAdapter<T, B : ViewDataBinding>(
 ) : RecyclerView.Adapter<GenericViewHolder<B>>() {
     private var data = mutableListOf<T>()
 
+    val firstItem get() = data.firstOrNull()
+    val lastItem get() = data.lastOrNull()
+
     fun addItem(item: T){
         data.add(item)
         notifyItemInserted(data.size - 1)

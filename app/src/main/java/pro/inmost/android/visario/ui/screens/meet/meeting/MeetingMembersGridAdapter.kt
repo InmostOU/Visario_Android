@@ -8,7 +8,7 @@ import androidx.core.view.children
 import androidx.core.view.forEach
 import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
-import pro.inmost.android.visario.databinding.ListItemMeetingMemberBinding
+import pro.inmost.android.visario.databinding.GridItemMeetingMemberBinding
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 import pro.inmost.android.visario.ui.utils.extensions.layoutInflater
 
@@ -22,6 +22,7 @@ class MeetingMembersGridAdapter(
         get() = rows.sumOf { it.childCount }
 
     private val maxRowsCount = 3
+    val maxItemsCount = 6
 
     private val isLeftOneRowWithTwoItems get() = rows.size == 1 && rows[0].childCount == 2
 
@@ -45,21 +46,24 @@ class MeetingMembersGridAdapter(
 
     }
 
-    fun deleteItem(member: ContactUI) {
+    fun deleteItem(member: ContactUI): Boolean {
+        var result = false
         rows.forEach forEachOne@{ row ->
             row.forEach {
-                DataBindingUtil.findBinding<ListItemMeetingMemberBinding>(it)?.let { binding ->
+                DataBindingUtil.findBinding<GridItemMeetingMemberBinding>(it)?.let { binding ->
                     if (binding.model?.id == member.id) {
                         row.removeView(it)
                         if (row.isEmpty()) {
                             removeRow(row)
                         }
+                        result = true
                         return@forEachOne
                     }
                 }
             }
         }
-        formatGrid()
+        if (result) formatGrid()
+        return result
     }
 
     private fun createNewRow(): LinearLayout {
@@ -114,8 +118,8 @@ class MeetingMembersGridAdapter(
         group.removeView(lastItem)
     }
 
-    private fun getItemBinding(view: ViewGroup): ListItemMeetingMemberBinding {
-        return ListItemMeetingMemberBinding.inflate(view.layoutInflater, view, true)
+    private fun getItemBinding(view: ViewGroup): GridItemMeetingMemberBinding {
+        return GridItemMeetingMemberBinding.inflate(view.layoutInflater, view, true)
             .apply {
                 root.layoutParams = LinearLayout.LayoutParams(
                     0,

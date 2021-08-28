@@ -1,57 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="model"
-            type="pro.inmost.android.visario.ui.entities.contact.ContactUI" />
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="pro.inmost.android.visario.ui.screens.meet.meeting.MeetingViewModel" />
+        <variable
+            name="model"
+            type="pro.inmost.android.visario.ui.entities.contact.ContactUI" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
         android:onClick="@{() -> viewModel.removeMember(model)}"
-        android:padding="4dp">
-
-        <com.amazonaws.services.chime.sdk.meetings.audiovideo.video.DefaultVideoRenderView
-            android:id="@+id/video_surface"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorSurface"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/video_surface"
-            app:layout_constraintStart_toStartOf="@id/video_surface"
-            app:layout_constraintEnd_toEndOf="@id/video_surface"
-            android:textSize="@dimen/meeting_member_name_size"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:textColor="?attr/colorOnSurface"
-            android:text="@{model.fullName}"
-            tools:text="Albert Einstein"/>
+        android:layout_marginEnd="16dp">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/member_image"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:maxHeight="@dimen/meeting_member_avatar_size"
-            android:maxWidth="@dimen/meeting_member_avatar_size"
+            android:id="@+id/contact_icon"
+            android:layout_width="@dimen/chat_image_size"
+            android:layout_height="@dimen/chat_image_size"
+            android:layout_gravity="center"
             android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="@id/video_surface"
-            app:layout_constraintEnd_toEndOf="@id/video_surface"
-            app:layout_constraintTop_toTopOf="@id/video_surface"
-            app:layout_constraintBottom_toBottomOf="@id/video_surface"
             app:shapeAppearanceOverlay="@style/CircleImage"
             app:loadContactImage="@{model.image}"
-            tools:srcCompat="@drawable/contact_placeholder"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            tools:src="@drawable/contact_placeholder"
+            android:contentDescription="@string/user_image" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_member_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_chat_name"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@{model.fullName}"
+                tools:text="Contact Name"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="@dimen/text_size_chat_last_message"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:visibility="gone"
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="Online"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/member_mic"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            app:tint="?attr/colorOnSurface"
+            android:src="@drawable/ic_baseline_mic_off_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/member_mic_enabled" />
+    </LinearLayout>
+
+
 </layout>
