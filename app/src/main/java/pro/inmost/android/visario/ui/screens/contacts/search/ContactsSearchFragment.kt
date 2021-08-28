@@ -11,6 +11,7 @@ import pro.inmost.android.visario.ui.utils.extensions.navigate
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 import pro.inmost.android.visario.ui.utils.extensions.onQueryChange
 import pro.inmost.android.visario.ui.utils.extensions.visibility
+import pro.inmost.android.visario.ui.utils.showKeyboard
 
 class ContactsSearchFragment :
     BaseFragment<FragmentContactsSearchBinding>(R.layout.fragment_contacts_search) {
@@ -27,6 +28,7 @@ class ContactsSearchFragment :
     }
 
     override fun onCreated() {
+        showKeyboard()
         binding.contactList.adapter = listAdapter
         observeEvents()
         observeData()

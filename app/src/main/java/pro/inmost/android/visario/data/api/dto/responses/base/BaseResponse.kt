@@ -7,6 +7,7 @@ import pro.inmost.android.visario.data.api.utils.logError
 data class BaseResponse (
     val timestamp: Long,
     val status: Int,
+    val error: String?,
     val message: String,
     val path: String
 ) {

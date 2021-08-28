@@ -6,23 +6,21 @@ import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.ui.utils.log
 import java.nio.charset.Charset
 
-class WebSocketClient(private val api: ChimeApi): WebSocketListener() {
-
+class ChannelsWebSocketClient(private val api: ChimeApi): WebSocketListener() {
+    private val client = OkHttpClient()
 
     suspend fun connect(){
-        api.session.getSessionEndpoint().onSuccess { endpoint ->
-            log("endpoint: $endpoint")
-            val sessionRequest = SessionConnectRequest()
-            val wsUrl = sessionRequest.signAndGetRequestUrl(endpoint)
-            log("WS url: $wsUrl")
-            val client = OkHttpClient()
+        api.channels.getWebSocketLink().onSuccess { link ->
+             log("ws link: $link")
             val request: Request = Request.Builder()
-                .url(wsUrl)
+                .url(link)
                 .build()
             client.newWebSocket(request, this)
-
-          //  client.dispatcher.executorService.shutdown()
         }
+    }
+
+    fun disconnect(){
+        client.dispatcher.cancelAll()
     }
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {

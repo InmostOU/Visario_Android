@@ -15,6 +15,12 @@ internal object Endpoints {
 
     const val WS_CHANNELS = "/websocket/getPresignedUrl"
 
+    const val MEETING_GET = "/meeting/getMeeting"
+    const val MEETING_CREATE = "/meeting/create"
+    const val MEETING_DELETE = "/meeting/deleteMeeting"
+    const val MEETING_CREATE_ATTENDEE = "/meeting/createAttendee"
+    const val MEETING_DELETE_ATTENDEE = "/meeting/deleteAttendee"
+
     const val CHANNEL_LIST = "/channels/getChannelsMemberships"
     const val CHANNEL_CREATE = "/channels/create"
     const val CHANNEL_LEAVE = "/channels/leaveChannel"

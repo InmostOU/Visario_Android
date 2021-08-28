@@ -26,4 +26,7 @@ interface ChannelsService {
 
     @POST(Endpoints.CHANNEL_ADD_MEMBER)
     suspend fun addMember(@Body request: AddMemberToChannelRequest): BaseResponse
+
+    @GET(Endpoints.WS_CHANNELS)
+    suspend fun getWebSocketLink(): BaseResponse
 }

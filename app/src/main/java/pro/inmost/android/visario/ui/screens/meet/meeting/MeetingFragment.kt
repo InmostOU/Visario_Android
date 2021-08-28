@@ -57,7 +57,9 @@ class MeetingFragment : BaseFragment<FragmentMeetingBinding>(R.layout.fragment_m
                 addMember(member)
                 updateSubtitle()
                 updateBottomSheetTitle()
-                toast(getString(R.string.member_joined, member.fullName))
+                if (member.firstName != "Me"){
+                    toast(getString(R.string.member_joined, member.fullName))
+                }
             }
         }
 

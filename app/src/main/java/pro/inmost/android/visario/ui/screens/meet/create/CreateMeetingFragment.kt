@@ -7,11 +7,13 @@ import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.utils.extensions.navigate
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 import pro.inmost.android.visario.ui.utils.extensions.toast
+import pro.inmost.android.visario.ui.utils.showKeyboard
 
 class CreateMeetingFragment : BaseFragment<FragmentMeetingCreateBinding>(R.layout.fragment_meeting_create) {
     private val viewModel: CreateMeetingViewModel by viewModel()
 
     override fun onCreated() {
+        showKeyboard()
         binding.viewModel = viewModel
         observeEvents()
     }

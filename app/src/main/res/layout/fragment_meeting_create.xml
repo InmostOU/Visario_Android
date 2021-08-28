@@ -70,6 +70,7 @@
                 android:background="@android:color/transparent"
                 android:text="@={viewModel.meetingName}"
                 android:hint="@string/meeting_name">
+                <requestFocus/>
             </com.google.android.material.textfield.TextInputEditText>
 
         </com.google.android.material.textfield.TextInputLayout>

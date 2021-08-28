@@ -2,6 +2,7 @@ package pro.inmost.android.visario.data.api.services.channels
 
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
+import pro.inmost.android.visario.data.api.ChimeApi.Companion.STATUS_OK
 import pro.inmost.android.visario.data.api.dto.requests.channels.AddMemberToChannelRequest
 import pro.inmost.android.visario.data.api.dto.requests.channels.CreateChannelRequest
 import pro.inmost.android.visario.data.api.utils.logError
@@ -63,6 +64,20 @@ class ChannelManager(private val service: ChannelsService) {
                 userArn = userArn
             )
             service.addMember(request).getResult()
+        }.getOrElse {
+            logError(it.message ?: "")
+            Result.failure(it)
+        }
+    }
+
+    suspend fun getWebSocketLink(): Result<String> = withContext(IO){
+        kotlin.runCatching {
+            val response = service.getWebSocketLink()
+            if (response.status == STATUS_OK){
+                Result.success(response.message)
+            } else {
+                Result.failure(Throwable(response.error))
+            }
         }.getOrElse {
             logError(it.message ?: "")
             Result.failure(it)
