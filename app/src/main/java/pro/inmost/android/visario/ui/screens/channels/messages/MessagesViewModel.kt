@@ -16,7 +16,6 @@ import pro.inmost.android.visario.ui.entities.message.toUIMessages
 import pro.inmost.android.visario.ui.entities.profile.ProfileUI
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.log
 import java.util.*
 
 class MessagesViewModel(
@@ -50,11 +49,8 @@ class MessagesViewModel(
     }
 
     fun sendMessage() {
-        log("send click")
         if (message.value.isNullOrBlank()) return
-        log("message not blank")
         val messageForSending = createMessage() ?: return
-        log("message created")
         message.value = ""
         viewModelScope.launch {
             sendMessageUseCase.send(messageForSending)

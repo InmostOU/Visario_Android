@@ -27,10 +27,7 @@ class MessagesRepositoryImpl(
     override suspend fun sendMessage(message: Message) = withContext(IO) {
         val data = message.toDataMessage()
         dao.insert(data)
-        api.messages.sendMessage(data.channelArn, data).onSuccess {
-            data.status = MessageDataStatus.DELIVERED
-            dao.update(data)
-        }.onFailure {
+        api.messages.sendMessage(data).onFailure {
             data.status = MessageDataStatus.FAIL
             dao.update(data)
         }
@@ -38,16 +35,13 @@ class MessagesRepositoryImpl(
 
     private suspend fun updateDatabase(messages: List<MessageData>) {
         messages.forEach {
-            if (it.messageId != null){
-                if (dao.isRowIsExist(it.messageId)) {
-                    it.readByMe = true
-                    it.status = MessageDataStatus.DELIVERED
-                    dao.update(it)
-                } else {
-                    dao.insert(it)
-                }
+            if (dao.isRowIsExist(it.messageId)) {
+                it.readByMe = true
+                it.status = MessageDataStatus.DELIVERED
+                dao.update(it)
+            } else {
+                dao.insert(it)
             }
-
         }
     }
 
@@ -55,5 +49,9 @@ class MessagesRepositoryImpl(
         api.messages.getMessages(channelArn).onSuccess { data ->
             updateDatabase(data)
         }
+    }
+
+    override suspend fun markAllMessageAsRead(channelArn: String)  = withContext(IO) {
+        dao.markAllMessagesAsRead(channelArn)
     }
 }

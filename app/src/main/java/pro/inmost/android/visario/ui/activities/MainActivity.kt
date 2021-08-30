@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.VisarioApp
-import pro.inmost.android.visario.data.api.dto.requests.session.ChannelsWebSocketClient
+import pro.inmost.android.visario.data.api.services.websockets.channels.ChannelsWebSocketClient
 import pro.inmost.android.visario.databinding.ActivityMainBinding
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore

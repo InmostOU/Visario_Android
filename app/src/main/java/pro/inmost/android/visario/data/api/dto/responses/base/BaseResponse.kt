@@ -2,7 +2,7 @@ package pro.inmost.android.visario.data.api.dto.responses.base
 
 import android.text.format.DateFormat
 import pro.inmost.android.visario.data.api.ChimeApi
-import pro.inmost.android.visario.data.api.utils.logError
+import pro.inmost.android.visario.data.utils.logError
 
 data class BaseResponse (
     val timestamp: Long,

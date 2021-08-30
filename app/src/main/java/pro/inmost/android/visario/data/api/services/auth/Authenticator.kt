@@ -6,7 +6,7 @@ import pro.inmost.android.visario.data.api.ChimeApi.Companion.STATUS_OK
 import pro.inmost.android.visario.data.api.dto.requests.auth.LoginRequest
 import pro.inmost.android.visario.data.api.dto.requests.auth.RegistrationRequest
 import pro.inmost.android.visario.data.api.dto.responses.auth.Tokens
-import pro.inmost.android.visario.data.api.utils.logError
+import pro.inmost.android.visario.data.utils.logError
 
 class Authenticator(private val service: AuthService) {
 

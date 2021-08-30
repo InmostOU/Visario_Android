@@ -1,7 +1,9 @@
 package pro.inmost.android.visario.data.entities.message
 
+import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads.CreateChannelMessagePayload
 import pro.inmost.android.visario.domain.entities.message.Message
 import pro.inmost.android.visario.domain.entities.message.MessageStatus
+import pro.inmost.android.visario.ui.utils.DateParser
 
 fun Message.toDataMessage() = MessageData(
     messageId = this.messageId,
@@ -17,6 +19,19 @@ fun Message.toDataMessage() = MessageData(
     channelArn = this.channelUrl,
     readByMe = this.readByMe,
     status = this.status.name
+)
+
+fun CreateChannelMessagePayload.toDataMessage() = MessageData(
+    messageId = this.MessageId,
+    content = this.Content,
+    createdTimestamp = DateParser.parseToMillis(this.CreatedTimestamp),
+    lastEditedTimestamp = DateParser.parseToMillis(this.LastUpdatedTimestamp),
+    metadata = "",
+    redacted = this.Redacted,
+    senderName = this.Sender.Name,
+    senderArn = this.Sender.Arn,
+    type = this.Type,
+    channelArn = this.ChannelArn,
 )
 
 fun MessageData.toDomainMessage() = Message(

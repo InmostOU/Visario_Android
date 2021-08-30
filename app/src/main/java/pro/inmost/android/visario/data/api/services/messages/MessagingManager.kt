@@ -3,8 +3,8 @@ package pro.inmost.android.visario.data.api.services.messages
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.dto.requests.messages.SendMessageRequest
-import pro.inmost.android.visario.data.api.utils.logError
 import pro.inmost.android.visario.data.entities.message.MessageData
+import pro.inmost.android.visario.data.utils.logError
 
 class MessagingManager(
     private val service: MessagingService
@@ -18,11 +18,10 @@ class MessagingManager(
         }
     }
 
-    suspend fun sendMessage(channelArn: String, data: MessageData) = withContext(IO){
+    suspend fun sendMessage(data: MessageData) = withContext(IO){
         kotlin.runCatching {
             val request = SendMessageRequest(
-                messageId = data.messageId,
-                channelArn = channelArn,
+                channelArn = data.channelArn,
                 content = data.content
             )
             service.sendMessage(request).getResult()

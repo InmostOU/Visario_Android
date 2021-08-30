@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.data.api.utils
+package pro.inmost.android.visario.data.utils
 
 import android.util.Log
 
