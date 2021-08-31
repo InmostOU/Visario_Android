@@ -82,6 +82,12 @@ class ChannelsRepositoryImpl(
         data.sortedDescending().onEach {
             it.messages = it.messages.sortedDescending()
         }
+
+       /* data.map {
+            it.toDomainChannel(
+                messagesRepository.getMessages(it.channelArn)
+            )
+        }*/
     }
 
     private suspend fun updateDatabase(data: List<ChannelData>) {

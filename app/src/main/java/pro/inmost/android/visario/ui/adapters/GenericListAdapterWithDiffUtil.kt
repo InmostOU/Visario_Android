@@ -15,6 +15,8 @@ class GenericListAdapterWithDiffUtil<T : BaseEntity, B : ViewDataBinding>(
     inline val bind: (item: T, binding: B) -> Unit
 ) : ListAdapter<T, GenericViewHolder<B>>(BaseDiffUtil()) {
 
+    val size get() = currentList.size
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenericViewHolder<B> {
         val binding = DataBindingUtil.inflate<B>(parent.layoutInflater, layRes, parent, false)
         return GenericViewHolder(binding)
