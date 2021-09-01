@@ -62,7 +62,7 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:text="@{model.lastMessage}"
+                    android:text="@{model.lastMessage.length() > 0 ? model.lastMessage : @string/no_messages}"
                     tools:text="Last message"/>
 
             </LinearLayout>
@@ -70,8 +70,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
+                android:layout_weight="1.5"
+                android:gravity="center_horizontal|end"
                 android:layout_marginEnd="8dp"
                 android:orientation="vertical">
 
@@ -81,6 +81,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textSize="@dimen/text_size_chat_last_message"
+                    android:maxLines="1"
                     android:textColor="?android:attr/textColorSecondary"
                     android:text="@{model.lastMessageTime}"
                     tools:text="12:00"/>

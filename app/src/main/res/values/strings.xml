@@ -139,6 +139,7 @@
     <string name="leave_meeting_confirm">Are you sure you want to leave the meeting?</string>
     <string name="schedule_meeting">Schedule a meeting</string>
     <string name="member_mic_enabled">Member mic enabled</string>
+    <string name="no_messages">no messages</string>
 
 
     <plurals name="members">

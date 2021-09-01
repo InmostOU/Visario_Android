@@ -18,8 +18,14 @@ data class MessageUI(
     val status: MessageUIStatus = MessageUIStatus.SENDING
 ): BaseEntity {
 
-    val createdDateFormat: String
+    val createdTimeFormat: String
         get() = DateFormat.format("hh:mm", createdTimestamp).toString()
+
+    val createdDateFormat: String
+        get() = DateFormat.format("dd-MM-yyyy", createdTimestamp).toString()
+
+    val createdDayFormat: String
+        get() = DateFormat.format("EEE", createdTimestamp).toString()
 
     val editedDateFormat: String
         get() = DateFormat.format("hh:mm", lastEditedTimestamp).toString()
