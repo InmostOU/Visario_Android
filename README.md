@@ -10,7 +10,7 @@ The Visario project is an example of the implementation of a communication platf
 - Logout
 
 **Channels:**
-- Create a channel (public or private).
+- Create a channel (public or private, restricted or unrestricted).
 - Search public channels by name.
 - Get list of channels  you are a member of.
 - Leave the channel.
