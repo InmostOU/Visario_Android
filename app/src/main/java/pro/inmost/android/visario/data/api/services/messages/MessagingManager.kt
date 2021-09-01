@@ -22,7 +22,8 @@ class MessagingManager(
         kotlin.runCatching {
             val request = SendMessageRequest(
                 channelArn = data.channelArn,
-                content = data.content
+                content = data.content,
+                metadata = data.messageId
             )
             service.sendMessage(request).getResult()
         }.getOrElse  {

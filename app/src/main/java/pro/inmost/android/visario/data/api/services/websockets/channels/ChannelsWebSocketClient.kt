@@ -6,7 +6,7 @@ import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads.PayloadFactory
 import pro.inmost.android.visario.data.database.dao.MessagesDao
 import pro.inmost.android.visario.data.utils.extensions.launchIO
-import pro.inmost.android.visario.data.utils.logInfo
+import pro.inmost.android.visario.ui.utils.log
 import java.nio.charset.Charset
 
 class ChannelsWebSocketClient(
@@ -22,6 +22,7 @@ class ChannelsWebSocketClient(
                 .build()
             client.newWebSocket(request, this)
         }
+        log("WS connect")
     }
 
     fun disconnect() {
@@ -29,19 +30,19 @@ class ChannelsWebSocketClient(
     }
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-        logInfo("WS onClosed: $reason")
+        log("WS onClosed: $reason")
     }
 
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-        logInfo("WS onClosing: $reason")
+        log("WS onClosing: $reason")
     }
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-        logInfo("WS onFailure: ${response?.body?.string()}")
+        log("WS onFailure: ${response?.body?.string()}")
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
-        logInfo("WS onMessage: $text")
+        log("WS onMessage: $text")
         kotlin.runCatching {
             when (ChannelEventManager.getEvent(text)) {
                 ChannelEventManager.EventType.CREATE_CHANNEL_MESSAGE -> {
@@ -56,10 +57,10 @@ class ChannelsWebSocketClient(
     }
 
     override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-        logInfo("WS onMessageBytes: ${bytes.string(Charset.defaultCharset())}")
+        log("WS onMessageBytes: ${bytes.string(Charset.defaultCharset())}")
     }
 
     override fun onOpen(webSocket: WebSocket, response: Response) {
-        logInfo("WS onOpen: ${response.body?.string()}")
+        log("WS onOpen: ${response.body?.string()}")
     }
 }

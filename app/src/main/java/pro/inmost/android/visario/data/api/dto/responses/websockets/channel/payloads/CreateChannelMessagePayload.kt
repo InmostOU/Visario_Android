@@ -9,7 +9,8 @@ data class CreateChannelMessagePayload(
     val LastUpdatedTimestamp: String,
     val Persistence: String,
     val Redacted: Boolean,
-    val Type: String
+    val Type: String,
+    val Metadata: String = ""
 )
 
 data class Sender(

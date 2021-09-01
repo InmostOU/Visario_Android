@@ -76,4 +76,9 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     private fun scrollToBottom() {
         binding.messageList.smoothScrollToPosition(0)
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.updateReadStatus()
+    }
 }
