@@ -1,25 +1,31 @@
-package pro.inmost.android.visario.data.api.dto.requests.session
+package pro.inmost.android.visario.data.api.services.websockets.channels
 
 import okhttp3.*
 import okio.ByteString
 import pro.inmost.android.visario.data.api.ChimeApi
+import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads.PayloadFactory
+import pro.inmost.android.visario.data.database.dao.MessagesDao
+import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.ui.utils.log
 import java.nio.charset.Charset
 
-class ChannelsWebSocketClient(private val api: ChimeApi): WebSocketListener() {
+class ChannelsWebSocketClient(
+    private val api: ChimeApi,
+    private val messagesDao: MessagesDao
+) : WebSocketListener() {
     private val client = OkHttpClient()
 
-    suspend fun connect(){
+    suspend fun connect() {
         api.channels.getWebSocketLink().onSuccess { link ->
-             log("ws link: $link")
             val request: Request = Request.Builder()
                 .url(link)
                 .build()
             client.newWebSocket(request, this)
         }
+        log("WS connect")
     }
 
-    fun disconnect(){
+    fun disconnect() {
         client.dispatcher.cancelAll()
     }
 
@@ -37,6 +43,17 @@ class ChannelsWebSocketClient(private val api: ChimeApi): WebSocketListener() {
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         log("WS onMessage: $text")
+        kotlin.runCatching {
+            when (ChannelEventManager.getEvent(text)) {
+                ChannelEventManager.EventType.CREATE_CHANNEL_MESSAGE -> {
+                    val message = PayloadFactory.getChannelMessage(text)
+                    launchIO {
+                        messagesDao.upsert(message)
+                    }
+                }
+                else -> {}
+            }
+        }
     }
 
     override fun onMessage(webSocket: WebSocket, bytes: ByteString) {

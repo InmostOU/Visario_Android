@@ -5,7 +5,7 @@ import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.dto.requests.contacts.AddContactRequest
 import pro.inmost.android.visario.data.api.dto.requests.contacts.DeleteContactRequest
 import pro.inmost.android.visario.data.api.dto.requests.contacts.EditContactRequest
-import pro.inmost.android.visario.data.api.utils.logError
+import pro.inmost.android.visario.data.utils.logError
 
 class ContactsManager(private val service: ContactsService) {
 

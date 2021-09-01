@@ -8,6 +8,7 @@ import pro.inmost.android.visario.domain.entities.message.Message
 import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCase
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCase
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCase
+import pro.inmost.android.visario.domain.usecases.messages.UpdateMessagesReadStatusUseCase
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
 import pro.inmost.android.visario.ui.entities.message.MessageUI
 import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
@@ -16,7 +17,6 @@ import pro.inmost.android.visario.ui.entities.message.toUIMessages
 import pro.inmost.android.visario.ui.entities.profile.ProfileUI
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.log
 import java.util.*
 
 class MessagesViewModel(
@@ -24,6 +24,7 @@ class MessagesViewModel(
     private val fetchProfileUseCase: FetchProfileUseCase,
     private val sendMessageUseCase: SendMessageUseCase,
     private val leaveChannelUseCase: LeaveChannelUseCase,
+    private val updateReadStatusUseCase: UpdateMessagesReadStatusUseCase
 ) : ViewModel() {
     private var profile: ProfileUI? = null
     var currentChannelUrl: String = ""
@@ -50,11 +51,8 @@ class MessagesViewModel(
     }
 
     fun sendMessage() {
-        log("send click")
         if (message.value.isNullOrBlank()) return
-        log("message not blank")
         val messageForSending = createMessage() ?: return
-        log("message created")
         message.value = ""
         viewModelScope.launch {
             sendMessageUseCase.send(messageForSending)
@@ -81,6 +79,12 @@ class MessagesViewModel(
             leaveChannelUseCase.leave(currentChannelUrl).onSuccess {
                 _closeChannel.call()
             }
+        }
+    }
+
+    fun updateReadStatus(){
+        viewModelScope.launch {
+            updateReadStatusUseCase.updateAll(currentChannelUrl, true)
         }
     }
 }

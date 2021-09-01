@@ -14,6 +14,7 @@ import pro.inmost.android.visario.domain.usecases.meetings.CreateMeetingUseCaseI
 import pro.inmost.android.visario.domain.usecases.meetings.JoinMeetingUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.messages.UpdateMessagesReadStatusUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCaseImpl
 import pro.inmost.android.visario.ui.dialogs.select.contacts.ContactsInviterViewModel
@@ -44,13 +45,14 @@ import pro.inmost.android.visario.ui.screens.meet.meeting.MeetingViewModel
 val viewModelsModule = module {
     viewModel { ChannelsViewModel(get<FetchChannelsUseCaseImpl>()) }
     viewModel { SearchChannelsViewModel(get<FetchChannelsUseCaseImpl>()) }
-    viewModel { CreateChannelViewModel(get<CreateChannelUseCaseImpl>()) }
+    viewModel { CreateChannelViewModel(get<CreateChannelUseCaseImpl>(), get<FetchChannelsUseCaseImpl>()) }
     viewModel {
         MessagesViewModel(
             get<FetchMessagesUseCaseImpl>(),
             get<FetchProfileUseCaseImpl>(),
             get<SendMessageUseCaseImpl>(),
-            get<LeaveChannelUseCaseImpl>()
+            get<LeaveChannelUseCaseImpl>(),
+            get<UpdateMessagesReadStatusUseCaseImpl>()
         )
     }
     viewModel { MeetingsViewModel() }

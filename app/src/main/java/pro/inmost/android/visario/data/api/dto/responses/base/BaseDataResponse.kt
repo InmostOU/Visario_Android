@@ -1,7 +1,7 @@
 package pro.inmost.android.visario.data.api.dto.responses.base
 
 import pro.inmost.android.visario.data.api.ChimeApi
-import pro.inmost.android.visario.data.api.utils.logError
+import pro.inmost.android.visario.data.utils.logError
 
 data class BaseDataResponse<T>(
     val status: Int,

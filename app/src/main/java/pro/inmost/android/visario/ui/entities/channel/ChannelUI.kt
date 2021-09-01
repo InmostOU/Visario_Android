@@ -12,15 +12,14 @@ data class ChannelUI (
     val isMember: Boolean,
     val isModerator: Boolean,
     var messages: List<MessageUI> = listOf()
-): BaseEntity{
+): BaseEntity {
     val lastMessage: String
         get() = messages.firstOrNull()?.text ?: ""
     val lastMessageTime: String
         get() = messages.firstOrNull()?.createdDateFormat ?: ""
     val newMessagesCount: Int
         get() = messages.count { !it.readByMe }
-    val hasNewMessages: Boolean
-        get() = newMessagesCount > 0
+
 
     override val baseId: String
         get() = url

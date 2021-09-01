@@ -17,6 +17,9 @@ interface ChannelsDao {
     @Query("SELECT * FROM channels")
     suspend fun getAll(): List<ChannelData>
 
+    @Query("SELECT * FROM channels")
+    fun getAllObservable(): Flow<List<ChannelData>>
+
     @Query("SELECT * FROM channels WHERE channelArn =:channelArn")
     suspend fun get(channelArn: String): ChannelData?
 

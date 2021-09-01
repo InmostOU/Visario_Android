@@ -66,7 +66,7 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
 
     private fun observeData() {
         viewModel.observeMessages(args.channelUrl).observe(viewLifecycleOwner) { messages ->
-            val needScroll = messages.size > listAdapter.currentList.size
+            val needScroll = messages.size > listAdapter.size
             listAdapter.submitList(messages) {
                 if (needScroll) scrollToBottom()
             }
@@ -75,5 +75,10 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
 
     private fun scrollToBottom() {
         binding.messageList.smoothScrollToPosition(0)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.updateReadStatus()
     }
 }

@@ -32,8 +32,4 @@ internal object Endpoints {
     const val CONTACT_FIND = "/contact/findUserByUsername"
     const val CONTACT_DELETE = "/contact/delete"
     const val CONTACT_EDIT = "/contact/edit"
-
-
-    const val SECRET_KEY = "rNa+yYTTKX5mzLAjPtEQLa9SJ7ixPnowDdDrkyZE"
-    const val ACCESS_KEY_ID = "AKIAUBGB3I6BUMXOOWX7"
 }

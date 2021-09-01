@@ -12,6 +12,7 @@ import pro.inmost.android.visario.domain.usecases.meetings.CreateMeetingUseCaseI
 import pro.inmost.android.visario.domain.usecases.meetings.JoinMeetingUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.messages.UpdateMessagesReadStatusUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCaseImpl
 
@@ -119,6 +120,12 @@ val useCases = module {
     }
     factory {
         FetchMessagesUseCaseImpl(
+            repository = get<MessagesRepositoryImpl>()
+        )
+    }
+
+    factory {
+        UpdateMessagesReadStatusUseCaseImpl(
             repository = get<MessagesRepositoryImpl>()
         )
     }

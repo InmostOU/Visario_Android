@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.domain.usecases.channels.CreateChannelUseCase
+import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCase
 import pro.inmost.android.visario.ui.entities.channel.ChannelMode
 import pro.inmost.android.visario.ui.entities.channel.ChannelPrivacy
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
@@ -14,7 +15,8 @@ import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 import pro.inmost.android.visario.ui.utils.log
 
 class CreateChannelViewModel(
-    private val createChannelUseCase: CreateChannelUseCase
+    private val createChannelUseCase: CreateChannelUseCase,
+    private val fetchChannelsUseCase: FetchChannelsUseCase
 ) : ViewModel() {
     private val _closeFragment = SingleLiveEvent<Unit>()
     val closeFragment : LiveData<Unit> = _closeFragment
@@ -40,6 +42,7 @@ class CreateChannelViewModel(
         viewModelScope.launch {
             showProgressBar()
             createChannelUseCase.create(channel.toDomainChannel()).onSuccess {
+                fetchChannelsUseCase.refresh()
                 _closeFragment.call()
             }.onFailure {
                 log("create channel failed: ${it.message}")

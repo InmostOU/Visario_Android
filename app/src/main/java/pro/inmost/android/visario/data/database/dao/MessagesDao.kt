@@ -16,14 +16,20 @@ interface MessagesDao {
     @Query("SELECT * FROM messages")
     suspend fun getAll(): List<MessageData>
 
+    @Query("SELECT * FROM messages WHERE messageId =:id")
+    suspend fun get(id: String): MessageData?
+
     @Query("SELECT * FROM messages ORDER BY createdTimestamp DESC")
     fun getAllObservable(): Flow<List<MessageData>>
 
     @Query("SELECT * FROM messages WHERE channelArn =:channelArn ORDER BY createdTimestamp DESC")
     fun getChannelMessages(channelArn: String): Flow<List<MessageData>>
 
+    @Query("UPDATE messages SET readByMe = 1 WHERE channelArn = :channelArn")
+    suspend fun markAllMessagesAsRead(channelArn: String)
+
     @Query("SELECT EXISTS(SELECT * FROM messages WHERE messageId = :id)")
-    suspend fun isRowIsExist(id : String) : Boolean
+    suspend fun isRowExist(id: String) : Boolean
 
     @Query("DELETE FROM messages")
     suspend fun deleteAll()
@@ -39,7 +45,23 @@ interface MessagesDao {
 
     @Transaction
     suspend fun updateChannelMessages(channelArn: String, items: List<MessageData>){
-      //  delete(channelArn)
         insert(*items.toTypedArray())
     }
+
+    @Query("UPDATE messages SET messageId =:messageId, status = 'DELIVERED' WHERE messageId =:tempId")
+    suspend fun updateMessageId(tempId: String, messageId: String): Int
+
+    @Transaction
+    suspend fun upsert(message: MessageData){
+        val result = updateMessageId(message.metadata, message.messageId)
+        if (result == 0){
+            insert(message)
+        }
+    }
+
+    @Query("UPDATE messages SET readByMe =:read WHERE channelArn =:channelArn")
+    suspend fun updateReadStatusForAll(channelArn: String, read: Boolean)
+
+    @Query("UPDATE messages SET readByMe =:read WHERE messageId =:messageId")
+    suspend fun updateReadStatus(messageId: String, read: Boolean)
 }

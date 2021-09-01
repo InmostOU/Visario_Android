@@ -5,7 +5,7 @@ import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.dto.requests.meeting.CreateMeetingRequest
 import pro.inmost.android.visario.data.api.dto.requests.meeting.JoinMeetingRequest
 import pro.inmost.android.visario.data.api.dto.responses.meeting.MeetingResponse
-import pro.inmost.android.visario.data.api.utils.logError
+import pro.inmost.android.visario.data.utils.logError
 
 class MeetingManager(private val service: MeetingService) {
 
