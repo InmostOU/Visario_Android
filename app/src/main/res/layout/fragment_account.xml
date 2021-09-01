@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="pro.inmost.android.visario.ui.screens.account.account.AccountViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorSurface"
+                app:titleEnabled="true"
+                app:title="@{viewModel.fullName}"
+                app:subtitle="Online"
+                tools:title="Albert Einstein"
+                app:collapsedTitleTextAppearance="@style/ToolbarTitle"
+                app:collapsedSubtitleTextAppearance="@style/ToolbarSubtitle"
+                app:expandedTitleTextAppearance="@style/ExpandedUserTitle"
+                app:expandedSubtitleTextAppearance="@style/ExpandedUserSubTitle"
+                app:expandedTitleMarginStart="@dimen/user_name_margin_start"
+                app:expandedTitleMarginBottom="@dimen/user_name_margin_bottom"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <ImageView
+                    android:id="@+id/picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_photo_height"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    app:loadContactImage="@{viewModel.image}"
+                    tools:src="@drawable/einstein"
+                    app:layout_collapseMode="parallax" />
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:backgroundTint="?attr/colorSurface"
+                    app:layout_collapseMode="pin"
+                    app:menu="@menu/account"
+                    app:subtitle="@string/online"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"  />
+            </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/change_photo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:maxImageSize="28dp"
+            android:src="@drawable/ic_outline_add_a_photo_24"
+            app:fabSize="normal"
+            app:layout_anchor="@id/appbar"
+            app:layout_anchorGravity="bottom|end"
+            android:contentDescription="@string/start_video_call" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!--info-->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="0dp"
+                    app:layout_constraintTop_toBottomOf="@+id/info_layout">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textSize="16sp"
+                            android:textColor="?attr/colorSecondaryVariant"
+                            android:textStyle="bold"
+                            android:text="@string/info"/>
+
+                        <!--about-->
+                        <LinearLayout
+                            android:id="@+id/about_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/text_view_about"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/text_size_chat_name"
+                                android:textStyle="bold"
+                                android:text="@{viewModel.about}"
+                                android:textColor="?android:attr/textColorPrimary"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:maxLength="@integer/about_max_text_length"
+                                tools:text="Some interesting info about me"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/about_lowercase"
+                                android:textAllCaps="false"
+                                android:layout_marginBottom="8dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/text_view_phone"
+                                android:textColor="?android:attr/textColorSecondary"
+                                android:textSize="@dimen/text_size_chat_last_message" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:backgroundTint="@color/dividerColor"
+                                android:background="?attr/dividerHorizontal"/>
+
+                        </LinearLayout>
+
+                        <!--username-->
+                        <LinearLayout
+                            android:id="@+id/username_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/text_view_username"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/text_size_chat_name"
+                                android:textStyle="bold"
+                                android:textColor="?android:attr/textColorPrimary"
+                                android:text="@{'@' + viewModel.username}"
+                                tools:text="\@relativeguy"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="8dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/username_lowercase"
+                                android:textAllCaps="false"
+                                android:textColor="?android:attr/textColorSecondary"
+                                android:textSize="@dimen/text_size_chat_last_message" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:backgroundTint="@color/dividerColor"
+                                android:background="?attr/dividerHorizontal"/>
+
+                        </LinearLayout>
+
+                        <!--phone-->
+                        <LinearLayout
+                            android:id="@+id/phone_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:visibility="@{viewModel.phoneNumber.length() > 0 ? View.VISIBLE : View.GONE}"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/text_view_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/text_size_chat_name"
+                                android:textStyle="bold"
+                                android:text="@{viewModel.phoneNumber}"
+                                android:textColor="?android:attr/textColorPrimary"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                tools:text="+123456789"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/phone"
+                                android:textAllCaps="false"
+                                android:layout_marginBottom="8dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/text_view_phone"
+                                android:textColor="?android:attr/textColorSecondary"
+                                android:textSize="@dimen/text_size_chat_last_message" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:backgroundTint="@color/dividerColor"
+                                android:background="?attr/dividerHorizontal"/>
+
+                        </LinearLayout>
+
+                        <!--email-->
+                        <LinearLayout
+                            android:id="@+id/email_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="4dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/text_view_email"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/text_size_chat_name"
+                                android:textStyle="bold"
+                                android:text="@{viewModel.email}"
+                                android:textColor="?android:attr/textColorPrimary"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                tools:text="emc2@gmail.com"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="8dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/email_lowercase"
+                                android:textAllCaps="false"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/text_view_email"
+                                android:textColor="?android:attr/textColorSecondary"
+                                android:textSize="@dimen/text_size_chat_last_message" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:backgroundTint="@color/dividerColor"
+                                android:background="?attr/dividerHorizontal"/>
+
+                        </LinearLayout>
+
+                        <!--birthday-->
+                        <LinearLayout
+                            android:id="@+id/birthday_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="4dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/text_view_birthday"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/text_size_chat_name"
+                                android:textStyle="bold"
+                                android:text="@{viewModel.birthdate}"
+                                android:textColor="?android:attr/textColorPrimary"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                tools:text="3 March 1879"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="8dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/date_of_birth_lowercase"
+                                android:textAllCaps="false"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/text_view_email"
+                                android:textColor="?android:attr/textColorSecondary"
+                                android:textSize="@dimen/text_size_chat_last_message" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!--settings-->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="0dp"
+                    app:layout_constraintTop_toBottomOf="@+id/info_layout">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textSize="16sp"
+                            android:textColor="?attr/colorSecondaryVariant"
+                            android:textStyle="bold"
+                            android:text="@string/settings"/>
+
+                        <!--privacy-->
+                        <LinearLayout
+                            android:id="@+id/privacy_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/text_view_privacy"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/text_size_chat_name"
+                                android:textStyle="bold"
+                                android:layout_marginTop="8dp"
+                                android:drawablePadding="16dp"
+                                app:drawableTint="?attr/colorPrimary"
+                                app:drawableEndCompat="@drawable/ic_arrow_right_24"
+                                app:drawableStartCompat="@drawable/ic_round_security_24"
+                                android:textColor="?android:attr/textColorPrimary"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:layout_marginBottom="16dp"
+                                android:text="@string/privacy_and_security"/>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

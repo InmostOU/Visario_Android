@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dividerColor">#DDDDDD</color>
+    <color name="outgoing_message_bubble">#2F5265</color>
+    <color name="incoming_message_bubble">#1C2F39</color>
+</resources>

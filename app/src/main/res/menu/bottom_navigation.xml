@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_channels"
+        android:icon="@drawable/ic_round_chat_24"
+        android:title="@string/title_channels" />
+
+    <item
+        android:id="@+id/navigation_meetings"
+        android:icon="@drawable/ic_video"
+        android:title="@string/title_meet" />
+
+    <item
+        android:id="@+id/navigation_contacts"
+        android:icon="@drawable/ic_round_people_24"
+        android:title="@string/title_contacts" />
+
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/ic_manage_accounts_24"
+        android:title="@string/title_account" />
+
+</menu>

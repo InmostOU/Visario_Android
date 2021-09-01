@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_channels">
+
+    <fragment
+        android:id="@+id/navigation_channels"
+        android:name="pro.inmost.android.visario.ui.screens.channels.list.ChannelsFragment"
+        tools:layout="@layout/fragment_channels">
+        <action
+            android:id="@+id/action_navigation_chats_to_navigation_messages"
+            app:destination="@id/navigation_messages" />
+        <action
+            android:id="@+id/action_navigation_chats_to_navigation_channel_create"
+            app:destination="@id/navigation_channel_create" />
+        <action
+            android:id="@+id/action_navigation_chats_to_navigation_channel_search"
+            app:destination="@id/navigation_channel_search" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_channel_create"
+        android:name="pro.inmost.android.visario.ui.screens.channels.create.CreateChannelFragment"
+        tools:layout="@layout/fragment_channel_create"/>
+
+    <fragment
+        android:id="@+id/navigation_channel_search"
+        android:name="pro.inmost.android.visario.ui.screens.channels.search.SearchChannelsFragment"
+        tools:layout="@layout/fragment_channels_search"/>
+
+    <fragment
+        android:id="@+id/navigation_messages"
+        android:name="pro.inmost.android.visario.ui.screens.channels.messages.MessagesFragment"
+        tools:layout="@layout/fragment_messages">
+
+        <argument
+            android:name="channelName"
+            app:argType="string" />
+        <argument
+            android:name="channelUrl"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_meetings"
+        android:name="pro.inmost.android.visario.ui.screens.meet.list.MeetingsFragment"
+        tools:layout="@layout/fragment_meeting_list" >
+        <action
+            android:id="@+id/action_navigation_meetings_to_navigation_meeting_create"
+            app:destination="@id/navigation_meeting_create" />
+        <action
+            android:id="@+id/action_navigation_meetings_to_navigation_meeting_join"
+            app:destination="@id/navigation_meeting_join" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_meeting_create"
+        android:name="pro.inmost.android.visario.ui.screens.meet.create.CreateMeetingFragment"
+        tools:layout="@layout/fragment_meeting_create" >
+        <action
+            android:id="@+id/action_navigation_meeting_create_to_navigation_meeting"
+            app:destination="@id/navigation_meeting"
+            app:popUpTo="@id/navigation_meeting_create"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_meeting_join"
+        android:name="pro.inmost.android.visario.ui.screens.meet.join.JoinMeetingFragment"
+        tools:layout="@layout/fragment_meeting_join" />
+
+    <fragment
+        android:id="@+id/navigation_meeting"
+        android:name="pro.inmost.android.visario.ui.screens.meet.meeting.MeetingFragment"
+        tools:layout="@layout/fragment_meeting" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_contacts"
+        android:name="pro.inmost.android.visario.ui.screens.contacts.list.ContactsFragment"
+        tools:layout="@layout/fragment_contacts">
+        <action
+            android:id="@+id/action_navigation_contacts_to_navigation_contacts_search"
+            app:destination="@id/navigation_contacts_search" />
+        <action
+            android:id="@+id/action_navigation_contacts_to_navigation_contact_detail"
+            app:destination="@id/navigation_contact_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_contact_detail"
+        android:name="pro.inmost.android.visario.ui.screens.contacts.detail.ContactDetailFragment"
+        tools:layout="@layout/fragment_contact_detail">
+
+        <action
+            android:id="@+id/action_navigation_contact_detail_to_navigation_contact_edit"
+            app:destination="@id/navigation_contact_edit" />
+        <argument
+            android:name="contact"
+            app:argType="pro.inmost.android.visario.ui.entities.contact.ContactUI" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_contact_edit"
+        android:name="pro.inmost.android.visario.ui.screens.contacts.edit.EditContactFragment"
+        tools:layout="@layout/fragment_contact_edit">
+
+        <argument
+            android:name="contact"
+            app:argType="pro.inmost.android.visario.ui.entities.contact.ContactUI" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_contacts_search"
+        android:name="pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchFragment"
+        tools:layout="@layout/fragment_contacts_search">
+        <action
+            android:id="@+id/action_navigation_contacts_search_to_navigation_contact_detail"
+            app:destination="@id/navigation_contact_detail" />
+        <action
+            android:id="@+id/action_navigation_contacts_search_to_navigation_contact_edit"
+            app:destination="@id/navigation_contact_edit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="pro.inmost.android.visario.ui.screens.account.account.AccountFragment"
+        tools:layout="@layout/fragment_account">
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_profile_info_edit"
+            app:destination="@id/navigation_profile_info_edit" />
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_security"
+            app:destination="@id/nested_navigation_security" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile_info_edit"
+        android:name="pro.inmost.android.visario.ui.screens.account.edit.EditProfileFragment"
+        tools:layout="@layout/fragment_profile_edit" />
+
+    <navigation
+        android:id="@+id/nested_navigation_security"
+        app:startDestination="@id/navigation_security">
+
+        <fragment
+            android:id="@+id/navigation_security"
+            android:name="pro.inmost.android.visario.ui.screens.account.settings.security.SecurityFragment"
+            tools:layout="@layout/fragment_security">
+            <action
+                android:id="@+id/action_navigation_security_to_navigation_privacy_phone_number"
+                app:destination="@id/navigation_privacy_phone_number" />
+            <action
+                android:id="@+id/action_navigation_security_to_navigation_privacy_email"
+                app:destination="@id/navigation_privacy_email" />
+            <action
+                android:id="@+id/action_navigation_security_to_navigation_privacy_birthdate"
+                app:destination="@id/navigation_privacy_birthdate" />
+            <action
+                android:id="@+id/action_navigation_security_to_navigation_privacy_password"
+                app:destination="@id/navigation_privacy_password" />
+        </fragment>
+        <fragment
+            android:id="@+id/navigation_privacy_phone_number"
+            android:name="pro.inmost.android.visario.ui.screens.account.settings.privacy.phonenumber.PhoneNumberSetupFragment"
+            tools:layout="@layout/fragment_privacy_phone_number" />
+        <fragment
+            android:id="@+id/navigation_privacy_password"
+            android:name="pro.inmost.android.visario.ui.screens.account.settings.privacy.password.PasswordSetupFragment"
+            tools:layout="@layout/fragment_privacy_password" />
+        <fragment
+            android:id="@+id/navigation_privacy_email"
+            android:name="pro.inmost.android.visario.ui.screens.account.settings.privacy.email.EmailSetupFragment"
+            tools:layout="@layout/fragment_privacy_email" />
+        <fragment
+            android:id="@+id/navigation_privacy_birthdate"
+            android:name="pro.inmost.android.visario.ui.screens.account.settings.privacy.birthdate.BirthdateSetupFragment"
+            tools:layout="@layout/fragment_privacy_birthdate" />
+    </navigation>
+</navigation>

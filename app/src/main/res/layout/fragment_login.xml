@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="pro.inmost.android.visario.ui.screens.auth.login.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/login_cardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="0.93"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="5dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/welcome"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorSecondary"
+                    android:textSize="34sp"/>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/login_edit_text_height"
+                    android:layout_marginStart="@dimen/login_fields_margin_startEnd"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/login_fields_margin_startEnd">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/email"
+                        app:showError="@{viewModel.validator.emailInvalid}"
+                        android:text="@={viewModel.email}"
+                        android:inputType="textEmailAddress" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/login_edit_text_height"
+                    android:layout_marginTop="@dimen/login_fields_margin_top"
+                    android:layout_marginStart="@dimen/login_fields_margin_startEnd"
+                    android:layout_marginEnd="@dimen/login_fields_margin_startEnd"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@={viewModel.password}"
+                        app:showError="@{viewModel.validator.passInvalid}"
+                        android:hint="@string/password"
+                        android:inputType="textPassword" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:onClick="@{(view) -> viewModel.login(view)}"
+                    android:text="@string/login" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_register"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/register"
+                    android:onClick="@{() -> viewModel.openRegisterScreen()}"
+                    android:textColor="?attr/colorOnSurface" />
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

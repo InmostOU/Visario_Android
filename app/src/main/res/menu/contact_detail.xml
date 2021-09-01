@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/menu_contact_call"
+        android:icon="@drawable/ic_round_call_24"
+        app:showAsAction="ifRoom"
+        app:iconTint="?attr/colorOnSurface"
+        android:title="@string/call"/>
+
+    <item android:id="@+id/menu_contact_video_call"
+        android:icon="@drawable/ic_video"
+        app:showAsAction="ifRoom"
+        app:iconTint="?attr/colorOnSurface"
+        android:title="@string/call"/>
+
+    <item
+        android:id="@+id/menu_contact_detail_wrapper"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title=""
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/menu_contact_invite"
+                android:icon="@drawable/ic_baseline_person_add_24"
+                app:iconTint="?attr/colorOnSurface"
+                android:title="@string/invite_to_channel" />
+
+            <item
+                android:id="@+id/menu_contact_edit"
+                android:icon="@drawable/ic_round_edit_24"
+                app:iconTint="?attr/colorOnSurface"
+                android:title="@string/edit_contact" />
+            <item
+                android:id="@+id/menu_contact_delete"
+                android:icon="@drawable/ic_round_delete_forever_24"
+                app:iconTint="?attr/colorOnSurface"
+                android:title="@string/delete_contact" />
+
+            <item
+                android:id="@+id/menu_contact_block"
+                android:icon="@drawable/ic_baseline_block_24"
+                app:iconTint="?attr/colorOnSurface"
+                android:title="@string/block_user" />
+        </menu>
+    </item>
+
+
+</menu>

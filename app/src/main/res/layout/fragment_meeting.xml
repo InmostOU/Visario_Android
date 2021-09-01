@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="bottomSheetVisible"
+            type="Boolean" />
+        <variable
+            name="viewModel"
+            type="pro.inmost.android.visario.ui.screens.meet.meeting.MeetingViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:paddingBottom="48dp"
+            android:paddingBottom="@{bottomSheetVisible ? @dimen/meeting_padding_bottom : 0}">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_constraintTop_toTopOf="parent"
+                app:titleTextColor="?android:attr/textColorPrimary"
+                tools:title="Meeting name"
+                app:menu="@menu/meeting"
+                tools:subtitle="6 members"
+                app:navigationIconTint="?attr/colorOnSurface"
+                android:backgroundTint="@android:color/transparent"
+                app:navigationIcon="@drawable/ic_baseline_arrow_back_24"/>
+
+            <LinearLayout
+                android:id="@+id/members_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:paddingBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                android:orientation="vertical"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/video_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabSize="mini"
+                app:backgroundTint="@color/red_600"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="@dimen/meeting_buttons_margin_bottom"
+                android:onClick="@{() -> viewModel.toggleVideo()}"
+                android:src="@{viewModel.camOn ? @drawable/ic_outline_videocam_24 : @drawable/ic_outline_videocam_off_24}"
+                tools:src="@drawable/ic_outline_videocam_24"
+                app:layout_constraintEnd_toStartOf="@id/audio_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="@string/enabled_video" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/audio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabSize="mini"
+                android:src="@{viewModel.micOn ? @drawable/ic_baseline_mic_24 : @drawable/ic_baseline_mic_off_24}"
+                tools:src="@drawable/ic_baseline_mic_24"
+                android:onClick="@{() -> viewModel.toggleMic()}"
+                android:layout_marginBottom="@dimen/meeting_buttons_margin_bottom"
+                app:backgroundTint="@color/red_600"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="@string/enabled_audio" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/hang_up_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabSize="mini"
+                android:src="@drawable/ic_round_call_end_24"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="@dimen/meeting_buttons_margin_bottom"
+                app:backgroundTint="@color/red_600"
+                app:layout_constraintStart_toEndOf="@id/audio_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="@string/hang_up" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutBottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:behavior_hideable="false"
+            android:elevation="8dp"
+            android:shadowColor="@color/black"
+            android:shadowRadius="8"
+            android:visibility="@{bottomSheetVisible ? View.VISIBLE : View.INVISIBLE}"
+            app:behavior_peekHeight="?attr/actionBarSize"
+            android:background="@drawable/bottom_sheet_background"
+            app:layout_behavior="@string/bottom_sheet_behavior">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="4dp"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                app:tint="?attr/colorPrimary"
+                app:srcCompat="@drawable/bottom_sheet_handler"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bottom_sheet_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:titleTextColor="?android:attr/textColorPrimary"
+                tools:text="+ 16 more members"
+                android:layout_marginStart="8dp"
+                android:textColor="?attr/colorOnSurface"
+                android:padding="8dp"
+                android:textSize="16sp"
+                android:backgroundTint="@android:color/transparent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bottom_sheet_member_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_item_meeting_member"/>
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>

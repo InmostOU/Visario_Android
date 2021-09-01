@@ -1,0 +1,39 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="login_fields_margin_startEnd">16dp</dimen>
+    <dimen name="login_edit_text_height">48dp</dimen>
+    <dimen name="login_fields_margin_top">8dp</dimen>
+    <dimen name="logo_size">38sp</dimen>
+    <dimen name="text_size_chat_name">16sp</dimen>
+    <dimen name="text_size_chat_last_message">14sp</dimen>
+    <dimen name="chat_image_size">40dp</dimen>
+    <dimen name="message_time_text_size">12sp</dimen>
+    <dimen name="message_text_size">16sp</dimen>
+    <dimen name="message_sender_text_size">14sp</dimen>
+    <dimen name="message_bubble_max_width">340dp</dimen>
+    <dimen name="message_done_mark_size">18dp</dimen>
+    <dimen name="contact_detail_name_text_size">24sp</dimen>
+    <dimen name="send_mail_icon_size">38dp</dimen>
+    <dimen name="expanded_user_title">24sp</dimen>
+    <dimen name="expanded_user_subtitle">18sp</dimen>
+    <dimen name="radio_group_text_size">16sp</dimen>
+    <dimen name="margin_between_setting_cards">18dp</dimen>
+    <dimen name="contact_fab_size">50dp</dimen>
+    <dimen name="user_name_margin_start">24dp</dimen>
+    <dimen name="user_name_margin_bottom">16dp</dimen>
+    <dimen name="section_title_size">18sp</dimen>
+    <dimen name="bottom_sheet_menu_text_size">16sp</dimen>
+    <dimen name="profile_photo_height">300dp</dimen>
+    <dimen name="list_item_image_margin">6dp</dimen>
+    <dimen name="bottom_camera_button_height">48dp</dimen>
+    <dimen name="register_card_margin_horizontal">16dp</dimen>
+    <dimen name="register_card_margin_vertical">46dp</dimen>
+    <dimen name="bottom_sheet_meeting_menu_icons_size">26dp</dimen>
+    <dimen name="meeting_buttons_margin_bottom">16dp</dimen>
+    <dimen name="meeting_member_name_size">16sp</dimen>
+    <dimen name="meeting_member_avatar_size">48dp</dimen>
+    <dimen name="meeting_members_bottom_sheet_peek_height">80dp</dimen>
+    <dimen name="meeting_padding_bottom">48dp</dimen>
+</resources>
