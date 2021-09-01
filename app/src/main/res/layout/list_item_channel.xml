@@ -98,7 +98,8 @@
                     android:textColor="?attr/colorOnSecondary"
                     android:text="@{String.valueOf(model.newMessagesCount)}"
                     tools:text="10"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible"
+                    app:setVisible="@{model.newMessagesCount > 0}"/>
 
             </LinearLayout>
 

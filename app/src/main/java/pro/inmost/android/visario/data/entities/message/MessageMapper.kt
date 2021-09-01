@@ -10,7 +10,6 @@ fun Message.toDataMessage() = MessageData(
     content = this.text,
     createdTimestamp = this.createdTimestamp,
     lastEditedTimestamp = this.lastEditedTimestamp,
-    metadata = "",
     redacted = this.redacted,
     senderName = this.senderName,
     senderArn = this.senderUrl,
@@ -18,20 +17,22 @@ fun Message.toDataMessage() = MessageData(
     fromCurrentUser = this.fromCurrentUser,
     channelArn = this.channelUrl,
     readByMe = this.readByMe,
-    status = this.status.name
+    status = this.status.name,
+    metadata = this.metadata
 )
 
 fun CreateChannelMessagePayload.toDataMessage() = MessageData(
     messageId = this.MessageId,
     content = this.Content,
+   // createdTimestamp = DateParser.parseToMillis(this.CreatedTimestamp),
     createdTimestamp = DateParser.parseToMillis(this.CreatedTimestamp),
     lastEditedTimestamp = DateParser.parseToMillis(this.LastUpdatedTimestamp),
-    metadata = "",
+    metadata = this.Metadata,
     redacted = this.Redacted,
     senderName = this.Sender.Name,
     senderArn = this.Sender.Arn,
     type = this.Type,
-    channelArn = this.ChannelArn,
+    channelArn = this.ChannelArn
 )
 
 fun MessageData.toDomainMessage() = Message(
@@ -46,7 +47,8 @@ fun MessageData.toDomainMessage() = Message(
     redacted = this.redacted,
     fromCurrentUser = this.fromCurrentUser,
     readByMe = this.readByMe,
-    status = if (this.status == null ) MessageStatus.DELIVERED else MessageStatus.valueOf(this.status!!)
+    status = if (this.status == null ) MessageStatus.DELIVERED else MessageStatus.valueOf(this.status!!),
+    metadata = this.metadata
 )
 
 fun List<MessageData>.toDomainMessages() = map { it.toDomainMessage()}

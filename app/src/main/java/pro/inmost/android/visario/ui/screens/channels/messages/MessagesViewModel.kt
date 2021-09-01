@@ -8,6 +8,7 @@ import pro.inmost.android.visario.domain.entities.message.Message
 import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCase
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCase
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCase
+import pro.inmost.android.visario.domain.usecases.messages.UpdateMessagesReadStatusUseCase
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
 import pro.inmost.android.visario.ui.entities.message.MessageUI
 import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
@@ -23,6 +24,7 @@ class MessagesViewModel(
     private val fetchProfileUseCase: FetchProfileUseCase,
     private val sendMessageUseCase: SendMessageUseCase,
     private val leaveChannelUseCase: LeaveChannelUseCase,
+    private val updateReadStatusUseCase: UpdateMessagesReadStatusUseCase
 ) : ViewModel() {
     private var profile: ProfileUI? = null
     var currentChannelUrl: String = ""
@@ -77,6 +79,12 @@ class MessagesViewModel(
             leaveChannelUseCase.leave(currentChannelUrl).onSuccess {
                 _closeChannel.call()
             }
+        }
+    }
+
+    fun updateReadStatus(){
+        viewModelScope.launch {
+            updateReadStatusUseCase.updateAll(currentChannelUrl, true)
         }
     }
 }

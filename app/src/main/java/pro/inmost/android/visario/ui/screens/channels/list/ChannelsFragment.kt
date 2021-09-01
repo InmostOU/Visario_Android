@@ -61,11 +61,15 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
     }
 
     private fun hideProgressBar() {
-        binding.progressBar.hide()
+        if (binding.progressBar.isShown){
+            binding.progressBar.hide()
+        }
     }
 
     private fun showProgressBar() {
-        binding.progressBar.show()
+        if (!binding.progressBar.isShown){
+            binding.progressBar.show()
+        }
     }
 
     private fun openChannel(channel: ChannelUI) {

@@ -39,6 +39,11 @@ fun View.setRatio(ratio: String){
     }
 }
 
+@BindingAdapter(value = ["setVisible"])
+fun View.setVisible(visible: Boolean){
+    visibility = if (visible) View.VISIBLE else View.INVISIBLE
+}
+
 @BindingAdapter(value = ["messageStatusIcon"])
 fun ImageView.messageStatusIcon(status: MessageUIStatus?) {
     val icon = when (status){

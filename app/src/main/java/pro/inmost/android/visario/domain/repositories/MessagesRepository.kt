@@ -8,4 +8,6 @@ interface MessagesRepository {
     suspend fun sendMessage(message: Message): Result<Unit>
     suspend fun refreshData(channelArn: String)
     suspend fun markAllMessageAsRead(channelArn: String)
+    suspend fun updateReadStatusForAll(channelArn: String, read: Boolean)
+    suspend fun updateReadStatus(messageId: String, read: Boolean)
 }

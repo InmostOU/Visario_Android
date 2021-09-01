@@ -13,6 +13,7 @@ import pro.inmost.android.visario.data.entities.message.toDomainMessages
 import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.message.Message
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
+import pro.inmost.android.visario.ui.utils.log
 
 class MessagesRepositoryImpl(
     private val api: ChimeApi,
@@ -35,11 +36,13 @@ class MessagesRepositoryImpl(
 
     private suspend fun updateDatabase(messages: List<MessageData>) {
         messages.forEach {
-            if (dao.isRowIsExist(it.messageId)) {
-                it.readByMe = true
+            val localMsg = dao.get(it.messageId)
+            if (localMsg != null) {
+                it.readByMe = localMsg.readByMe
                 it.status = MessageDataStatus.DELIVERED
                 dao.update(it)
             } else {
+                it.readByMe = true
                 dao.insert(it)
             }
         }
@@ -51,7 +54,16 @@ class MessagesRepositoryImpl(
         }
     }
 
-    override suspend fun markAllMessageAsRead(channelArn: String)  = withContext(IO) {
+    override suspend fun markAllMessageAsRead(channelArn: String) = withContext(IO) {
         dao.markAllMessagesAsRead(channelArn)
+    }
+
+    override suspend fun updateReadStatusForAll(channelArn: String, read: Boolean) = withContext(IO)  {
+        log("msg read status update in repo")
+        dao.updateReadStatusForAll(channelArn, read)
+    }
+
+    override suspend fun updateReadStatus(messageId: String, read: Boolean) = withContext(IO)  {
+        dao.updateReadStatus(messageId, read)
     }
 }
