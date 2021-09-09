@@ -1,17 +1,19 @@
 package pro.inmost.android.visario.data.api.services
 
 internal object Endpoints {
-    const val MESSAGE_LIST = "messages/list"
-    const val MESSAGE_SEND = "messages/send"
+    const val SERVER_BASE_URL = "http://3.129.6.178:8081"
+
+    const val MESSAGE_LIST = "/messages/list"
+    const val MESSAGE_SEND = "/messages/send"
     const val MESSAGES_SESSION = "/messages/messaging-session"
-    const val SESSION_CONNECT = "connect"
+    const val SESSION_CONNECT = "/connect"
 
     const val PROFILE_GET = "/user/profile"
     const val PROFILE_UPDATE = "/user/profile/update"
     const val PROFILE_UPLOAD_PHOTO = "/user/uploadUserPhoto"
 
-    const val LOGIN = "auth/login"
-    const val REGISTER = "auth/register"
+    const val LOGIN = "/auth/login"
+    const val REGISTER = "/auth/register"
 
     const val WS_CHANNELS = "/websocket/getPresignedUrl"
 

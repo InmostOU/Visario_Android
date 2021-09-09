@@ -13,6 +13,8 @@ open class GenericListAdapter<T, B : ViewDataBinding>(
 ) : RecyclerView.Adapter<GenericViewHolder<B>>() {
     private var data = mutableListOf<T>()
 
+    fun getData(): List<T> = data
+
     val firstItem get() = data.firstOrNull()
     val lastItem get() = data.lastOrNull()
 

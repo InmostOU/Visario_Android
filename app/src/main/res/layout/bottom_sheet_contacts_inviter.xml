@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <import type="android.view.View"/>
-        <variable
-            name="viewModel"
-            type="pro.inmost.android.visario.ui.dialogs.select.contacts.ContactsInviterViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +15,7 @@
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_baseline_close_24"
             app:titleTextColor="?attr/colorOnBackground"
-            app:title="Invite contacts"/>
+            app:title="@string/invite_contact"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/contact_list"

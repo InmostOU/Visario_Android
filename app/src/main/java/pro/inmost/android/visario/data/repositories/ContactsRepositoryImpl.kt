@@ -59,7 +59,7 @@ class ContactsRepositoryImpl(
         }
     }
 
-    override suspend fun deleteContact(id: Int) = withContext(IO) {
+    override suspend fun deleteContact(id: Long) = withContext(IO) {
         api.contacts.deleteContact(id).onSuccess {
             refreshData()
         }

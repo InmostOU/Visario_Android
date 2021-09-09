@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="model"
-            type="pro.inmost.android.visario.ui.entities.contact.ContactUI" />
+            type="pro.inmost.android.visario.ui.entities.meeting.AttendeeUI" />
         <variable
             name="viewModel"
             type="pro.inmost.android.visario.ui.screens.meet.meeting.MeetingViewModel" />
@@ -15,16 +16,26 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> viewModel.removeMember(model)}"
         android:padding="4dp">
 
         <com.amazonaws.services.chime.sdk.meetings.audiovideo.video.DefaultVideoRenderView
             android:id="@+id/video_surface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorSurface"
+            app:bindAttendee="@{model}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="@id/video_surface"
+            app:layout_constraintEnd_toEndOf="@id/video_surface"
+            app:layout_constraintTop_toTopOf="@id/video_surface"
+            app:layout_constraintBottom_toBottomOf="@id/video_surface"
+            android:background="?attr/colorSurface"
+            android:visibility="@{model.camOn ? View.GONE : View.VISIBLE}"
+            tools:ignore="ContentDescription" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
@@ -36,7 +47,7 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:textColor="?attr/colorOnSurface"
-            android:text="@{model.fullName}"
+            android:text="@{model.name}"
             tools:text="Albert Einstein"/>
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -52,6 +63,7 @@
             app:layout_constraintBottom_toBottomOf="@id/video_surface"
             app:shapeAppearanceOverlay="@style/CircleImage"
             app:loadContactImage="@{model.image}"
+            android:visibility="@{model.camOn ? View.GONE : View.VISIBLE }"
             tools:srcCompat="@drawable/contact_placeholder"/>
 
         <ImageView
@@ -59,7 +71,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:src="@drawable/ic_baseline_mic_24"
+            android:src="@{model.micOn ? @drawable/ic_baseline_mic_24 : @drawable/ic_baseline_mic_off_24}"
+            tools:src="@drawable/ic_baseline_mic_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/member_mic_enabled" />

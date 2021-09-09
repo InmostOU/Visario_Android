@@ -8,8 +8,9 @@ import pro.inmost.android.visario.databinding.ListItemMessageBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.dialogs.alerts.SimpleAlertDialog
-import pro.inmost.android.visario.ui.dialogs.select.contacts.ContactsInviterDialog
+import pro.inmost.android.visario.ui.dialogs.inviter.channel.ChannelInviterDialog
 import pro.inmost.android.visario.ui.entities.message.MessageUI
+import pro.inmost.android.visario.ui.utils.extensions.navigate
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
 class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment_messages) {
@@ -46,6 +47,15 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
             true
         }
         viewModel.closeChannel.observe(viewLifecycleOwner){ navigateBack() }
+        viewModel.joinMeetingEvent.observe(viewLifecycleOwner){ meetingId ->
+            openMeetingFragment(meetingId)
+        }
+    }
+
+    private fun openMeetingFragment(meetingId: String) {
+        navigate {
+            MessagesFragmentDirections.actionNavigationMessagesToNavigationMeeting(meetingId)
+        }
     }
 
     private fun leaveChannel(){
@@ -61,7 +71,7 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     }
 
     private fun showInvitationDialog(channelUrl: String) {
-        ContactsInviterDialog.show(childFragmentManager, channelUrl)
+        ChannelInviterDialog.show(childFragmentManager, channelUrl)
     }
 
     private fun observeData() {

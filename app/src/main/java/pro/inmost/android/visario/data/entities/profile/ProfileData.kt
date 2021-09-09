@@ -18,4 +18,8 @@ data class ProfileData (
     val image: String,
     val showEmailTo: String,
     val showPhoneNumberTo: String
-)
+) {
+
+    val fullName: String
+        get() = "$firstName $lastName"
+}

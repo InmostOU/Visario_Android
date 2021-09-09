@@ -15,7 +15,8 @@ data class MessageUI(
     val fromCurrentUser: Boolean = false,
     val readByMe: Boolean = false,
     val type: String = "STANDARD",
-    val status: MessageUIStatus = MessageUIStatus.SENDING
+    val status: MessageUIStatus = MessageUIStatus.SENDING,
+    val isMeetingInvitation: Boolean
 ): BaseEntity {
 
     val createdTimeFormat: String

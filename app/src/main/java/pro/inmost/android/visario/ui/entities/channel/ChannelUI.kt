@@ -15,8 +15,10 @@ data class ChannelUI (
     val isModerator: Boolean,
     var messages: List<MessageUI> = listOf()
 ): BaseEntity {
+
     val lastMessage: String
         get() = messages.firstOrNull()?.text ?: ""
+
     val lastMessageTime: String
         get() {
             val lastMessage = messages.firstOrNull() ?: return ""
@@ -29,6 +31,9 @@ data class ChannelUI (
         }
     val newMessagesCount: Int
         get() = messages.count { !it.readByMe }
+
+    val isLastMessageMeetingInvitation: Boolean
+        get() = messages.firstOrNull()?.isMeetingInvitation ?: false
 
 
     override val baseId: String

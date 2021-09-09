@@ -78,7 +78,7 @@
                 android:textSize="18sp"
                 android:layout_marginStart="16dp"
                 android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/join_a_meeting"/>
+                android:text="@string/join_the_meeting"/>
 
         </LinearLayout>
 

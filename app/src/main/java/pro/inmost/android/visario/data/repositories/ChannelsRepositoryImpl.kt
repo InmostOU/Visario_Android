@@ -1,10 +1,7 @@
 package pro.inmost.android.visario.data.repositories
 
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.database.dao.ChannelsDao
@@ -18,6 +15,7 @@ import pro.inmost.android.visario.domain.entities.channel.Channel
 import pro.inmost.android.visario.domain.entities.contact.Contact
 import pro.inmost.android.visario.domain.repositories.ChannelsRepository
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
+import pro.inmost.android.visario.ui.utils.log
 
 class ChannelsRepositoryImpl(
     private val api: ChimeApi,
@@ -28,11 +26,12 @@ class ChannelsRepositoryImpl(
     override fun getChannels(): Flow<List<Channel>> {
         val savedChannels = getSavedChannels().map { it.toDomainChannels() }
         launchIO { refreshData() }
-        return savedChannels
+        return savedChannels.filter { it.isNotEmpty() }
     }
 
     override suspend fun refreshData(): Unit = withContext(IO) {
         api.channels.getChannels().onSuccess { data ->
+            log("getChannels success")
             data.forEach { channel ->
                 messagesRepository.refreshData(channel.channelArn)
             }

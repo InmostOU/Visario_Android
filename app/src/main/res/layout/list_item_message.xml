@@ -77,13 +77,46 @@
                     android:layout_height="@dimen/message_done_mark_size"
                     android:layout_marginStart="8dp"
                     android:layout_gravity="bottom"
-                    android:visibility="@{message.fromCurrentUser ? View.VISIBLE : View.INVISIBLE}"
+                    android:visibility="@{message.fromCurrentUser ? View.VISIBLE : View.GONE}"
                     app:messageStatusIcon="@{message.status}"
                     app:tint="?attr/colorOnSurface"
                     tools:src="@drawable/ic_baseline_done_24"/>
 
             </LinearLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:visibility="gone"
+                android:visibility="@{message.meetingInvitation ? View.VISIBLE : View.GONE}">
+
+                <ImageView
+                    android:id="@+id/cam_image"
+                    android:layout_width="@dimen/meeting_invitation_icon_size"
+                    android:layout_height="@dimen/meeting_invitation_icon_size"
+                    app:tint="?attr/colorOnSurface"
+                    android:layout_marginTop="16dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_outline_videocam_24"
+                    tools:ignore="ContentDescription" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="?attr/colorSecondaryVariant"
+                    android:onClick="@{() -> viewModel.onInvitationClick(message)}"
+                    app:layout_constraintTop_toBottomOf="@id/cam_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/join_the_meeting"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/message_text"
@@ -95,8 +128,10 @@
                 android:paddingEnd="16dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="10dp"
+                android:onClick="@{() -> viewModel.onMessageClick(message)}"
+                android:visibility="@{message.meetingInvitation ? View.GONE : View.VISIBLE}"
                 android:text="@{message.text}"
-                tools:text="Hello world! Please know that you are beautiful!"
+                tools:text="Hello world! Please notice that you are beautiful!"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="@dimen/message_text_size" />
 

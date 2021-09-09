@@ -1,7 +1,7 @@
 package pro.inmost.android.visario.domain.entities.contact
 
 data class Contact(
-    val id: Int,
+    val id: Long,
     val url: String,
     val username: String,
     var firstName: String,

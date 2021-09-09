@@ -5,11 +5,14 @@ import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
+import com.amazonaws.services.chime.sdk.meetings.audiovideo.video.DefaultVideoRenderView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import pro.inmost.android.visario.R
+import pro.inmost.android.visario.ui.entities.meeting.AttendeeUI
 import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
 
 @BindingAdapter(value = ["showError"])
@@ -44,6 +47,11 @@ fun View.setVisible(visible: Boolean){
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
 
+@BindingAdapter(value = ["setVisible"])
+fun FloatingActionButton.setVisible(visible: Boolean){
+    if (visible) show() else hide()
+}
+
 @BindingAdapter(value = ["messageStatusIcon"])
 fun ImageView.messageStatusIcon(status: MessageUIStatus?) {
     val icon = when (status){
@@ -74,4 +82,9 @@ fun MaterialToolbar.chooseContactMenu(myContact: Boolean?) {
         R.menu.contact_detail_unlisted
     }
     inflateMenu(menu)
+}
+
+@BindingAdapter(value = ["bindAttendee"])
+fun DefaultVideoRenderView.bindAttendee(attendee: AttendeeUI){
+    attendee.audioVideoFacade.bindVideoView(this, attendee.tileState.tileId)
 }

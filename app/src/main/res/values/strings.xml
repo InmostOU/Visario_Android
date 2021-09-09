@@ -125,7 +125,7 @@
     <string name="add_new_contact">Add new contact</string>
     <string name="new_meeting">New meeting</string>
     <string name="meeting_name">Meeting name</string>
-    <string name="join_a_meeting">Join a meeting</string>
+    <string name="join_the_meeting">Join the meeting</string>
     <string name="join">Join</string>
     <string name="meeting_url">Meeting URL</string>
     <string name="creation_fails">Creation fails</string>
@@ -140,6 +140,14 @@
     <string name="schedule_meeting">Schedule a meeting</string>
     <string name="member_mic_enabled">Member mic enabled</string>
     <string name="no_messages">no messages</string>
+    <string name="Meeting">Meeting</string>
+    <string name="invite_group">Invite group</string>
+    <string name="invite_contact">Invite contact</string>
+    <string name="invalid_url">Invalid URL</string>
+    <string name="send_invitation">Send invitation</string>
+    <string name="send">Send</string>
+    <string name="sent">Sent</string>
+    <string name="switch_camera">Switch camera</string>
 
 
     <plurals name="members">

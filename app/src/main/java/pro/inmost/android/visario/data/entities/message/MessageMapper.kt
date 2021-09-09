@@ -1,6 +1,7 @@
 package pro.inmost.android.visario.data.entities.message
 
 import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads.CreateChannelMessagePayload
+import pro.inmost.android.visario.data.utils.extensions.isMeetingInvitation
 import pro.inmost.android.visario.domain.entities.message.Message
 import pro.inmost.android.visario.domain.entities.message.MessageStatus
 import pro.inmost.android.visario.ui.utils.DateParser
@@ -48,7 +49,8 @@ fun MessageData.toDomainMessage() = Message(
     fromCurrentUser = this.fromCurrentUser,
     readByMe = this.readByMe,
     status = if (this.status == null ) MessageStatus.DELIVERED else MessageStatus.valueOf(this.status!!),
-    metadata = this.metadata
+    metadata = this.metadata,
+    isMeetingInvitation = content.isMeetingInvitation()
 )
 
 fun List<MessageData>.toDomainMessages() = map { it.toDomainMessage()}
