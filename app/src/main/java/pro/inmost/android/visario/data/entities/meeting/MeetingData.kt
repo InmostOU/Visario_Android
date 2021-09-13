@@ -2,7 +2,7 @@ package pro.inmost.android.visario.data.entities.meeting
 
 data class MeetingData(
     val meetingId: String,
-    val externalMeetingId: String,
+    val externalMeetingId: String?,
     val mediaPlacement: MediaPlacement,
     val mediaRegion: String
 )

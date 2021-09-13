@@ -1,17 +1,36 @@
 package pro.inmost.android.visario.ui.entities.meeting
 
-import androidx.lifecycle.MutableLiveData
-import com.amazonaws.services.chime.sdk.meetings.audiovideo.AudioVideoFacade
-import com.amazonaws.services.chime.sdk.meetings.audiovideo.video.VideoTileState
+import androidx.databinding.ObservableField
+import com.amazonaws.services.chime.sdk.meetings.audiovideo.video.DefaultVideoRenderView
 
 data class AttendeeUI(
-    val tileState: VideoTileState,
-    val audioVideoFacade: AudioVideoFacade,
     val userId: Long,
+    var attendeeId: String = "",
     val name: String,
     val image: String,
-    var isMe: Boolean = false
-){
-    val micOn = MutableLiveData(true)
-    val camOn = MutableLiveData(true)
+    val isMe: Boolean = false,
+) {
+    val micOn = ObservableField(true)
+    val camOn = ObservableField(true)
+    var videoView: DefaultVideoRenderView? = null
+
+
+    fun turnOnCam(){
+        camOn.set(true)
+    }
+
+    fun turnOffCam(){
+        camOn.set(false)
+    }
+
+    fun turnOnMic() {
+        micOn.set(true)
+    }
+
+    fun turnOffMic() {
+        micOn.set(false)
+    }
+
+    fun isCameraOn() = camOn.get() ?: false
+    fun isMicOn() = micOn.get() ?: false
 }

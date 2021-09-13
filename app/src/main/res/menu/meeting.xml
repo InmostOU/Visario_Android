@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/menu_meeting_switch_camera"
-        android:icon="@drawable/ic_baseline_flip_camera_android_24"
+        android:icon="@drawable/ic_baseline_cameraswitch_24"
         android:title="@string/switch_camera"
         app:showAsAction="ifRoom"/>
 
@@ -16,17 +16,10 @@
 
         <menu>
             <item
-                android:id="@+id/menu_meeting_invite_contact"
-                android:icon="@drawable/ic_baseline_person_add_24"
-                android:title="@string/invite_contact"
-                app:iconTint="?attr/colorOnSurface"
-                app:showAsAction="ifRoom" />
-
-            <item
-                android:id="@+id/menu_meeting_invite_group"
+                android:id="@+id/menu_meeting_send_invitation"
                 android:icon="@drawable/ic_baseline_group_add_24"
                 app:iconTint="?attr/colorOnSurface"
-                android:title="@string/invite_group"/>
+                android:title="@string/send_invitation"/>
         </menu>
     </item>
 </menu>

@@ -91,11 +91,7 @@ val useCases = module {
             repository = get<MeetingsRepositoryImpl>()
         )
     }
-    factory {
-        InviteContactUseCaseImpl(
-            repository = get<MeetingsRepositoryImpl>()
-        )
-    }
+
     factory {
         InviteGroupUseCaseImpl(
             repository = get<MeetingsRepositoryImpl>()

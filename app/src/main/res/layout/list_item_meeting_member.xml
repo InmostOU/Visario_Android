@@ -48,17 +48,6 @@
                 android:text="@{model.name}"
                 tools:text="Contact Name"/>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textSize="@dimen/text_size_chat_last_message"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:visibility="gone"
-                android:textColor="?android:attr/textColorSecondary"
-                tools:text="Online"/>
-
         </LinearLayout>
 
         <ImageView
@@ -68,7 +57,8 @@
             android:layout_weight="1"
             android:padding="8dp"
             app:tint="?attr/colorOnSurface"
-            android:src="@drawable/ic_baseline_mic_off_24"
+            android:src="@{model.micOn ? @drawable/ic_baseline_mic_24 : @drawable/ic_baseline_mic_off_24}"
+            tools:src="@drawable/ic_baseline_mic_off_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/member_mic_enabled" />

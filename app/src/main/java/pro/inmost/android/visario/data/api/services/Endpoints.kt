@@ -22,6 +22,7 @@ internal object Endpoints {
     const val MEETING_DELETE = "/meeting/deleteMeeting"
     const val MEETING_CREATE_ATTENDEE = "/meeting/createAttendee"
     const val MEETING_DELETE_ATTENDEE = "/meeting/deleteAttendee"
+    const val MEETING_GET_ATTENDEE_INFO = "/meeting/getUserInfoByUserId"
 
     const val CHANNEL_LIST = "/channels/getChannelsMemberships"
     const val CHANNEL_CREATE = "/channels/create"

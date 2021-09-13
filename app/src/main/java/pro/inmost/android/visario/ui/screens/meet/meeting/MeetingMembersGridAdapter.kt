@@ -40,6 +40,7 @@ class MeetingMembersGridAdapter(
         } else {
             rows.find { it.childCount == 1 }?.let { getItemBinding(it) }
         }?.let { itemBinding ->
+            item.videoView = itemBinding.videoSurface
             itemBinding.model = item
             itemBinding.viewModel = viewModel
         }
@@ -51,7 +52,7 @@ class MeetingMembersGridAdapter(
         rows.forEach forEachOne@{ row ->
             row.forEach {
                 DataBindingUtil.findBinding<GridItemMeetingMemberBinding>(it)?.let { binding ->
-                    if (binding.model?.tileState?.attendeeId == attendeeId) {
+                    if (binding.model?.attendeeId == attendeeId) {
                         row.removeView(it)
                         if (row.isEmpty()) {
                             removeRow(row)

@@ -4,6 +4,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.dto.requests.meeting.CreateAttendeeRequest
 import pro.inmost.android.visario.data.api.dto.requests.meeting.DeleteAttendeeRequest
+import pro.inmost.android.visario.data.api.dto.responses.meeting.AttendeeInfoResponse
 import pro.inmost.android.visario.data.api.dto.responses.meeting.GetMeetingResponse
 import pro.inmost.android.visario.data.api.services.Endpoints
 import pro.inmost.android.visario.data.entities.meeting.AttendeeData
@@ -59,6 +60,18 @@ class MeetingManager(private val service: MeetingService) {
             Result.success(meetingResponse)
         }.getOrElse {
             logError("Get meeting error: ${it.message}")
+            Result.failure(it)
+        }
+    }
+
+    suspend fun getAttendeeInfo(userId: String): Result<AttendeeInfoResponse> = withContext(IO){
+        kotlin.runCatching {
+            log("get attendee by id: $userId")
+            val response = service.getAttendeeInfo(userId)
+            log("Get attendee info response: $response")
+            Result.success(response)
+        }.getOrElse {
+            logError("Get attendee info error: ${it.message}")
             Result.failure(it)
         }
     }

@@ -66,6 +66,10 @@ class MeetingFragment : BaseFragment<FragmentMeetingBinding>(R.layout.fragment_m
     }
 
     private fun observeEvents() {
+        viewModel.currentAttendee.observe(viewLifecycleOwner){
+            binding.currentAttendee = it
+            binding.executePendingBindings()
+        }
         viewModel.memberJoinEvent.observe(viewLifecycleOwner) { member ->
             lifecycleScope.launch {
                 addMember(member)
@@ -75,7 +79,7 @@ class MeetingFragment : BaseFragment<FragmentMeetingBinding>(R.layout.fragment_m
             }
         }
 
-        viewModel.memberLeaveEvent.observe(viewLifecycleOwner) { attendeeId ->
+        viewModel.memberLeftEvent.observe(viewLifecycleOwner) { attendeeId ->
             lifecycleScope.launch {
                 removeMember(attendeeId)
                 updateSubtitle()
@@ -88,7 +92,7 @@ class MeetingFragment : BaseFragment<FragmentMeetingBinding>(R.layout.fragment_m
                 R.id.menu_meeting_invite_contact -> {
                     inviteContact(viewModel.meetingId)
                 }
-                R.id.menu_meeting_invite_group -> {
+                R.id.menu_meeting_send_invitation -> {
                     inviteGroup(viewModel.meetingId)
                 }
                 R.id.menu_meeting_switch_camera -> {
@@ -125,7 +129,7 @@ class MeetingFragment : BaseFragment<FragmentMeetingBinding>(R.layout.fragment_m
         if (attendee != null){
             moveMemberFromBottomSheetToMainGrid()
         } else {
-            attendee = listAdapter.getData().find { it.tileState.attendeeId == attendeeId }?.also {
+            attendee = listAdapter.getData().find { it.attendeeId == attendeeId }?.also {
                 listAdapter.deleteItem(it)
             }
         }

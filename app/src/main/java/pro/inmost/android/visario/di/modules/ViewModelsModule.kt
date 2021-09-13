@@ -76,11 +76,11 @@ val viewModelsModule = module {
         get<CreateMeetingUseCaseImpl>(),
         get<JoinMeetingUseCaseImpl>(),
         get<DeleteAttendeeUseCaseImpl>(),
-        get<GetAttendeeUseCaseImpl>())
+        get<GetAttendeeUseCaseImpl>(),
+        get<FetchProfileUseCaseImpl>())
     }
     viewModel { MeetingContactsInviterViewModel(
-        get<FetchContactsUseCaseImpl>(),
-        get<InviteContactUseCaseImpl>()
+        get<FetchContactsUseCaseImpl>()
     ) }
 
     // CHATS

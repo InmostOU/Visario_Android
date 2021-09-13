@@ -148,6 +148,7 @@
     <string name="send">Send</string>
     <string name="sent">Sent</string>
     <string name="switch_camera">Switch camera</string>
+    <string name="switch_audio_device">Switch audio device</string>
 
 
     <plurals name="members">

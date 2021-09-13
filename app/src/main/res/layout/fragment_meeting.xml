@@ -9,6 +9,9 @@
             name="bottomSheetVisible"
             type="Boolean" />
         <variable
+            name="currentAttendee"
+            type="pro.inmost.android.visario.ui.entities.meeting.AttendeeUI" />
+        <variable
             name="viewModel"
             type="pro.inmost.android.visario.ui.screens.meet.meeting.MeetingViewModel" />
     </data>
@@ -61,9 +64,9 @@
                 app:backgroundTint="@color/red_600"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="@dimen/meeting_buttons_margin_bottom"
-                android:onClick="@{() -> viewModel.toggleVideo()}"
+                android:onClick="@{() -> viewModel.toggleVideo(currentAttendee)}"
                 app:setVisible="@{viewModel.sessionStarted}"
-                android:src="@{viewModel.camOn ? @drawable/ic_outline_videocam_24 : @drawable/ic_outline_videocam_off_24}"
+                android:src="@{currentAttendee.camOn ? @drawable/ic_outline_videocam_24 : @drawable/ic_outline_videocam_off_24}"
                 tools:src="@drawable/ic_outline_videocam_24"
                 app:layout_constraintEnd_toStartOf="@id/audio_button"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -74,10 +77,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fabSize="mini"
-                android:src="@{viewModel.micOn ? @drawable/ic_baseline_mic_24 : @drawable/ic_baseline_mic_off_24}"
+                android:src="@{currentAttendee.micOn ? @drawable/ic_baseline_mic_24 : @drawable/ic_baseline_mic_off_24}"
                 tools:src="@drawable/ic_baseline_mic_24"
                 app:setVisible="@{viewModel.sessionStarted}"
-                android:onClick="@{() -> viewModel.toggleMic()}"
+                android:onClick="@{() -> viewModel.toggleMic(currentAttendee)}"
                 android:layout_marginBottom="@dimen/meeting_buttons_margin_bottom"
                 app:backgroundTint="@color/red_600"
                 app:layout_constraintStart_toStartOf="parent"

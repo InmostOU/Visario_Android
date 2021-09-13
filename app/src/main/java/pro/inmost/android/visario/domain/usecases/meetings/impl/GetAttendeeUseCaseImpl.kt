@@ -5,7 +5,7 @@ import pro.inmost.android.visario.domain.repositories.MeetingsRepository
 import pro.inmost.android.visario.domain.usecases.meetings.GetAttendeeUseCase
 
 class GetAttendeeUseCaseImpl(private val repository: MeetingsRepository) : GetAttendeeUseCase {
-    override suspend fun get(attendeeId: String): Result<Attendee> {
-        return repository.getAttendee(attendeeId)
+    override suspend fun get(userId: String): Result<Attendee> {
+        return repository.getAttendee(userId)
     }
 }
