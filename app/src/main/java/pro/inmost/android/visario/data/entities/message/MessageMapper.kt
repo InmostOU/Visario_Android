@@ -25,7 +25,6 @@ fun Message.toDataMessage() = MessageData(
 fun CreateChannelMessagePayload.toDataMessage() = MessageData(
     messageId = this.MessageId,
     content = this.Content,
-   // createdTimestamp = DateParser.parseToMillis(this.CreatedTimestamp),
     createdTimestamp = DateParser.parseToMillis(this.CreatedTimestamp),
     lastEditedTimestamp = DateParser.parseToMillis(this.LastUpdatedTimestamp),
     metadata = this.Metadata,
@@ -48,7 +47,7 @@ fun MessageData.toDomainMessage() = Message(
     redacted = this.redacted,
     fromCurrentUser = this.fromCurrentUser,
     readByMe = this.readByMe,
-    status = if (this.status == null ) MessageStatus.DELIVERED else MessageStatus.valueOf(this.status!!),
+    status = kotlin.runCatching { MessageStatus.valueOf(this.status!!) }.getOrElse { MessageStatus.DELIVERED },
     metadata = this.metadata,
     isMeetingInvitation = content.isMeetingInvitation()
 )

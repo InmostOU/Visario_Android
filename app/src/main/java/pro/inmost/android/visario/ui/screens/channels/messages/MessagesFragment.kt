@@ -26,13 +26,27 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
         binding.viewModel = viewModel
         binding.messageList.adapter = listAdapter
         updateTitle(args.channelName)
+        showJoinButton(args.isMember)
         observeData()
         observeEvents()
+    }
+
+    private fun showJoinButton(show: Boolean) {
+        viewModel.setJoined(show)
     }
 
     private fun updateTitle(title: String) {
         if (title != binding.toolbar.title){
             binding.toolbar.title = title
+        }
+    }
+
+    private fun observeData() {
+        viewModel.observeMessages(args.channelUrl).observe(viewLifecycleOwner) { messages ->
+            val needScroll = messages.size > listAdapter.size
+            listAdapter.submitList(messages) {
+                if (needScroll) scrollToBottom()
+            }
         }
     }
 
@@ -72,15 +86,6 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
 
     private fun showInvitationDialog(channelUrl: String) {
         ChannelInviterDialog.show(childFragmentManager, channelUrl)
-    }
-
-    private fun observeData() {
-        viewModel.observeMessages(args.channelUrl).observe(viewLifecycleOwner) { messages ->
-            val needScroll = messages.size > listAdapter.size
-            listAdapter.submitList(messages) {
-                if (needScroll) scrollToBottom()
-            }
-        }
     }
 
     private fun scrollToBottom() {

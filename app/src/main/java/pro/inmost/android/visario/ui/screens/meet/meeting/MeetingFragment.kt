@@ -89,9 +89,6 @@ class MeetingFragment : BaseFragment<FragmentMeetingBinding>(R.layout.fragment_m
 
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.menu_meeting_invite_contact -> {
-                    inviteContact(viewModel.meetingId)
-                }
                 R.id.menu_meeting_send_invitation -> {
                     inviteGroup(viewModel.meetingId)
                 }

@@ -72,9 +72,8 @@ class ChannelsRepositoryImpl(
         }
     }
 
-    override suspend fun addMember(channelUrl: String, contact: Contact): Result<Unit> {
-        val contactData = contact.toDataContact()
-        return api.channels.addMember(channelUrl, contactData.userArn)
+    override suspend fun addMember(channelArn: String, userArn: String): Result<Unit> {
+        return api.channels.addMember(channelArn, userArn)
     }
 
     private fun getSavedChannels() = channelsDao.getChannelsWithMessages().map { data ->

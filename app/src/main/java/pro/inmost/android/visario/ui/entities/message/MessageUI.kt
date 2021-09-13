@@ -32,5 +32,5 @@ data class MessageUI(
         get() = DateFormat.format("hh:mm", lastEditedTimestamp).toString()
 
     override val baseId: String
-        get() = (text + channelUrl + senderUrl + senderName).hashCode().toString()
+        get() = (channelUrl + senderUrl + senderName).hashCode().toString()
 }

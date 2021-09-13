@@ -1,9 +1,11 @@
 package pro.inmost.android.visario.ui.screens.channels.messages
 
+import android.view.View
 import androidx.lifecycle.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import pro.inmost.android.visario.domain.usecases.channels.AddMemberToChannelUseCase
 import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCase
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCase
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCase
@@ -21,7 +23,8 @@ class MessagesViewModel(
     private val fetchProfileUseCase: FetchProfileUseCase,
     private val sendMessageUseCase: SendMessageUseCase,
     private val leaveChannelUseCase: LeaveChannelUseCase,
-    private val updateReadStatusUseCase: UpdateMessagesReadStatusUseCase
+    private val updateReadStatusUseCase: UpdateMessagesReadStatusUseCase,
+    private val addMemberToChannelUseCase: AddMemberToChannelUseCase
 ) : ViewModel() {
     private var profile: ProfileUI? = null
     var currentChannelUrl: String = ""
@@ -33,6 +36,9 @@ class MessagesViewModel(
     private val _joinMeetingEvent = SingleLiveEvent<String>()
     val joinMeetingEvent: LiveData<String> = _joinMeetingEvent
 
+    private val _isJoined = MutableLiveData<Boolean>()
+    val isJoined: LiveData<Boolean> = _isJoined
+
     init {
         loadProfile()
     }
@@ -43,6 +49,24 @@ class MessagesViewModel(
                 profile = it
             }
         }
+    }
+
+    fun joinChannel(view: View){
+        view.isEnabled = false
+        viewModelScope.launch {
+            profile?.let {
+                addMemberToChannelUseCase.invite(currentChannelUrl, it.userUrl).onSuccess {
+                    view.isEnabled = true
+                    _isJoined.value = true
+                }.onFailure {
+                    view.isEnabled = true
+                }
+            }
+        }
+    }
+
+    fun setJoined(joined: Boolean){
+        _isJoined.value = joined
     }
 
     fun observeMessages(channelUrl: String): LiveData<List<MessageUI>> {

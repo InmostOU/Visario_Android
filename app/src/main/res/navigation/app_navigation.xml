@@ -28,7 +28,11 @@
     <fragment
         android:id="@+id/navigation_channel_search"
         android:name="pro.inmost.android.visario.ui.screens.channels.search.SearchChannelsFragment"
-        tools:layout="@layout/fragment_channels_search"/>
+        tools:layout="@layout/fragment_channels_search">
+        <action
+            android:id="@+id/action_navigation_channel_search_to_navigation_messages"
+            app:destination="@id/navigation_messages" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_messages"
@@ -44,6 +48,9 @@
         <action
             android:id="@+id/action_navigation_messages_to_navigation_meeting"
             app:destination="@id/navigation_meeting" />
+        <argument
+            android:name="isMember"
+            app:argType="boolean" />
     </fragment>
 
     <fragment

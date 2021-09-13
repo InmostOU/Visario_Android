@@ -60,7 +60,8 @@ val viewModelsModule = module {
             get<FetchProfileUseCaseImpl>(),
             get<SendMessageUseCaseImpl>(),
             get<LeaveChannelUseCaseImpl>(),
-            get<UpdateMessagesReadStatusUseCaseImpl>()
+            get<UpdateMessagesReadStatusUseCaseImpl>(),
+            get<AddMemberToChannelUseCaseImpl>()
         )
     }
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="pro.inmost.android.visario.ui.screens.channels.messages.MessagesViewModel" />
@@ -28,7 +29,7 @@
             tools:title="Channel name"
             app:titleTextColor="?attr/colorOnPrimary"
             app:navigationIconTint="?attr/colorOnPrimary"
-            app:menu="@menu/messages_channel"
+            app:visibilityMessagesMenu="@{viewModel.isJoined()}"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24">
@@ -53,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="8dp"
+            android:visibility="@{viewModel.isJoined ? View.VISIBLE : View.GONE}"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent">
 
@@ -103,7 +105,8 @@
             android:backgroundTint="?attr/colorSurface"
             android:textColor="?attr/colorSecondary"
             android:insetBottom="0dp"
-            android:visibility="gone"
+            android:onClick="@{(view) -> viewModel.joinChannel(view)}"
+            android:visibility="@{viewModel.isJoined ? View.GONE : View.VISIBLE}"
             android:text="@string/join"/>
 
 

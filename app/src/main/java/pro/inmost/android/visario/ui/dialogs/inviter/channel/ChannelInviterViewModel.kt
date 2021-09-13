@@ -9,7 +9,6 @@ import pro.inmost.android.visario.domain.usecases.channels.AddMemberToChannelUse
 import pro.inmost.android.visario.domain.usecases.contacts.FetchContactsUseCase
 import pro.inmost.android.visario.ui.dialogs.inviter.AbstractInviterViewModel
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
-import pro.inmost.android.visario.ui.entities.contact.toDomainContact
 import pro.inmost.android.visario.ui.utils.extensions.toast
 
 class ChannelInviterViewModel(
@@ -21,7 +20,7 @@ class ChannelInviterViewModel(
     override fun inviteContact(view: View,  contact: ContactUI){
         view.isEnabled = false
         viewModelScope.launch {
-            addMemberToChannelUseCase.invite(channelUrl, contact.toDomainContact()).onSuccess {
+            addMemberToChannelUseCase.invite(channelUrl, contact.url).onSuccess {
                 (view as Button).text = view.context.getString(R.string.invited)
             }.onFailure {
                 view.isEnabled = true
