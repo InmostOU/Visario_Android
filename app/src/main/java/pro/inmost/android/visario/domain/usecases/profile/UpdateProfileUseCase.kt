@@ -6,4 +6,5 @@ import java.io.File
 interface UpdateProfileUseCase {
     suspend fun updateInfo(profile: Profile): Result<Unit>
     suspend fun uploadImage(file: File): Result<Unit>
+    suspend fun refresh()
 }

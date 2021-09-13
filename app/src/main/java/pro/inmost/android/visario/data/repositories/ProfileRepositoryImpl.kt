@@ -18,7 +18,7 @@ class ProfileRepositoryImpl(
     private val api: ChimeApi
 ) : ProfileRepository {
 
-    override suspend fun getProfile(): Flow<Profile>{
+    override suspend fun observeProfile(): Flow<Profile>{
         launchIO { refresh() }
         return profileDao.getObservable().mapNotNull { it?.toDomainProfile() }
     }

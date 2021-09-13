@@ -8,8 +8,7 @@ import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.channels.*
 import pro.inmost.android.visario.domain.usecases.contacts.*
-import pro.inmost.android.visario.domain.usecases.meetings.CreateMeetingUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.meetings.JoinMeetingUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.meetings.impl.*
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.UpdateMessagesReadStatusUseCaseImpl
@@ -83,8 +82,25 @@ val useCases = module {
         )
     }
     factory {
+        GetAttendeeUseCaseImpl(
+            repository = get<MeetingsRepositoryImpl>()
+        )
+    }
+    factory {
         JoinMeetingUseCaseImpl(
             repository = get<MeetingsRepositoryImpl>()
+        )
+    }
+
+    factory {
+        InviteGroupUseCaseImpl(
+            repository = get<MeetingsRepositoryImpl>()
+        )
+    }
+    factory {
+        DeleteAttendeeUseCaseImpl(
+            meetingsRepository = get<MeetingsRepositoryImpl>(),
+            profileRepository = get<ProfileRepositoryImpl>()
         )
     }
 

@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity(), AuthListener {
         (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment).navController
     }
     private val credentialsStore: CredentialsStore by inject()
-
     private val channelsWebSocketClient: ChannelsWebSocketClient by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {

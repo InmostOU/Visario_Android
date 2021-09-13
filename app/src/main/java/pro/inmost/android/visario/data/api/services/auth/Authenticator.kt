@@ -5,16 +5,16 @@ import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi.Companion.STATUS_OK
 import pro.inmost.android.visario.data.api.dto.requests.auth.LoginRequest
 import pro.inmost.android.visario.data.api.dto.requests.auth.RegistrationRequest
-import pro.inmost.android.visario.data.api.dto.responses.auth.Tokens
+import pro.inmost.android.visario.data.api.dto.responses.auth.AuthResponse
 import pro.inmost.android.visario.data.utils.logError
 
 class Authenticator(private val service: AuthService) {
 
-    suspend fun login(email: String, password: String) = withContext(IO) {
+    suspend fun login(email: String, password: String): Result<AuthResponse> = withContext(IO) {
         kotlin.runCatching {
             val response = service.login(LoginRequest(email, password))
             if (response.status == STATUS_OK) {
-                Result.success(Tokens(response.accessToken, response.refreshToken))
+                Result.success(response)
             } else {
                 logError("login error: ${response.message}")
                 Result.failure(Throwable(response.message))
@@ -30,7 +30,7 @@ class Authenticator(private val service: AuthService) {
         return true
     }
 
-    suspend fun register(body: RegistrationRequest) = withContext(IO){
+    suspend fun register(body: RegistrationRequest): Result<Unit> = withContext(IO){
         kotlin.runCatching {
             val response = service.register(body)
             if (response.status == STATUS_OK) {

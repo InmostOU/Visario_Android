@@ -13,7 +13,7 @@
                 android:id="@+id/menu_search_channels"
                 android:icon="@drawable/ic_search_black_24dp"
                 app:iconTint="?attr/colorOnSurface"
-                android:title="@string/find_channel" />
+                android:title="@string/search_channel" />
         </menu>
     </item>
 </menu>

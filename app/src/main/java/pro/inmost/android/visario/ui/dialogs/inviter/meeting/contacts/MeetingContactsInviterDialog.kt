@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.dialogs.select.contacts
+package pro.inmost.android.visario.ui.dialogs.inviter.meeting.contacts
 
 import androidx.fragment.app.FragmentManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -9,9 +9,9 @@ import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseBottomSheet
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 
-class ContactsInviterDialog(private val channelUrl: String) :
+class MeetingContactsInviterDialog(private val meetingId: String) :
     BaseBottomSheet<BottomSheetContactsInviterBinding>(R.layout.bottom_sheet_contacts_inviter) {
-    private val viewModel: ContactsInviterViewModel by viewModel()
+    private val viewModel: MeetingContactsInviterViewModel by viewModel()
     private val listAdapter =
         GenericListAdapterWithDiffUtil<ContactUI, SelectListItemContactBinding>(R.layout.select_list_item_contact) { contact, binding ->
             binding.viewModel = viewModel
@@ -19,9 +19,8 @@ class ContactsInviterDialog(private val channelUrl: String) :
         }
 
     override fun onCreated() {
-        binding.viewModel = viewModel
         binding.contactList.adapter = listAdapter
-        viewModel.setChannel(channelUrl)
+        viewModel.setMeetingId(meetingId)
         observeEvents()
         observeData()
 
@@ -39,8 +38,8 @@ class ContactsInviterDialog(private val channelUrl: String) :
 
 
     companion object{
-        fun show(fm: FragmentManager, channelUrl: String){
-            ContactsInviterDialog(channelUrl).show(fm, null)
+        fun show(fm: FragmentManager, meetingId: String){
+            MeetingContactsInviterDialog(meetingId).show(fm, null)
         }
     }
 }

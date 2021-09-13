@@ -61,17 +61,32 @@
                     android:textSize="@dimen/text_size_chat_last_message"
                     android:maxLines="1"
                     android:ellipsize="end"
+                    android:visibility="@{model.lastMessageMeetingInvitation ? View.GONE : View.VISIBLE}"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:text="@{model.lastMessage}"
+                    android:text="@{model.lastMessage.length() > 0 ? model.lastMessage : @string/no_messages}"
                     tools:text="Last message"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_view_last_message_meet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="@dimen/text_size_chat_last_message"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textStyle="italic"
+                    android:textColor="?android:attr/textColorSecondary"
+                    tools:visibility="gone"
+                    android:visibility="@{model.lastMessageMeetingInvitation ? View.VISIBLE : View.GONE}"
+                    android:text="@string/new_meeting"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
+                android:layout_weight="1.5"
+                android:gravity="center_horizontal|end"
                 android:layout_marginEnd="8dp"
                 android:orientation="vertical">
 
@@ -81,6 +96,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textSize="@dimen/text_size_chat_last_message"
+                    android:maxLines="1"
                     android:textColor="?android:attr/textColorSecondary"
                     android:text="@{model.lastMessageTime}"
                     tools:text="12:00"/>

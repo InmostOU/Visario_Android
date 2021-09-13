@@ -7,6 +7,7 @@ import pro.inmost.android.visario.databinding.ListItemChannelFoundBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
+import pro.inmost.android.visario.ui.utils.extensions.navigate
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 import pro.inmost.android.visario.ui.utils.extensions.onQueryChange
 
@@ -34,5 +35,18 @@ class SearchChannelsFragment : BaseFragment<FragmentChannelsSearchBinding>(R.lay
     private fun observeEvents() {
         binding.searchView.onQueryChange { viewModel.search(it) }
         binding.toolbar.setNavigationOnClickListener { navigateBack() }
+        viewModel.openChannel.observe(viewLifecycleOwner){ channel ->
+            openChannel(channel)
+        }
+    }
+
+    private fun openChannel(channel: ChannelUI) {
+        navigate {
+            SearchChannelsFragmentDirections.actionNavigationChannelSearchToNavigationMessages(
+                channelName = channel.name,
+                channelUrl = channel.url,
+                isMember = channel.isMember
+            )
+        }
     }
 }

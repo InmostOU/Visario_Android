@@ -4,9 +4,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentMeetingCreateBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
-import pro.inmost.android.visario.ui.utils.extensions.navigate
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
-import pro.inmost.android.visario.ui.utils.extensions.toast
 import pro.inmost.android.visario.ui.utils.showKeyboard
 
 class CreateMeetingFragment : BaseFragment<FragmentMeetingCreateBinding>(R.layout.fragment_meeting_create) {
@@ -23,12 +21,9 @@ class CreateMeetingFragment : BaseFragment<FragmentMeetingCreateBinding>(R.layou
         viewModel.startMeeting.observe(viewLifecycleOwner){ name ->
             startMeeting(name)
         }
-        viewModel.showToast.observe(viewLifecycleOwner){ toast(it) }
     }
 
     private fun startMeeting(name: String) {
-        navigate {
-            CreateMeetingFragmentDirections.actionNavigationMeetingCreateToNavigationMeeting(name)
-        }
+
     }
 }

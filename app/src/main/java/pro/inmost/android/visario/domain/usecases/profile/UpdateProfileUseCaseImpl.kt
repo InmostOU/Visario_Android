@@ -12,4 +12,8 @@ class UpdateProfileUseCaseImpl(private val repository: ProfileRepository) : Upda
     override suspend fun uploadImage(file: File): Result<Unit> {
         return repository.uploadProfilePhoto(file)
     }
+
+    override suspend fun refresh(){
+        repository.refresh()
+    }
 }

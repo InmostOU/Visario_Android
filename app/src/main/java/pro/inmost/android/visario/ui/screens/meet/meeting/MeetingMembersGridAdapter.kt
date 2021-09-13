@@ -9,7 +9,7 @@ import androidx.core.view.forEach
 import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import pro.inmost.android.visario.databinding.GridItemMeetingMemberBinding
-import pro.inmost.android.visario.ui.entities.contact.ContactUI
+import pro.inmost.android.visario.ui.entities.meeting.AttendeeUI
 import pro.inmost.android.visario.ui.utils.extensions.layoutInflater
 
 class MeetingMembersGridAdapter(
@@ -32,7 +32,7 @@ class MeetingMembersGridAdapter(
             return count < 2 || count >= 4 && count % 2 == 0
         }
 
-    fun addItem(item: ContactUI) {
+    fun addItem(item: AttendeeUI) {
         if (isNeedNewRow) {
             val layout = createNewRow()
             addRow(layout)
@@ -40,30 +40,31 @@ class MeetingMembersGridAdapter(
         } else {
             rows.find { it.childCount == 1 }?.let { getItemBinding(it) }
         }?.let { itemBinding ->
+            item.videoView = itemBinding.videoSurface
             itemBinding.model = item
             itemBinding.viewModel = viewModel
         }
 
     }
 
-    fun deleteItem(member: ContactUI): Boolean {
-        var result = false
+    fun deleteItem(attendeeId: String): AttendeeUI? {
+        var attendee: AttendeeUI? = null
         rows.forEach forEachOne@{ row ->
             row.forEach {
                 DataBindingUtil.findBinding<GridItemMeetingMemberBinding>(it)?.let { binding ->
-                    if (binding.model?.id == member.id) {
+                    if (binding.model?.attendeeId == attendeeId) {
                         row.removeView(it)
                         if (row.isEmpty()) {
                             removeRow(row)
                         }
-                        result = true
+                        attendee = binding.model
                         return@forEachOne
                     }
                 }
             }
         }
-        if (result) formatGrid()
-        return result
+        if (attendee != null) formatGrid()
+        return attendee
     }
 
     private fun createNewRow(): LinearLayout {

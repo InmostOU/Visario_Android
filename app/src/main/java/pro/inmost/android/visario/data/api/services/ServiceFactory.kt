@@ -3,13 +3,13 @@ package pro.inmost.android.visario.data.api.services
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import pro.inmost.android.visario.data.api.services.Endpoints.SERVER_BASE_URL
 import pro.inmost.android.visario.data.api.services.auth.Authenticator
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 class ServiceFactory(private val tokensHolder: Authenticator.TokensHolder) {
-    private val SERVER_BASE_URL = "http://3.129.6.178:8081/"
     private val timeoutInSec = 10L
     private val builder = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())

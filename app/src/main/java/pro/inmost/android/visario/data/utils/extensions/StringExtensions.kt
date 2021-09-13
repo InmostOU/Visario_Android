@@ -2,6 +2,7 @@ package pro.inmost.android.visario.data.utils.extensions
 
 import android.util.Patterns
 import org.apache.commons.codec.digest.DigestUtils
+import pro.inmost.android.visario.data.api.services.Endpoints
 import java.net.URLEncoder
 
 fun CharSequence?.isValidEmail() =
@@ -17,3 +18,5 @@ fun String.urlEncode() = kotlin.runCatching {
 }.getOrDefault(this)
 
 fun String.sha256() = DigestUtils.sha256Hex(this)
+
+fun String.isMeetingInvitation() = contains(Endpoints.MEETING_GET)

@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.domain.repositories
 
+import pro.inmost.android.visario.data.api.dto.responses.auth.AuthResponse
 import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.domain.entities.user.Register
 

@@ -1,7 +1,6 @@
 package pro.inmost.android.visario.ui.entities.channel
 
 import pro.inmost.android.visario.domain.entities.channel.Channel
-import pro.inmost.android.visario.ui.entities.message.toDomainMessages
 import pro.inmost.android.visario.ui.entities.message.toUIMessages
 
 fun Channel.toUIChannel() = ChannelUI(
@@ -20,7 +19,7 @@ fun ChannelUI.toDomainChannel() = Channel(
     name = this.name,
     mode = this.mode.name,
     privacy = this.privacy.name,
-    messages = this.messages.toDomainMessages(),
+    messages = listOf(),
     isMember = this.isMember,
     isModerator = this.isModerator,
     description = this.description

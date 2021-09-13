@@ -6,21 +6,15 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import pro.inmost.android.visario.data.api.dto.requests.profile.UpdateProfileRequest
-import pro.inmost.android.visario.data.utils.logError
 import pro.inmost.android.visario.data.entities.profile.ProfileData
-import pro.inmost.android.visario.ui.utils.log
+import pro.inmost.android.visario.data.utils.logError
 import java.io.File
-
-
-
-
 
 class AccountManager(private val service: AccountService) {
 
     suspend fun getCurrentUserProfile(): Result<ProfileData> = withContext(IO) {
         kotlin.runCatching {
             val response = service.getUserProfile()
-            log("profile: $response")
             Result.success(response)
         }.getOrElse {
             logError("getProfile error: ${it.message}")

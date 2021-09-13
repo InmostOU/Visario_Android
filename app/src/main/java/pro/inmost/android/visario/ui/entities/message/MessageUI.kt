@@ -15,15 +15,22 @@ data class MessageUI(
     val fromCurrentUser: Boolean = false,
     val readByMe: Boolean = false,
     val type: String = "STANDARD",
-    val status: MessageUIStatus = MessageUIStatus.SENDING
+    val status: MessageUIStatus = MessageUIStatus.SENDING,
+    val isMeetingInvitation: Boolean
 ): BaseEntity {
 
-    val createdDateFormat: String
+    val createdTimeFormat: String
         get() = DateFormat.format("hh:mm", createdTimestamp).toString()
+
+    val createdDateFormat: String
+        get() = DateFormat.format("dd-MM-yyyy", createdTimestamp).toString()
+
+    val createdDayFormat: String
+        get() = DateFormat.format("EEE", createdTimestamp).toString()
 
     val editedDateFormat: String
         get() = DateFormat.format("hh:mm", lastEditedTimestamp).toString()
 
     override val baseId: String
-        get() = (text + channelUrl + senderUrl + senderName).hashCode().toString()
+        get() = (channelUrl + senderUrl + senderName).hashCode().toString()
 }

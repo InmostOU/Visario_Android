@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.dialogs.select.contacts.ContactsInviterViewModel" />
+            type="pro.inmost.android.visario.ui.dialogs.inviter.AbstractInviterViewModel" />
         <variable
             name="model"
             type="pro.inmost.android.visario.ui.entities.contact.ContactUI" />

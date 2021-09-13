@@ -36,7 +36,7 @@ class ContactsManager(private val service: ContactsService) {
         }
     }
 
-    suspend fun deleteContact(id: Int) = withContext(Dispatchers.IO){
+    suspend fun deleteContact(id: Long) = withContext(Dispatchers.IO){
         kotlin.runCatching {
             service.deleteContact(DeleteContactRequest(id)).getResult()
         }.getOrElse  {
