@@ -13,5 +13,6 @@ data class Message(
     val fromCurrentUser: Boolean = false,
     val readByMe: Boolean = false,
     val metadata: String = "",
-    val status: MessageStatus = MessageStatus.SENDING
+    val status: MessageStatus = MessageStatus.SENDING,
+    val isMeetingInvitation: Boolean
 )

@@ -8,8 +8,8 @@ import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.screens.meet.list.MeetingsBottomSheetMenu.MenuItem.*
 import pro.inmost.android.visario.ui.utils.extensions.navigate
 
-class MeetingsFragment : BaseFragment<FragmentMeetingListBinding>(R.layout.fragment_meeting_list) {
-    private val viewModel: MeetingsViewModel by viewModel()
+class ScheduledMeetingsFragment : BaseFragment<FragmentMeetingListBinding>(R.layout.fragment_meeting_list) {
+    private val viewModel: ScheduledMeetingsViewModel by viewModel()
 
     override var bottomNavViewVisibility: Int = View.VISIBLE
 
@@ -38,13 +38,13 @@ class MeetingsFragment : BaseFragment<FragmentMeetingListBinding>(R.layout.fragm
 
     private fun openJoinMeetingFragment() {
         navigate {
-            MeetingsFragmentDirections.actionNavigationMeetingsToNavigationMeetingJoin()
+            ScheduledMeetingsFragmentDirections.actionNavigationMeetingsToNavigationMeetingJoin()
         }
     }
 
     private fun openCreateMeetingFragment() {
         navigate {
-            MeetingsFragmentDirections.actionNavigationMeetingsToNavigationMeetingCreate()
+            ScheduledMeetingsFragmentDirections.actionNavigationMeetingsToNavigationMeeting(null)
         }
     }
 }

@@ -48,12 +48,6 @@
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:indeterminateOnly="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{viewModel.showProgressBar ? View.VISIBLE : View.INVISIBLE}"/>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edit_text_name_layout"
             android:layout_width="match_parent"

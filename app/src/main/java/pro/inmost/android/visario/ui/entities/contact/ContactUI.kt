@@ -8,7 +8,7 @@ import pro.inmost.android.visario.ui.utils.PROFILE_DATE_FORMAT
 
 @Parcelize
 data class ContactUI(
-    val id: Int,
+    val id: Long,
     val url: String,
     val username: String,
     var firstName: String,

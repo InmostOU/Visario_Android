@@ -1,13 +1,13 @@
-package pro.inmost.android.visario.data.api.dto.responses.meeting
+package pro.inmost.android.visario.data.entities.meeting
 
-data class MeetingResponse(
-    val externalMeetingId: String,
+data class MeetingData(
+    val meetingId: String,
+    val externalMeetingId: String?,
     val mediaPlacement: MediaPlacement,
-    val mediaRegion: String,
-    val meetingId: String
+    val mediaRegion: String
 )
 
-data class MediaPlacement (
+data class MediaPlacement(
     val audioFallbackUrl: String,
     val audioHostUrl: String,
     val screenDataUrl: String,

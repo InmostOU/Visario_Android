@@ -1,30 +1,30 @@
 package pro.inmost.android.visario.ui.screens.channels.messages
 
+import android.view.View
 import androidx.lifecycle.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import pro.inmost.android.visario.domain.entities.message.Message
+import pro.inmost.android.visario.domain.usecases.channels.AddMemberToChannelUseCase
 import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCase
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCase
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCase
 import pro.inmost.android.visario.domain.usecases.messages.UpdateMessagesReadStatusUseCase
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
 import pro.inmost.android.visario.ui.entities.message.MessageUI
-import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
-import pro.inmost.android.visario.ui.entities.message.toDomainMessage
 import pro.inmost.android.visario.ui.entities.message.toUIMessages
 import pro.inmost.android.visario.ui.entities.profile.ProfileUI
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import java.util.*
+import pro.inmost.android.visario.ui.utils.extensions.meetingId
 
 class MessagesViewModel(
     private val fetchMessagesUseCase: FetchMessagesUseCase,
     private val fetchProfileUseCase: FetchProfileUseCase,
     private val sendMessageUseCase: SendMessageUseCase,
     private val leaveChannelUseCase: LeaveChannelUseCase,
-    private val updateReadStatusUseCase: UpdateMessagesReadStatusUseCase
+    private val updateReadStatusUseCase: UpdateMessagesReadStatusUseCase,
+    private val addMemberToChannelUseCase: AddMemberToChannelUseCase
 ) : ViewModel() {
     private var profile: ProfileUI? = null
     var currentChannelUrl: String = ""
@@ -32,6 +32,12 @@ class MessagesViewModel(
     val message = MutableLiveData<String>()
     private val _closeChannel = SingleLiveEvent<Unit>()
     val closeChannel: LiveData<Unit> = _closeChannel
+
+    private val _joinMeetingEvent = SingleLiveEvent<String>()
+    val joinMeetingEvent: LiveData<String> = _joinMeetingEvent
+
+    private val _isJoined = MutableLiveData<Boolean>()
+    val isJoined: LiveData<Boolean> = _isJoined
 
     init {
         loadProfile()
@@ -45,6 +51,24 @@ class MessagesViewModel(
         }
     }
 
+    fun joinChannel(view: View){
+        view.isEnabled = false
+        viewModelScope.launch {
+            profile?.let {
+                addMemberToChannelUseCase.invite(currentChannelUrl, it.userUrl).onSuccess {
+                    view.isEnabled = true
+                    _isJoined.value = true
+                }.onFailure {
+                    view.isEnabled = true
+                }
+            }
+        }
+    }
+
+    fun setJoined(joined: Boolean){
+        _isJoined.value = joined
+    }
+
     fun observeMessages(channelUrl: String): LiveData<List<MessageUI>> {
         currentChannelUrl = channelUrl
         return fetchMessagesUseCase.fetch(channelUrl).map { it.toUIMessages() }.asLiveData()
@@ -52,26 +76,11 @@ class MessagesViewModel(
 
     fun sendMessage() {
         if (message.value.isNullOrBlank()) return
-        val messageForSending = createMessage() ?: return
+        val messageForSending =  message.value ?: return
         message.value = ""
         viewModelScope.launch {
-            sendMessageUseCase.send(messageForSending)
+            sendMessageUseCase.send(messageForSending, currentChannelUrl)
         }
-    }
-
-    private fun createMessage(): Message? {
-        if (profile == null || message.value == null) return null
-        return MessageUI(
-            messageId = UUID.randomUUID().toString(),
-            text = message.value!!,
-            channelUrl = currentChannelUrl,
-            senderUrl = profile?.userUrl ?: "",
-            senderName = profile?.fullName ?: "",
-            createdTimestamp = System.currentTimeMillis(),
-            fromCurrentUser = true,
-            readByMe = true,
-            status = MessageUIStatus.SENDING
-        ).toDomainMessage()
     }
 
     fun leaveChannel() {
@@ -85,6 +94,18 @@ class MessagesViewModel(
     fun updateReadStatus(){
         viewModelScope.launch {
             updateReadStatusUseCase.updateAll(currentChannelUrl, true)
+        }
+    }
+
+    fun onMessageClick(message: MessageUI){
+
+    }
+
+    fun onInvitationClick(message: MessageUI){
+        if (message.isMeetingInvitation){
+            message.text.meetingId?.let {
+                _joinMeetingEvent.value = it
+            }
         }
     }
 }

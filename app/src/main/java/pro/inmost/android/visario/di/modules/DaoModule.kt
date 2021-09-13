@@ -8,4 +8,5 @@ val dao = module {
     factory { (get() as AppDatabase).messagesDao() }
     factory { (get() as AppDatabase).contactsDao() }
     factory { (get() as AppDatabase).profileDao() }
+    factory { (get() as AppDatabase).attendeesDao() }
 }

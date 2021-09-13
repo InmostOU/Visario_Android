@@ -47,9 +47,7 @@ class ChannelsWebSocketClient(
             when (ChannelEventManager.getEvent(text)) {
                 ChannelEventManager.EventType.CREATE_CHANNEL_MESSAGE -> {
                     val message = PayloadFactory.getChannelMessage(text)
-                    launchIO {
-                        messagesDao.upsert(message)
-                    }
+                    launchIO { messagesDao.upsert(message) }
                 }
                 else -> {}
             }

@@ -76,7 +76,8 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
         navigate {
             ChannelsFragmentDirections.actionNavigationChatsToNavigationMessages(
                 channelName = channel.name,
-                channelUrl = channel.url
+                channelUrl = channel.url,
+                isMember = channel.isMember
             )
         }
     }

@@ -10,14 +10,15 @@ import pro.inmost.android.visario.domain.usecases.channels.CreateChannelUseCaseI
 import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.contacts.*
-import pro.inmost.android.visario.domain.usecases.meetings.CreateMeetingUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.meetings.JoinMeetingUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.meetings.impl.*
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.messages.UpdateMessagesReadStatusUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCaseImpl
-import pro.inmost.android.visario.ui.dialogs.select.contacts.ContactsInviterViewModel
+import pro.inmost.android.visario.ui.dialogs.inviter.channel.ChannelInviterViewModel
+import pro.inmost.android.visario.ui.dialogs.inviter.meeting.channels.MeetingChannelsInviterViewModel
+import pro.inmost.android.visario.ui.dialogs.inviter.meeting.contacts.MeetingContactsInviterViewModel
 import pro.inmost.android.visario.ui.dialogs.select.media.ImageSelectorViewModel
 import pro.inmost.android.visario.ui.screens.account.account.AccountViewModel
 import pro.inmost.android.visario.ui.screens.account.edit.EditProfileViewModel
@@ -39,28 +40,54 @@ import pro.inmost.android.visario.ui.screens.contacts.list.ContactsViewModel
 import pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchViewModel
 import pro.inmost.android.visario.ui.screens.meet.create.CreateMeetingViewModel
 import pro.inmost.android.visario.ui.screens.meet.join.JoinMeetingViewModel
-import pro.inmost.android.visario.ui.screens.meet.list.MeetingsViewModel
+import pro.inmost.android.visario.ui.screens.meet.list.ScheduledMeetingsViewModel
 import pro.inmost.android.visario.ui.screens.meet.meeting.MeetingViewModel
 
 val viewModelsModule = module {
+    // CHANNELS
     viewModel { ChannelsViewModel(get<FetchChannelsUseCaseImpl>()) }
     viewModel { SearchChannelsViewModel(get<FetchChannelsUseCaseImpl>()) }
     viewModel { CreateChannelViewModel(get<CreateChannelUseCaseImpl>(), get<FetchChannelsUseCaseImpl>()) }
+    viewModel { ChannelInviterViewModel(
+        get<FetchContactsUseCaseImpl>(),
+        get<AddMemberToChannelUseCaseImpl>()
+    ) }
+
+    // MESSAGES
     viewModel {
         MessagesViewModel(
             get<FetchMessagesUseCaseImpl>(),
             get<FetchProfileUseCaseImpl>(),
             get<SendMessageUseCaseImpl>(),
             get<LeaveChannelUseCaseImpl>(),
-            get<UpdateMessagesReadStatusUseCaseImpl>()
+            get<UpdateMessagesReadStatusUseCaseImpl>(),
+            get<AddMemberToChannelUseCaseImpl>()
         )
     }
-    viewModel { MeetingsViewModel() }
-    viewModel { JoinMeetingViewModel(get<JoinMeetingUseCaseImpl>()) }
-    viewModel { CreateMeetingViewModel(get<CreateMeetingUseCaseImpl>()) }
-    viewModel { MeetingViewModel() }
+
+    // MEETINGS
+    viewModel { ScheduledMeetingsViewModel() }
+    viewModel { JoinMeetingViewModel() }
+    viewModel { CreateMeetingViewModel() }
+    viewModel { MeetingChannelsInviterViewModel(
+        get<FetchChannelsUseCaseImpl>(),
+        get<InviteGroupUseCaseImpl>())
+    }
+    viewModel { MeetingViewModel(
+        get<CreateMeetingUseCaseImpl>(),
+        get<JoinMeetingUseCaseImpl>(),
+        get<DeleteAttendeeUseCaseImpl>(),
+        get<GetAttendeeUseCaseImpl>(),
+        get<FetchProfileUseCaseImpl>())
+    }
+    viewModel { MeetingContactsInviterViewModel(
+        get<FetchContactsUseCaseImpl>()
+    ) }
+
+    // CHATS
     viewModel { ChatsViewModel() }
 
+    // CONTACTS
     viewModel {
         ContactsViewModel(
             get<FetchContactsUseCaseImpl>(),
@@ -81,6 +108,7 @@ val viewModelsModule = module {
         )
     }
 
+    // ACCOUNT
     viewModel { LoginViewModel(get<LoginUseCaseImpl>(), get()) }
     viewModel { RegisterViewModel(get<RegistrationUseCaseImpl>()) }
     viewModel {
@@ -97,6 +125,8 @@ val viewModelsModule = module {
             get<FetchProfileUseCaseImpl>()
         )
     }
+
+    // SETTINGS
     viewModel { SecurityViewModel() }
 
     viewModel {
@@ -124,8 +154,6 @@ val viewModelsModule = module {
         )
     }
     viewModel { ImageSelectorViewModel() }
-    viewModel { ContactsInviterViewModel(
-        get<FetchContactsUseCaseImpl>(),
-        get<AddMemberToChannelUseCaseImpl>()
-    ) }
+
+
 }

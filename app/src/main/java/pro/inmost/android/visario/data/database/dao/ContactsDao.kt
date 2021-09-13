@@ -30,4 +30,7 @@ interface ContactsDao {
         deleteAll()
         insert(*items.toTypedArray())
     }
+
+    @Query("SELECT * FROM contacts WHERE id = :userId")
+    suspend fun get(userId: String): ContactData?
 }

@@ -8,6 +8,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
@@ -33,20 +34,25 @@ fun ImageView.loadContactImage(image: String?) {
 }
 
 @BindingAdapter(value = ["setRatio"])
-fun View.setRatio(ratio: String){
+fun View.setRatio(ratio: String) {
     kotlin.runCatching {
         (layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = ratio
     }
 }
 
 @BindingAdapter(value = ["setVisible"])
-fun View.setVisible(visible: Boolean){
+fun View.setVisible(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
+}
+
+@BindingAdapter(value = ["setVisible"])
+fun FloatingActionButton.setVisible(visible: Boolean) {
+    if (visible) show() else hide()
 }
 
 @BindingAdapter(value = ["messageStatusIcon"])
 fun ImageView.messageStatusIcon(status: MessageUIStatus?) {
-    val icon = when (status){
+    val icon = when (status) {
         MessageUIStatus.SENDING -> R.drawable.ic_baseline_access_time_24
         MessageUIStatus.DELIVERED -> R.drawable.ic_baseline_done_24
         MessageUIStatus.FAIL -> R.drawable.ic_baseline_error_outline_24
@@ -68,10 +74,21 @@ fun ImageView.loadImager(uri: Uri?) {
 fun MaterialToolbar.chooseContactMenu(myContact: Boolean?) {
     myContact ?: return
     menu.clear()
-    val menu = if (myContact){
+    val menu = if (myContact) {
         R.menu.contact_detail
     } else {
         R.menu.contact_detail_unlisted
     }
     inflateMenu(menu)
+}
+
+@BindingAdapter(value = ["visibilityMessagesMenu"])
+fun MaterialToolbar.visibilityMessagesMenu(visible: Boolean?) {
+    visible ?: return
+    if (visible) {
+        val menu = R.menu.messages_channel
+        inflateMenu(menu)
+    } else {
+        menu.clear()
+    }
 }

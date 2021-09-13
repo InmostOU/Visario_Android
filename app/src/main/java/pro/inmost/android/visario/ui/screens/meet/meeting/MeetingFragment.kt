@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.screens.meet.meeting
 
+import android.Manifest.permission.*
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.launch
@@ -10,33 +11,46 @@ import pro.inmost.android.visario.databinding.ListItemMeetingMemberBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapter
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.dialogs.alerts.SimpleAlertDialog
-import pro.inmost.android.visario.ui.entities.contact.ContactUI
+import pro.inmost.android.visario.ui.dialogs.inviter.meeting.channels.MeetingChannelsInviterDialog
+import pro.inmost.android.visario.ui.dialogs.inviter.meeting.contacts.MeetingContactsInviterDialog
+import pro.inmost.android.visario.ui.entities.meeting.AttendeeUI
+import pro.inmost.android.visario.ui.utils.extensions.checkPermissions
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
+import pro.inmost.android.visario.ui.utils.extensions.snackbar
 import pro.inmost.android.visario.ui.utils.extensions.toast
 
 
 class MeetingFragment : BaseFragment<FragmentMeetingBinding>(R.layout.fragment_meeting) {
     private val viewModel: MeetingViewModel by viewModel()
+    private val args: MeetingFragmentArgs by navArgs()
     private val gridAdapter: MeetingMembersGridAdapter by lazy {
         MeetingMembersGridAdapter(binding.membersLayout, viewModel)
     }
     private val listAdapter =
-        GenericListAdapter<ContactUI, ListItemMeetingMemberBinding>(R.layout.list_item_meeting_member) { item, binding ->
+        GenericListAdapter<AttendeeUI, ListItemMeetingMemberBinding>(R.layout.list_item_meeting_member) { item, binding ->
             binding.model = item
             binding.viewModel = viewModel
         }
 
-    private val args: MeetingFragmentArgs by navArgs()
-
     override fun onCreated() {
-        updateTitle(args.name)
         binding.viewModel = viewModel
         binding.bottomSheetMemberList.adapter = listAdapter
         observeEvents()
+        startMeeting(args.meetingId)
     }
 
-    private fun updateTitle(title: String) {
-        binding.toolbar.title = title
+    private fun startMeeting(meetingId: String?) {
+        checkPermissions(MODIFY_AUDIO_SETTINGS, RECORD_AUDIO, CAMERA) { granted ->
+            if (granted) {
+                if (meetingId.isNullOrBlank()){
+                    viewModel.createMeeting(requireContext())
+                } else {
+                    viewModel.joinMeeting(requireContext(), meetingId)
+                }
+            } else {
+                snackbar(R.string.permissions_denied)
+            }
+        }
     }
 
     private fun updateSubtitle() {
@@ -52,41 +66,53 @@ class MeetingFragment : BaseFragment<FragmentMeetingBinding>(R.layout.fragment_m
     }
 
     private fun observeEvents() {
+        viewModel.currentAttendee.observe(viewLifecycleOwner){
+            binding.currentAttendee = it
+            binding.executePendingBindings()
+        }
         viewModel.memberJoinEvent.observe(viewLifecycleOwner) { member ->
             lifecycleScope.launch {
                 addMember(member)
                 updateSubtitle()
                 updateBottomSheetTitle()
-                if (member.firstName != "Me"){
-                    toast(getString(R.string.member_joined, member.fullName))
-                }
+                toast(getString(R.string.member_joined, member.name))
             }
         }
 
-        viewModel.memberLeaveEvent.observe(viewLifecycleOwner) { member ->
+        viewModel.memberLeftEvent.observe(viewLifecycleOwner) { attendeeId ->
             lifecycleScope.launch {
-                removeMember(member)
+                removeMember(attendeeId)
                 updateSubtitle()
                 updateBottomSheetTitle()
-                toast(getString(R.string.member_left, member.fullName))
             }
         }
 
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.menu_meeting_add_member -> {
-                    viewModel.addMember()
+                R.id.menu_meeting_send_invitation -> {
+                    inviteGroup(viewModel.meetingId)
+                }
+                R.id.menu_meeting_switch_camera -> {
+                    viewModel.switchCamera()
                 }
             }
             true
         }
 
-        binding.toolbar.setNavigationOnClickListener { navigateBack() }
+        binding.toolbar.setNavigationOnClickListener { leaveMeeting() }
 
         binding.hangUpButton.setOnClickListener { leaveMeeting() }
     }
 
-    private fun addMember(member: ContactUI) {
+    private fun inviteGroup(meetingId: String) {
+        MeetingChannelsInviterDialog.show(childFragmentManager, meetingId)
+    }
+
+    private fun inviteContact(meetingId: String) {
+        MeetingContactsInviterDialog.show(childFragmentManager, meetingId)
+    }
+
+    private fun addMember(member: AttendeeUI) {
         if (gridAdapter.membersCount < gridAdapter.maxItemsCount){
             gridAdapter.addItem(member)
         } else {
@@ -95,14 +121,17 @@ class MeetingFragment : BaseFragment<FragmentMeetingBinding>(R.layout.fragment_m
         updateBottomSheetVisibility()
     }
 
-    private fun removeMember(member: ContactUI) {
-        val deleted = gridAdapter.deleteItem(member)
-        if (deleted){
+    private fun removeMember(attendeeId: String) {
+        var attendee = gridAdapter.deleteItem(attendeeId)
+        if (attendee != null){
             moveMemberFromBottomSheetToMainGrid()
         } else {
-            listAdapter.deleteItem(member)
+            attendee = listAdapter.getData().find { it.attendeeId == attendeeId }?.also {
+                listAdapter.deleteItem(it)
+            }
         }
         updateBottomSheetVisibility()
+        toast(getString(R.string.member_left, attendee?.name))
     }
 
     private fun moveMemberFromBottomSheetToMainGrid() {
