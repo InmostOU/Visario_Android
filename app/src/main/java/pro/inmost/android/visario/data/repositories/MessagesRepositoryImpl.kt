@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
+import pro.inmost.android.visario.data.api.dto.requests.messages.EditMessageRequest
 import pro.inmost.android.visario.data.database.dao.MessagesDao
 import pro.inmost.android.visario.data.entities.message.MessageData
 import pro.inmost.android.visario.data.entities.message.MessageDataStatus
@@ -15,7 +16,6 @@ import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.message.Message
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
 import pro.inmost.android.visario.domain.repositories.ProfileRepository
-import pro.inmost.android.visario.ui.utils.log
 import java.util.*
 
 class MessagesRepositoryImpl(
@@ -32,30 +32,46 @@ class MessagesRepositoryImpl(
     override suspend fun sendMessage(message: String, channelArn: String) = withContext(IO) {
         val data = createMessage(message, channelArn)
         dao.insert(data)
-        api.messages.sendMessage(data).onFailure {
-            data.status = MessageDataStatus.FAIL
-            dao.update(data)
-        }
+        send(data)
     }
 
-    private suspend fun updateDatabase(messages: List<MessageData>) {
-        messages.forEach {
-            val localMsg = dao.get(it.messageId)
-            if (localMsg != null) {
-                it.readByMe = localMsg.readByMe
-                it.status = MessageDataStatus.DELIVERED
-                dao.update(it)
-            } else {
-                it.readByMe = true
-                dao.insert(it)
-            }
-        }
+    override suspend fun resendMessage(messageId: String): Result<Unit> = withContext(IO){
+        dao.updateSendingStatus(messageId, MessageDataStatus.SENDING)
+        val message = dao.get(messageId)
+        if (message != null) send(message)
+        else Result.failure(Throwable("Resend message error"))
     }
 
-    private suspend fun createMessage(content: String, channelArn: String): MessageData {
+    private suspend fun send(message: MessageData) = api.messages.sendMessage(message).onFailure {
+        message.status = MessageDataStatus.FAIL
+        dao.update(message)
+    }
+
+    override suspend fun edit(
+        messageId: String,
+        content: String,
+        channelArn: String
+    ): Result<Unit> = withContext(IO){
+        val request = EditMessageRequest(
+            channelArn = channelArn,
+            content = content,
+            messageId = messageId
+        )
+        api.messages.editMessage(request)
+    }
+
+    override suspend fun delete(messageId: String): Result<Unit> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteLocal(messageId: String) = withContext(IO) {
+       dao.deleteById(messageId)
+    }
+
+    private suspend fun createMessage(content: String, channelArn: String, messageId: String? = null): MessageData {
         val profile = profileRepository.observeProfile().firstOrNull()?.toDataProfile()
         return MessageData(
-            messageId = UUID.randomUUID().toString(),
+            messageId = messageId ?: UUID.randomUUID().toString(),
             content = content,
             channelArn = channelArn,
             senderArn = profile?.userArn ?: "",
@@ -73,12 +89,28 @@ class MessagesRepositoryImpl(
         }
     }
 
+    private suspend fun updateDatabase(messages: List<MessageData>) {
+        messages.forEach {
+            val localMsg = dao.get(it.messageId) ?: dao.get(it.metadata)
+            if (localMsg != null) {
+                if (localMsg.messageId != it.messageId){
+                    dao.updateMessageId(localMsg.messageId, it.messageId)
+                }
+                it.readByMe = localMsg.readByMe
+                it.status = MessageDataStatus.DELIVERED
+                dao.update(it)
+            } else {
+                it.readByMe = true
+                dao.insert(it)
+            }
+        }
+    }
+
     override suspend fun markAllMessageAsRead(channelArn: String) = withContext(IO) {
         dao.markAllMessagesAsRead(channelArn)
     }
 
     override suspend fun updateReadStatusForAll(channelArn: String, read: Boolean) = withContext(IO)  {
-        log("msg read status update in repo")
         dao.updateReadStatusForAll(channelArn, read)
     }
 

@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.30092592592592593" />
+        <entry key="app/src/main/res/drawable/background_popup_menu.xml" value="0.1795" />
         <entry key="app/src/main/res/drawable/bottom_sheet_background.xml" value="0.19478827361563517" />
         <entry key="app/src/main/res/drawable/bottom_sheet_handler.xml" value="0.31145833333333334" />
         <entry key="app/src/main/res/drawable/edit_text_background.xml" value="0.2416988416988417" />
@@ -14,6 +15,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.133984375" />
         <entry key="app/src/main/res/drawable/ic_not_found.xml" value="0.2416988416988417" />
         <entry key="app/src/main/res/drawable/ic_outline_video_call_24.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/ic_round_edit_24.xml" value="0.1795" />
         <entry key="app/src/main/res/drawable/ic_round_person_add_alt_1_24.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/shape_bg_incoming_bubble.xml" value="0.2416988416988417" />
         <entry key="app/src/main/res/drawable/shape_circle.xml" value="0.17916666666666667" />
@@ -89,7 +91,10 @@
         <entry key="app/src/main/res/menu/contact_list.xml" value="0.2935185185185185" />
         <entry key="app/src/main/res/menu/contacts_menu.xml" value="0.19381107491856678" />
         <entry key="app/src/main/res/menu/meeting.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/menu/message_popup.xml" value="0.29074074074074074" />
         <entry key="app/src/main/res/menu/messages_channel.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/menu/popup_message_failed.xml" value="0.29074074074074074" />
+        <entry key="app/src/main/res/menu/popup_message_other.xml" value="0.29074074074074074" />
         <entry key="app/src/main/res/menu/settings.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.133984375" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2326388888888889" />

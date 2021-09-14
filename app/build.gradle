@@ -66,6 +66,7 @@ dependencies {
 
     // Views
     implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:1.1.0"
+    implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:4.1.0'
 
     // Utils extensions
     implementation 'com.github.pawegio:KAndroid:0.8.7@aar'

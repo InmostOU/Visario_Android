@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_resend_message"
+        android:icon="@drawable/ic_baseline_send_24"
+        app:iconTint="?attr/colorOnSurface"
+        android:title="@string/resend" />
+    <item
+        android:id="@+id/menu_delete_message_local"
+        android:icon="@drawable/ic_round_delete_forever_24"
+        app:iconTint="?attr/colorOnSurface"
+        android:title="@string/delete" />
+</menu>

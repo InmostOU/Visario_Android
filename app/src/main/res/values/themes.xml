@@ -72,4 +72,9 @@
     <style name="NegativeButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">?attr/colorSecondary</item>
     </style>
+
+    <style name="Widget.MPM.Menu.Dark.CustomBackground">
+        <item name="android:colorBackground">?attr/colorSurface</item>
+        <item name="android:popupBackground">@drawable/background_popup_menu</item>
+    </style>
 </resources>

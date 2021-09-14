@@ -5,11 +5,10 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.usecases.channels.AddMemberToChannelUseCase
 import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCase
-import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCase
-import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCase
-import pro.inmost.android.visario.domain.usecases.messages.UpdateMessagesReadStatusUseCase
+import pro.inmost.android.visario.domain.usecases.messages.*
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
 import pro.inmost.android.visario.ui.entities.message.MessageUI
 import pro.inmost.android.visario.ui.entities.message.toUIMessages
@@ -22,6 +21,8 @@ class MessagesViewModel(
     private val fetchMessagesUseCase: FetchMessagesUseCase,
     private val fetchProfileUseCase: FetchProfileUseCase,
     private val sendMessageUseCase: SendMessageUseCase,
+    private val editMessageUseCase: EditMessageUseCase,
+    private val deleteMessageUseCase: DeleteMessageUseCase,
     private val leaveChannelUseCase: LeaveChannelUseCase,
     private val updateReadStatusUseCase: UpdateMessagesReadStatusUseCase,
     private val addMemberToChannelUseCase: AddMemberToChannelUseCase
@@ -30,14 +31,27 @@ class MessagesViewModel(
     var currentChannelUrl: String = ""
         private set
     val message = MutableLiveData<String>()
+    private var messageForEdit: MessageUI? = null
     private val _closeChannel = SingleLiveEvent<Unit>()
     val closeChannel: LiveData<Unit> = _closeChannel
 
     private val _joinMeetingEvent = SingleLiveEvent<String>()
     val joinMeetingEvent: LiveData<String> = _joinMeetingEvent
 
+    private val _editMode = SingleLiveEvent(false)
+    val editMode: LiveData<Boolean> = _editMode
+
+    private val _showKeyboard = SingleLiveEvent<Unit>()
+    val showKeyboard: LiveData<Unit> = _showKeyboard
+
+    private val _showToast = SingleLiveEvent<Int>()
+    val showToast: LiveData<Int> = _showToast
+
     private val _isJoined = MutableLiveData<Boolean>()
     val isJoined: LiveData<Boolean> = _isJoined
+
+    private val _openPopupMenu = SingleLiveEvent<Pair<View, MessageUI>>()
+    val openPopupMenu: LiveData<Pair<View, MessageUI>> = _openPopupMenu
 
     init {
         loadProfile()
@@ -77,9 +91,15 @@ class MessagesViewModel(
     fun sendMessage() {
         if (message.value.isNullOrBlank()) return
         val messageForSending =  message.value ?: return
-        message.value = ""
+        clearMessage()
         viewModelScope.launch {
             sendMessageUseCase.send(messageForSending, currentChannelUrl)
+        }
+    }
+
+    fun resendMessage(message: MessageUI) {
+        viewModelScope.launch {
+            sendMessageUseCase.resend(message.messageId)
         }
     }
 
@@ -97,8 +117,8 @@ class MessagesViewModel(
         }
     }
 
-    fun onMessageClick(message: MessageUI){
-
+    fun onMessageClick(view: View, message: MessageUI){
+        _openPopupMenu.value = view to message
     }
 
     fun onInvitationClick(message: MessageUI){
@@ -107,5 +127,52 @@ class MessagesViewModel(
                 _joinMeetingEvent.value = it
             }
         }
+    }
+
+    fun editMessage(message: MessageUI) {
+        _editMode.value = true
+        messageForEdit = message
+        this.message.value = message.text
+        _showKeyboard.call()
+    }
+
+    fun deleteMessageLocal(message: MessageUI) {
+        viewModelScope.launch {
+            deleteMessageUseCase.deleteLocal(message.messageId)
+        }
+    }
+
+    fun editDone(view: View){
+        view.isEnabled = false
+        view.alpha = 0.5f
+        viewModelScope.launch {
+            if (messageForEdit != null && message.value != null){
+                editMessageUseCase.edit(
+                    messageId = messageForEdit!!.messageId,
+                    content = message.value!!,
+                    channelArn = currentChannelUrl
+                ).onSuccess {
+                    view.isEnabled = true
+                    view.alpha = 1f
+                    messageForEdit = null
+                    _editMode.value = false
+                    clearMessage()
+                }.onFailure {
+                    view.isEnabled = true
+                    view.alpha = 1f
+                    _showToast.value = R.string.edit_failed
+                }
+            }
+        }
+    }
+
+    private fun clearMessage() {
+        message.value = ""
+    }
+
+    fun cancelEdit(){
+        messageForEdit = null
+        _editMode.value = false
+        message.value = ""
     }
 }
