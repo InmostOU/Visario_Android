@@ -149,6 +149,14 @@
     <string name="sent">Sent</string>
     <string name="switch_camera">Switch camera</string>
     <string name="switch_audio_device">Switch audio device</string>
+    <string name="edit">Edit</string>
+    <string name="copy">Copy</string>
+    <string name="edit_message">Edit message:</string>
+    <string name="cancel_edit_mode">Cancel edit mode</string>
+    <string name="edit_failed">Edit failed</string>
+    <string name="copied">Copied</string>
+    <string name="edited">Edited</string>
+    <string name="resend">Resend</string>
 
 
     <plurals name="members">

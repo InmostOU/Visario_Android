@@ -9,9 +9,7 @@ import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseC
 import pro.inmost.android.visario.domain.usecases.channels.*
 import pro.inmost.android.visario.domain.usecases.contacts.*
 import pro.inmost.android.visario.domain.usecases.meetings.impl.*
-import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.messages.UpdateMessagesReadStatusUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.messages.impl.*
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCaseImpl
 
@@ -142,6 +140,16 @@ val useCases = module {
 
     factory {
         UpdateMessagesReadStatusUseCaseImpl(
+            repository = get<MessagesRepositoryImpl>()
+        )
+    }
+    factory {
+        EditMessageUseCaseImpl(
+            repository = get<MessagesRepositoryImpl>()
+        )
+    }
+    factory {
+        DeleteMessageUseCaseImpl(
             repository = get<MessagesRepositoryImpl>()
         )
     }

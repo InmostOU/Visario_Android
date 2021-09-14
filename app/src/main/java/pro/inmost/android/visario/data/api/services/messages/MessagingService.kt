@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.data.api.services.messages
 
+import pro.inmost.android.visario.data.api.dto.requests.messages.EditMessageRequest
 import pro.inmost.android.visario.data.api.dto.requests.messages.SendMessageRequest
 import pro.inmost.android.visario.data.api.dto.responses.base.BaseDataResponse
 import pro.inmost.android.visario.data.api.dto.responses.base.BaseResponse
@@ -20,4 +21,7 @@ interface MessagingService {
     suspend fun sendMessage(
         @Body body: SendMessageRequest
     ): BaseResponse
+
+    @POST(Endpoints.MESSAGE_EDIT)
+    suspend fun editMessage(@Body request: EditMessageRequest): BaseResponse
 }

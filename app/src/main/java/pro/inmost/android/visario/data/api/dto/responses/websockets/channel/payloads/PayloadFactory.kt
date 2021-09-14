@@ -9,9 +9,9 @@ import pro.inmost.android.visario.data.entities.message.toDataMessage
 object PayloadFactory {
     private val gson = Gson()
 
-    fun getChannelMessage(json: String): MessageData{
+    fun getChannelMessage(json: String): MessageData {
         val response = gson.fromJson(json, ChannelWebSocketMessage::class.java)
-        val messagePayload = gson.fromJson(response.payload, CreateChannelMessagePayload::class.java)
+        val messagePayload = gson.fromJson(response.payload, ChannelMessagePayload::class.java)
         return messagePayload.toDataMessage()
     }
 

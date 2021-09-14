@@ -10,6 +10,7 @@ import pro.inmost.android.visario.ui.entities.channel.ChannelUI
 import pro.inmost.android.visario.ui.utils.extensions.navigate
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 import pro.inmost.android.visario.ui.utils.extensions.onQueryChange
+import pro.inmost.android.visario.ui.utils.hideKeyboard
 
 class SearchChannelsFragment : BaseFragment<FragmentChannelsSearchBinding>(R.layout.fragment_channels_search) {
     private val viewModel: SearchChannelsViewModel by viewModel()
@@ -41,6 +42,7 @@ class SearchChannelsFragment : BaseFragment<FragmentChannelsSearchBinding>(R.lay
     }
 
     private fun openChannel(channel: ChannelUI) {
+        hideKeyboard()
         navigate {
             SearchChannelsFragmentDirections.actionNavigationChannelSearchToNavigationMessages(
                 channelName = channel.name,

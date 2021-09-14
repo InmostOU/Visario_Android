@@ -11,7 +11,7 @@ data class MessageData(
     val createdTimestamp: Long,
     val senderArn: String,
     val channelArn: String,
-    val senderName: String,
+    var senderName: String,
     val type: String = MessageDataType.STANDARD,
     val metadata: String = "",
     val lastEditedTimestamp: Long = 0L,

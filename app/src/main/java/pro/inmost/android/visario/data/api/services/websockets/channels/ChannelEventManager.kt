@@ -13,6 +13,7 @@ object ChannelEventManager {
     }
 
     enum class EventType {
+        SESSION_ESTABLISHED,
         CREATE_CHANNEL_MESSAGE,
         REDACT_CHANNEL_MESSAGE,
         UPDATE_CHANNEL_MESSAGE,

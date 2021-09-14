@@ -3,7 +3,10 @@ package pro.inmost.android.visario.ui.utils.extensions
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
+import android.util.TypedValue
 import android.widget.Toast
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
@@ -36,4 +39,14 @@ fun Context.checkPermissions(vararg permissions: String, callback: (Boolean) -> 
                 callback(p0.areAllPermissionsGranted())
             }
         }).check()
+}
+
+@ColorInt
+fun Context.getColorFromAttr(
+    @AttrRes attrColor: Int,
+    typedValue: TypedValue = TypedValue(),
+    resolveRefs: Boolean = true
+): Int {
+    theme.resolveAttribute(attrColor, typedValue, resolveRefs)
+    return typedValue.data
 }

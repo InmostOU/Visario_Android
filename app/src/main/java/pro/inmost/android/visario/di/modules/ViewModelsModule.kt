@@ -11,9 +11,7 @@ import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCaseI
 import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.contacts.*
 import pro.inmost.android.visario.domain.usecases.meetings.impl.*
-import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.messages.UpdateMessagesReadStatusUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.messages.impl.*
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCaseImpl
 import pro.inmost.android.visario.ui.dialogs.inviter.channel.ChannelInviterViewModel
@@ -59,6 +57,8 @@ val viewModelsModule = module {
             get<FetchMessagesUseCaseImpl>(),
             get<FetchProfileUseCaseImpl>(),
             get<SendMessageUseCaseImpl>(),
+            get<EditMessageUseCaseImpl>(),
+            get<DeleteMessageUseCaseImpl>(),
             get<LeaveChannelUseCaseImpl>(),
             get<UpdateMessagesReadStatusUseCaseImpl>(),
             get<AddMemberToChannelUseCaseImpl>()
