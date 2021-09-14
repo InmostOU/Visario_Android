@@ -33,4 +33,7 @@ interface ContactsDao {
 
     @Query("SELECT * FROM contacts WHERE id = :userId")
     suspend fun get(userId: String): ContactData?
+
+    @Query("SELECT * FROM contacts WHERE userArn = :userArn")
+    suspend fun getByArn(userArn: String): ContactData?
 }

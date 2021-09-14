@@ -6,6 +6,7 @@ import okio.ByteString
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads.PayloadFactory
 import pro.inmost.android.visario.data.api.services.websockets.channels.ChannelEventManager.EventType
+import pro.inmost.android.visario.data.database.dao.ContactsDao
 import pro.inmost.android.visario.data.database.dao.MessagesDao
 import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.data.utils.extensions.launchMain
@@ -14,7 +15,8 @@ import java.nio.charset.Charset
 
 class ChannelsWebSocketClient(
     private val api: ChimeApi,
-    private val messagesDao: MessagesDao
+    private val messagesDao: MessagesDao,
+    private val contactsDao: ContactsDao
 ) : WebSocketListener() {
     private val client = OkHttpClient()
     private var webSocketLink: String = ""
@@ -71,7 +73,12 @@ class ChannelsWebSocketClient(
             when (ChannelEventManager.getEvent(text)) {
                 EventType.CREATE_CHANNEL_MESSAGE -> {
                     val message = PayloadFactory.getChannelMessage(text)
-                    launchIO { messagesDao.upsert(message) }
+                    launchIO {
+                        contactsDao.getByArn(message.senderArn)?.let {
+                            message.senderName = it.fullName
+                        }
+                        messagesDao.upsert(message)
+                    }
                 }
                 EventType.UPDATE_CHANNEL_MESSAGE -> {
                     val message = PayloadFactory.getChannelMessage(text)
