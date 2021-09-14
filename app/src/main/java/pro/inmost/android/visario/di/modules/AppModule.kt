@@ -12,5 +12,5 @@ val appModule = module {
     single { AppDatabase.getInstance(androidApplication().applicationContext) }
     single { ChimeApi() }
     single { CredentialsStore(androidApplication().applicationContext, get<UpdateCredentialsUseCaseImpl>()) }
-    factory { ChannelsWebSocketClient(get(), get()) }
+    factory { ChannelsWebSocketClient(get(), get(), get()) }
 }
