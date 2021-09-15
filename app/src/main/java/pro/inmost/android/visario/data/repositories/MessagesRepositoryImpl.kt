@@ -61,7 +61,7 @@ class MessagesRepositoryImpl(
     }
 
     override suspend fun delete(messageId: String): Result<Unit> {
-        TODO("Not yet implemented")
+        return api.messages.deleteMessage(messageId)
     }
 
     override suspend fun deleteLocal(messageId: String) = withContext(IO) {

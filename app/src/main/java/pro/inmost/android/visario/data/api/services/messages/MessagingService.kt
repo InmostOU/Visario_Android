@@ -6,10 +6,7 @@ import pro.inmost.android.visario.data.api.dto.responses.base.BaseDataResponse
 import pro.inmost.android.visario.data.api.dto.responses.base.BaseResponse
 import pro.inmost.android.visario.data.api.services.Endpoints
 import pro.inmost.android.visario.data.entities.message.MessageData
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface MessagingService {
     @GET(Endpoints.MESSAGE_LIST)
@@ -24,4 +21,7 @@ interface MessagingService {
 
     @POST(Endpoints.MESSAGE_EDIT)
     suspend fun editMessage(@Body request: EditMessageRequest): BaseResponse
+
+    @DELETE(Endpoints.MESSAGE_DELETE)
+    suspend fun deleteMessage(@Query("messageId") messageId: String): BaseResponse
 }

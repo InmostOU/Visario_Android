@@ -87,7 +87,8 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
                     R.id.menu_copy_message -> copyMessage(message.text)
                     R.id.menu_edit_message -> editMessage(message)
                     R.id.menu_resend_message -> resendMessage(message)
-                    R.id.menu_delete_message_local -> deleteLocalMessage(message)
+                    R.id.menu_delete_message -> deleteMessage(message)
+                    R.id.menu_delete_message_local -> deleteFailedMessage(message)
                 }
                 true
             }
@@ -101,8 +102,20 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
         }
     }
 
-    private fun deleteLocalMessage(message: MessageUI) {
-        viewModel.deleteMessageLocal(message)
+    private fun deleteMessage(message: MessageUI) {
+        SimpleAlertDialog(
+            requireContext(),
+            R.string.delete,
+            R.string.delete,
+            R.string.delete_message_confirm,
+            R.drawable.ic_round_delete_forever_24
+        ).show {
+            viewModel.deleteMessage(message)
+        }
+    }
+
+    private fun deleteFailedMessage(message: MessageUI) {
+        viewModel.deleteLocalMessage(message)
     }
 
     private fun resendMessage(message: MessageUI) {

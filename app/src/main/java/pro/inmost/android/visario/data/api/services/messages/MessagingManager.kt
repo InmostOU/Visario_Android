@@ -42,4 +42,12 @@ class MessagingManager(
         }
     }
 
+    suspend fun deleteMessage(messageId: String): Result<Unit>  = withContext(IO) {
+        kotlin.runCatching {
+            service.deleteMessage(messageId).getResult()
+        }.getOrElse {
+            logError(it.message ?: "")
+            Result.failure(it)
+        }
+    }
 }

@@ -136,9 +136,15 @@ class MessagesViewModel(
         _showKeyboard.call()
     }
 
-    fun deleteMessageLocal(message: MessageUI) {
+    fun deleteLocalMessage(message: MessageUI) {
         viewModelScope.launch {
             deleteMessageUseCase.deleteLocal(message.messageId)
+        }
+    }
+
+    fun deleteMessage(message: MessageUI) {
+        viewModelScope.launch {
+            deleteMessageUseCase.delete(message.messageId)
         }
     }
 
