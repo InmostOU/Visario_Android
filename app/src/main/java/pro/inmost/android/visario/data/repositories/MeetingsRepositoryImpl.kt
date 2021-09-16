@@ -31,7 +31,7 @@ class MeetingsRepositoryImpl(
         return Result.failure(Throwable("Create meeting: unknown error"))
     }
 
-    override suspend fun deleteMeeting(host: String): Result<Unit> {
+    override suspend fun deleteMeeting(meetingId: String): Result<Unit> {
         TODO("Not yet implemented")
     }
 
@@ -52,15 +52,15 @@ class MeetingsRepositoryImpl(
         return Result.failure(Throwable("Create meeting: unknown error"))
     }
 
-    override suspend fun getAttendee(userId: String): Result<Attendee> {
-        api.meetings.getAttendeeInfo(userId).onSuccess { attendeeInfo ->
+    override suspend fun getAttendee(userId: String, meetingId: String): Result<Attendee> {
+        api.meetings.getAttendeeInfo(userId, meetingId).onSuccess { attendeeInfo ->
             val profile = profileDao.get()
             return Result.success(attendeeInfo.toDomainAttendee(profile?.id == attendeeInfo.id))
         }.onFailure { return Result.failure(it) }
         return Result.failure(Throwable("Get attendee info: unknown error"))
     }
 
-    override suspend fun invite(meetingId: String, channelArn: String): Result<Unit> {
+    override suspend fun sendInvitation(meetingId: String, channelArn: String): Result<Unit> {
         val message = api.meetings.getMeetingInvitationLink(meetingId)
         return messagesRepository.sendMessage(message, channelArn)
     }

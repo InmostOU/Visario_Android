@@ -9,11 +9,23 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+
+/**
+ * Retrofit services factory
+ *
+ * @property tokensHolder - actual access and refresh tokens
+ */
 class ServiceFactory(private val tokensHolder: Authenticator.TokensHolder) {
     private val timeoutInSec = 10L
     private val builder = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
 
+    /**
+     * Create service instance
+     *
+     * @param service - class of retrofit's service interface
+     * @return service
+     */
     fun <T>getService(service: Class<T>): T {
         if (tokensHolder.accessToken.isNotBlank()){
             val client: OkHttpClient = OkHttpClient.Builder()

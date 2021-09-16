@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey
 data class MessageData(
     @PrimaryKey
     val messageId: String,
-    val content: String,
+    val content: String?,
     val createdTimestamp: Long,
     val senderArn: String,
     val channelArn: String,
-    val senderName: String,
+    var senderName: String,
     val type: String = MessageDataType.STANDARD,
     val metadata: String = "",
     val lastEditedTimestamp: Long = 0L,

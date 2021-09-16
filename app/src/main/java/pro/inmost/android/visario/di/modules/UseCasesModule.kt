@@ -2,19 +2,20 @@ package pro.inmost.android.visario.di.modules
 
 import org.koin.dsl.module
 import pro.inmost.android.visario.data.repositories.*
-import pro.inmost.android.visario.domain.usecases.auth.credentials.UpdateCredentialsUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.auth.login.LoginUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.channels.*
-import pro.inmost.android.visario.domain.usecases.contacts.*
+import pro.inmost.android.visario.domain.usecases.auth.impl.UpdateCredentialsUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.auth.impl.LoginUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.auth.impl.LogoutUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.auth.impl.RegistrationUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.channels.impl.*
+import pro.inmost.android.visario.domain.usecases.contacts.impl.*
 import pro.inmost.android.visario.domain.usecases.meetings.impl.*
-import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.messages.UpdateMessagesReadStatusUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.messages.impl.*
+import pro.inmost.android.visario.domain.usecases.profile.impl.FetchProfileUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.profile.impl.UpdateProfileUseCaseImpl
 
+/**
+ * Use Cases module for Koin dependency framework
+ */
 val useCases = module {
 
     // CONTACTS
@@ -93,7 +94,7 @@ val useCases = module {
     }
 
     factory {
-        InviteGroupUseCaseImpl(
+        SendInvitationUseCaseImpl(
             repository = get<MeetingsRepositoryImpl>()
         )
     }
@@ -142,6 +143,16 @@ val useCases = module {
 
     factory {
         UpdateMessagesReadStatusUseCaseImpl(
+            repository = get<MessagesRepositoryImpl>()
+        )
+    }
+    factory {
+        EditMessageUseCaseImpl(
+            repository = get<MessagesRepositoryImpl>()
+        )
+    }
+    factory {
+        DeleteMessageUseCaseImpl(
             repository = get<MessagesRepositoryImpl>()
         )
     }

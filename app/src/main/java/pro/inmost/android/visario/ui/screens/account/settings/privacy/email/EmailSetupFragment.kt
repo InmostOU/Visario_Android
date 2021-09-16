@@ -6,6 +6,10 @@ import pro.inmost.android.visario.databinding.FragmentPrivacyEmailBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
+/**
+ * Fragment for setup user's email visibility
+ *
+ */
 class EmailSetupFragment : BaseFragment<FragmentPrivacyEmailBinding>(R.layout.fragment_privacy_email) {
     private val viewModel: EmailSetupViewModel by viewModel()
 

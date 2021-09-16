@@ -3,7 +3,6 @@ package pro.inmost.android.visario.ui.adapters
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -13,6 +12,12 @@ import com.google.android.material.textfield.TextInputEditText
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
 
+
+/**
+ * Show error with message
+ *
+ * @param textResId id of string resource
+ */
 @BindingAdapter(value = ["showError"])
 fun TextInputEditText.showError(textResId: Int) {
     kotlin.runCatching {
@@ -20,6 +25,11 @@ fun TextInputEditText.showError(textResId: Int) {
     }
 }
 
+/**
+ * Load contact image or set placeholder if image is null or empty
+ *
+ * @param image url of image
+ */
 @BindingAdapter(value = ["loadContactImage"])
 fun ImageView.loadContactImage(image: String?) {
     kotlin.runCatching {
@@ -33,23 +43,31 @@ fun ImageView.loadContactImage(image: String?) {
     }
 }
 
-@BindingAdapter(value = ["setRatio"])
-fun View.setRatio(ratio: String) {
-    kotlin.runCatching {
-        (layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = ratio
-    }
-}
-
+/**
+ * Set view visible or invisible
+ *
+ * @param visible true if view should be visible, else false
+ */
 @BindingAdapter(value = ["setVisible"])
 fun View.setVisible(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
 
+/**
+ * Show or hide current [FloatingActionButton]
+ *
+ * @param visible true if view should be show, else false
+ */
 @BindingAdapter(value = ["setVisible"])
 fun FloatingActionButton.setVisible(visible: Boolean) {
     if (visible) show() else hide()
 }
 
+/**
+ * Set message send status icon
+ *
+ * @param status [MessageUIStatus] - SEND, DELIVERED, FAIL or READ
+ */
 @BindingAdapter(value = ["messageStatusIcon"])
 fun ImageView.messageStatusIcon(status: MessageUIStatus?) {
     val icon = when (status) {
@@ -64,12 +82,22 @@ fun ImageView.messageStatusIcon(status: MessageUIStatus?) {
     }
 }
 
+/**
+ * Set image into the ImageView
+ *
+ * @param uri [Uri] of image
+ */
 @BindingAdapter(value = ["loadImage"])
-fun ImageView.loadImager(uri: Uri?) {
+fun ImageView.loadImage(uri: Uri?) {
     uri ?: return
     Glide.with(context).load(uri).into(this)
 }
 
+/**
+ * Choose toolbar menu in contact fragment depending on whether a contact is on my list.
+ *
+ * @param myContact true if contact in user's personal contact list
+ */
 @BindingAdapter(value = ["chooseContactMenu"])
 fun MaterialToolbar.chooseContactMenu(myContact: Boolean?) {
     myContact ?: return
@@ -82,6 +110,11 @@ fun MaterialToolbar.chooseContactMenu(myContact: Boolean?) {
     inflateMenu(menu)
 }
 
+/**
+ * Visibility toolbar menu in messages fragment
+ *
+ * @param visible true if menu should be shown else false
+ */
 @BindingAdapter(value = ["visibilityMessagesMenu"])
 fun MaterialToolbar.visibilityMessagesMenu(visible: Boolean?) {
     visible ?: return

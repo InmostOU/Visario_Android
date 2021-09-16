@@ -13,11 +13,17 @@ interface MessagesDao {
     @Delete
     suspend fun delete(vararg item: MessageData)
 
+    @Query("DELETE FROM messages WHERE messageId =:messageId")
+    suspend fun deleteById(messageId: String)
+
     @Query("SELECT * FROM messages")
     suspend fun getAll(): List<MessageData>
 
     @Query("SELECT * FROM messages WHERE messageId =:id")
     suspend fun get(id: String): MessageData?
+
+    @Query("SELECT * FROM messages WHERE metadata =:meta")
+    suspend fun getByMetadata(meta: String): MessageData?
 
     @Query("SELECT * FROM messages ORDER BY createdTimestamp DESC")
     fun getAllObservable(): Flow<List<MessageData>>
@@ -34,9 +40,6 @@ interface MessagesDao {
     @Query("DELETE FROM messages")
     suspend fun deleteAll()
 
-    @Query("DELETE FROM messages WHERE channelArn =:channelArn")
-    suspend fun delete(channelArn: String)
-
     @Transaction
     suspend fun fullUpdate(items: List<MessageData>){
         deleteAll()
@@ -48,20 +51,29 @@ interface MessagesDao {
         insert(*items.toTypedArray())
     }
 
-    @Query("UPDATE messages SET messageId =:messageId, status = 'DELIVERED' WHERE messageId =:tempId")
-    suspend fun updateMessageId(tempId: String, messageId: String): Int
+    @Query("UPDATE messages SET messageId =:newId, status = 'DELIVERED' WHERE messageId =:oldId")
+    suspend fun updateMessageId(oldId: String, newId: String): Int
 
     @Transaction
     suspend fun upsert(message: MessageData){
-        val result = updateMessageId(message.metadata, message.messageId)
-        if (result == 0){
-            insert(message)
+        kotlin.runCatching { updateMessageId(message.metadata, message.messageId) }.onSuccess { result ->
+            if (result == 0){
+                insert(message)
+            }
+        }.onFailure {
+            update(message)
         }
     }
+
+    @Query("UPDATE messages SET status =:status WHERE messageId =:messageId")
+    suspend fun updateSendingStatus(messageId: String, status: String)
 
     @Query("UPDATE messages SET readByMe =:read WHERE channelArn =:channelArn")
     suspend fun updateReadStatusForAll(channelArn: String, read: Boolean)
 
     @Query("UPDATE messages SET readByMe =:read WHERE messageId =:messageId")
     suspend fun updateReadStatus(messageId: String, read: Boolean)
+
+    @Query("UPDATE messages SET content =:content, lastEditedTimestamp =:editedTimestamp WHERE messageId =:messageId")
+    suspend fun updateContent(messageId: String, content: String, editedTimestamp: Long)
 }

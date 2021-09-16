@@ -1,5 +1,8 @@
 package pro.inmost.android.visario.ui.utils.extensions
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
@@ -61,4 +64,11 @@ fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
 }
 fun <T> Fragment.removeNavigationResult(key: String = "result") {
     findNavController().previousBackStackEntry?.savedStateHandle?.remove<T>(key)
+}
+
+fun Fragment.copyToClipboard(content: String, label: String = "text"){
+    val clipboard: ClipboardManager =
+        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = ClipData.newPlainText(label, content)
+    clipboard.setPrimaryClip(clip)
 }

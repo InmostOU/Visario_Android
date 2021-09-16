@@ -9,6 +9,11 @@ import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseBottomSheet
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 
+/**
+ * Bottom sheet dialog with user's list of contact to which you can send an invitation to a meeting
+ *
+ * @property meetingId id of existing meeting
+ */
 class MeetingContactsInviterDialog(private val meetingId: String) :
     BaseBottomSheet<BottomSheetContactsInviterBinding>(R.layout.bottom_sheet_contacts_inviter) {
     private val viewModel: MeetingContactsInviterViewModel by viewModel()

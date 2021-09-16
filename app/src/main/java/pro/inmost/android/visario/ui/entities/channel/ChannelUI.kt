@@ -13,6 +13,7 @@ data class ChannelUI (
     val description: String,
     val isMember: Boolean,
     val isModerator: Boolean,
+    val membersCount: Int,
     var messages: List<MessageUI> = listOf()
 ): BaseEntity {
 

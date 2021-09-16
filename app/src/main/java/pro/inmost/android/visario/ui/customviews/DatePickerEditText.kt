@@ -10,6 +10,11 @@ import com.google.android.material.textfield.TextInputEditText
 import pro.inmost.android.visario.ui.utils.DateParser
 import java.util.*
 
+
+/**
+ * Edit text with [DatePickerDialog] that opens by clicking and set selected date to the view
+ *
+ */
 class DatePickerEditText(
     context: Context,
     attrs: AttributeSet? = null

@@ -1,6 +1,9 @@
 package pro.inmost.android.visario.ui.screens.channels.messages
 
+import android.view.View
+import androidx.appcompat.widget.PopupMenu
 import androidx.navigation.fragment.navArgs
+import com.pawegio.kandroid.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentMessagesBinding
@@ -10,8 +13,9 @@ import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.dialogs.alerts.SimpleAlertDialog
 import pro.inmost.android.visario.ui.dialogs.inviter.channel.ChannelInviterDialog
 import pro.inmost.android.visario.ui.entities.message.MessageUI
-import pro.inmost.android.visario.ui.utils.extensions.navigate
-import pro.inmost.android.visario.ui.utils.extensions.navigateBack
+import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
+import pro.inmost.android.visario.ui.utils.extensions.*
+
 
 class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment_messages) {
     private val viewModel: MessagesViewModel by viewModel()
@@ -36,7 +40,7 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     }
 
     private fun updateTitle(title: String) {
-        if (title != binding.toolbar.title){
+        if (title != binding.toolbar.title) {
             binding.toolbar.title = title
         }
     }
@@ -53,17 +57,78 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     private fun observeEvents() {
         binding.toolbar.setNavigationOnClickListener { navigateBack() }
         binding.toolbar.setOnMenuItemClickListener { item ->
-            when(item.itemId){
-                R.id.menu_channel_leave -> { leaveChannel() }
-                R.id.menu_channel_invite ->{ showInvitationDialog(viewModel.currentChannelUrl) }
+            when (item.itemId) {
+                R.id.menu_channel_leave -> {
+                    leaveChannel()
+                }
+                R.id.menu_channel_invite -> {
+                    showInvitationDialog(viewModel.currentChannelUrl)
+                }
             }
 
             true
         }
-        viewModel.closeChannel.observe(viewLifecycleOwner){ navigateBack() }
-        viewModel.joinMeetingEvent.observe(viewLifecycleOwner){ meetingId ->
+        viewModel.closeChannel.observe(viewLifecycleOwner) { navigateBack() }
+        viewModel.joinMeetingEvent.observe(viewLifecycleOwner) { meetingId ->
             openMeetingFragment(meetingId)
         }
+        viewModel.openPopupMenu.observe(viewLifecycleOwner) {
+            openPopupMenu(it.first, it.second)
+        }
+        viewModel.showKeyboard.observe(viewLifecycleOwner) {
+            binding.editTextMessage.showKeyboardAndMoveCursorToEnd()
+        }
+    }
+
+    private fun openPopupMenu(view: View, message: MessageUI) {
+        PopupMenu(requireContext(), view).apply {
+            setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.menu_copy_message -> copyMessage(message.text)
+                    R.id.menu_edit_message -> editMessage(message)
+                    R.id.menu_resend_message -> resendMessage(message)
+                    R.id.menu_delete_message -> deleteMessage(message)
+                    R.id.menu_delete_message_local -> deleteFailedMessage(message)
+                }
+                true
+            }
+            val menu = if (message.fromCurrentUser) {
+                if (message.status == MessageUIStatus.FAIL) R.menu.popup_message_failed
+                else R.menu.popup_message_my
+            } else R.menu.popup_message_other
+            inflate(menu)
+            insertMenuItemIcons(requireContext())
+            show()
+        }
+    }
+
+    private fun deleteMessage(message: MessageUI) {
+        SimpleAlertDialog(
+            requireContext(),
+            R.string.delete,
+            R.string.delete,
+            R.string.delete_message_confirm,
+            R.drawable.ic_round_delete_forever_24
+        ).show {
+            viewModel.deleteMessage(message)
+        }
+    }
+
+    private fun deleteFailedMessage(message: MessageUI) {
+        viewModel.deleteLocalMessage(message)
+    }
+
+    private fun resendMessage(message: MessageUI) {
+        viewModel.resendMessage(message)
+    }
+
+    private fun editMessage(message: MessageUI) {
+        viewModel.editMessage(message)
+    }
+
+    private fun copyMessage(message: String) {
+        copyToClipboard(message)
+        toast(R.string.copied)
     }
 
     private fun openMeetingFragment(meetingId: String) {
@@ -72,7 +137,7 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
         }
     }
 
-    private fun leaveChannel(){
+    private fun leaveChannel() {
         SimpleAlertDialog(
             requireContext(),
             title = R.string.leave,

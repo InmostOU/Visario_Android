@@ -9,6 +9,12 @@ import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
 import pro.inmost.android.visario.ui.utils.extensions.navigate
 
+
+/**
+ * Fragment for login existing user
+ *
+ * @constructor Create empty Login fragment
+ */
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
     private val viewModel: LoginViewModel by viewModel()
     private var authListener: AuthListener? = null

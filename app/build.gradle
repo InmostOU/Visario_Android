@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-parcelize'
+    id 'org.jetbrains.dokka'
 }
 
 android {
@@ -43,9 +44,20 @@ android {
         }
     }
 
+    dokkaHtml.configure {
+        dokkaSourceSets {
+            named("main") {
+                noAndroidSdkLink.set(false)
+            }
+        }
+    }
+
 }
 
 dependencies {
+
+    // DocsGenerate
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.5.0")
 
     // AWS Chime SDK
     implementation(name: 'amazon-chime-sdk', ext: 'aar')
@@ -66,6 +78,7 @@ dependencies {
 
     // Views
     implementation "com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:1.1.0"
+    implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:4.1.0'
 
     // Utils extensions
     implementation 'com.github.pawegio:KAndroid:0.8.7@aar'

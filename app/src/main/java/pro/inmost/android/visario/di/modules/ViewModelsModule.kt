@@ -2,20 +2,18 @@ package pro.inmost.android.visario.di.modules
 
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import pro.inmost.android.visario.domain.usecases.auth.login.LoginUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.auth.register.RegistrationUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.channels.AddMemberToChannelUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.channels.CreateChannelUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.contacts.*
+import pro.inmost.android.visario.domain.usecases.auth.impl.LoginUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.auth.impl.LogoutUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.auth.impl.RegistrationUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.channels.impl.AddMemberToChannelUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.channels.impl.CreateChannelUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.channels.impl.FetchChannelsUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.channels.impl.LeaveChannelUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.contacts.impl.*
 import pro.inmost.android.visario.domain.usecases.meetings.impl.*
-import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.messages.SendMessageUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.messages.UpdateMessagesReadStatusUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCaseImpl
-import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.messages.impl.*
+import pro.inmost.android.visario.domain.usecases.profile.impl.FetchProfileUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.profile.impl.UpdateProfileUseCaseImpl
 import pro.inmost.android.visario.ui.dialogs.inviter.channel.ChannelInviterViewModel
 import pro.inmost.android.visario.ui.dialogs.inviter.meeting.channels.MeetingChannelsInviterViewModel
 import pro.inmost.android.visario.ui.dialogs.inviter.meeting.contacts.MeetingContactsInviterViewModel
@@ -43,6 +41,9 @@ import pro.inmost.android.visario.ui.screens.meet.join.JoinMeetingViewModel
 import pro.inmost.android.visario.ui.screens.meet.list.ScheduledMeetingsViewModel
 import pro.inmost.android.visario.ui.screens.meet.meeting.MeetingViewModel
 
+/**
+ * ViewModels module for Koin dependency framework
+ */
 val viewModelsModule = module {
     // CHANNELS
     viewModel { ChannelsViewModel(get<FetchChannelsUseCaseImpl>()) }
@@ -59,6 +60,8 @@ val viewModelsModule = module {
             get<FetchMessagesUseCaseImpl>(),
             get<FetchProfileUseCaseImpl>(),
             get<SendMessageUseCaseImpl>(),
+            get<EditMessageUseCaseImpl>(),
+            get<DeleteMessageUseCaseImpl>(),
             get<LeaveChannelUseCaseImpl>(),
             get<UpdateMessagesReadStatusUseCaseImpl>(),
             get<AddMemberToChannelUseCaseImpl>()
@@ -71,7 +74,7 @@ val viewModelsModule = module {
     viewModel { CreateMeetingViewModel() }
     viewModel { MeetingChannelsInviterViewModel(
         get<FetchChannelsUseCaseImpl>(),
-        get<InviteGroupUseCaseImpl>())
+        get<SendInvitationUseCaseImpl>())
     }
     viewModel { MeetingViewModel(
         get<CreateMeetingUseCaseImpl>(),

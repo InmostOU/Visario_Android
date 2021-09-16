@@ -1,6 +1,6 @@
 package pro.inmost.android.visario.data.entities.message
 
-import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads.CreateChannelMessagePayload
+import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads.ChannelMessagePayload
 import pro.inmost.android.visario.data.utils.extensions.isMeetingInvitation
 import pro.inmost.android.visario.domain.entities.message.Message
 import pro.inmost.android.visario.domain.entities.message.MessageStatus
@@ -22,12 +22,12 @@ fun Message.toDataMessage() = MessageData(
     metadata = this.metadata
 )
 
-fun CreateChannelMessagePayload.toDataMessage() = MessageData(
+fun ChannelMessagePayload.toDataMessage() = MessageData(
     messageId = this.MessageId,
     content = this.Content,
     createdTimestamp = DateParser.parseToMillis(this.CreatedTimestamp),
     lastEditedTimestamp = DateParser.parseToMillis(this.LastUpdatedTimestamp),
-    metadata = this.Metadata,
+    metadata = this.Metadata ?: "",
     redacted = this.Redacted,
     senderName = this.Sender.Name,
     senderArn = this.Sender.Arn,
@@ -37,7 +37,7 @@ fun CreateChannelMessagePayload.toDataMessage() = MessageData(
 
 fun MessageData.toDomainMessage() = Message(
     messageId = this.messageId,
-    text = this.content,
+    text = this.content ?: "",
     channelUrl = this.channelArn,
     senderUrl = this.senderArn,
     senderName = this.senderName,
@@ -49,7 +49,7 @@ fun MessageData.toDomainMessage() = Message(
     readByMe = this.readByMe,
     status = kotlin.runCatching { MessageStatus.valueOf(this.status!!) }.getOrElse { MessageStatus.DELIVERED },
     metadata = this.metadata,
-    isMeetingInvitation = content.isMeetingInvitation()
+    isMeetingInvitation = content?.isMeetingInvitation() ?: false
 )
 
 fun List<MessageData>.toDomainMessages() = map { it.toDomainMessage()}

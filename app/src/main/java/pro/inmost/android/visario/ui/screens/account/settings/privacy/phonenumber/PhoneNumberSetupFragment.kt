@@ -6,6 +6,10 @@ import pro.inmost.android.visario.databinding.FragmentPrivacyPhoneNumberBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
+/**
+ * Fragment for setup user's phone number visibility
+ *
+ */
 class PhoneNumberSetupFragment: BaseFragment<FragmentPrivacyPhoneNumberBinding>(R.layout.fragment_privacy_phone_number) {
     private val viewModel: PhoneNumberSetupViewModel by viewModel()
     override fun onCreated() {

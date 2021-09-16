@@ -6,6 +6,12 @@ import pro.inmost.android.visario.databinding.FragmentChannelCreateBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
+
+/**
+ * Fragment for create new channel
+ *
+ * @constructor Create empty Create channel fragment
+ */
 class CreateChannelFragment : BaseFragment<FragmentChannelCreateBinding>(R.layout.fragment_channel_create) {
     private val viewModel: CreateChannelViewModel by viewModel()
 

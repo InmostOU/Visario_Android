@@ -37,7 +37,8 @@ class CreateChannelViewModel(
             privacy = if (public.value == true) ChannelPrivacy.PUBLIC else ChannelPrivacy.PRIVATE,
             description = description.value ?: "",
             isMember = true,
-            isModerator = true
+            isModerator = true,
+            membersCount = 1
         )
         viewModelScope.launch {
             showProgressBar()

@@ -22,6 +22,13 @@ import pro.inmost.android.visario.ui.utils.extensions.biggerThan
 import pro.inmost.android.visario.ui.utils.extensions.getUri
 import java.io.File
 
+
+/**
+ * Dialog for resize selected image
+ *
+ * @property imageForCrop [Uri] to image that need to crop
+ * @property callback return [Uri] to new image file
+ */
 class ImageResizerDialog(private val imageForCrop: Uri, val callback: (Uri) -> Unit) :
     DialogFragment(R.layout.fragment_image_resizer) {
     private var _binding: FragmentImageResizerBinding? = null

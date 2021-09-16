@@ -9,6 +9,14 @@ import androidx.databinding.ViewDataBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import pro.inmost.android.visario.R
 
+
+/**
+ * Base generic [BottomSheetDialogFragment]
+ *
+ * @param T [ViewDataBinding] of fragment's layout
+ * @property layId id of fragment's layout
+ *
+ */
 abstract class BaseBottomSheet<T : ViewDataBinding>(private val layId: Int) : BottomSheetDialogFragment() {
     private var _binding: T? = null
     protected val binding get() = _binding!!
@@ -30,10 +38,18 @@ abstract class BaseBottomSheet<T : ViewDataBinding>(private val layId: Int) : Bo
         onCreated()
     }
 
+    /**
+     * Close dialog and return to previous
+     *
+     */
     fun close(){
         dismiss()
     }
 
+    /**
+     * Called immediately after dialog created
+     *
+     */
     abstract fun onCreated()
 
     override fun onDestroyView() {

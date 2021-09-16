@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.domain.usecases.auth.logout.LogoutUseCase
+import pro.inmost.android.visario.domain.usecases.auth.LogoutUseCase
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
 import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCase
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile

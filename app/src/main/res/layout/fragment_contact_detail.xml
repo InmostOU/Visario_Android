@@ -137,6 +137,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
+                            android:visibility="@{viewModel.contact.about.length() > 0 ? View.VISIBLE : View.GONE}"
                             android:orientation="vertical">
 
                             <com.google.android.material.textview.MaterialTextView

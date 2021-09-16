@@ -14,10 +14,12 @@ import pro.inmost.android.visario.data.api.services.meetings.MeetingManager
 import pro.inmost.android.visario.data.api.services.meetings.MeetingService
 import pro.inmost.android.visario.data.api.services.messages.MessagingManager
 import pro.inmost.android.visario.data.api.services.messages.MessagingService
-import pro.inmost.android.visario.data.api.services.session.SessionManager
-import pro.inmost.android.visario.data.api.services.session.SessionService
 
 
+/**
+ * Main API of chime services
+ *
+ */
 class ChimeApi {
     private val serviceFactory =  ServiceFactory(TokensHolder)
     val auth get() = Authenticator(
@@ -37,9 +39,6 @@ class ChimeApi {
     )
     val user get() = AccountManager(
         serviceFactory.getService(AccountService::class.java)
-    )
-    val session get() = SessionManager(
-        serviceFactory.getService(SessionService::class.java)
     )
 
     companion object{

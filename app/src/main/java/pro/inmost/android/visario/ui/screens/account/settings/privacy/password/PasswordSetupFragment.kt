@@ -6,6 +6,10 @@ import pro.inmost.android.visario.databinding.FragmentPrivacyPasswordBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
+/**
+ * Fragment for change user's password
+ *
+ */
 class PasswordSetupFragment: BaseFragment<FragmentPrivacyPasswordBinding>(R.layout.fragment_privacy_password) {
     private val viewModel: PasswordSetupViewModel by viewModel()
     override fun onCreated() {

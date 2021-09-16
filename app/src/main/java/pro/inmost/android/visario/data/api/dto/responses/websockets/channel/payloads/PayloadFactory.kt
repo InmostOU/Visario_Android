@@ -6,17 +6,21 @@ import pro.inmost.android.visario.data.entities.channel.ChannelData
 import pro.inmost.android.visario.data.entities.message.MessageData
 import pro.inmost.android.visario.data.entities.message.toDataMessage
 
+/**
+ * Helper class for parse json from web-socket's message into DTO
+ *
+ */
 object PayloadFactory {
     private val gson = Gson()
 
-    fun getChannelMessage(json: String): MessageData{
+    fun getChannelMessage(json: String): MessageData {
         val response = gson.fromJson(json, ChannelWebSocketMessage::class.java)
-        val messagePayload = gson.fromJson(response.payload, CreateChannelMessagePayload::class.java)
+        val messagePayload = gson.fromJson(response.payload, ChannelMessagePayload::class.java)
         return messagePayload.toDataMessage()
     }
 
     fun getChannelMember(json: String): ChannelData? {
-        val response = gson.fromJson(json, CreateChannelMembershipPayload::class.java)
+        val response = gson.fromJson(json, ChannelMembershipPayload::class.java)
         return null
     }
 }

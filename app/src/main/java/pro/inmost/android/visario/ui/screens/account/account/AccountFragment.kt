@@ -16,6 +16,10 @@ import pro.inmost.android.visario.ui.utils.extensions.navigate
 import pro.inmost.android.visario.ui.utils.extensions.snackbarWithAction
 
 
+/**
+ * Fragment with user's profile info and settings menu
+ *
+ */
 class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_account) {
     private val viewModel: AccountViewModel by viewModel()
     private var authListener: AuthListener? = null

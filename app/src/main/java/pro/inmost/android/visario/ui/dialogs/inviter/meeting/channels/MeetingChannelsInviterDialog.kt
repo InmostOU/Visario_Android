@@ -9,6 +9,12 @@ import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseBottomSheet
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
 
+
+/**
+ * Bottom sheet dialog with user's list of channels to which you can send an invitation to a meeting
+ *
+ * @property meetingId id of existing meeting
+ */
 class MeetingChannelsInviterDialog(private val meetingId: String) :
     BaseBottomSheet<BottomSheetChannelsInviterBinding>(R.layout.bottom_sheet_channels_inviter) {
     private val viewModel: MeetingChannelsInviterViewModel by viewModel()

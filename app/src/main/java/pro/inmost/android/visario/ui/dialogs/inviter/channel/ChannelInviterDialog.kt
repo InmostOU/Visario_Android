@@ -9,7 +9,14 @@ import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseBottomSheet
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 
-class ChannelInviterDialog(private val channelUrl: String) :
+
+/**
+ * Dialog shows contacts you can invite to the selected channel
+ *
+ * @property channelArn channel url from AWS Chime to which you want to invite contacts
+ * @constructor Create empty Channel inviter dialog
+ */
+class ChannelInviterDialog(private val channelArn: String) :
     BaseBottomSheet<BottomSheetContactsInviterBinding>(R.layout.bottom_sheet_contacts_inviter) {
     private val viewModel: ChannelInviterViewModel by viewModel()
     private val listAdapter =
@@ -20,7 +27,7 @@ class ChannelInviterDialog(private val channelUrl: String) :
 
     override fun onCreated() {
         binding.contactList.adapter = listAdapter
-        viewModel.setChannel(channelUrl)
+        viewModel.setChannel(channelArn)
         observeEvents()
         observeData()
 

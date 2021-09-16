@@ -2,6 +2,7 @@ package pro.inmost.android.visario.data.api.services.meetings
 
 import pro.inmost.android.visario.data.api.dto.requests.meeting.CreateAttendeeRequest
 import pro.inmost.android.visario.data.api.dto.requests.meeting.DeleteAttendeeRequest
+import pro.inmost.android.visario.data.api.dto.requests.meeting.GetAttendeeInfoRequest
 import pro.inmost.android.visario.data.api.dto.responses.meeting.AttendeeInfoResponse
 import pro.inmost.android.visario.data.api.dto.responses.meeting.GetMeetingResponse
 import pro.inmost.android.visario.data.api.services.Endpoints
@@ -11,6 +12,10 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
+/**
+ * Meeting service to be implemented by retrofit
+ *
+ */
 interface MeetingService {
 
     @POST(Endpoints.MEETING_CREATE)
@@ -25,7 +30,7 @@ interface MeetingService {
     @GET(Endpoints.MEETING_GET)
     suspend fun getMeeting(@Query("meetingId") id: String): GetMeetingResponse
 
-    @GET(Endpoints.MEETING_GET_ATTENDEE_INFO)
-    suspend fun getAttendeeInfo(@Query("userId") userId: String): AttendeeInfoResponse
+    @POST(Endpoints.MEETING_GET_ATTENDEE_INFO)
+    suspend fun getAttendeeInfo(@Body request: GetAttendeeInfoRequest): AttendeeInfoResponse
 
 }

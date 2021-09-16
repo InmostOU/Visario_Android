@@ -74,7 +74,7 @@ class MeetingViewModel(
 
     private suspend fun createAttendee(attendeeInfo: AttendeeInfo): AttendeeUI? {
         return attendees.find { it.attendeeId == attendeeInfo.attendeeId }
-            ?: getAttendeeUseCase.get(attendeeInfo.externalUserId)
+            ?: getAttendeeUseCase.get(attendeeInfo.externalUserId, meetingId)
                 .getOrNull()
                 ?.toAttendeeUI(attendeeInfo.attendeeId)
     }
@@ -205,7 +205,7 @@ class MeetingViewModel(
             stopRemoteVideo()
             stop()
         }
-        deleteAttendeeUseCase.deleteMyself(meetingId)
+        deleteAttendeeUseCase.deleteCurrentUser(meetingId)
     }
 
     fun setAudioDevice(type: MediaDeviceType){
@@ -258,7 +258,10 @@ class MeetingViewModel(
         }
 
         override fun onAttendeesDropped(attendeeInfo: Array<AttendeeInfo>) {
-            attendeeInfo.forEach { log("${it.attendeeId} dropped from the meeting") }
+            attendeeInfo.forEach {
+                log("${it.attendeeId} dropped from the meeting")
+                removeAttendee(it.attendeeId)
+            }
         }
 
         override fun onAttendeesJoined(attendeeInfo: Array<AttendeeInfo>) {

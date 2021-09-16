@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_copy_message"
+        android:icon="@drawable/ic_baseline_content_copy_24"
+        app:iconTint="?attr/colorOnSurface"
+        android:title="@string/copy" />
+    <item
+        android:id="@+id/menu_edit_message"
+        android:icon="@drawable/ic_round_edit_24"
+        app:iconTint="?attr/colorOnSurface"
+        android:title="@string/edit" />
+
+    <item
+        android:id="@+id/menu_delete_message"
+        android:icon="@drawable/ic_round_delete_forever_24"
+        app:iconTint="?attr/colorOnSurface"
+        android:title="@string/delete" />
+</menu>

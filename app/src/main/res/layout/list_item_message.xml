@@ -26,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:minWidth="100dp"
             android:backgroundTint="@{message.fromCurrentUser ? @color/outgoing_message_bubble : @color/incoming_message_bubble}"
             tools:backgroundTint="@color/incoming_message_bubble"
             tools:background="@drawable/shape_bg_incoming_bubble"
@@ -34,7 +33,7 @@
 
             <LinearLayout
                 android:id="@+id/header"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="20dp"
                 android:paddingEnd="16dp"
@@ -58,10 +57,18 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:visibility="@{message.edited ? View.VISIBLE : View.GONE}"
+                    android:text="@string/edited"/>
+
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/message_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxWidth="@dimen/message_bubble_max_width"
                     android:gravity="center_vertical"
                     tools:text="12:00"
                     android:layout_marginStart="8dp"
@@ -88,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:visibility="gone"
+                android:layout_gravity="center_horizontal"
                 android:visibility="@{message.meetingInvitation ? View.VISIBLE : View.GONE}">
 
                 <ImageView
@@ -107,8 +115,7 @@
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:maxLines="1"
                     android:textColor="?attr/colorSecondaryVariant"
                     android:onClick="@{() -> viewModel.onInvitationClick(message)}"
                     app:layout_constraintTop_toBottomOf="@id/cam_image"
@@ -128,7 +135,7 @@
                 android:paddingEnd="16dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="10dp"
-                android:onClick="@{() -> viewModel.onMessageClick(message)}"
+                android:onClick="@{(view) -> viewModel.onMessageClick(view, message)}"
                 android:visibility="@{message.meetingInvitation ? View.GONE : View.VISIBLE}"
                 android:text="@{message.text}"
                 tools:text="Hello world! Please notice that you are beautiful!"
@@ -136,8 +143,6 @@
                 android:textSize="@dimen/message_text_size" />
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 
