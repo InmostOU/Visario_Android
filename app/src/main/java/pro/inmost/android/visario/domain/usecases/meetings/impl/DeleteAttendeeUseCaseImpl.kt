@@ -14,7 +14,7 @@ class DeleteAttendeeUseCaseImpl(
         return meetingsRepository.deleteAttendee(userId, meetingId)
     }
 
-    override suspend fun deleteMyself(meetingId: String): Result<Unit> {
+    override suspend fun deleteCurrentUser(meetingId: String): Result<Unit> {
         val profile = profileRepository.observeProfile().firstOrNull()
         return if (profile != null){
             meetingsRepository.deleteAttendee(profile.id, meetingId)

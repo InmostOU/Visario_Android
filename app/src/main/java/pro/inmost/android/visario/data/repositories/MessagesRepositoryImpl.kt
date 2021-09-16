@@ -24,9 +24,9 @@ class MessagesRepositoryImpl(
     private val profileRepository: ProfileRepository
 ) : MessagesRepository {
 
-    override fun getMessages(channelUrl: String): Flow<List<Message>> {
-        launchIO { refreshData(channelUrl) }
-        return dao.getChannelMessages(channelUrl).map { it.toDomainMessages() }
+    override fun getMessages(channelArn: String): Flow<List<Message>> {
+        launchIO { refreshData(channelArn) }
+        return dao.getChannelMessages(channelArn).map { it.toDomainMessages() }
     }
 
     override suspend fun sendMessage(message: String, channelArn: String) = withContext(IO) {

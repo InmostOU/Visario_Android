@@ -4,6 +4,15 @@ import android.text.format.DateFormat
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.utils.logError
 
+/**
+ * Base response from server without extra data
+ *
+ * @property timestamp - time of response
+ * @property status - 200 - is OK
+ * @property message - message about successfully or failed request
+ * @property message - message about successfully or failed request
+ * @property path - the endpoint to which the request was sent
+ */
 data class BaseResponse (
     val timestamp: Long,
     val status: Int,
@@ -12,6 +21,10 @@ data class BaseResponse (
     val path: String
 ) {
 
+    /**
+     * Get result with data or Throwable object
+     *
+     */
     fun getResult() = if (status == ChimeApi.STATUS_OK){
         Result.success(Unit)
     } else {

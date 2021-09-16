@@ -11,7 +11,12 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
+/**
+ * Channels service to be implemented by retrofit
+ *
+ */
 interface ChannelsService {
+
     @GET(Endpoints.CHANNEL_LIST)
     suspend fun getChannels(): BaseDataResponse<List<ChannelData>>
 

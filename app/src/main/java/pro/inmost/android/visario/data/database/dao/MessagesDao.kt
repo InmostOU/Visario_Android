@@ -59,8 +59,6 @@ interface MessagesDao {
         kotlin.runCatching { updateMessageId(message.metadata, message.messageId) }.onSuccess { result ->
             if (result == 0){
                 insert(message)
-            } else {
-                get(message.messageId)?.let { update(it) }
             }
         }.onFailure {
             update(message)

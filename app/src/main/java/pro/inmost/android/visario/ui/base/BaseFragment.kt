@@ -9,6 +9,14 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import pro.inmost.android.visario.ui.activities.MainActivity
 
+
+/**
+ * Base generic [Fragment]
+ *
+ * @param T [ViewDataBinding] of fragment's layout
+ * @property layId id of fragment's layout
+ *
+ */
 abstract class BaseFragment<T : ViewDataBinding>(private val layId: Int) : Fragment() {
     private var _binding: T? = null
     protected val binding get() = _binding!!
@@ -42,6 +50,10 @@ abstract class BaseFragment<T : ViewDataBinding>(private val layId: Int) : Fragm
         onCreated()
     }
 
+    /**
+     * Called immediately after dialog created
+     *
+     */
     abstract fun onCreated()
 
     override fun onDestroyView() {

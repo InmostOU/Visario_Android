@@ -8,6 +8,11 @@ import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.screens.meet.list.MeetingsBottomSheetMenu.MenuItem.*
 import pro.inmost.android.visario.ui.utils.extensions.navigate
 
+
+/**
+ * Fragment shows scheduled meeting list
+ *
+ */
 class ScheduledMeetingsFragment : BaseFragment<FragmentMeetingListBinding>(R.layout.fragment_meeting_list) {
     private val viewModel: ScheduledMeetingsViewModel by viewModel()
 

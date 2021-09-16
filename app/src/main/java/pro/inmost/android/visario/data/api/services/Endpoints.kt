@@ -1,5 +1,9 @@
 package pro.inmost.android.visario.data.api.services
 
+/**
+ * API endpoints
+ *
+ */
 internal object Endpoints {
     const val SERVER_BASE_URL = "http://3.129.6.178:8081"
 

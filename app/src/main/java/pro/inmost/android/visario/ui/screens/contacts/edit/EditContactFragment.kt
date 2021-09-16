@@ -7,6 +7,11 @@ import pro.inmost.android.visario.databinding.FragmentContactEditBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
+
+/**
+ * Fragment for editing contact's info (first and last name)
+ *
+ */
 class EditContactFragment : BaseFragment<FragmentContactEditBinding>(R.layout.fragment_contact_edit) {
     private val viewModel: EditContactViewModel by viewModel()
     private val args: EditContactFragmentArgs by navArgs()

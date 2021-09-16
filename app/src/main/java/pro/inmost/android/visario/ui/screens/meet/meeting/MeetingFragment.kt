@@ -12,7 +12,6 @@ import pro.inmost.android.visario.ui.adapters.GenericListAdapter
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.dialogs.alerts.SimpleAlertDialog
 import pro.inmost.android.visario.ui.dialogs.inviter.meeting.channels.MeetingChannelsInviterDialog
-import pro.inmost.android.visario.ui.dialogs.inviter.meeting.contacts.MeetingContactsInviterDialog
 import pro.inmost.android.visario.ui.entities.meeting.AttendeeUI
 import pro.inmost.android.visario.ui.utils.extensions.checkPermissions
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
@@ -20,6 +19,10 @@ import pro.inmost.android.visario.ui.utils.extensions.snackbar
 import pro.inmost.android.visario.ui.utils.extensions.toast
 
 
+/**
+ * Main fragment for video meeting
+ *
+ */
 class MeetingFragment : BaseFragment<FragmentMeetingBinding>(R.layout.fragment_meeting) {
     private val viewModel: MeetingViewModel by viewModel()
     private val args: MeetingFragmentArgs by navArgs()
@@ -106,10 +109,6 @@ class MeetingFragment : BaseFragment<FragmentMeetingBinding>(R.layout.fragment_m
 
     private fun inviteGroup(meetingId: String) {
         MeetingChannelsInviterDialog.show(childFragmentManager, meetingId)
-    }
-
-    private fun inviteContact(meetingId: String) {
-        MeetingContactsInviterDialog.show(childFragmentManager, meetingId)
     }
 
     private fun addMember(member: AttendeeUI) {

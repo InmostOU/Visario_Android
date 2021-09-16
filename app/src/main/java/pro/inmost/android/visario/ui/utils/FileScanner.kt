@@ -7,8 +7,18 @@ import android.os.Build
 import android.provider.MediaStore
 import kotlinx.coroutines.flow.flow
 
+
+/**
+ * Scan user's device for images
+ *
+ * @property contentResolver [ContentResolver]
+ */
 class FileScanner(private val contentResolver: ContentResolver) {
-    enum class Sort { ASC, DESC }
+
+    enum class Sort {
+        ASC,
+        DESC
+    }
     data class Data (
         val uri: Uri,
         val name: String,
@@ -19,7 +29,12 @@ class FileScanner(private val contentResolver: ContentResolver) {
     )
 
 
-
+    /**
+     * Start scan device
+     *
+     * @param sort ascending or descending (default) order
+     * @return Flow that returns files one by one
+     */
     fun scanImages(sort: Sort = Sort.DESC) = flow {
         val collection =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

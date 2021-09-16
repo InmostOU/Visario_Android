@@ -26,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:minWidth="100dp"
             android:backgroundTint="@{message.fromCurrentUser ? @color/outgoing_message_bubble : @color/incoming_message_bubble}"
             tools:backgroundTint="@color/incoming_message_bubble"
             tools:background="@drawable/shape_bg_incoming_bubble"
@@ -34,7 +33,7 @@
 
             <LinearLayout
                 android:id="@+id/header"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="20dp"
                 android:paddingEnd="16dp"
@@ -70,7 +69,6 @@
                     android:id="@+id/message_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxWidth="@dimen/message_bubble_max_width"
                     android:gravity="center_vertical"
                     tools:text="12:00"
                     android:layout_marginStart="8dp"
@@ -97,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:visibility="gone"
+                android:layout_gravity="center_horizontal"
                 android:visibility="@{message.meetingInvitation ? View.VISIBLE : View.GONE}">
 
                 <ImageView
@@ -116,8 +115,7 @@
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:maxLines="1"
                     android:textColor="?attr/colorSecondaryVariant"
                     android:onClick="@{() -> viewModel.onInvitationClick(message)}"
                     app:layout_constraintTop_toBottomOf="@id/cam_image"

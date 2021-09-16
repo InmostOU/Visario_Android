@@ -12,6 +12,10 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
+/**
+ * Contacts service to be implemented by retrofit
+ *
+ */
 interface ContactsService {
 
     @POST(Endpoints.CONTACTS_GET)

@@ -12,6 +12,7 @@ fun Channel.toUIChannel() = ChannelUI(
     isMember = this.isMember,
     isModerator = this.isModerator,
     description = this.description,
+    membersCount = this.memberCount
 )
 
 fun ChannelUI.toDomainChannel() = Channel(
@@ -22,7 +23,8 @@ fun ChannelUI.toDomainChannel() = Channel(
     messages = listOf(),
     isMember = this.isMember,
     isModerator = this.isModerator,
-    description = this.description
+    description = this.description,
+    memberCount = this.membersCount
 )
 
 fun List<Channel>.toUIChannels() = map { it.toUIChannel() }

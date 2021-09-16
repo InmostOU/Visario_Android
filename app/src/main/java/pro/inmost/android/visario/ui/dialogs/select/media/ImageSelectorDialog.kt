@@ -12,6 +12,13 @@ import pro.inmost.android.visario.databinding.ListItemImageBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapter
 import pro.inmost.android.visario.ui.base.BaseBottomSheet
 
+
+/**
+ * Dialog with list of all images from user's device
+ *
+ * @property crop true if need to open crop window after selecting the image
+ * @property callback return [Uri] to selected image
+ */
 class ImageSelectorDialog(private val crop: Boolean, val callback: (Uri) -> Unit) :
     BaseBottomSheet<BottomSheetSelectImageBinding>(R.layout.bottom_sheet_select_image) {
     private val viewModel: ImageSelectorViewModel by viewModel()

@@ -37,7 +37,7 @@ fun ChannelMessagePayload.toDataMessage() = MessageData(
 
 fun MessageData.toDomainMessage() = Message(
     messageId = this.messageId,
-    text = this.content,
+    text = this.content ?: "",
     channelUrl = this.channelArn,
     senderUrl = this.senderArn,
     senderName = this.senderName,
@@ -49,7 +49,7 @@ fun MessageData.toDomainMessage() = Message(
     readByMe = this.readByMe,
     status = kotlin.runCatching { MessageStatus.valueOf(this.status!!) }.getOrElse { MessageStatus.DELIVERED },
     metadata = this.metadata,
-    isMeetingInvitation = content.isMeetingInvitation()
+    isMeetingInvitation = content?.isMeetingInvitation() ?: false
 )
 
 fun List<MessageData>.toDomainMessages() = map { it.toDomainMessage()}

@@ -4,7 +4,10 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+/**
+ * Helper class to convert date string into millis
+ *
+ */
 object DateParser {
     private val DATE_FORMAT_REGEXPS: Map<String, String> = hashMapOf(
         "^\\d{8}$" to "yyyyMMdd",

@@ -62,8 +62,8 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:text="@{model.description}"
-                    tools:text="Description"/>
+                    android:text="@{@plurals/members(model.membersCount, model.membersCount)}"
+                    tools:text="6 members"/>
 
             </LinearLayout>
 

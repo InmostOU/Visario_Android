@@ -8,6 +8,10 @@ import pro.inmost.android.visario.data.api.services.Endpoints
 import pro.inmost.android.visario.data.entities.message.MessageData
 import retrofit2.http.*
 
+/**
+ * Messaging service to be implemented by retrofit
+ *
+ */
 interface MessagingService {
     @GET(Endpoints.MESSAGE_LIST)
     suspend fun getMessages(

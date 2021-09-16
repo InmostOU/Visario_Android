@@ -6,7 +6,7 @@ import pro.inmost.android.visario.domain.repositories.MessagesRepository
 import pro.inmost.android.visario.domain.usecases.messages.FetchMessagesUseCase
 
 class FetchMessagesUseCaseImpl(private val repository: MessagesRepository) : FetchMessagesUseCase {
-    override fun fetch(channel: String): Flow<List<Message>> {
-        return repository.getMessages(channel)
+    override fun fetch(channelArn: String): Flow<List<Message>> {
+        return repository.getMessages(channelArn)
     }
 }

@@ -6,6 +6,11 @@ import pro.inmost.android.visario.databinding.FragmentPrivacyBirthdateBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
+
+/**
+ * Fragment for setup user's birthday visibility
+ *
+ */
 class BirthdateSetupFragment : BaseFragment<FragmentPrivacyBirthdateBinding>(R.layout.fragment_privacy_birthdate) {
     private val viewModel: BirthdateSetupViewModel by viewModel()
 

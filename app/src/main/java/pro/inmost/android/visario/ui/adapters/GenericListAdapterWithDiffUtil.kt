@@ -7,9 +7,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import pro.inmost.android.visario.ui.entities.BaseEntity
 import pro.inmost.android.visario.ui.utils.extensions.layoutInflater
 
+
+/**
+ * Generic list adapter for [RecyclerView] with comparing items by [DiffUtil]
+ *
+ * @param T type of list item
+ * @param B [ViewDataBinding] of list item layout
+ * @property layRes id of list item layout
+ * @property bind callback when item binding
+ */
 class GenericListAdapterWithDiffUtil<T : BaseEntity, B : ViewDataBinding>(
     @LayoutRes private val layRes: Int,
     inline val bind: (item: T, binding: B) -> Unit

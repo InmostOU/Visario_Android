@@ -6,6 +6,11 @@ import pro.inmost.android.visario.R
 import pro.inmost.android.visario.data.utils.extensions.isValidEmail
 import pro.inmost.android.visario.domain.entities.user.Register
 
+
+/**
+ * Login and register fields validator
+ *
+ */
 class Validator {
     private val maxLength = 100
     private val passRegex = "^(?=.[a-zA-Z])(?=.[0-9])(?=.*[^a-zA-Z0-9\\s]).{6,}"

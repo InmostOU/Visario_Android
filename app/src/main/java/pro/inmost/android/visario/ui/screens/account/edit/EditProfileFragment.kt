@@ -6,6 +6,11 @@ import pro.inmost.android.visario.databinding.FragmentProfileEditBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
+
+/**
+ * Fragment for editing user's profile info
+ *
+ */
 class EditProfileFragment : BaseFragment<FragmentProfileEditBinding>(R.layout.fragment_profile_edit) {
     private val viewModel: EditProfileViewModel by viewModel()
 

@@ -17,6 +17,10 @@ import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
 import pro.inmost.android.visario.ui.utils.extensions.*
 
 
+/**
+ * Fragment for chat in channel
+ *
+ */
 class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment_messages) {
     private val viewModel: MessagesViewModel by viewModel()
     private val args: MessagesFragmentArgs by navArgs()

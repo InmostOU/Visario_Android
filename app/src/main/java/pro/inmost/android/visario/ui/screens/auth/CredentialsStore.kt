@@ -5,16 +5,34 @@ import android.content.Context.MODE_PRIVATE
 import androidx.core.content.edit
 import pro.inmost.android.visario.BuildConfig
 import pro.inmost.android.visario.domain.entities.user.Credentials
-import pro.inmost.android.visario.domain.usecases.auth.credentials.UpdateCredentialsUseCase
+import pro.inmost.android.visario.domain.usecases.auth.UpdateCredentialsUseCase
 import pro.inmost.android.visario.ui.utils.log
 
+
+/**
+ * Helper class to store user's [Credentials] in SharedPreferences
+ *
+ * @property updateCredentialsUseCase
+ * @constructor
+ *
+ * @param context
+ */
 class CredentialsStore(context: Context, private val updateCredentialsUseCase: UpdateCredentialsUseCase) {
     private val preferences =  context.getSharedPreferences("credentials", MODE_PRIVATE)
 
-   fun update(){
+    /**
+     * Update credentials
+     *
+     */
+    fun update(){
        updateCredentialsUseCase.update(getCredentials())
    }
 
+    /**
+     * Get credentials
+     *
+     * @return [Credentials]
+     */
     fun getCredentials(): Credentials {
         return Credentials(
             currentUser = getCurrentUser(),
@@ -25,6 +43,11 @@ class CredentialsStore(context: Context, private val updateCredentialsUseCase: U
         }
     }
 
+    /**
+     * Save credentials into SharedPreferences
+     *
+     * @param credentials [Credentials]
+     */
     fun saveCredentials(credentials: Credentials){
         credentials.apply {
             saveAccessToken(accessToken)
@@ -34,9 +57,17 @@ class CredentialsStore(context: Context, private val updateCredentialsUseCase: U
         update()
     }
 
+    /**
+     * Check if credentials not empty
+     *
+     */
     fun isCredentialsNotEmpty() =
         getCurrentUser().isNotBlank() && getAccessToken().isNotBlank() && getRefreshToken().isNotBlank()
 
+    /**
+     * Clear credentials in SharedPreferences
+     *
+     */
     fun clear() {
         preferences.edit {
             clear()

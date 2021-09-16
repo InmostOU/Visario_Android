@@ -8,6 +8,11 @@ import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.utils.extensions.navigate
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
+
+/**
+ * Fragment with privacy settings menu
+ *
+ */
 class SecurityFragment : BaseFragment<FragmentSecurityBinding>(R.layout.fragment_security) {
     private val viewModel: SecurityViewModel by viewModel()
 

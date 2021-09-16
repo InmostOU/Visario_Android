@@ -10,8 +10,9 @@ data class ChannelData(
     val name: String,
     val mode: String,
     val privacy: String,
-    val description: String,
+    val description: String?,
     val isMember: Boolean,
     val isModerator: Boolean,
+    val membersCount: Int,
     val metadata: String? = ""
 )

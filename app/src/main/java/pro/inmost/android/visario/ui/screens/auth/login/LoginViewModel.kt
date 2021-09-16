@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.entities.user.Credentials
-import pro.inmost.android.visario.domain.usecases.auth.login.LoginUseCase
+import pro.inmost.android.visario.domain.usecases.auth.LoginUseCase
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.ui.screens.auth.Validator
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent

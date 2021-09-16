@@ -9,10 +9,8 @@ import pro.inmost.android.visario.data.entities.channel.ChannelData
 import pro.inmost.android.visario.data.entities.channel.toDataChannel
 import pro.inmost.android.visario.data.entities.channel.toDomainChannels
 import pro.inmost.android.visario.data.entities.channel.toDomainChannelsWithoutMessages
-import pro.inmost.android.visario.data.entities.contact.toDataContact
 import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.channel.Channel
-import pro.inmost.android.visario.domain.entities.contact.Contact
 import pro.inmost.android.visario.domain.repositories.ChannelsRepository
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
 import pro.inmost.android.visario.ui.utils.log
@@ -31,7 +29,7 @@ class ChannelsRepositoryImpl(
 
     override suspend fun refreshData(): Unit = withContext(IO) {
         api.channels.getChannels().onSuccess { data ->
-            log("getChannels success")
+            log("channels: $data")
             data.forEach { channel ->
                 messagesRepository.refreshData(channel.channelArn)
             }
@@ -46,9 +44,9 @@ class ChannelsRepositoryImpl(
         return emptyList()
     }
 
-    override fun getChannel(channelUrl: String) = flow {
+    override fun getChannel(channelArn: String) = flow {
         getChannels().collect { channels ->
-            channels.find { it.url == channelUrl }?.let {
+            channels.find { it.url == channelArn }?.let {
                 emit(it)
             }
         }
@@ -66,8 +64,8 @@ class ChannelsRepositoryImpl(
         }
     }
 
-    override suspend fun leave(channelUrl: String): Result<Unit> {
-        return api.channels.leave(channelUrl).onSuccess {
+    override suspend fun leave(channelArn: String): Result<Unit> {
+        return api.channels.leave(channelArn).onSuccess {
             launchIO { refreshData() }
         }
     }

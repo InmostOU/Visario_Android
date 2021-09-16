@@ -29,10 +29,21 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
         private var databaseName: String = "visario_android_db"
 
+        /**
+         * Updates the database name when a new user login
+         *
+         * @param user - user identifier (like email)
+         */
         fun updateName(user: String) {
             databaseName = "visario_android_db_${user.hashCode()}"
         }
 
+
+        /**
+         * Get new instance of database
+         *
+         * @param context
+         */
         fun getInstance(context: Context) = Room.databaseBuilder(
             context,
             AppDatabase::class.java,

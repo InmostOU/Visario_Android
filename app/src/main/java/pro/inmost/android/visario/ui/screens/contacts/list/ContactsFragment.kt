@@ -10,6 +10,11 @@ import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 import pro.inmost.android.visario.ui.utils.extensions.navigate
 
+
+/**
+ * Fragment show user's personal list of contacts
+ *
+ */
 class ContactsFragment : BaseFragment<FragmentContactsBinding>(R.layout.fragment_contacts) {
     private val viewModel: ContactsViewModel by viewModel()
     private val listAdapter =

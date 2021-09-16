@@ -13,6 +13,10 @@ import pro.inmost.android.visario.data.utils.extensions.launchMain
 import pro.inmost.android.visario.ui.utils.log
 import java.nio.charset.Charset
 
+/**
+ * Web socket client for receiving realtime channel events
+ *
+ */
 class ChannelsWebSocketClient(
     private val api: ChimeApi,
     private val messagesDao: MessagesDao,
@@ -23,6 +27,11 @@ class ChannelsWebSocketClient(
     private var connected: Boolean = false
     private var reconnecting: Boolean = false
 
+
+    /**
+     * Connect to web-socket
+     *
+     */
     suspend fun connect() {
         api.channels.getWebSocketLink().onSuccess { link ->
             webSocketLink = link
@@ -46,6 +55,10 @@ class ChannelsWebSocketClient(
         }
     }
 
+    /**
+     * Disconnect to web-socket
+     *
+     */
     fun disconnect() {
         client.dispatcher.cancelAll()
     }
@@ -85,9 +98,15 @@ class ChannelsWebSocketClient(
                     launchIO {
                         messagesDao.updateContent(
                             messageId = message.messageId,
-                            content = message.content,
+                            content = message.content ?: "",
                             editedTimestamp = message.lastEditedTimestamp
                         )
+                    }
+                }
+                EventType.DELETE_CHANNEL_MESSAGE -> {
+                    val message = PayloadFactory.getChannelMessage(text)
+                    launchIO {
+                        messagesDao.deleteById(message.messageId)
                     }
                 }
                 else -> {}
