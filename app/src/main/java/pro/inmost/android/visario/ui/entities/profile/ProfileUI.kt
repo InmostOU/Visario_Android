@@ -26,6 +26,6 @@ data class ProfileUI(
         get() = "$firstName $lastName"
 
     val birthdateFormat: String
-        get() = DateFormat.format(PROFILE_DATE_FORMAT, birthdate).toString()
+        get() = if (birthdate != 0L) DateFormat.format(PROFILE_DATE_FORMAT, birthdate).toString() else ""
 
 }

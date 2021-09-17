@@ -45,7 +45,7 @@ import pro.inmost.android.visario.ui.screens.meet.meeting.MeetingViewModel
  */
 val viewModelsModule = module {
     // CHANNELS
-    viewModel { ChannelsViewModel(get<FetchChannelsUseCaseImpl>()) }
+    viewModel { ChannelsViewModel(get<FetchChannelsUseCaseImpl>(), get<UpdateProfileUseCaseImpl>()) }
     viewModel { SearchChannelsViewModel(get<FetchChannelsUseCaseImpl>()) }
     viewModel { CreateChannelViewModel(get<CreateChannelUseCaseImpl>(), get<FetchChannelsUseCaseImpl>()) }
     viewModel { ChannelInviterViewModel(

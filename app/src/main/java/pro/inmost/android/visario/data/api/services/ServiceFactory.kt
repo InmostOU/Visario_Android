@@ -13,9 +13,9 @@ import java.util.concurrent.TimeUnit
 /**
  * Retrofit services factory
  *
- * @property tokensHolder - actual access and refresh tokens
+ * @property tokens - actual access and refresh tokens
  */
-class ServiceFactory(private val tokensHolder: Authenticator.TokensHolder) {
+class ServiceFactory(private val tokens: Authenticator.TokensHolder) {
     private val timeoutInSec = 10L
     private val builder = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
@@ -27,9 +27,9 @@ class ServiceFactory(private val tokensHolder: Authenticator.TokensHolder) {
      * @return service
      */
     fun <T>getService(service: Class<T>): T {
-        if (tokensHolder.accessToken.isNotBlank()){
+        if (tokens.accessToken.isNotBlank()){
             val client: OkHttpClient = OkHttpClient.Builder()
-                .addInterceptor(AccessTokenInterceptor(tokensHolder.accessToken))
+                .addInterceptor(AccessTokenInterceptor(tokens.accessToken))
                 .callTimeout(timeoutInSec, TimeUnit.SECONDS)
                 .build()
             builder.client(client)

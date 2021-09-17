@@ -1,17 +1,17 @@
 package pro.inmost.android.visario.ui.screens.channels.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCase
+import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCase
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
 import pro.inmost.android.visario.ui.entities.channel.toUIChannels
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 
 class ChannelsViewModel(
-    private val fetchUseCase: FetchChannelsUseCase
+    private val fetchUseCase: FetchChannelsUseCase,
+    private val updateProfileUseCase: UpdateProfileUseCase
 ) : ViewModel() {
     private val _onChatClick = SingleLiveEvent<ChannelUI>()
     val onChatClick: LiveData<ChannelUI> = _onChatClick
@@ -23,6 +23,10 @@ class ChannelsViewModel(
         get() = fetchUseCase.getChannels()
             .map { it.toUIChannels() }
             .asLiveData()
+
+    init {
+        viewModelScope.launch { updateProfileUseCase.refresh() }
+    }
 
     fun onItemClick(item: ChannelUI) {
         _onChatClick.postValue(item)
