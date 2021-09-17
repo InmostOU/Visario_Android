@@ -5,9 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.domain.usecases.auth.LoginUseCase
@@ -44,9 +42,7 @@ class LoginViewModel(
         view.isEnabled = false
 
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                loginUseCase.login(email.value!!, password.value!!)
-            }.onSuccess {
+            loginUseCase.login(email.value!!, password.value!!).onSuccess {
                 updateCredentials(it)
                 _loginSuccessful.call()
             }.onFailure {
