@@ -8,6 +8,8 @@ import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.usecases.channels.AddMemberToChannelUseCase
 import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCase
+import pro.inmost.android.visario.domain.usecases.meetings.CreateMeetingUseCase
+import pro.inmost.android.visario.domain.usecases.meetings.SendInvitationUseCase
 import pro.inmost.android.visario.domain.usecases.messages.*
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
 import pro.inmost.android.visario.ui.entities.message.MessageUI
@@ -25,10 +27,12 @@ class MessagesViewModel(
     private val deleteMessageUseCase: DeleteMessageUseCase,
     private val leaveChannelUseCase: LeaveChannelUseCase,
     private val updateReadStatusUseCase: UpdateMessagesReadStatusUseCase,
-    private val addMemberToChannelUseCase: AddMemberToChannelUseCase
+    private val addMemberToChannelUseCase: AddMemberToChannelUseCase,
+    private val createMeetingUseCase: CreateMeetingUseCase,
+    private val sendInvitationUseCase: SendInvitationUseCase
 ) : ViewModel() {
     private var profile: ProfileUI? = null
-    var currentChannelUrl: String = ""
+    var currentChannelArn: String = ""
         private set
     val message = MutableLiveData<String>()
     private var messageForEdit: MessageUI? = null
@@ -37,6 +41,9 @@ class MessagesViewModel(
 
     private val _joinMeetingEvent = SingleLiveEvent<String>()
     val joinMeetingEvent: LiveData<String> = _joinMeetingEvent
+
+    private val _showProgressBar = SingleLiveEvent(false)
+    val showProgressBar: LiveData<Boolean> = _showProgressBar
 
     private val _editMode = SingleLiveEvent(false)
     val editMode: LiveData<Boolean> = _editMode
@@ -69,7 +76,7 @@ class MessagesViewModel(
         view.isEnabled = false
         viewModelScope.launch {
             profile?.let {
-                addMemberToChannelUseCase.invite(currentChannelUrl, it.userUrl).onSuccess {
+                addMemberToChannelUseCase.invite(currentChannelArn, it.userUrl).onSuccess {
                     view.isEnabled = true
                     _isJoined.value = true
                 }.onFailure {
@@ -84,7 +91,7 @@ class MessagesViewModel(
     }
 
     fun observeMessages(channelUrl: String): LiveData<List<MessageUI>> {
-        currentChannelUrl = channelUrl
+        currentChannelArn = channelUrl
         return fetchMessagesUseCase.fetch(channelUrl).map { it.toUIMessages() }.asLiveData()
     }
 
@@ -93,7 +100,7 @@ class MessagesViewModel(
         val messageForSending =  message.value ?: return
         clearMessage()
         viewModelScope.launch {
-            sendMessageUseCase.send(messageForSending, currentChannelUrl)
+            sendMessageUseCase.send(messageForSending, currentChannelArn)
         }
     }
 
@@ -105,7 +112,7 @@ class MessagesViewModel(
 
     fun leaveChannel() {
         viewModelScope.launch {
-            leaveChannelUseCase.leave(currentChannelUrl).onSuccess {
+            leaveChannelUseCase.leave(currentChannelArn).onSuccess {
                 _closeChannel.call()
             }
         }
@@ -113,7 +120,7 @@ class MessagesViewModel(
 
     fun updateReadStatus(){
         viewModelScope.launch {
-            updateReadStatusUseCase.updateAll(currentChannelUrl, true)
+            updateReadStatusUseCase.updateAll(currentChannelArn, true)
         }
     }
 
@@ -156,7 +163,7 @@ class MessagesViewModel(
                 editMessageUseCase.edit(
                     messageId = messageForEdit!!.messageId,
                     content = message.value!!,
-                    channelArn = currentChannelUrl
+                    channelArn = currentChannelArn
                 ).onSuccess {
                     view.isEnabled = true
                     view.alpha = 1f
@@ -180,5 +187,25 @@ class MessagesViewModel(
         messageForEdit = null
         _editMode.value = false
         message.value = ""
+    }
+
+    fun createNewMeeting() {
+        showProgressBar()
+        viewModelScope.launch {
+            createMeetingUseCase.create().onSuccess {
+                hideProgressBar()
+                sendInvitationUseCase.send(it.meetingId, currentChannelArn)
+            }.onFailure {
+                hideProgressBar()
+                _showToast.value = R.string.creation_failed
+            }
+        }
+    }
+
+    private fun showProgressBar() {
+        _showProgressBar.value = true
+    }
+    private fun hideProgressBar() {
+        _showProgressBar.value = false
     }
 }

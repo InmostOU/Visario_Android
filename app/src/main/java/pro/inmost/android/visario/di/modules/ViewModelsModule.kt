@@ -63,7 +63,9 @@ val viewModelsModule = module {
             get<DeleteMessageUseCaseImpl>(),
             get<LeaveChannelUseCaseImpl>(),
             get<UpdateMessagesReadStatusUseCaseImpl>(),
-            get<AddMemberToChannelUseCaseImpl>()
+            get<AddMemberToChannelUseCaseImpl>(),
+            get<CreateMeetingUseCaseImpl>(),
+            get<SendInvitationUseCaseImpl>()
         )
     }
 

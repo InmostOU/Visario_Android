@@ -129,7 +129,7 @@
     <string name="join_the_meeting">Join the meeting</string>
     <string name="join">Join</string>
     <string name="meeting_url">Meeting URL</string>
-    <string name="creation_fails">Creation fails</string>
+    <string name="creation_failed">Creation failed</string>
     <string name="join_failed">Join failed</string>
     <string name="enabled_video">Enabled video</string>
     <string name="enabled_audio">Enabled audio</string>
@@ -158,6 +158,7 @@
     <string name="copied">Copied</string>
     <string name="edited">Edited</string>
     <string name="resend">Resend</string>
+    <string name="copy_link">Copy link</string>
 
 
     <plurals name="members">

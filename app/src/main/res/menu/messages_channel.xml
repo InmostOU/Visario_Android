@@ -15,6 +15,12 @@
                 android:title="@string/add_member"  />
 
             <item
+                android:id="@+id/menu_meeting_create"
+                android:icon="@drawable/ic_outline_video_call_24"
+                app:iconTint="?attr/colorOnSurface"
+                android:title="@string/create_new_meeting"  />
+
+            <item
                 android:id="@+id/menu_channel_leave"
                 android:icon="@drawable/ic_baseline_logout_24"
                 app:iconTint="?attr/colorOnSurface"

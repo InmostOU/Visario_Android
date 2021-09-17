@@ -95,6 +95,8 @@
         <entry key="app/src/main/res/menu/message_popup.xml" value="0.29074074074074074" />
         <entry key="app/src/main/res/menu/messages_channel.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/menu/popup_message_failed.xml" value="0.29074074074074074" />
+        <entry key="app/src/main/res/menu/popup_message_invitation_my.xml" value="0.2361111111111111" />
+        <entry key="app/src/main/res/menu/popup_message_invitation_other.xml" value="0.2361111111111111" />
         <entry key="app/src/main/res/menu/popup_message_my.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/menu/popup_message_other.xml" value="0.29074074074074074" />
         <entry key="app/src/main/res/menu/settings.xml" value="0.22013888888888888" />
