@@ -6,6 +6,10 @@ import android.text.format.DateFormat
 import pro.inmost.android.visario.ui.utils.extensions.getUri
 import java.io.File
 
+/**
+ * Helper class for creating files
+ *
+ */
 object FilesManager {
 
     fun createImageFileUri(context: Context): Uri {

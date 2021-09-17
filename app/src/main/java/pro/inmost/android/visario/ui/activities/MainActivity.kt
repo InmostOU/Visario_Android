@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity(), AuthListener {
 
     override fun onLogout() {
         VisarioApp.instance?.reloadModules()
+        credentialsStore.clear()
         openLoginScreen()
     }
 

@@ -6,6 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
+
+/**
+ * Upgraded LiveData that updated value is sent only once, just as needed.
+ *
+ */
 class SingleLiveEvent<T>(value: T? = null) : MutableLiveData<T>() {
     private val mPending = AtomicBoolean(false)
 

@@ -12,6 +12,11 @@ import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 import pro.inmost.android.visario.ui.utils.extensions.onQueryChange
 import pro.inmost.android.visario.ui.utils.hideKeyboard
 
+
+/**
+ * Fragment for search public channels by name
+ *
+ */
 class SearchChannelsFragment : BaseFragment<FragmentChannelsSearchBinding>(R.layout.fragment_channels_search) {
     private val viewModel: SearchChannelsViewModel by viewModel()
     private val listAdapter =

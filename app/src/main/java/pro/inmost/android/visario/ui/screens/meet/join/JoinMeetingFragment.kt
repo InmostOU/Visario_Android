@@ -9,6 +9,11 @@ import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 import pro.inmost.android.visario.ui.utils.extensions.toast
 import pro.inmost.android.visario.ui.utils.showKeyboard
 
+
+/**
+ * Fragment for join to existing meeting (by url)
+ *
+ */
 class JoinMeetingFragment : BaseFragment<FragmentMeetingJoinBinding>(R.layout.fragment_meeting_join) {
     private val viewModel: JoinMeetingViewModel by viewModel()
 

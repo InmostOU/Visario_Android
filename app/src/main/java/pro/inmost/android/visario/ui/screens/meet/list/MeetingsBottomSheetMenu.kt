@@ -5,6 +5,11 @@ import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.BottomSheetMeetingsMenuBinding
 import pro.inmost.android.visario.ui.base.BaseBottomSheet
 
+
+/**
+ * Meetings bottom sheet menu
+ *
+ */
 class MeetingsBottomSheetMenu(val callback: (MenuItem) -> Unit) : BaseBottomSheet<BottomSheetMeetingsMenuBinding>(R.layout.bottom_sheet_meetings_menu) {
 
     override fun onCreated() {

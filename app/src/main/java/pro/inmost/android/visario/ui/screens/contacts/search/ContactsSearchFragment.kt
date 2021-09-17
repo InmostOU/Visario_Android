@@ -13,6 +13,11 @@ import pro.inmost.android.visario.ui.utils.extensions.onQueryChange
 import pro.inmost.android.visario.ui.utils.extensions.visibility
 import pro.inmost.android.visario.ui.utils.showKeyboard
 
+
+/**
+ * Fragment for search contacts by username
+ *
+ */
 class ContactsSearchFragment :
     BaseFragment<FragmentContactsSearchBinding>(R.layout.fragment_contacts_search) {
     private val viewModel: ContactsSearchViewModel by viewModel()

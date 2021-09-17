@@ -12,6 +12,13 @@ import pro.inmost.android.visario.databinding.GridItemMeetingMemberBinding
 import pro.inmost.android.visario.ui.entities.meeting.AttendeeUI
 import pro.inmost.android.visario.ui.utils.extensions.layoutInflater
 
+
+/**
+ * Adapter that making grid for video surfaces
+ *
+ * @property parent layout in which the video surfaces will be placed
+ * @property viewModel [MeetingViewModel] to bind with every grid item
+ */
 class MeetingMembersGridAdapter(
     private val parent: LinearLayout,
     private val viewModel: MeetingViewModel
@@ -32,6 +39,11 @@ class MeetingMembersGridAdapter(
             return count < 2 || count >= 4 && count % 2 == 0
         }
 
+    /**
+     * Add item to the grid
+     *
+     * @param item [AttendeeUI]
+     */
     fun addItem(item: AttendeeUI) {
         if (isNeedNewRow) {
             val layout = createNewRow()
@@ -47,6 +59,12 @@ class MeetingMembersGridAdapter(
 
     }
 
+    /**
+     * Delete item from the grid
+     *
+     * @param attendeeId id of attendee from meeting
+     * @return
+     */
     fun deleteItem(attendeeId: String): AttendeeUI? {
         var attendee: AttendeeUI? = null
         rows.forEach forEachOne@{ row ->

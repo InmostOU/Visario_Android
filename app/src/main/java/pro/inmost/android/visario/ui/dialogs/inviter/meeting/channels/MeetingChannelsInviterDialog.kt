@@ -3,7 +3,7 @@ package pro.inmost.android.visario.ui.dialogs.inviter.meeting.channels
 import androidx.fragment.app.FragmentManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.databinding.BottomSheetChannelsInviterBinding
+import pro.inmost.android.visario.databinding.BottomSheetChannelsSendInvitationBinding
 import pro.inmost.android.visario.databinding.SelectListItemChannelBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseBottomSheet
@@ -16,7 +16,7 @@ import pro.inmost.android.visario.ui.entities.channel.ChannelUI
  * @property meetingId id of existing meeting
  */
 class MeetingChannelsInviterDialog(private val meetingId: String) :
-    BaseBottomSheet<BottomSheetChannelsInviterBinding>(R.layout.bottom_sheet_channels_inviter) {
+    BaseBottomSheet<BottomSheetChannelsSendInvitationBinding>(R.layout.bottom_sheet_channels_send_invitation) {
     private val viewModel: MeetingChannelsInviterViewModel by viewModel()
     private val listAdapter =
         GenericListAdapterWithDiffUtil<ChannelUI, SelectListItemChannelBinding>(R.layout.select_list_item_channel) { channel, binding ->

@@ -7,7 +7,7 @@ data class AttendeeUI(
     val userId: Long,
     var attendeeId: String = "",
     val name: String,
-    val image: String,
+    val image: String = "",
     val isMe: Boolean = false,
 ) {
     val micOn = ObservableField(true)

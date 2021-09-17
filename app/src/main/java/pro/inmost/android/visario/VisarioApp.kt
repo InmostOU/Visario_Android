@@ -25,6 +25,11 @@ class VisarioApp : Application() {
         }
     }
 
+
+    /**
+     * Reload Koin modules (use after user logout)
+     *
+     */
     fun reloadModules() {
         koin?.unloadModules(modules)
         koin?.modules(modules)

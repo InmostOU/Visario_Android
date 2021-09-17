@@ -10,6 +10,11 @@ import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
 import pro.inmost.android.visario.ui.utils.extensions.navigate
 
+
+/**
+ * Fragment to show user's list of channels
+ *
+ */
 class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment_channels) {
     private val viewModel: ChannelsViewModel by viewModel()
     private val listAdapter =

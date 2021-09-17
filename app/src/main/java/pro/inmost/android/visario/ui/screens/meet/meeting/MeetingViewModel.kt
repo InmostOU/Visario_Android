@@ -29,6 +29,7 @@ import pro.inmost.android.visario.ui.entities.meeting.toAttendeeUI
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 import pro.inmost.android.visario.ui.utils.log
+import kotlin.random.Random
 
 class MeetingViewModel(
     private val createUseCase: CreateMeetingUseCase,
@@ -77,6 +78,13 @@ class MeetingViewModel(
             ?: getAttendeeUseCase.get(attendeeInfo.externalUserId, meetingId)
                 .getOrNull()
                 ?.toAttendeeUI(attendeeInfo.attendeeId)
+            ?: AttendeeUI(
+                userId = kotlin.runCatching { attendeeInfo.externalUserId.toLong() }.getOrDefault(
+                    Random.nextLong()
+                ),
+                attendeeId = attendeeInfo.attendeeId,
+                name = "Member-${Random.nextInt()}"
+            )
     }
 
     fun createMeeting(context: Context) {
@@ -88,7 +96,7 @@ class MeetingViewModel(
                 startSession(it, context)
             }.onFailure {
                 _showProgressBar.value = false
-                _showToast.value = R.string.creation_fails
+                _showToast.value = R.string.creation_failed
             }
         }
     }

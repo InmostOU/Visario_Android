@@ -24,7 +24,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:backgroundTint="@{message.fromCurrentUser ? @color/outgoing_message_bubble : @color/incoming_message_bubble}"
             tools:backgroundTint="@color/incoming_message_bubble"
@@ -95,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:visibility="gone"
+                android:onClick="@{(view) -> viewModel.onMessageClick(view, message)}"
                 android:layout_gravity="center_horizontal"
                 android:visibility="@{message.meetingInvitation ? View.VISIBLE : View.GONE}">
 
@@ -127,14 +128,15 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/message_text"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxWidth="@dimen/message_bubble_max_width"
                 android:lineSpacingExtra="2dp"
+                android:maxEms="16"
                 android:paddingStart="20dp"
-                android:paddingEnd="16dp"
+                android:paddingEnd="12dp"
                 android:paddingTop="4dp"
-                android:paddingBottom="10dp"
+                android:layout_marginBottom="10dp"
+                android:inputType="textMultiLine"
                 android:onClick="@{(view) -> viewModel.onMessageClick(view, message)}"
                 android:visibility="@{message.meetingInvitation ? View.GONE : View.VISIBLE}"
                 android:text="@{message.text}"

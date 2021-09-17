@@ -10,6 +10,12 @@ import pro.inmost.android.visario.ui.entities.contact.ContactUI
 import pro.inmost.android.visario.ui.utils.extensions.navigate
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
 
+
+/**
+ * Fragment shows contact's detailed info
+ *
+ * @constructor Create empty Contact detail fragment
+ */
 class ContactDetailFragment : BaseFragment<FragmentContactDetailBinding>(R.layout.fragment_contact_detail) {
     private val viewModel: ContactDetailViewModel by viewModel()
     private val args: ContactDetailFragmentArgs by navArgs()
@@ -28,7 +34,7 @@ class ContactDetailFragment : BaseFragment<FragmentContactDetailBinding>(R.layou
         binding.toolbar.setNavigationOnClickListener { navigateBack() }
         binding.toolbar.setOnMenuItemClickListener { item ->
             when(item.itemId){
-                R.id.menu_contact_invite -> inviteContact(args.contact)
+            //    R.id.menu_contact_invite -> inviteContact(args.contact)
                 R.id.menu_contact_edit -> openEditContactFragment(args.contact)
                 R.id.menu_contact_delete -> deleteContact(args.contact)
                 R.id.menu_contact_block ->  blockContact(args.contact)

@@ -17,6 +17,10 @@ import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
 import pro.inmost.android.visario.ui.utils.extensions.*
 
 
+/**
+ * Fragment for chat in channel
+ *
+ */
 class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment_messages) {
     private val viewModel: MessagesViewModel by viewModel()
     private val args: MessagesFragmentArgs by navArgs()
@@ -61,8 +65,11 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
                 R.id.menu_channel_leave -> {
                     leaveChannel()
                 }
+                R.id.menu_meeting_create -> {
+                    createNewMeeting()
+                }
                 R.id.menu_channel_invite -> {
-                    showInvitationDialog(viewModel.currentChannelUrl)
+                    showInvitationDialog(viewModel.currentChannelArn)
                 }
             }
 
@@ -80,6 +87,10 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
         }
     }
 
+    private fun createNewMeeting() {
+        viewModel.createNewMeeting()
+    }
+
     private fun openPopupMenu(view: View, message: MessageUI) {
         PopupMenu(requireContext(), view).apply {
             setOnMenuItemClickListener { menuItem ->
@@ -92,10 +103,17 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
                 }
                 true
             }
-            val menu = if (message.fromCurrentUser) {
-                if (message.status == MessageUIStatus.FAIL) R.menu.popup_message_failed
-                else R.menu.popup_message_my
-            } else R.menu.popup_message_other
+            val menu = when {
+                message.fromCurrentUser -> {
+                    when {
+                        message.status == MessageUIStatus.FAIL -> R.menu.popup_message_failed
+                        message.isMeetingInvitation -> R.menu.popup_message_invitation_my
+                        else -> R.menu.popup_message_my
+                    }
+                }
+                message.isMeetingInvitation -> R.menu.popup_message_invitation_other
+                else -> R.menu.popup_message_other
+            }
             inflate(menu)
             insertMenuItemIcons(requireContext())
             show()

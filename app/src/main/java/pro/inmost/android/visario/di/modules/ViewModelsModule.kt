@@ -36,7 +36,6 @@ import pro.inmost.android.visario.ui.screens.contacts.detail.ContactDetailViewMo
 import pro.inmost.android.visario.ui.screens.contacts.edit.EditContactViewModel
 import pro.inmost.android.visario.ui.screens.contacts.list.ContactsViewModel
 import pro.inmost.android.visario.ui.screens.contacts.search.ContactsSearchViewModel
-import pro.inmost.android.visario.ui.screens.meet.create.CreateMeetingViewModel
 import pro.inmost.android.visario.ui.screens.meet.join.JoinMeetingViewModel
 import pro.inmost.android.visario.ui.screens.meet.list.ScheduledMeetingsViewModel
 import pro.inmost.android.visario.ui.screens.meet.meeting.MeetingViewModel
@@ -64,14 +63,15 @@ val viewModelsModule = module {
             get<DeleteMessageUseCaseImpl>(),
             get<LeaveChannelUseCaseImpl>(),
             get<UpdateMessagesReadStatusUseCaseImpl>(),
-            get<AddMemberToChannelUseCaseImpl>()
+            get<AddMemberToChannelUseCaseImpl>(),
+            get<CreateMeetingUseCaseImpl>(),
+            get<SendInvitationUseCaseImpl>()
         )
     }
 
     // MEETINGS
     viewModel { ScheduledMeetingsViewModel() }
     viewModel { JoinMeetingViewModel() }
-    viewModel { CreateMeetingViewModel() }
     viewModel { MeetingChannelsInviterViewModel(
         get<FetchChannelsUseCaseImpl>(),
         get<SendInvitationUseCaseImpl>())
