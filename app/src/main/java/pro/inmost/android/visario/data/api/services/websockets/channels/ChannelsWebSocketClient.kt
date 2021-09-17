@@ -8,6 +8,7 @@ import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payl
 import pro.inmost.android.visario.data.api.services.websockets.channels.ChannelEventManager.EventType
 import pro.inmost.android.visario.data.database.dao.ContactsDao
 import pro.inmost.android.visario.data.database.dao.MessagesDao
+import pro.inmost.android.visario.data.entities.message.MessageData
 import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.data.utils.extensions.launchMain
 import pro.inmost.android.visario.ui.utils.log
@@ -83,32 +84,12 @@ class ChannelsWebSocketClient(
     override fun onMessage(webSocket: WebSocket, text: String) {
         log("WS onMessage: $text")
         kotlin.runCatching {
-            when (ChannelEventManager.getEvent(text)) {
-                EventType.CREATE_CHANNEL_MESSAGE -> {
-                    val message = PayloadFactory.getChannelMessage(text)
-                    launchIO {
-                        contactsDao.getByArn(message.senderArn)?.let {
-                            message.senderName = it.fullName
-                        }
-                        messagesDao.upsert(message)
-                    }
-                }
-                EventType.UPDATE_CHANNEL_MESSAGE -> {
-                    val message = PayloadFactory.getChannelMessage(text)
-                    launchIO {
-                        messagesDao.updateContent(
-                            messageId = message.messageId,
-                            content = message.content ?: "",
-                            editedTimestamp = message.lastEditedTimestamp
-                        )
-                    }
-                }
-                EventType.DELETE_CHANNEL_MESSAGE -> {
-                    val message = PayloadFactory.getChannelMessage(text)
-                    launchIO {
-                        messagesDao.deleteById(message.messageId)
-                    }
-                }
+            val event = ChannelEventManager.getEvent(text)
+            val message = PayloadFactory.getChannelMessage(text)
+            when (event) {
+                EventType.CREATE_CHANNEL_MESSAGE -> insertNewMessage(message)
+                EventType.UPDATE_CHANNEL_MESSAGE -> updateMessage(message)
+                EventType.DELETE_CHANNEL_MESSAGE -> deleteMessage(message)
                 else -> {}
             }
         }.onFailure {
@@ -123,4 +104,26 @@ class ChannelsWebSocketClient(
     override fun onOpen(webSocket: WebSocket, response: Response) {
         log("WS onOpen: ${response.body?.string()}")
     }
+
+    private fun deleteMessage(message: MessageData) =
+        launchIO {
+            messagesDao.deleteById(message.messageId)
+        }
+
+    private fun updateMessage(message: MessageData) =
+        launchIO {
+            messagesDao.updateContent(
+                messageId = message.messageId,
+                content = message.content?.trim() ?: "",
+                editedTimestamp = message.lastEditedTimestamp
+            )
+        }
+
+    private fun insertNewMessage(message: MessageData) =
+        launchIO {
+            contactsDao.getByArn(message.senderArn)?.let {
+                message.senderName = it.fullName
+            }
+            messagesDao.upsert(message)
+        }
 }

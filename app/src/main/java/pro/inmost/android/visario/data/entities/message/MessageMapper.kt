@@ -24,7 +24,7 @@ fun Message.toDataMessage() = MessageData(
 
 fun ChannelMessagePayload.toDataMessage() = MessageData(
     messageId = this.MessageId,
-    content = this.Content,
+    content = this.Content.trim(),
     createdTimestamp = DateParser.parseToMillis(this.CreatedTimestamp),
     lastEditedTimestamp = DateParser.parseToMillis(this.LastUpdatedTimestamp),
     metadata = this.Metadata ?: "",
