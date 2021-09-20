@@ -1,10 +1,13 @@
 package pro.inmost.android.visario
 
 import android.app.Application
+import com.vanniktech.emoji.EmojiManager
+import com.vanniktech.emoji.ios.IosEmojiProvider
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import pro.inmost.android.visario.di.modules.*
+
 
 class VisarioApp : Application() {
     private var koin: KoinApplication? = null
@@ -23,6 +26,7 @@ class VisarioApp : Application() {
             androidContext(applicationContext)
             modules(modules)
         }
+        EmojiManager.install(IosEmojiProvider())
     }
 
 

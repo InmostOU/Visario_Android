@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:onCheckedChanged="@{viewModel.onViewersChanged}"
+                    android:onCheckedChanged="@{viewModel::onViewersChanged}"
                     android:layout_marginStart="8dp">
 
                     <com.google.android.material.radiobutton.MaterialRadioButton

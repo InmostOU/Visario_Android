@@ -3,7 +3,10 @@ package pro.inmost.android.visario.ui.utils.extensions
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.util.TypedValue
 import android.widget.Toast
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -71,4 +74,14 @@ fun Fragment.copyToClipboard(content: String, label: String = "text"){
         requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clip = ClipData.newPlainText(label, content)
     clipboard.setPrimaryClip(clip)
+}
+
+@ColorInt
+fun Fragment.getColorFromAttr(
+    @AttrRes attrColor: Int,
+    typedValue: TypedValue = TypedValue(),
+    resolveRefs: Boolean = true
+): Int {
+    requireContext().theme.resolveAttribute(attrColor, typedValue, resolveRefs)
+    return typedValue.data
 }

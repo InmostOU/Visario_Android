@@ -159,6 +159,8 @@
     <string name="edited">Edited</string>
     <string name="resend">Resend</string>
     <string name="copy_link">Copy link</string>
+    <string name="open_emojis">Open emojis</string>
+    <string name="channel_image">Channel image</string>
 
 
     <plurals name="members">

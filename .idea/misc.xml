@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/drawable/ic_email.xml" value="0.2416988416988417" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.133984375" />
         <entry key="app/src/main/res/drawable/ic_not_found.xml" value="0.2416988416988417" />
+        <entry key="app/src/main/res/drawable/ic_outline_keyboard_24.xml" value="0.1815" />
         <entry key="app/src/main/res/drawable/ic_outline_video_call_24.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/ic_round_edit_24.xml" value="0.1795" />
         <entry key="app/src/main/res/drawable/ic_round_person_add_alt_1_24.xml" value="0.321025641025641" />
@@ -55,7 +56,7 @@
         <entry key="app/src/main/res/layout/fragment_meeting_list.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_meetings.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_meets.xml" value="0.3098958333333333" />
-        <entry key="app/src/main/res/layout/fragment_messages.xml" value="0.26481481481481484" />
+        <entry key="app/src/main/res/layout/fragment_messages.xml" value="0.26944444444444443" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2152777777777778" />
         <entry key="app/src/main/res/layout/fragment_privacy_birthdate.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/layout/fragment_privacy_email.xml" value="0.22013888888888888" />

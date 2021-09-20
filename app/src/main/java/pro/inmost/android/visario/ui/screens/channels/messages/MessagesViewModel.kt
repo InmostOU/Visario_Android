@@ -51,11 +51,17 @@ class MessagesViewModel(
     private val _showKeyboard = SingleLiveEvent<Unit>()
     val showKeyboard: LiveData<Unit> = _showKeyboard
 
+    private val _toggleEmojisView = SingleLiveEvent<Unit>()
+    val toggleEmojisView: LiveData<Unit> = _toggleEmojisView
+
     private val _showToast = SingleLiveEvent<Int>()
     val showToast: LiveData<Int> = _showToast
 
     private val _isJoined = MutableLiveData<Boolean>()
     val isJoined: LiveData<Boolean> = _isJoined
+
+    private val _emojisOpened = MutableLiveData(false)
+    val emojisOpened: LiveData<Boolean> = _emojisOpened
 
     private val _openPopupMenu = SingleLiveEvent<Pair<View, MessageUI>>()
     val openPopupMenu: LiveData<Pair<View, MessageUI>> = _openPopupMenu
@@ -200,6 +206,11 @@ class MessagesViewModel(
                 _showToast.value = R.string.creation_failed
             }
         }
+    }
+
+    fun toggleEmojis(){
+        _emojisOpened.value = !(emojisOpened.value ?: false)
+        _toggleEmojisView.call()
     }
 
     private fun showProgressBar() {

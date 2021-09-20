@@ -4,6 +4,7 @@ import android.view.View
 import androidx.appcompat.widget.PopupMenu
 import androidx.navigation.fragment.navArgs
 import com.pawegio.kandroid.toast
+import com.vanniktech.emoji.EmojiPopup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentMessagesBinding
@@ -29,6 +30,11 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
             binding.viewModel = viewModel
             binding.message = message
         }
+    private val emojiPopup: EmojiPopup by lazy {
+        EmojiPopup.Builder.fromRootView(binding.root)
+            .setBackgroundColor(getColorFromAttr(R.attr.colorSurface))
+            .build(binding.editTextMessage)
+    }
 
     override fun onCreated() {
         binding.viewModel = viewModel
@@ -84,6 +90,9 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
         }
         viewModel.showKeyboard.observe(viewLifecycleOwner) {
             binding.editTextMessage.showKeyboardAndMoveCursorToEnd()
+        }
+        viewModel.toggleEmojisView.observe(viewLifecycleOwner){
+            emojiPopup.toggle()
         }
     }
 

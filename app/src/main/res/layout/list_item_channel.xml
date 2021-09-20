@@ -34,7 +34,8 @@
                 android:layout_width="@dimen/chat_image_size"
                 android:layout_height="@dimen/chat_image_size"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_chat_icon"/>
+                android:src="@drawable/ic_chat_icon"
+                android:contentDescription="@string/channel_image" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -53,7 +54,7 @@
                     android:text="@{model.name}"
                     tools:text="Chat name"/>
 
-                <com.google.android.material.textview.MaterialTextView
+                <com.vanniktech.emoji.EmojiTextView
                     android:id="@+id/text_view_last_message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

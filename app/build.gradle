@@ -8,13 +8,13 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "pro.inmost.android.visario"
         minSdk 24
-        targetSdk 30
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -55,6 +55,9 @@ android {
 }
 
 dependencies {
+
+    // EMOJI
+    implementation 'com.vanniktech:emoji-ios:0.7.0'
 
     // DocsGenerate
     dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.5.0")
