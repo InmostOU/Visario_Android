@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.dialogs.inviter.channel.ChannelInviterViewModel" />
+            type="pro.inmost.android.visario.ui.screens.channels.info.members.ChannelMembersViewModel" />
         <variable
             name="model"
             type="pro.inmost.android.visario.ui.entities.contact.ContactUI" />
@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginTop="12dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp">
 
@@ -25,8 +26,8 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:onClick="@{() -> viewModel.onMemberClick(model)}"
+            android:layout_marginBottom="12dp">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/contact_icon"
@@ -66,19 +67,8 @@
                     android:textColor="?android:attr/textColorSecondary"
                     android:text="@{model.online ? @string/online : @string/offline}"
                     tools:text="Online"/>
-            </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:id="@+id/invite_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end|center_vertical"
-                android:enabled="@{!model.disabled}"
-                android:onClick="@{() -> viewModel.inviteContact(model)}"
-                android:textColor="@color/button_invite_enabled_color_selector"
-                android:text="@{model.invited ? @string/invited : @string/invite}"
-                tools:text="@string/invite"/>
+            </LinearLayout>
 
         </LinearLayout>
 

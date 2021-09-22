@@ -24,7 +24,7 @@ fun Message.toDataMessage() = MessageData(
 
 fun ChannelMessagePayload.toDataMessage() = MessageData(
     messageId = this.MessageId,
-    content = this.Content.trim(),
+    content = this.Content?.trim() ?: "",
     createdTimestamp = DateParser.parseToMillis(this.CreatedTimestamp),
     lastEditedTimestamp = DateParser.parseToMillis(this.LastUpdatedTimestamp),
     metadata = this.Metadata ?: "",
@@ -52,5 +52,5 @@ fun MessageData.toDomainMessage() = Message(
     isMeetingInvitation = content?.isMeetingInvitation() ?: false
 )
 
-fun List<MessageData>.toDomainMessages() = map { it.toDomainMessage()}
+fun List<MessageData>.toDomainMessages() = map { it.toDomainMessage() }.sortedByDescending { it.createdTimestamp }
 fun List<Message>.toMessagesData() = map { it.toDataMessage() }

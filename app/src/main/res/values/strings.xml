@@ -100,7 +100,8 @@
     <string name="crop_image">Crop image</string>
     <string name="new_channel">New Channel</string>
     <string name="channel_name">Channel name</string>
-    <string name="description">Description (optional)</string>
+    <string name="description_optional">Description (optional)</string>
+    <string name="description">Description</string>
     <string name="channel_privacy">Channel privacy</string>
     <string name="privacy_public">Public</string>
     <string name="privacy_private">Private</string>
@@ -161,7 +162,11 @@
     <string name="copy_link">Copy link</string>
     <string name="open_emojis">Open emojis</string>
     <string name="channel_image">Channel image</string>
-
+    <string name="public_channel">Public channel</string>
+    <string name="no_description">No description</string>
+    <string name="private_channel">Private channel</string>
+    <string name="members">Members</string>
+    <string name="add_new_member">Add new member</string>
 
     <plurals name="members">
         <item quantity="zero">%d member</item>

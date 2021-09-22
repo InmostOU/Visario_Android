@@ -52,7 +52,8 @@ class SearchChannelsFragment : BaseFragment<FragmentChannelsSearchBinding>(R.lay
             SearchChannelsFragmentDirections.actionNavigationChannelSearchToNavigationMessages(
                 channelName = channel.name,
                 channelUrl = channel.url,
-                isMember = channel.isMember
+                isMember = channel.isMember,
+                isModerator = channel.isModerator
             )
         }
     }

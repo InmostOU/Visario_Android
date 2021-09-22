@@ -6,6 +6,9 @@
     <data>
         <import type="android.view.View"/>
         <variable
+            name="model"
+            type="pro.inmost.android.visario.ui.entities.channel.ChannelUI" />
+        <variable
             name="viewModel"
             type="pro.inmost.android.visario.ui.screens.channels.messages.MessagesViewModel" />
     </data>
@@ -26,10 +29,13 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> viewModel.onChannelClick()}"
+            tools:subtitle="@{@plurals/members(model.membersCount, model.membersCount)}"
             tools:title="Channel name"
             app:titleTextColor="?attr/colorOnPrimary"
             app:navigationIconTint="?attr/colorOnPrimary"
-            app:visibilityMessagesMenu="@{viewModel.isJoined()}"
+            app:visibilityMessagesMenu="@{viewModel.isJoined}"
+            app:selectMenuForModerator="@{viewModel.isModerator}"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24">

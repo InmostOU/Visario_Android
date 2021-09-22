@@ -8,6 +8,7 @@ import pro.inmost.android.visario.ui.activities.MainActivity
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
 import pro.inmost.android.visario.ui.utils.extensions.navigate
+import pro.inmost.android.visario.ui.utils.extensions.snackbar
 
 
 /**
@@ -31,6 +32,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         viewModel.loginSuccessful.observe(viewLifecycleOwner){
             authListener?.onLogin()
         }
+        viewModel.showSnackbar.observe(viewLifecycleOwner) { snackbar(it) }
     }
 
     private fun openRegisterScreen() {

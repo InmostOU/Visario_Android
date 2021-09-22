@@ -89,7 +89,7 @@
                     android:background="@android:color/transparent"
                     android:textColor="?android:attr/textColorPrimary"
                     android:text="@={viewModel.description}"
-                    android:hint="@string/description"/>
+                    android:hint="@string/description_optional"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

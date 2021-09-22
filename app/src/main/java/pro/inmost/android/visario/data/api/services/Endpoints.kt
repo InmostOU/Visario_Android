@@ -35,6 +35,7 @@ internal object Endpoints {
     const val CHANNEL_LEAVE = "/channels/leaveChannel"
     const val CHANNEL_FIND_BY_NAME = "/channels/findByName"
     const val CHANNEL_ADD_MEMBER = "/channels/addMemberToChannel"
+    const val CHANNEL_GET_MEMBERS = "/channels/fetchUsersFromChannel"
 
     const val CONTACTS_GET = "/contact/getAllContacts"
     const val CONTACT_ADD = "/contact/add"

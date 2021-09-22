@@ -32,6 +32,7 @@
         <action
             android:id="@+id/action_navigation_channel_search_to_navigation_messages"
             app:destination="@id/navigation_messages" />
+
     </fragment>
 
     <fragment
@@ -51,6 +52,41 @@
         <argument
             android:name="isMember"
             app:argType="boolean" />
+        <argument
+            android:name="isModerator"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_navigation_messages_to_navigation_channel_info"
+            app:destination="@id/navigation_channel_info" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_channel_info"
+        android:name="pro.inmost.android.visario.ui.screens.channels.info.ChannelInfoFragment"
+        tools:layout="@layout/fragment_channel_info">
+
+        <argument
+            android:name="channelArn"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_channel_info_to_navigation_channel_members"
+            app:destination="@id/navigation_channel_members" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_channel_members"
+        android:name="pro.inmost.android.visario.ui.screens.channels.info.members.ChannelMembersFragment"
+        tools:layout="@layout/fragment_channel_members">
+
+        <argument
+            android:name="channelArn"
+            app:argType="string" />
+        <argument
+            android:name="isModerator"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_navigation_channel_members_to_navigation_contact_detail"
+            app:destination="@id/navigation_contact_detail" />
     </fragment>
 
     <fragment

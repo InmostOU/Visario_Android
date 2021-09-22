@@ -1,26 +1,33 @@
 package pro.inmost.android.visario.ui.screens.channels.messages
 
 import android.view.View
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.usecases.channels.AddMemberToChannelUseCase
+import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCase
 import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCase
 import pro.inmost.android.visario.domain.usecases.meetings.CreateMeetingUseCase
 import pro.inmost.android.visario.domain.usecases.meetings.SendInvitationUseCase
 import pro.inmost.android.visario.domain.usecases.messages.*
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
+import pro.inmost.android.visario.ui.base.BaseViewModel
+import pro.inmost.android.visario.ui.entities.channel.ChannelUI
+import pro.inmost.android.visario.ui.entities.channel.toUIChannel
 import pro.inmost.android.visario.ui.entities.message.MessageUI
 import pro.inmost.android.visario.ui.entities.message.toUIMessages
 import pro.inmost.android.visario.ui.entities.profile.ProfileUI
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 import pro.inmost.android.visario.ui.utils.extensions.meetingId
-
 class MessagesViewModel(
     private val fetchMessagesUseCase: FetchMessagesUseCase,
+    private val fetchChannelsUseCase: FetchChannelsUseCase,
     private val fetchProfileUseCase: FetchProfileUseCase,
     private val sendMessageUseCase: SendMessageUseCase,
     private val editMessageUseCase: EditMessageUseCase,
@@ -30,7 +37,7 @@ class MessagesViewModel(
     private val addMemberToChannelUseCase: AddMemberToChannelUseCase,
     private val createMeetingUseCase: CreateMeetingUseCase,
     private val sendInvitationUseCase: SendInvitationUseCase
-) : ViewModel() {
+) : BaseViewModel() {
     private var profile: ProfileUI? = null
     var currentChannelArn: String = ""
         private set
@@ -54,17 +61,20 @@ class MessagesViewModel(
     private val _toggleEmojisView = SingleLiveEvent<Unit>()
     val toggleEmojisView: LiveData<Unit> = _toggleEmojisView
 
-    private val _showToast = SingleLiveEvent<Int>()
-    val showToast: LiveData<Int> = _showToast
-
     private val _isJoined = MutableLiveData<Boolean>()
     val isJoined: LiveData<Boolean> = _isJoined
+
+    private val _isModerator = MutableLiveData<Boolean>()
+    val isModerator: LiveData<Boolean> = _isModerator
 
     private val _emojisOpened = MutableLiveData(false)
     val emojisOpened: LiveData<Boolean> = _emojisOpened
 
     private val _openPopupMenu = SingleLiveEvent<Pair<View, MessageUI>>()
     val openPopupMenu: LiveData<Pair<View, MessageUI>> = _openPopupMenu
+
+    private val _openChannelInfoEvent = SingleLiveEvent<String>()
+    val openChannelInfoEvent: LiveData<String> = _openChannelInfoEvent
 
     init {
         loadProfile()
@@ -96,10 +106,20 @@ class MessagesViewModel(
         _isJoined.value = joined
     }
 
+    fun setModerator(moderator: Boolean){
+        _isModerator.value = moderator
+    }
+
     fun observeMessages(channelUrl: String): LiveData<List<MessageUI>> {
         currentChannelArn = channelUrl
         return fetchMessagesUseCase.fetch(channelUrl).map { it.toUIMessages() }.asLiveData()
     }
+
+    fun observeChannel(channelArn: String): LiveData<ChannelUI> {
+        currentChannelArn = channelArn
+        return fetchChannelsUseCase.getChannel(channelArn).map { it.toUIChannel() }.asLiveData()
+    }
+
 
     fun sendMessage() {
         if (message.value.isNullOrBlank()) return
@@ -142,6 +162,10 @@ class MessagesViewModel(
         }
     }
 
+    fun onChannelClick(){
+        _openChannelInfoEvent.value = currentChannelArn
+    }
+
     fun editMessage(message: MessageUI) {
         _editMode.value = true
         messageForEdit = message
@@ -179,7 +203,7 @@ class MessagesViewModel(
                 }.onFailure {
                     view.isEnabled = true
                     view.alpha = 1f
-                    _showToast.value = R.string.edit_failed
+                    sendNotification(R.string.edit_failed)
                 }
             }
         }
@@ -203,7 +227,7 @@ class MessagesViewModel(
                 sendInvitationUseCase.send(it.meetingId, currentChannelArn)
             }.onFailure {
                 hideProgressBar()
-                _showToast.value = R.string.creation_failed
+                sendNotification(R.string.creation_failed)
             }
         }
     }
@@ -220,3 +244,4 @@ class MessagesViewModel(
         _showProgressBar.value = false
     }
 }
+

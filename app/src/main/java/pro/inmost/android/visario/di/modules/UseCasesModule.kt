@@ -2,10 +2,10 @@ package pro.inmost.android.visario.di.modules
 
 import org.koin.dsl.module
 import pro.inmost.android.visario.data.repositories.*
-import pro.inmost.android.visario.domain.usecases.auth.impl.UpdateCredentialsUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.impl.LoginUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.impl.LogoutUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.auth.impl.RegistrationUseCaseImpl
+import pro.inmost.android.visario.domain.usecases.auth.impl.UpdateCredentialsUseCaseImpl
 import pro.inmost.android.visario.domain.usecases.channels.impl.*
 import pro.inmost.android.visario.domain.usecases.contacts.impl.*
 import pro.inmost.android.visario.domain.usecases.meetings.impl.*
@@ -72,6 +72,11 @@ val useCases = module {
 
     factory {
         AddMemberToChannelUseCaseImpl(
+            repository = get<ChannelsRepositoryImpl>()
+        )
+    }
+    factory {
+        FetchChannelMembersUseCaseImpl(
             repository = get<ChannelsRepositoryImpl>()
         )
     }

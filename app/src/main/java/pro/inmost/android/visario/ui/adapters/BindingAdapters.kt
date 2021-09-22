@@ -125,3 +125,19 @@ fun MaterialToolbar.visibilityMessagesMenu(visible: Boolean?) {
         menu.clear()
     }
 }
+/**
+ * Select an item depending on whether the user is a moderator
+ *
+ * @param moderator true if user if moderator else false
+ */
+@BindingAdapter(value = ["selectMenuForModerator"])
+fun MaterialToolbar.selectMenuForModerator(moderator: Boolean?) {
+    moderator ?: return
+    if (moderator) {
+        menu.clear()
+        val menu = R.menu.messages_channel_moderator
+        inflateMenu(menu)
+    } else {
+        R.menu.messages_channel
+    }
+}

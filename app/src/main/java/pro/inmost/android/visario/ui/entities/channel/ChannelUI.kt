@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.entities.channel
 
+import androidx.databinding.ObservableBoolean
 import pro.inmost.android.visario.ui.entities.BaseEntity
 import pro.inmost.android.visario.ui.entities.message.MessageUI
 import pro.inmost.android.visario.ui.utils.ONE_DAY_IN_MILLIS
@@ -36,6 +37,8 @@ data class ChannelUI (
     val isLastMessageMeetingInvitation: Boolean
         get() = messages.firstOrNull()?.isMeetingInvitation ?: false
 
+    val disabled = ObservableBoolean(false)
+    val invited = ObservableBoolean(false)
 
     override val baseId: String
         get() = url

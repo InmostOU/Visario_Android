@@ -15,7 +15,7 @@ data class ChannelMembershipPayload(
 )
 
 /**
- * Invited by
+ * Info about who invited the user to the channel
  *
  * @property Arn - userArn of user who invited the member
  * @property Name - username of user who invited the member
@@ -26,7 +26,7 @@ data class InvitedBy(
 )
 
 /**
- * Member
+ * Member of which was invited
  *
  * @property Arn - userArn of user who was invited
  * @property Name - username of user who was invited

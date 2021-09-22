@@ -117,11 +117,27 @@ class ChannelManager(private val service: ChannelsService) {
         }
     }
 
+    /**
+     * Get channel's members
+     *
+     * @param channelArn channel url from AWS Chime
+     * @return [Result] that encapsulates list of channel members
+     * or a failure with an arbitrary [Throwable] exception.
+     */
+    suspend fun getMembers(channelArn: String) = withContext(IO){
+        kotlin.runCatching {
+            service.getMembers(channelArn).getResult()
+        }.getOrElse {
+            logError(it.message ?: "")
+            Result.failure(it)
+        }
+    }
+
 
     /**
      * Get signed link for channels web-socket client
      *
-     * that encapsulates link for use in channels web-socket client
+     * @return [Result] that encapsulates link for use in channels web-socket client
      * or a failure with an arbitrary [Throwable] exception.
      */
     suspend fun getWebSocketLink(): Result<String> = withContext(IO){
