@@ -23,6 +23,9 @@ interface ChannelsDao {
     @Query("SELECT * FROM channels WHERE channelArn =:channelArn")
     suspend fun get(channelArn: String): ChannelData?
 
+    @Query("SELECT * FROM channels WHERE channelArn =:channelArn")
+    fun getChannelWithMessagesObservable(channelArn: String): Flow<ChannelWithMessages>
+
     @Transaction
     @Query("SELECT * FROM channels WHERE channelArn =:channelArn")
     suspend fun getChannelWithMessages(channelArn: String): ChannelWithMessages?

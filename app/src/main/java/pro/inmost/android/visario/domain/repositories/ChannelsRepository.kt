@@ -2,6 +2,7 @@ package pro.inmost.android.visario.domain.repositories
 
 import kotlinx.coroutines.flow.Flow
 import pro.inmost.android.visario.domain.entities.channel.Channel
+import pro.inmost.android.visario.domain.entities.contact.Contact
 
 interface ChannelsRepository {
 
@@ -62,8 +63,15 @@ interface ChannelsRepository {
     /**
      * Search channels by name
      *
-     * @param channel name of channel
+     * @param name channel's name
      * @return list of [Channel] whose name contain the word in channel param
      */
-    suspend fun search(channel: String): List<Channel>
+    suspend fun search(name: String): List<Channel>
+
+    /**
+     * Get observable list of channel's members
+     *
+     * @return [Flow] with list of [Contact]
+     */
+    fun getChannelMembers(channelArn: String): Flow<List<Contact>>
 }

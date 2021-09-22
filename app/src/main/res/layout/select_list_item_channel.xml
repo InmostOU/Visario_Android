@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="pro.inmost.android.visario.ui.dialogs.inviter.meeting.channels.MeetingChannelsInviterViewModel" />
+            type="pro.inmost.android.visario.ui.dialogs.inviter.meeting.MeetingChannelsInviterViewModel" />
         <variable
             name="model"
             type="pro.inmost.android.visario.ui.entities.channel.ChannelUI" />
@@ -71,9 +71,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="end|center_vertical"
-                android:onClick="@{(view) -> viewModel.inviteGroup(view, model)}"
+                android:onClick="@{() -> viewModel.sendInvitation(model)}"
                 android:textColor="@color/button_invite_enabled_color_selector"
-                android:text="@string/send"/>
+                android:enabled="@{!model.disabled}"
+                android:text="@{model.invited ? @string/sent : @string/send}"
+                tools:text="@string/send"/>
 
         </LinearLayout>
 

@@ -8,6 +8,7 @@ import pro.inmost.android.visario.databinding.SelectListItemContactBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseBottomSheet
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
+import pro.inmost.android.visario.ui.utils.extensions.snackbar
 
 
 /**
@@ -27,7 +28,6 @@ class ChannelInviterDialog(private val channelArn: String) :
 
     override fun onCreated() {
         binding.contactList.adapter = listAdapter
-        viewModel.setChannel(channelArn)
         observeEvents()
         observeData()
 
@@ -37,15 +37,17 @@ class ChannelInviterDialog(private val channelArn: String) :
         viewModel.loadContacts().observe(viewLifecycleOwner) {
             listAdapter.submitList(it)
         }
+        viewModel.markContactsThatInvited(channelArn)
     }
 
     private fun observeEvents() {
-        binding.toolbar.setNavigationOnClickListener {  close() }
+        binding.toolbar.setNavigationOnClickListener { close() }
+        viewModel.notificationEvent.observe(viewLifecycleOwner){ snackbar(it) }
     }
 
 
-    companion object{
-        fun show(fm: FragmentManager, channelUrl: String){
+    companion object {
+        fun show(fm: FragmentManager, channelUrl: String) {
             ChannelInviterDialog(channelUrl).show(fm, null)
         }
     }

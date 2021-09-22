@@ -20,7 +20,7 @@ interface FetchChannelsUseCase {
      * Get observable channel by channelArn
      *
      * @param channelArn channel url from AWS Chime
-     * @return
+     * @return [Flow] with list of [Channel]
      */
     fun getChannel(channelArn: String): Flow<Channel>
 

@@ -12,7 +12,6 @@ import pro.inmost.android.visario.domain.usecases.auth.LoginUseCase
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.ui.screens.auth.Validator
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.extensions.snackbar
 import pro.inmost.android.visario.ui.utils.hideKeyboard
 
 
@@ -27,8 +26,14 @@ class LoginViewModel(
     private val _openRegisterScreen = SingleLiveEvent<Unit>()
     val openRegisterScreen: LiveData<Unit> = _openRegisterScreen
 
+    private val _showSnackbar = SingleLiveEvent<Int>()
+    val showSnackbar: LiveData<Int> = _showSnackbar
+
     private val _loginSuccessful = SingleLiveEvent<Unit>()
     val loginSuccessful: LiveData<Unit> = _loginSuccessful
+
+    private val _loginButtonEnabled = MutableLiveData(true)
+    val loginButtonEnabled: LiveData<Boolean> = _loginButtonEnabled
 
     fun openRegisterScreen() {
         _openRegisterScreen.call()
@@ -39,18 +44,17 @@ class LoginViewModel(
         val valid = validator.validate(email.value, password.value)
         if (!valid) return
 
-        view.isEnabled = false
+        _loginButtonEnabled.value = false
 
         viewModelScope.launch {
             loginUseCase.login(email.value!!, password.value!!).onSuccess {
                 updateCredentials(it)
                 _loginSuccessful.call()
             }.onFailure {
-                view.snackbar(R.string.login_failed)
+                _showSnackbar.value = R.string.login_failed
             }
-            view.isEnabled = true
+            _loginButtonEnabled.value = true
         }
-
     }
 
     private fun updateCredentials(credentials: Credentials) {

@@ -91,6 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    android:enabled="@{viewModel.loginButtonEnabled}"
                     android:onClick="@{(view) -> viewModel.login(view)}"
                     android:text="@string/login" />
 
@@ -102,6 +103,7 @@
                     android:layout_gravity="end"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
+                    android:enabled="@{viewModel.loginButtonEnabled}"
                     android:text="@string/register"
                     android:onClick="@{() -> viewModel.openRegisterScreen()}"
                     android:textColor="?attr/colorOnSurface" />

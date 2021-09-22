@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.dialogs.inviter.meeting.channels
+package pro.inmost.android.visario.ui.dialogs.inviter.meeting
 
 import androidx.fragment.app.FragmentManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -8,6 +8,7 @@ import pro.inmost.android.visario.databinding.SelectListItemChannelBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseBottomSheet
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
+import pro.inmost.android.visario.ui.utils.extensions.snackbar
 
 
 /**
@@ -42,6 +43,7 @@ class MeetingChannelsInviterDialog(private val meetingId: String) :
 
     private fun observeEvents() {
         binding.toolbar.setNavigationOnClickListener {  close() }
+        viewModel.notificationEvent.observe(viewLifecycleOwner){ snackbar(it) }
     }
 
     companion object{

@@ -13,10 +13,19 @@ import pro.inmost.android.visario.data.entities.message.toDataMessage
 object PayloadFactory {
     private val gson = Gson()
 
-    fun getChannelMessage(json: String): MessageData {
-        val response = gson.fromJson(json, ChannelWebSocketMessage::class.java)
-        val messagePayload = gson.fromJson(response.payload, ChannelMessagePayload::class.java)
-        return messagePayload.toDataMessage()
+
+    /**
+     * Get channel's message from json
+     *
+     * @param json from web-socket event's json
+     * @return [MessageData] if json correct else null
+     */
+    fun getChannelMessage(json: String): MessageData? {
+        return kotlin.runCatching {
+            val response = gson.fromJson(json, ChannelWebSocketMessage::class.java)
+            val messagePayload = gson.fromJson(response.payload, ChannelMessagePayload::class.java)
+            messagePayload.toDataMessage()
+        }.getOrNull()
     }
 
     fun getChannelMember(json: String): ChannelData? {

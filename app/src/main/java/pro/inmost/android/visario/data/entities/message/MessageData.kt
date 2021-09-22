@@ -13,7 +13,7 @@ data class MessageData(
     val channelArn: String,
     var senderName: String,
     val type: String = MessageDataType.STANDARD,
-    val metadata: String = "",
+    var metadata: String = "",
     val lastEditedTimestamp: Long = 0L,
     val redacted: Boolean = false,
     val fromCurrentUser: Boolean = false,

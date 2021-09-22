@@ -2,6 +2,8 @@ package pro.inmost.android.visario.ui.entities.contact
 
 import android.os.Parcelable
 import android.text.format.DateFormat
+import androidx.databinding.ObservableBoolean
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import pro.inmost.android.visario.ui.entities.BaseEntity
 import pro.inmost.android.visario.ui.utils.PROFILE_DATE_FORMAT
@@ -33,6 +35,11 @@ data class ContactUI(
 
     val birthdateFormat: String
         get() = DateFormat.format(PROFILE_DATE_FORMAT, birthdate).toString()
+
+    @IgnoredOnParcel
+    val disabled = ObservableBoolean(false)
+    @IgnoredOnParcel
+    val invited = ObservableBoolean(false)
 
     override val baseId: String
         get() = url

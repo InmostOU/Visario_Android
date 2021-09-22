@@ -13,8 +13,8 @@ class ChannelsViewModel(
     private val fetchUseCase: FetchChannelsUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase
 ) : ViewModel() {
-    private val _onChatClick = SingleLiveEvent<ChannelUI>()
-    val onChatClick: LiveData<ChannelUI> = _onChatClick
+    private val _onChannelClick = SingleLiveEvent<ChannelUI>()
+    val onChannelClick: LiveData<ChannelUI> = _onChannelClick
 
     private val _showProgressBar = MutableLiveData(false)
     val showProgressBar: LiveData<Boolean> = _showProgressBar
@@ -25,10 +25,12 @@ class ChannelsViewModel(
             .asLiveData()
 
     init {
-        viewModelScope.launch { updateProfileUseCase.refresh() }
+        viewModelScope.launch {
+            updateProfileUseCase.refresh()
+        }
     }
 
     fun onItemClick(item: ChannelUI) {
-        _onChatClick.postValue(item)
+        _onChannelClick.value = item
     }
 }

@@ -33,7 +33,7 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
     }
 
     private fun observeEvents() {
-        viewModel.onChatClick.observe(viewLifecycleOwner) {
+        viewModel.onChannelClick.observe(viewLifecycleOwner) {
             openChannel(it)
         }
         binding.buttonNewChannel.setOnClickListener { openCreateChannelFragment() }
@@ -82,7 +82,8 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
             ChannelsFragmentDirections.actionNavigationChatsToNavigationMessages(
                 channelName = channel.name,
                 channelUrl = channel.url,
-                isMember = channel.isMember
+                isMember = channel.isMember,
+                isModerator = channel.isModerator
             )
         }
     }

@@ -19,7 +19,7 @@ import pro.inmost.android.visario.ui.utils.extensions.*
 
 
 /**
- * Fragment for chat in channel
+ * Fragment for chatting in channel
  *
  */
 class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment_messages) {
@@ -41,6 +41,7 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
         binding.messageList.adapter = listAdapter
         updateTitle(args.channelName)
         showJoinButton(args.isMember)
+        viewModel.setModerator(args.isModerator)
         observeData()
         observeEvents()
     }
@@ -56,6 +57,10 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     }
 
     private fun observeData() {
+       /* viewModel.observeChannel(args.channelUrl).observe(viewLifecycleOwner){ channel ->
+            binding.model = channel
+        }
+*/
         viewModel.observeMessages(args.channelUrl).observe(viewLifecycleOwner) { messages ->
             val needScroll = messages.size > listAdapter.size
             listAdapter.submitList(messages) {
@@ -93,6 +98,16 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
         }
         viewModel.toggleEmojisView.observe(viewLifecycleOwner){
             emojiPopup.toggle()
+        }
+        viewModel.openChannelInfoEvent.observe(viewLifecycleOwner){ channelArn ->
+            openChannelInfoFragment(channelArn)
+        }
+        viewModel.notificationEvent.observe(viewLifecycleOwner){ snackbar(it) }
+    }
+
+    private fun openChannelInfoFragment(channelArn: String) {
+        navigate {
+            MessagesFragmentDirections.actionNavigationMessagesToNavigationChannelInfo(channelArn)
         }
     }
 

@@ -14,7 +14,7 @@ data class ChannelMessagePayload(
     val Redacted: Boolean,
     val Type: String,
     val Sender: Sender,
-    val Content: String,
+    val Content: String?,
     val Metadata: String? = null
 )
 
