@@ -42,7 +42,10 @@ class MessagesRepositoryImpl(
         else Result.failure(Throwable("Resend message error"))
     }
 
-    private suspend fun send(message: MessageData) = api.messages.sendMessage(message).onFailure {
+    private suspend fun send(message: MessageData) = api.messages.sendMessage(message).onSuccess {
+        message.status = MessageDataStatus.DELIVERED
+        dao.update(message)
+    }.onFailure {
         message.status = MessageDataStatus.FAIL
         dao.update(message)
     }
@@ -80,7 +83,7 @@ class MessagesRepositoryImpl(
             fromCurrentUser = true,
             readByMe = true,
             status = MessageDataStatus.SENDING
-        )
+        ).also { it.metadata = it.messageId }
     }
 
     override suspend fun refreshData(channelArn: String): Unit = withContext(IO) {

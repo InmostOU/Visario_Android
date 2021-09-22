@@ -33,7 +33,7 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
     }
 
     private fun observeEvents() {
-        viewModel.onChatClick.observe(viewLifecycleOwner) {
+        viewModel.onChannelClick.observe(viewLifecycleOwner) {
             openChannel(it)
         }
         binding.buttonNewChannel.setOnClickListener { openCreateChannelFragment() }
