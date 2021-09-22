@@ -71,7 +71,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(R.layout.fragment_a
                     viewModel.changePhoto(requireContext(), result)
                 }
             } else {
-                snackbarWithAction(R.string.permissions_denied){ openMediaPicker() }
+                snackbarWithAction(R.string.permissions_denied, R.string.allow){ openMediaPicker() }
             }
         }
     }

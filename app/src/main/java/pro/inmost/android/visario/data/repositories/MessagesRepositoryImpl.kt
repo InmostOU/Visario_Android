@@ -13,7 +13,8 @@ import pro.inmost.android.visario.data.entities.message.MessageDataStatus
 import pro.inmost.android.visario.data.entities.message.toDomainMessages
 import pro.inmost.android.visario.data.entities.profile.toDataProfile
 import pro.inmost.android.visario.data.utils.extensions.launchIO
-import pro.inmost.android.visario.domain.entities.message.Message
+import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
+import pro.inmost.android.visario.domain.entities.message.SendingMessage
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
 import pro.inmost.android.visario.domain.repositories.ProfileRepository
 import java.util.*
@@ -24,13 +25,13 @@ class MessagesRepositoryImpl(
     private val profileRepository: ProfileRepository
 ) : MessagesRepository {
 
-    override fun getMessages(channelArn: String): Flow<List<Message>> {
+    override fun getMessages(channelArn: String): Flow<List<ReceivingMessage>> {
         launchIO { refreshData(channelArn) }
         return dao.getChannelMessages(channelArn).map { it.toDomainMessages() }
     }
 
-    override suspend fun sendMessage(message: String, channelArn: String) = withContext(IO) {
-        val data = createMessage(message, channelArn)
+    override suspend fun sendMessage(message: SendingMessage) = withContext(IO) {
+        val data = createMessage(message)
         dao.insert(data)
         send(data)
     }
@@ -71,12 +72,12 @@ class MessagesRepositoryImpl(
        dao.deleteById(messageId)
     }
 
-    private suspend fun createMessage(content: String, channelArn: String, messageId: String? = null): MessageData {
+    private suspend fun createMessage(message: SendingMessage): MessageData {
         val profile = profileRepository.observeProfile().firstOrNull()?.toDataProfile()
         return MessageData(
-            messageId = messageId ?: UUID.randomUUID().toString(),
-            content = content,
-            channelArn = channelArn,
+            messageId = UUID.randomUUID().toString(),
+            content = message.content,
+            channelArn = message.channelArn,
             senderArn = profile?.userArn ?: "",
             senderName = profile?.fullName ?: "",
             createdTimestamp = System.currentTimeMillis(),

@@ -15,7 +15,8 @@ data class MessageUI(
     val readByMe: Boolean = false,
     val type: String = "STANDARD",
     val status: MessageUIStatus = MessageUIStatus.SENDING,
-    val isMeetingInvitation: Boolean
+    val isMeetingInvitation: Boolean,
+    val attachment: AttachmentUI? = null
 ): BaseEntity {
 
     val edited: Boolean
@@ -35,4 +36,6 @@ data class MessageUI(
 
     override val baseId: String
         get() = (channelUrl + senderUrl + senderName).hashCode().toString()
+
+
 }

@@ -1,30 +1,30 @@
 package pro.inmost.android.visario.domain.repositories
 
 import kotlinx.coroutines.flow.Flow
-import pro.inmost.android.visario.domain.entities.message.Message
+import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
+import pro.inmost.android.visario.domain.entities.message.SendingMessage
 
 interface MessagesRepository {
     /**
      * Get observable list of messages from specified channel
      *
      * @param channelArn channel url from AWS Chime
-     * @return [Flow] with list of [Message]
+     * @return [Flow] with list of [ReceivingMessage]
      */
-    fun getMessages(channelArn: String): Flow<List<Message>>
+    fun getMessages(channelArn: String): Flow<List<ReceivingMessage>>
 
     /**
      * Send message to the channel
      *
-     * @param message text of message
-     * @param channelArn channel url from AWS Chime
+     * @param message [SendingMessage]
      * @return [Result]
      */
-    suspend fun sendMessage(message: String, channelArn: String): Result<Unit>
+    suspend fun sendMessage(message: SendingMessage): Result<Unit>
 
     /**
      * Resend failed message
      *
-     * @param messageId id of [Message]
+     * @param messageId id of [ReceivingMessage]
      * @return [Result]
      */
     suspend fun resendMessage(messageId: String): Result<Unit>
@@ -32,7 +32,7 @@ interface MessagesRepository {
     /**
      * Edit a sent message
      *
-     * @param messageId id of [Message]
+     * @param messageId id of [ReceivingMessage]
      * @param content message text
      * @param channelArn channel url from AWS Chime
      * @return [Result]
@@ -42,7 +42,7 @@ interface MessagesRepository {
     /**
      * Delete message from channel
      *
-     * @param messageId id of [Message]
+     * @param messageId id of [ReceivingMessage]
      * @return [Result]
      */
     suspend fun delete(messageId: String): Result<Unit>
@@ -50,7 +50,7 @@ interface MessagesRepository {
     /**
      * Delete message from local database
      *
-     * @param messageId id of [Message]
+     * @param messageId id of [ReceivingMessage]
      */
     suspend fun deleteLocal(messageId: String)
 
@@ -79,7 +79,7 @@ interface MessagesRepository {
     /**
      * Update read status for specified message
      *
-     * @param messageId id of [Message]
+     * @param messageId id of [ReceivingMessage]
      * @param read true if message read, else false
      */
     suspend fun updateReadStatus(messageId: String, read: Boolean)

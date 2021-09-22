@@ -9,6 +9,7 @@ import pro.inmost.android.visario.data.api.dto.responses.meeting.toAWSMeeting
 import pro.inmost.android.visario.data.database.dao.ProfileDao
 import pro.inmost.android.visario.data.entities.meeting.toDomainAttendee
 import pro.inmost.android.visario.domain.entities.meeting.Attendee
+import pro.inmost.android.visario.domain.entities.message.SendingMessage
 import pro.inmost.android.visario.domain.repositories.MeetingsRepository
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
 
@@ -61,7 +62,8 @@ class MeetingsRepositoryImpl(
     }
 
     override suspend fun sendInvitation(meetingId: String, channelArn: String): Result<Unit> {
-        val message = api.meetings.getMeetingInvitationLink(meetingId)
-        return messagesRepository.sendMessage(message, channelArn)
+        val content = api.meetings.getMeetingInvitationLink(meetingId)
+        val message = SendingMessage(channelArn, content)
+        return messagesRepository.sendMessage(message)
     }
 }

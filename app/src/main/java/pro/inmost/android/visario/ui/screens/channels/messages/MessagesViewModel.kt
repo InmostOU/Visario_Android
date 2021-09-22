@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.screens.channels.messages
 
+import android.net.Uri
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +10,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
+import pro.inmost.android.visario.domain.entities.message.SendingMessage
 import pro.inmost.android.visario.domain.usecases.channels.AddMemberToChannelUseCase
 import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCase
 import pro.inmost.android.visario.domain.usecases.channels.LeaveChannelUseCase
@@ -19,7 +21,10 @@ import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
 import pro.inmost.android.visario.ui.base.BaseViewModel
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
 import pro.inmost.android.visario.ui.entities.channel.toUIChannel
+import pro.inmost.android.visario.ui.entities.message.AttachmentUI
+import pro.inmost.android.visario.ui.entities.message.AttachmentUI.AttachmentTypeUI.IMAGE
 import pro.inmost.android.visario.ui.entities.message.MessageUI
+import pro.inmost.android.visario.ui.entities.message.toDomainAttachment
 import pro.inmost.android.visario.ui.entities.message.toUIMessages
 import pro.inmost.android.visario.ui.entities.profile.ProfileUI
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
@@ -42,6 +47,8 @@ class MessagesViewModel(
     var currentChannelArn: String = ""
         private set
     val message = MutableLiveData<String>()
+    val attachment = MutableLiveData<AttachmentUI?>(null)
+
     private var messageForEdit: MessageUI? = null
     private val _closeChannel = SingleLiveEvent<Unit>()
     val closeChannel: LiveData<Unit> = _closeChannel
@@ -75,6 +82,9 @@ class MessagesViewModel(
 
     private val _openChannelInfoEvent = SingleLiveEvent<String>()
     val openChannelInfoEvent: LiveData<String> = _openChannelInfoEvent
+
+    private val _openAttachmentMenu = SingleLiveEvent<Unit>()
+    val openAttachmentMenu: LiveData<Unit> = _openAttachmentMenu
 
     init {
         loadProfile()
@@ -120,14 +130,24 @@ class MessagesViewModel(
         return fetchChannelsUseCase.getChannel(channelArn).map { it.toUIChannel() }.asLiveData()
     }
 
+    fun onAttachFileClick(){
+        _openAttachmentMenu.call()
+    }
 
     fun sendMessage() {
-        if (message.value.isNullOrBlank()) return
-        val messageForSending =  message.value ?: return
+        if (message.value.isNullOrBlank() && attachment.value == null) return
+
+        val message = createMessage()
         clearMessage()
         viewModelScope.launch {
-            sendMessageUseCase.send(messageForSending, currentChannelArn)
+            sendMessageUseCase.send(message)
         }
+    }
+
+    private fun createMessage(): SendingMessage {
+        val textMessage =  message.value?.trim() ?: ""
+        val attachment = attachment.value?.toDomainAttachment()
+        return SendingMessage(currentChannelArn, textMessage, attachment)
     }
 
     fun resendMessage(message: MessageUI) {
@@ -211,6 +231,7 @@ class MessagesViewModel(
 
     private fun clearMessage() {
         message.value = ""
+        attachment.value = null
     }
 
     fun cancelEdit(){
@@ -242,6 +263,14 @@ class MessagesViewModel(
     }
     private fun hideProgressBar() {
         _showProgressBar.value = false
+    }
+
+    fun attachImage(uri: Uri) {
+        attachment.value = AttachmentUI(uri, IMAGE)
+    }
+
+    fun detachFile(){
+        attachment.value = null
     }
 }
 

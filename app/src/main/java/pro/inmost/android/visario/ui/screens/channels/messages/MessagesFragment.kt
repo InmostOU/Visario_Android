@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.screens.channels.messages
 
+import android.Manifest
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
 import androidx.navigation.fragment.navArgs
@@ -13,8 +14,11 @@ import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.dialogs.alerts.SimpleAlertDialog
 import pro.inmost.android.visario.ui.dialogs.inviter.channel.ChannelInviterDialog
+import pro.inmost.android.visario.ui.dialogs.select.media.ImageSelectorDialog
 import pro.inmost.android.visario.ui.entities.message.MessageUI
 import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
+import pro.inmost.android.visario.ui.screens.channels.messages.BottomSheetAttachmentMenu.MenuItem.FILE
+import pro.inmost.android.visario.ui.screens.channels.messages.BottomSheetAttachmentMenu.MenuItem.IMAGE
 import pro.inmost.android.visario.ui.utils.extensions.*
 
 
@@ -103,6 +107,38 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
             openChannelInfoFragment(channelArn)
         }
         viewModel.notificationEvent.observe(viewLifecycleOwner){ snackbar(it) }
+
+        viewModel.openAttachmentMenu.observe(viewLifecycleOwner){
+            openAttachmentMenu()
+        }
+    }
+
+    private fun openAttachmentMenu() {
+        BottomSheetAttachmentMenu.show(childFragmentManager){ result ->
+            when(result){
+                IMAGE -> { selectMedia() }
+                FILE -> { selectFile() }
+            }
+        }
+    }
+
+    private fun selectFile() {
+
+    }
+
+    private fun selectMedia() {
+        checkPermissions(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA){ granted ->
+            if (granted){
+                ImageSelectorDialog.show(childFragmentManager, true){ uri ->
+                    viewModel.attachImage(uri)
+                }
+            } else {
+                snackbarWithAction(R.string.permissions_denied, R.string.allow){ selectMedia() }
+            }
+        }
+
     }
 
     private fun openChannelInfoFragment(channelArn: String) {

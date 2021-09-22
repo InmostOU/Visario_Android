@@ -60,7 +60,7 @@ dependencies {
     implementation 'com.vanniktech:emoji-ios:0.7.0'
 
     // DocsGenerate
-    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.5.0")
+    dokkaHtmlPlugin('org.jetbrains.dokka:kotlin-as-java-plugin:1.5.30')
 
     // AWS Chime SDK
     implementation(name: 'amazon-chime-sdk', ext: 'aar')
@@ -90,9 +90,9 @@ dependencies {
 
 
     // Other utils
-    implementation "commons-codec:commons-codec:1.15" // decoder
-    implementation 'com.karumi:dexter:6.2.2' // permissions checker
-    implementation 'com.google.code.gson:gson:2.8.7' // json-serializer
+    implementation 'commons-codec:commons-codec:20041127.091804' // decoder
+    implementation 'com.karumi:dexter:6.2.3' // permissions checker
+    implementation 'com.google.code.gson:gson:2.8.8' // json-serializer
 
     // DI-framework
     def koin_version = "3.1.2"
@@ -101,7 +101,7 @@ dependencies {
     // WEB
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation('com.squareup.okhttp3:okhttp:5.0.0-alpha.2')
 
     // Data store
     implementation "androidx.datastore:datastore-preferences-core:1.0.0"

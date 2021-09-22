@@ -1,7 +1,7 @@
 package pro.inmost.android.visario.domain.usecases.messages
 
 import kotlinx.coroutines.flow.Flow
-import pro.inmost.android.visario.domain.entities.message.Message
+import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
 
 
 /**
@@ -13,7 +13,7 @@ interface FetchMessagesUseCase {
      * Get observable list of messages from specified channel
      *
      * @param channelArn channel url from AWS Chime
-     * @return [Flow] with list of [Message]
+     * @return [Flow] with list of [ReceivingMessage]
      */
-    fun fetch(channelArn: String): Flow<List<Message>>
+    fun fetch(channelArn: String): Flow<List<ReceivingMessage>>
 }

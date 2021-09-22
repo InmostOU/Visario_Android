@@ -10,6 +10,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import pro.inmost.android.visario.R
+import pro.inmost.android.visario.ui.entities.message.AttachmentUI
 import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
 
 
@@ -91,6 +92,15 @@ fun ImageView.messageStatusIcon(status: MessageUIStatus?) {
 fun ImageView.loadImage(uri: Uri?) {
     uri ?: return
     Glide.with(context).load(uri).into(this)
+}
+
+@BindingAdapter(value = ["attach"])
+fun ImageView.attach(attachmentUI: AttachmentUI?) {
+    if (attachmentUI == null){
+        setImageDrawable(null)
+    } else {
+        Glide.with(context).load(attachmentUI.uri).into(this)
+    }
 }
 
 /**

@@ -39,9 +39,9 @@ fun Fragment.snackbar(textResId: Int) {
         .show()
 }
 
-fun Fragment.snackbarWithAction(textResId: Int, callback: () -> Unit) {
+fun Fragment.snackbarWithAction(textResId: Int, actionTextResId: Int, callback: () -> Unit) {
     Snackbar.make(requireView(), requireContext().getString(textResId), Snackbar.LENGTH_SHORT)
-        .setAction(R.string.allow){ callback() }
+        .setAction(actionTextResId){ callback() }
         .show()
 }
 

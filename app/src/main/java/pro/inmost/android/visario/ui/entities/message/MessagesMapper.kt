@@ -1,9 +1,10 @@
 package pro.inmost.android.visario.ui.entities.message
 
-import pro.inmost.android.visario.domain.entities.message.Message
+import pro.inmost.android.visario.domain.entities.message.Attachment
 import pro.inmost.android.visario.domain.entities.message.MessageStatus
+import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
 
-fun Message.toUIMessage() = MessageUI(
+fun ReceivingMessage.toUIMessage() = MessageUI(
     messageId = this.messageId,
     text = this.text,
     channelUrl = this.channelUrl,
@@ -18,7 +19,7 @@ fun Message.toUIMessage() = MessageUI(
     isMeetingInvitation = this.isMeetingInvitation
 )
 
-fun MessageUI.toDomainMessage() = Message(
+fun MessageUI.toDomainMessage() = ReceivingMessage(
     messageId = this.messageId,
     text = this.text,
     channelUrl = this.channelUrl,
@@ -33,4 +34,9 @@ fun MessageUI.toDomainMessage() = Message(
     isMeetingInvitation = this.isMeetingInvitation
 )
 
-fun List<Message>.toUIMessages() = map { it.toUIMessage() }
+fun AttachmentUI.toDomainAttachment() = Attachment(
+    path = uri.path ?: "",
+    type = kotlin.runCatching { Attachment.AttachmentType.valueOf(type.name) }.getOrElse { Attachment.AttachmentType.OTHER }
+)
+
+fun List<ReceivingMessage>.toUIMessages() = map { it.toUIMessage() }

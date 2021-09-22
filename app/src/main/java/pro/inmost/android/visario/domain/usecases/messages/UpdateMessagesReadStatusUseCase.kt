@@ -1,6 +1,6 @@
 package pro.inmost.android.visario.domain.usecases.messages
 
-import pro.inmost.android.visario.domain.entities.message.Message
+import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
 
 
 /**
@@ -19,7 +19,7 @@ interface UpdateMessagesReadStatusUseCase {
     /**
      * Update read status for specified message
      *
-     * @param messageId id of [Message]
+     * @param messageId id of [ReceivingMessage]
      * @param read true if message read, else false
      */
     suspend fun update(messageId: String, read: Boolean)

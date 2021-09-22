@@ -167,6 +167,11 @@
     <string name="private_channel">Private channel</string>
     <string name="members">Members</string>
     <string name="add_new_member">Add new member</string>
+    <string name="attach_file">Attach file</string>
+    <string name="media">Media</string>
+    <string name="file">File</string>
+    <string name="image">Image</string>
+    <string name="attachment">Attachment:</string>
 
     <plurals name="members">
         <item quantity="zero">%d member</item>

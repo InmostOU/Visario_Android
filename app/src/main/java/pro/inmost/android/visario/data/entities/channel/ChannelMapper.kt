@@ -4,9 +4,9 @@ import pro.inmost.android.visario.data.entities.message.toDomainMessages
 import pro.inmost.android.visario.data.entities.message.toMessagesData
 import pro.inmost.android.visario.domain.entities.channel.Channel
 import pro.inmost.android.visario.domain.entities.contact.Contact
-import pro.inmost.android.visario.domain.entities.message.Message
+import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
 
-fun ChannelData.toDomainChannel(messages: List<Message>) = Channel(
+fun ChannelData.toDomainChannel(messages: List<ReceivingMessage>) = Channel(
     url = channelArn,
     name = name,
     mode = mode,

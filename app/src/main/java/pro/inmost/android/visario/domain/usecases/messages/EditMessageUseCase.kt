@@ -1,6 +1,6 @@
 package pro.inmost.android.visario.domain.usecases.messages
 
-import pro.inmost.android.visario.domain.entities.message.Message
+import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
 
 
 /**
@@ -11,7 +11,7 @@ interface EditMessageUseCase {
     /**
      * Edit a sent message
      *
-     * @param messageId id of [Message]
+     * @param messageId id of [ReceivingMessage]
      * @param content message text
      * @param channelArn channel url from AWS Chime
      * @return [Result]

@@ -1,6 +1,6 @@
 package pro.inmost.android.visario.domain.entities.message
 
-data class Message(
+data class ReceivingMessage(
     val messageId: String,
     val text: String,
     val channelUrl: String,

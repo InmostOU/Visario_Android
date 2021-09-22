@@ -2,11 +2,11 @@ package pro.inmost.android.visario.data.entities.message
 
 import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads.ChannelMessagePayload
 import pro.inmost.android.visario.data.utils.extensions.isMeetingInvitation
-import pro.inmost.android.visario.domain.entities.message.Message
+import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
 import pro.inmost.android.visario.domain.entities.message.MessageStatus
 import pro.inmost.android.visario.ui.utils.DateParser
 
-fun Message.toDataMessage() = MessageData(
+fun ReceivingMessage.toDataMessage() = MessageData(
     messageId = this.messageId,
     content = this.text,
     createdTimestamp = this.createdTimestamp,
@@ -35,7 +35,7 @@ fun ChannelMessagePayload.toDataMessage() = MessageData(
     channelArn = this.ChannelArn
 )
 
-fun MessageData.toDomainMessage() = Message(
+fun MessageData.toDomainMessage() = ReceivingMessage(
     messageId = this.messageId,
     text = this.content ?: "",
     channelUrl = this.channelArn,
@@ -53,4 +53,4 @@ fun MessageData.toDomainMessage() = Message(
 )
 
 fun List<MessageData>.toDomainMessages() = map { it.toDomainMessage() }.sortedByDescending { it.createdTimestamp }
-fun List<Message>.toMessagesData() = map { it.toDataMessage() }
+fun List<ReceivingMessage>.toMessagesData() = map { it.toDataMessage() }
