@@ -7,6 +7,7 @@ import pro.inmost.android.visario.data.api.dto.requests.channels.AddMemberToChan
 import pro.inmost.android.visario.data.api.dto.requests.channels.CreateChannelRequest
 import pro.inmost.android.visario.data.entities.channel.ChannelData
 import pro.inmost.android.visario.data.utils.logError
+import pro.inmost.android.visario.ui.utils.log
 
 /**
  * Channel manager for interaction with the channels
@@ -26,6 +27,23 @@ class ChannelManager(private val service: ChannelsService) {
     suspend fun getChannels() = withContext(IO){
         kotlin.runCatching {
             Result.success(service.getChannels().data)
+        }.getOrElse {
+            logError(it.message ?: "")
+            Result.failure(it)
+        }
+    }
+
+    /**
+     * Get [ChannelData] by channelArn
+     *
+     *  @return [Result] that encapsulates [ChannelData]
+     * or a failure with an arbitrary [Throwable] exception.
+     */
+    suspend fun getChannel(channelArn: String) = withContext(IO){
+        kotlin.runCatching {
+            val response = service.getChannel(channelArn)
+            log("getChannel: $response")
+            Result.success(response.data)
         }.getOrElse {
             logError(it.message ?: "")
             Result.failure(it)
@@ -121,7 +139,7 @@ class ChannelManager(private val service: ChannelsService) {
      * Get channel's members
      *
      * @param channelArn channel url from AWS Chime
-     * @return [Result] that encapsulates list of channel members
+     * @return [Result] that encapsulates list of contacts
      * or a failure with an arbitrary [Throwable] exception.
      */
     suspend fun getMembers(channelArn: String) = withContext(IO){

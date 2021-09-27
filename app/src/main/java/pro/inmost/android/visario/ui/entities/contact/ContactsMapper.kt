@@ -4,7 +4,7 @@ import pro.inmost.android.visario.domain.entities.contact.Contact
 
 fun Contact.toUIContact() = ContactUI(
     id = this.id,
-    url = this.url,
+    userArn = this.url,
     firstName = this.firstName,
     lastName = this.lastName,
     username = this.username,
@@ -21,7 +21,7 @@ fun Contact.toUIContact() = ContactUI(
 
 fun ContactUI.toDomainContact() = Contact(
     id = this.id,
-    url = this.url,
+    url = this.userArn,
     firstName = this.firstName,
     lastName = this.lastName,
     username = this.username,

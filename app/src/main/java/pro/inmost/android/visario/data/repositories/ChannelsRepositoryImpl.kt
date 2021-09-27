@@ -9,6 +9,7 @@ import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.database.dao.ChannelsDao
 import pro.inmost.android.visario.data.entities.channel.*
+import pro.inmost.android.visario.data.entities.contact.toDomainContacts
 import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.channel.Channel
 import pro.inmost.android.visario.domain.repositories.ChannelsRepository
@@ -48,9 +49,12 @@ class ChannelsRepositoryImpl(
         }
     }
 
-    override fun getChannel(channelArn: String): Flow<Channel> {
-        return channelsDao.getChannelWithMessagesObservable(channelArn).map {
-            it.toDomainChannel()
+    override suspend fun getChannel(channelArn: String): Result<Channel> {
+        val savedChannel = channelsDao.get(channelArn)?.toDomainChannelWithoutMessages()
+        return if (savedChannel == null) {
+            api.channels.getChannel(channelArn).map { it.toDomainChannelWithoutMessages() }
+        } else {
+            Result.success(savedChannel)
         }
     }
 
@@ -72,8 +76,11 @@ class ChannelsRepositoryImpl(
         }
     }
 
-    override suspend fun addMember(channelArn: String, userArn: String): Result<Unit> {
+    override suspend fun addMember(channelArn: String, userArn: String): Result<Channel> {
         return api.channels.addMember(channelArn, userArn)
+            .mapCatching {
+                getChannel(channelArn).getOrThrow()
+            }
     }
 
     private fun getSavedChannels() = channelsDao.getChannelsWithMessages().map { data ->

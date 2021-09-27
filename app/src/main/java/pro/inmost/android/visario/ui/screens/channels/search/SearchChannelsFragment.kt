@@ -41,20 +41,15 @@ class SearchChannelsFragment : BaseFragment<FragmentChannelsSearchBinding>(R.lay
     private fun observeEvents() {
         binding.searchView.onQueryChange { viewModel.search(it) }
         binding.toolbar.setNavigationOnClickListener { navigateBack() }
-        viewModel.openChannel.observe(viewLifecycleOwner){ channel ->
-            openChannel(channel)
+        viewModel.openChannel.observe(viewLifecycleOwner){ channelArn ->
+            openChannel(channelArn)
         }
     }
 
-    private fun openChannel(channel: ChannelUI) {
+    private fun openChannel(channelArn: String) {
         hideKeyboard()
         navigate {
-            SearchChannelsFragmentDirections.actionNavigationChannelSearchToNavigationMessages(
-                channelName = channel.name,
-                channelUrl = channel.url,
-                isMember = channel.isMember,
-                isModerator = channel.isModerator
-            )
+            SearchChannelsFragmentDirections.actionNavigationChannelSearchToNavigationMessages(channelArn)
         }
     }
 }

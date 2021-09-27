@@ -1,5 +1,7 @@
 package pro.inmost.android.visario.domain.usecases.channels
 
+import pro.inmost.android.visario.domain.entities.channel.Channel
+
 
 /**
  * Add member to channel use case
@@ -13,5 +15,5 @@ interface AddMemberToChannelUseCase {
      * @param userArn user url from AWS Chime
      * @return [Result]
      */
-    suspend fun invite(channelArn: String, userArn: String): Result<Unit>
+    suspend fun invite(channelArn: String, userArn: String): Result<Channel>
 }

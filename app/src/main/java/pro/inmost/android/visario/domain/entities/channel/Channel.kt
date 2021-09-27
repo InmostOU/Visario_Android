@@ -10,6 +10,7 @@ data class Channel (
     val description: String,
     val isMember: Boolean,
     val isModerator: Boolean,
+    val isAdmin: Boolean,
     val memberCount: Int,
     var messages: List<ReceivingMessage>
 )

@@ -10,6 +10,7 @@ import pro.inmost.android.visario.domain.usecases.contacts.FetchContactsUseCase
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 import pro.inmost.android.visario.ui.entities.contact.toUIContact
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
+import pro.inmost.android.visario.ui.utils.log
 
 class ContactDetailViewModel(
     private val fetchContactsUseCase: FetchContactsUseCase,
@@ -24,12 +25,18 @@ class ContactDetailViewModel(
     private val _closeFragmentEvent = SingleLiveEvent<ContactUI>()
     val closeFragmentEvent: LiveData<ContactUI> = _closeFragmentEvent
 
+    private val _sendEmailEvent = SingleLiveEvent<String>()
+    val sendEmailEvent: LiveData<String> = _sendEmailEvent
+
 
     fun loadContact(contact: ContactUI){
         _contact.value = contact
         viewModelScope.launch {
             fetchContactsUseCase.fetch(contact.username).onSuccess {
-                _contact.value = it.toUIContact()
+                val updatedContact = it.toUIContact()
+                if (updatedContact != contact){
+                    _contact.value = it.toUIContact()
+                }
             }
         }
     }
@@ -54,8 +61,11 @@ class ContactDetailViewModel(
 
     }
 
-    fun sendMail(){
-
+    fun sendEmail(){
+        log("send email click")
+        contact.value?.let {
+            _sendEmailEvent.value = it.email
+        }
     }
 
     fun addContact() {

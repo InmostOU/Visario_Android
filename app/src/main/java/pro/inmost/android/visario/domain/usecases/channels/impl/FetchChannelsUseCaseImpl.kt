@@ -13,7 +13,7 @@ class FetchChannelsUseCaseImpl(
         return repository.getChannels()
     }
 
-    override fun getChannel(channelArn: String): Flow<Channel> {
+    override suspend fun getChannel(channelArn: String): Result<Channel> {
         return repository.getChannel(channelArn)
     }
 

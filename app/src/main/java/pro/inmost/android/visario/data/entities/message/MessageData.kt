@@ -2,6 +2,8 @@ package pro.inmost.android.visario.data.entities.message
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.Gson
+import pro.inmost.android.visario.data.api.dto.requests.messages.AttachmentData
 
 @Entity(tableName = "messages")
 data class MessageData(
@@ -12,8 +14,8 @@ data class MessageData(
     val senderArn: String,
     val channelArn: String,
     var senderName: String,
-    val type: String = MessageDataType.STANDARD,
     var metadata: String = "",
+    val type: String = MessageDataType.STANDARD,
     val lastEditedTimestamp: Long = 0L,
     val redacted: Boolean = false,
     val fromCurrentUser: Boolean = false,
@@ -24,4 +26,7 @@ data class MessageData(
     override fun compareTo(other: MessageData): Int {
         return createdTimestamp.compareTo(other.createdTimestamp)
     }
+
+    val attachment: AttachmentData?
+        get() = kotlin.runCatching { Gson().fromJson(metadata, AttachmentData::class.java) }.getOrNull()
 }

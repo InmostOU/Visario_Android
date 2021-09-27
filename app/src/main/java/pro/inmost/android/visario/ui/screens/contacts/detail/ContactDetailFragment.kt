@@ -9,6 +9,7 @@ import pro.inmost.android.visario.ui.dialogs.alerts.SimpleAlertDialog
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 import pro.inmost.android.visario.ui.utils.extensions.navigate
 import pro.inmost.android.visario.ui.utils.extensions.navigateBack
+import pro.inmost.android.visario.ui.utils.extensions.sendEmail
 
 
 /**
@@ -45,6 +46,7 @@ class ContactDetailFragment : BaseFragment<FragmentContactDetailBinding>(R.layou
             openEditContactFragment(it)
         }
         viewModel.closeFragmentEvent.observe(viewLifecycleOwner){ navigateBack() }
+        viewModel.sendEmailEvent.observe(viewLifecycleOwner){ sendEmail(it) }
     }
 
     private fun blockContact(contact: ContactUI) {

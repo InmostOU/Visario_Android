@@ -11,7 +11,7 @@ import pro.inmost.android.visario.ui.utils.PROFILE_DATE_FORMAT
 @Parcelize
 data class ContactUI(
     val id: Long,
-    val url: String,
+    val userArn: String,
     val username: String,
     var firstName: String,
     var lastName: String,
@@ -42,5 +42,5 @@ data class ContactUI(
     val invited = ObservableBoolean(false)
 
     override val baseId: String
-        get() = url
+        get() = userArn
 }

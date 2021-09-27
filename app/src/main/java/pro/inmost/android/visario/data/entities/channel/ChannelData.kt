@@ -13,6 +13,7 @@ data class ChannelData(
     val description: String?,
     val isMember: Boolean,
     val isModerator: Boolean,
+    val isAdmin: Boolean,
     val membersCount: Int,
     val metadata: String? = ""
 )

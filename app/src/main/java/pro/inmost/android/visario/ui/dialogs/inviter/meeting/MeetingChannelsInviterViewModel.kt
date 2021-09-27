@@ -20,7 +20,7 @@ class MeetingChannelsInviterViewModel(
     fun sendInvitation(channel: ChannelUI) {
         channel.disabled.set(true)
         viewModelScope.launch {
-            sendInvitationUseCase.send(meetingId, channel.url).onSuccess {
+            sendInvitationUseCase.send(meetingId, channel.channelArn).onSuccess {
                 channel.invited.set(true)
             }.onFailure {
                 channel.disabled.set(false)

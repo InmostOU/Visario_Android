@@ -35,7 +35,7 @@ class ChannelInfoFragment : BaseFragment<FragmentChannelInfoBinding>(R.layout.fr
 
     private fun openMemberList(channel: ChannelUI) {
         navigate {
-            ChannelInfoFragmentDirections.actionNavigationChannelInfoToNavigationChannelMembers(channel.url, channel.isModerator)
+            ChannelInfoFragmentDirections.actionNavigationChannelInfoToNavigationChannelMembers(channel.channelArn, channel.isModerator)
         }
     }
 }

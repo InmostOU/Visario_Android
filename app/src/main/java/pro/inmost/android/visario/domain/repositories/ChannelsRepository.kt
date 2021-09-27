@@ -17,9 +17,9 @@ interface ChannelsRepository {
      * Get observable channel by channelArn
      *
      * @param channelArn channel url from AWS Chime
-     * @return [Flow] with specified channel
+     * @return [Result] with specified channel
      */
-    fun getChannel(channelArn: String): Flow<Channel>
+    suspend fun getChannel(channelArn: String): Result<Channel>
 
     /**
      * Update channel info
@@ -52,7 +52,7 @@ interface ChannelsRepository {
      * @param userArn user url from AWS Chime
      * @return successful or failure [Result]
      */
-    suspend fun addMember(channelArn: String, userArn: String): Result<Unit>
+    suspend fun addMember(channelArn: String, userArn: String): Result<Channel>
 
     /**
      * Update all channel data

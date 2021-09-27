@@ -4,7 +4,7 @@ import pro.inmost.android.visario.domain.entities.user.Profile
 
 fun ProfileUI.toDomainProfile() = Profile(
     id = id,
-    userUrl = userUrl,
+    userUrl = userArn,
     firstName = firstName,
     lastName = lastName,
     username = username,
@@ -19,7 +19,7 @@ fun ProfileUI.toDomainProfile() = Profile(
 
 fun Profile.toUIProfile() = ProfileUI(
     id = id,
-    userUrl = userUrl,
+    userArn = userUrl,
     firstName = firstName,
     lastName = lastName,
     username = username,

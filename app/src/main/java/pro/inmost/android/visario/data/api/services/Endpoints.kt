@@ -31,6 +31,7 @@ internal object Endpoints {
     const val MEETING_GET_ATTENDEE_INFO = "/meeting/getUserInfoByUserId"
 
     const val CHANNEL_LIST = "/channels/getChannelsMemberships"
+    const val CHANNEL_GET = "/channels/getChannelByChannelArn"
     const val CHANNEL_CREATE = "/channels/create"
     const val CHANNEL_LEAVE = "/channels/leaveChannel"
     const val CHANNEL_FIND_BY_NAME = "/channels/findByName"

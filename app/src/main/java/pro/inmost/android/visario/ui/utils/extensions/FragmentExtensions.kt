@@ -1,20 +1,22 @@
 package pro.inmost.android.visario.ui.utils.extensions
 
+import android.Manifest
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.TypedValue
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
 import pro.inmost.android.visario.R
+import pro.inmost.android.visario.data.utils.extensions.isValidEmail
 
 inline fun Fragment.navigate(direction: () -> NavDirections) {
     kotlin.runCatching {
@@ -50,13 +52,7 @@ fun Fragment.navigateBack() {
 }
 
 fun Fragment.checkPermissions(vararg permissions: String, callback: (Boolean) -> Unit){
-    Dexter.withContext(requireContext())
-        .withPermissions(*permissions)
-        .withListener(object : BaseMultiplePermissionsListener(){
-            override fun onPermissionsChecked(p0: MultiplePermissionsReport) {
-                callback(p0.areAllPermissionsGranted())
-            }
-        }).check()
+    requireContext().checkPermissions(*permissions){ callback(it) }
 }
 
 fun <T> Fragment.getNavigationResult(key: String = "result") =
@@ -84,4 +80,31 @@ fun Fragment.getColorFromAttr(
 ): Int {
     requireContext().theme.resolveAttribute(attrColor, typedValue, resolveRefs)
     return typedValue.data
+}
+
+fun Fragment.sendEmail(email: String){
+    if (!email.isValidEmail()) throw  IllegalArgumentException("Invalid email")
+
+    val emailIntent = Intent(Intent.ACTION_SEND).apply {
+        putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        selector = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+        }
+    }
+    requireActivity().startActivity(Intent.createChooser(emailIntent, getString(R.string.send_email)))
+}
+
+fun Fragment.openFileChooser(launcher: ActivityResultLauncher<Intent>){
+    val data = Intent(Intent.ACTION_GET_CONTENT)
+    data.addCategory(Intent.CATEGORY_OPENABLE)
+    data.type = "application/*"
+    val intent = Intent.createChooser(data, getString(R.string.choose_file))
+
+    checkPermissions(Manifest.permission.READ_EXTERNAL_STORAGE){ granted ->
+        if (granted){
+            launcher.launch(intent)
+        } else {
+            snackbarWithAction(R.string.permissions_denied, R.string.allow){ openFileChooser(launcher) }
+        }
+    }
 }

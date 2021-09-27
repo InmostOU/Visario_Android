@@ -19,8 +19,8 @@ class SearchChannelsViewModel(
     private val _showProgressBar = MutableLiveData(false)
     val showProgressBar : LiveData<Boolean> = _showProgressBar
 
-    private val _openChannel = SingleLiveEvent<ChannelUI>()
-    val openChannel : LiveData<ChannelUI> = _openChannel
+    private val _openChannel = SingleLiveEvent<String>()
+    val openChannel : LiveData<String> = _openChannel
 
     fun search(query: String) {
         _showProgressBar.value = true
@@ -31,6 +31,6 @@ class SearchChannelsViewModel(
     }
 
     fun onChannelClick(channel: ChannelUI){
-        _openChannel.value = channel
+        _openChannel.value = channel.channelArn
     }
 }

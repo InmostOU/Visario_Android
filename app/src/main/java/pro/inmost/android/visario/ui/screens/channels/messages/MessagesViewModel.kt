@@ -1,5 +1,6 @@
 package pro.inmost.android.visario.ui.screens.channels.messages
 
+import android.content.Context
 import android.net.Uri
 import android.view.View
 import androidx.lifecycle.LiveData
@@ -23,6 +24,7 @@ import pro.inmost.android.visario.ui.entities.channel.ChannelUI
 import pro.inmost.android.visario.ui.entities.channel.toUIChannel
 import pro.inmost.android.visario.ui.entities.message.AttachmentUI
 import pro.inmost.android.visario.ui.entities.message.AttachmentUI.AttachmentTypeUI.IMAGE
+import pro.inmost.android.visario.ui.entities.message.AttachmentUI.AttachmentTypeUI.OTHER
 import pro.inmost.android.visario.ui.entities.message.MessageUI
 import pro.inmost.android.visario.ui.entities.message.toDomainAttachment
 import pro.inmost.android.visario.ui.entities.message.toUIMessages
@@ -30,6 +32,8 @@ import pro.inmost.android.visario.ui.entities.profile.ProfileUI
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
 import pro.inmost.android.visario.ui.utils.extensions.meetingId
+import pro.inmost.android.visario.ui.utils.extensions.toAbsolutePath
+
 class MessagesViewModel(
     private val fetchMessagesUseCase: FetchMessagesUseCase,
     private val fetchChannelsUseCase: FetchChannelsUseCase,
@@ -49,6 +53,8 @@ class MessagesViewModel(
     val message = MutableLiveData<String>()
     val attachment = MutableLiveData<AttachmentUI?>(null)
 
+    private val currentChannel = MutableLiveData<ChannelUI>()
+
     private var messageForEdit: MessageUI? = null
     private val _closeChannel = SingleLiveEvent<Unit>()
     val closeChannel: LiveData<Unit> = _closeChannel
@@ -67,12 +73,6 @@ class MessagesViewModel(
 
     private val _toggleEmojisView = SingleLiveEvent<Unit>()
     val toggleEmojisView: LiveData<Unit> = _toggleEmojisView
-
-    private val _isJoined = MutableLiveData<Boolean>()
-    val isJoined: LiveData<Boolean> = _isJoined
-
-    private val _isModerator = MutableLiveData<Boolean>()
-    val isModerator: LiveData<Boolean> = _isModerator
 
     private val _emojisOpened = MutableLiveData(false)
     val emojisOpened: LiveData<Boolean> = _emojisOpened
@@ -98,39 +98,39 @@ class MessagesViewModel(
         }
     }
 
-    fun joinChannel(view: View){
+    fun joinChannel(view: View) {
         view.isEnabled = false
         viewModelScope.launch {
             profile?.let {
-                addMemberToChannelUseCase.invite(currentChannelArn, it.userUrl).onSuccess {
-                    view.isEnabled = true
-                    _isJoined.value = true
-                }.onFailure {
-                    view.isEnabled = true
-                }
+                addMemberToChannelUseCase.invite(currentChannelArn, it.userArn)
+                    .map { it.toUIChannel() }
+                    .onSuccess {
+                        view.isEnabled = true
+                        currentChannel.value = it
+                    }.onFailure {
+                        view.isEnabled = true
+                    }
             }
         }
     }
 
-    fun setJoined(joined: Boolean){
-        _isJoined.value = joined
-    }
-
-    fun setModerator(moderator: Boolean){
-        _isModerator.value = moderator
-    }
-
     fun observeMessages(channelUrl: String): LiveData<List<MessageUI>> {
-        currentChannelArn = channelUrl
         return fetchMessagesUseCase.fetch(channelUrl).map { it.toUIMessages() }.asLiveData()
     }
 
-    fun observeChannel(channelArn: String): LiveData<ChannelUI> {
+    fun loadChannel(channelArn: String): LiveData<ChannelUI> {
         currentChannelArn = channelArn
-        return fetchChannelsUseCase.getChannel(channelArn).map { it.toUIChannel() }.asLiveData()
+        viewModelScope.launch {
+            fetchChannelsUseCase.getChannel(channelArn)
+                .map { it.toUIChannel() }
+                .onSuccess {
+                    currentChannel.value = it
+                }
+        }
+        return currentChannel
     }
 
-    fun onAttachFileClick(){
+    fun onAttachFileClick() {
         _openAttachmentMenu.call()
     }
 
@@ -145,7 +145,7 @@ class MessagesViewModel(
     }
 
     private fun createMessage(): SendingMessage {
-        val textMessage =  message.value?.trim() ?: ""
+        val textMessage = message.value?.trim() ?: ""
         val attachment = attachment.value?.toDomainAttachment()
         return SendingMessage(currentChannelArn, textMessage, attachment)
     }
@@ -164,25 +164,25 @@ class MessagesViewModel(
         }
     }
 
-    fun updateReadStatus(){
+    fun updateReadStatus() {
         viewModelScope.launch {
             updateReadStatusUseCase.updateAll(currentChannelArn, true)
         }
     }
 
-    fun onMessageClick(view: View, message: MessageUI){
+    fun onMessageClick(view: View, message: MessageUI) {
         _openPopupMenu.value = view to message
     }
 
-    fun onInvitationClick(message: MessageUI){
-        if (message.isMeetingInvitation){
+    fun onInvitationClick(message: MessageUI) {
+        if (message.isMeetingInvitation) {
             message.text.meetingId?.let {
                 _joinMeetingEvent.value = it
             }
         }
     }
 
-    fun onChannelClick(){
+    fun onChannelClick() {
         _openChannelInfoEvent.value = currentChannelArn
     }
 
@@ -205,11 +205,11 @@ class MessagesViewModel(
         }
     }
 
-    fun editDone(view: View){
+    fun editDone(view: View) {
         view.isEnabled = false
         view.alpha = 0.5f
         viewModelScope.launch {
-            if (messageForEdit != null && message.value != null){
+            if (messageForEdit != null && message.value != null) {
                 editMessageUseCase.edit(
                     messageId = messageForEdit!!.messageId,
                     content = message.value!!,
@@ -234,7 +234,7 @@ class MessagesViewModel(
         attachment.value = null
     }
 
-    fun cancelEdit(){
+    fun cancelEdit() {
         messageForEdit = null
         _editMode.value = false
         message.value = ""
@@ -253,7 +253,7 @@ class MessagesViewModel(
         }
     }
 
-    fun toggleEmojis(){
+    fun toggleEmojis() {
         _emojisOpened.value = !(emojisOpened.value ?: false)
         _toggleEmojisView.call()
     }
@@ -261,16 +261,21 @@ class MessagesViewModel(
     private fun showProgressBar() {
         _showProgressBar.value = true
     }
+
     private fun hideProgressBar() {
         _showProgressBar.value = false
     }
 
-    fun attachImage(uri: Uri) {
-        attachment.value = AttachmentUI(uri, IMAGE)
+    fun attachImage(context: Context, uri: Uri) {
+        attachment.value = AttachmentUI(uri.toAbsolutePath(context), IMAGE)
     }
 
-    fun detachFile(){
+    fun detachFile() {
         attachment.value = null
+    }
+
+    fun attachFile(context: Context, uri: Uri) {
+        attachment.value = AttachmentUI(uri.toAbsolutePath(context), OTHER)
     }
 }
 

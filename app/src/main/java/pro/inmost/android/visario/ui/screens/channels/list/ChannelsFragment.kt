@@ -33,8 +33,8 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
     }
 
     private fun observeEvents() {
-        viewModel.onChannelClick.observe(viewLifecycleOwner) {
-            openChannel(it)
+        viewModel.onChannelClick.observe(viewLifecycleOwner) { channelArn ->
+            openChannel(channelArn)
         }
         binding.buttonNewChannel.setOnClickListener { openCreateChannelFragment() }
         binding.toolbar.setOnMenuItemClickListener { item ->
@@ -77,14 +77,9 @@ class ChannelsFragment : BaseFragment<FragmentChannelsBinding>(R.layout.fragment
         }
     }
 
-    private fun openChannel(channel: ChannelUI) {
+    private fun openChannel(channelArn: String) {
         navigate {
-            ChannelsFragmentDirections.actionNavigationChatsToNavigationMessages(
-                channelName = channel.name,
-                channelUrl = channel.url,
-                isMember = channel.isMember,
-                isModerator = channel.isModerator
-            )
+            ChannelsFragmentDirections.actionNavigationChatsToNavigationMessages(channelArn)
         }
     }
 

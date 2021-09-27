@@ -172,6 +172,8 @@
     <string name="file">File</string>
     <string name="image">Image</string>
     <string name="attachment">Attachment:</string>
+    <string name="choose_file">Choose a file</string>
+    <string name="send_email">Send email...</string>
 
     <plurals name="members">
         <item quantity="zero">%d member</item>

@@ -32,7 +32,7 @@ class ChannelInviterViewModel(
     fun inviteContact(contact: ContactUI){
         contact.disabled.set(true)
         viewModelScope.launch {
-            addMemberToChannelUseCase.invite(currentChannelArn, contact.url).onSuccess {
+            addMemberToChannelUseCase.invite(currentChannelArn, contact.userArn).onSuccess {
                 contact.invited.set(true)
             }.onFailure {
                 contact.disabled.set(false)
@@ -48,7 +48,7 @@ class ChannelInviterViewModel(
                 while (contacts.isEmpty()) delay(100)
 
                 members.forEach { member ->
-                    contacts.find { it.id == member.id || it.fullName == member.fullName }?.let {
+                    contacts.find { it.userArn == member.userArn }?.let {
                         it.invited.set(true)
                         it.disabled.set(true)
                     }

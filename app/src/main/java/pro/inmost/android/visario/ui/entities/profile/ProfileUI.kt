@@ -8,7 +8,7 @@ import pro.inmost.android.visario.ui.utils.PROFILE_DATE_FORMAT
 @Parcelize
 data class ProfileUI(
     val id: Long,
-    val userUrl: String,
+    val userArn: String,
     val username: String,
     val firstName: String,
     val lastName: String,

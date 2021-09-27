@@ -10,6 +10,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import pro.inmost.android.visario.R
+import pro.inmost.android.visario.ui.entities.channel.ChannelUI
 import pro.inmost.android.visario.ui.entities.message.AttachmentUI
 import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
 
@@ -95,11 +96,15 @@ fun ImageView.loadImage(uri: Uri?) {
 }
 
 @BindingAdapter(value = ["attach"])
-fun ImageView.attach(attachmentUI: AttachmentUI?) {
-    if (attachmentUI == null){
+fun ImageView.attach(attachment: AttachmentUI?) {
+    if (attachment == null) {
         setImageDrawable(null)
     } else {
-        Glide.with(context).load(attachmentUI.uri).into(this)
+        if (attachment.type == AttachmentUI.AttachmentTypeUI.OTHER){
+            Glide.with(context).load(R.drawable.ic_baseline_file_24).into(this)
+        } else {
+            Glide.with(context).load(attachment.path).into(this)
+        }
     }
 }
 
@@ -128,6 +133,7 @@ fun MaterialToolbar.chooseContactMenu(myContact: Boolean?) {
 @BindingAdapter(value = ["visibilityMessagesMenu"])
 fun MaterialToolbar.visibilityMessagesMenu(visible: Boolean?) {
     visible ?: return
+
     if (visible) {
         val menu = R.menu.messages_channel
         inflateMenu(menu)
@@ -135,19 +141,23 @@ fun MaterialToolbar.visibilityMessagesMenu(visible: Boolean?) {
         menu.clear()
     }
 }
+
 /**
- * Select an item depending on whether the user is a moderator
+ * Select menu depending on whether the user is a member, moderator or admin
  *
- * @param moderator true if user if moderator else false
+ * @param channel current [ChannelUI]
  */
-@BindingAdapter(value = ["selectMenuForModerator"])
-fun MaterialToolbar.selectMenuForModerator(moderator: Boolean?) {
-    moderator ?: return
-    if (moderator) {
-        menu.clear()
-        val menu = R.menu.messages_channel_moderator
+@BindingAdapter(value = ["selectChannelMenu"])
+fun MaterialToolbar.selectChannelMenu(channel: ChannelUI?) {
+    channel ?: return
+    menu.clear()
+
+    if (channel.isMember) {
+        val menu = if (channel.isModerator || channel.isAdmin) {
+            R.menu.messages_channel_moderator
+        } else {
+            R.menu.messages_channel
+        }
         inflateMenu(menu)
-    } else {
-        R.menu.messages_channel
     }
 }

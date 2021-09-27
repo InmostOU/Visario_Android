@@ -9,6 +9,12 @@
 
         <menu>
             <item
+                android:id="@+id/menu_channel_invite"
+                android:icon="@drawable/ic_baseline_person_add_24"
+                app:iconTint="?attr/colorOnSurface"
+                android:title="@string/add_member"  />
+
+            <item
                 android:id="@+id/menu_meeting_create"
                 android:icon="@drawable/ic_outline_video_call_24"
                 app:iconTint="?attr/colorOnSurface"

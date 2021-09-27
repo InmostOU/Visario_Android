@@ -22,7 +22,7 @@ interface FetchChannelsUseCase {
      * @param channelArn channel url from AWS Chime
      * @return [Flow] with list of [Channel]
      */
-    fun getChannel(channelArn: String): Flow<Channel>
+    suspend fun getChannel(channelArn: String): Result<Channel>
 
     /**
      * Refresh all user's channels

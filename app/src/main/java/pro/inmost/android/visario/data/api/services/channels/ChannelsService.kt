@@ -6,7 +6,7 @@ import pro.inmost.android.visario.data.api.dto.responses.base.BaseDataResponse
 import pro.inmost.android.visario.data.api.dto.responses.base.BaseResponse
 import pro.inmost.android.visario.data.api.services.Endpoints
 import pro.inmost.android.visario.data.entities.channel.ChannelData
-import pro.inmost.android.visario.data.entities.channel.ChannelMember
+import pro.inmost.android.visario.data.entities.contact.ContactData
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -21,6 +21,9 @@ interface ChannelsService {
     @GET(Endpoints.CHANNEL_LIST)
     suspend fun getChannels(): BaseDataResponse<List<ChannelData>>
 
+    @GET(Endpoints.CHANNEL_GET)
+    suspend fun getChannel(@Query("arn") channelArn: String): BaseDataResponse<ChannelData>
+
     @POST(Endpoints.CHANNEL_CREATE)
     suspend fun create(@Body request: CreateChannelRequest): BaseResponse
 
@@ -34,7 +37,7 @@ interface ChannelsService {
     suspend fun addMember(@Body request: AddMemberToChannelRequest): BaseResponse
 
     @GET(Endpoints.CHANNEL_GET_MEMBERS)
-    suspend fun getMembers(@Query("channelArn") channelArn: String): BaseDataResponse<List<ChannelMember>>
+    suspend fun getMembers(@Query("channelArn") channelArn: String): BaseDataResponse<List<ContactData>>
 
     @GET(Endpoints.WS_CHANNELS)
     suspend fun getWebSocketLink(): BaseResponse

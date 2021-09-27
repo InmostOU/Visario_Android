@@ -16,8 +16,8 @@ import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCase
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.ui.utils.SingleLiveEvent
+import pro.inmost.android.visario.ui.utils.extensions.toFile
 import pro.inmost.android.visario.ui.utils.extensions.toast
-import java.io.File
 
 class AccountViewModel(
     private val logoutUseCase: LogoutUseCase,
@@ -63,8 +63,7 @@ class AccountViewModel(
 
     fun changePhoto(context: Context, uri: Uri){
         viewModelScope.launch {
-            val file = File(context.filesDir.absolutePath.removeSuffix("files") + uri.path)
-            updateProfileUseCase.uploadImage(file).onFailure {
+            updateProfileUseCase.uploadImage(uri.toFile(context)).onFailure {
                 context.toast(R.string.upload_failed)
             }
         }

@@ -1,7 +1,9 @@
 package pro.inmost.android.visario.ui.screens.channels.messages
 
 import android.Manifest
+import android.app.Activity
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.PopupMenu
 import androidx.navigation.fragment.navArgs
 import com.pawegio.kandroid.toast
@@ -40,31 +42,25 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
             .build(binding.editTextMessage)
     }
 
+    private val fileChooserLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.data?.let { viewModel.attachFile(requireContext(), it) }
+            }
+        }
+
     override fun onCreated() {
         binding.viewModel = viewModel
         binding.messageList.adapter = listAdapter
-        updateTitle(args.channelName)
-        showJoinButton(args.isMember)
-        viewModel.setModerator(args.isModerator)
         observeData()
         observeEvents()
     }
 
-    private fun showJoinButton(show: Boolean) {
-        viewModel.setJoined(show)
-    }
-
-    private fun updateTitle(title: String) {
-        if (title != binding.toolbar.title) {
-            binding.toolbar.title = title
-        }
-    }
-
     private fun observeData() {
-       /* viewModel.observeChannel(args.channelUrl).observe(viewLifecycleOwner){ channel ->
+        viewModel.loadChannel(args.channelUrl).observe(viewLifecycleOwner){ channel ->
             binding.model = channel
+            binding.executePendingBindings()
         }
-*/
         viewModel.observeMessages(args.channelUrl).observe(viewLifecycleOwner) { messages ->
             val needScroll = messages.size > listAdapter.size
             listAdapter.submitList(messages) {
@@ -115,7 +111,7 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
 
     private fun openAttachmentMenu() {
         BottomSheetAttachmentMenu.show(childFragmentManager){ result ->
-            when(result){
+            when(result) {
                 IMAGE -> { selectMedia() }
                 FILE -> { selectFile() }
             }
@@ -123,7 +119,7 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
     }
 
     private fun selectFile() {
-
+        openFileChooser(fileChooserLauncher)
     }
 
     private fun selectMedia() {
@@ -132,7 +128,7 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
             Manifest.permission.CAMERA){ granted ->
             if (granted){
                 ImageSelectorDialog.show(childFragmentManager, true){ uri ->
-                    viewModel.attachImage(uri)
+                    viewModel.attachImage(requireContext(), uri)
                 }
             } else {
                 snackbarWithAction(R.string.permissions_denied, R.string.allow){ selectMedia() }

@@ -7,13 +7,14 @@ import pro.inmost.android.visario.ui.utils.ONE_DAY_IN_MILLIS
 import pro.inmost.android.visario.ui.utils.ONE_WEEK_IN_MILLIS
 
 data class ChannelUI (
-    val url: String,
+    val channelArn: String,
     val name: String,
     val mode: ChannelMode,
     val privacy: ChannelPrivacy,
     val description: String,
     val isMember: Boolean,
     val isModerator: Boolean,
+    val isAdmin: Boolean,
     val membersCount: Int,
     var messages: List<MessageUI> = listOf()
 ): BaseEntity {
@@ -41,5 +42,5 @@ data class ChannelUI (
     val invited = ObservableBoolean(false)
 
     override val baseId: String
-        get() = url
+        get() = channelArn
 }

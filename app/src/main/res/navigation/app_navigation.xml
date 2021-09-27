@@ -41,20 +41,12 @@
         tools:layout="@layout/fragment_messages">
 
         <argument
-            android:name="channelName"
-            app:argType="string" />
-        <argument
             android:name="channelUrl"
             app:argType="string" />
+
         <action
             android:id="@+id/action_navigation_messages_to_navigation_meeting"
             app:destination="@id/navigation_meeting" />
-        <argument
-            android:name="isMember"
-            app:argType="boolean" />
-        <argument
-            android:name="isModerator"
-            app:argType="boolean" />
         <action
             android:id="@+id/action_navigation_messages_to_navigation_channel_info"
             app:destination="@id/navigation_channel_info" />

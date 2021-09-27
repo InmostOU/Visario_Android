@@ -4,25 +4,27 @@ import pro.inmost.android.visario.domain.entities.channel.Channel
 import pro.inmost.android.visario.ui.entities.message.toUIMessages
 
 fun Channel.toUIChannel() = ChannelUI(
-    url = this.url,
+    channelArn = this.url,
     name = this.name,
     mode = ChannelMode.valueOf(this.mode),
     privacy = ChannelPrivacy.valueOf(this.privacy),
     messages = this.messages.toUIMessages(),
     isMember = this.isMember,
     isModerator = this.isModerator,
+    isAdmin = this.isAdmin,
     description = this.description,
     membersCount = this.memberCount
 )
 
 fun ChannelUI.toDomainChannel() = Channel(
-    url = this.url,
+    url = this.channelArn,
     name = this.name,
     mode = this.mode.name,
     privacy = this.privacy.name,
     messages = listOf(),
     isMember = this.isMember,
     isModerator = this.isModerator,
+    isAdmin = this.isAdmin,
     description = this.description,
     memberCount = this.membersCount
 )

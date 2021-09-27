@@ -56,7 +56,11 @@ interface MessagesDao {
 
     @Transaction
     suspend fun upsert(message: MessageData){
-        kotlin.runCatching { updateMessageId(message.metadata, message.messageId) }.onSuccess { result ->
+        kotlin.runCatching {
+            message.attachment?.messageId?.let { oldId ->
+                updateMessageId(oldId, message.messageId)
+            }
+        }.onSuccess { result ->
             if (result == 0){
                 insert(message)
             }

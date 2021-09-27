@@ -34,6 +34,12 @@ data class MessageUI(
     val editedDateFormat: String
         get() = DateFormat.format("hh:mm", lastEditedTimestamp).toString()
 
+    val hasAttachment: Boolean
+        get() = attachment != null && attachment.path.isNotBlank()
+
+    val isImageAttach: Boolean
+        get() = attachment != null && attachment.path.isNotBlank() && attachment.type == AttachmentUI.AttachmentTypeUI.IMAGE
+
     override val baseId: String
         get() = (channelUrl + senderUrl + senderName).hashCode().toString()
 

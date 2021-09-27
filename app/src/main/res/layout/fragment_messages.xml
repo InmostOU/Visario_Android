@@ -32,10 +32,10 @@
             android:onClick="@{() -> viewModel.onChannelClick()}"
             tools:subtitle="@{@plurals/members(model.membersCount, model.membersCount)}"
             tools:title="Channel name"
+            app:title="@{model.name}"
             app:titleTextColor="?attr/colorOnPrimary"
             app:navigationIconTint="?attr/colorOnPrimary"
-            app:visibilityMessagesMenu="@{viewModel.isJoined}"
-            app:selectMenuForModerator="@{viewModel.isModerator}"
+            app:selectChannelMenu="@{model}"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24">
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="8dp"
-                android:visibility="@{viewModel.isJoined ? View.VISIBLE : View.GONE}"
+                android:visibility="@{model.isMember ? View.VISIBLE : View.GONE}"
                 android:background="?attr/colorSurface"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
@@ -114,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="4dp"
                     android:gravity="center_vertical"
                     android:visibility="@{viewModel.attachment == null ? View.GONE : View.VISIBLE}"
                     android:orientation="horizontal">
@@ -246,7 +246,7 @@
                 android:insetBottom="0dp"
                 android:insetTop="0dp"
                 android:onClick="@{(view) -> viewModel.joinChannel(view)}"
-                android:visibility="@{viewModel.isJoined ? View.GONE : View.VISIBLE}"
+                android:visibility="@{model.isMember ? View.GONE : View.VISIBLE}"
                 android:text="@string/join"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

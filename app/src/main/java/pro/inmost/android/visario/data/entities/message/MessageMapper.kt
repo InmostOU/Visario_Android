@@ -1,33 +1,21 @@
 package pro.inmost.android.visario.data.entities.message
 
+import pro.inmost.android.visario.data.api.dto.requests.messages.AttachmentData
 import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads.ChannelMessagePayload
 import pro.inmost.android.visario.data.utils.extensions.isMeetingInvitation
-import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
+import pro.inmost.android.visario.data.utils.extensions.toMimeType
+import pro.inmost.android.visario.domain.entities.message.Attachment
 import pro.inmost.android.visario.domain.entities.message.MessageStatus
+import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
 import pro.inmost.android.visario.ui.utils.DateParser
 
-fun ReceivingMessage.toDataMessage() = MessageData(
-    messageId = this.messageId,
-    content = this.text,
-    createdTimestamp = this.createdTimestamp,
-    lastEditedTimestamp = this.lastEditedTimestamp,
-    redacted = this.redacted,
-    senderName = this.senderName,
-    senderArn = this.senderUrl,
-    type = this.type,
-    fromCurrentUser = this.fromCurrentUser,
-    channelArn = this.channelUrl,
-    readByMe = this.readByMe,
-    status = this.status.name,
-    metadata = this.metadata
-)
 
 fun ChannelMessagePayload.toDataMessage() = MessageData(
     messageId = this.MessageId,
     content = this.Content?.trim() ?: "",
     createdTimestamp = DateParser.parseToMillis(this.CreatedTimestamp),
     lastEditedTimestamp = DateParser.parseToMillis(this.LastUpdatedTimestamp),
-    metadata = this.Metadata ?: "",
+    metadata = Metadata ?: "",
     redacted = this.Redacted,
     senderName = this.Sender.Name,
     senderArn = this.Sender.Arn,
@@ -48,9 +36,19 @@ fun MessageData.toDomainMessage() = ReceivingMessage(
     fromCurrentUser = this.fromCurrentUser,
     readByMe = this.readByMe,
     status = kotlin.runCatching { MessageStatus.valueOf(this.status!!) }.getOrElse { MessageStatus.DELIVERED },
-    metadata = this.metadata,
+    attachment = attachment?.toAttachment(),
     isMeetingInvitation = content?.isMeetingInvitation() ?: false
 )
 
+fun AttachmentData.toAttachment() = Attachment(
+    path = url,
+    type = getFileType(fileType)
+)
+
+private fun getFileType(fileType: String): Attachment.FileType {
+    return kotlin.runCatching {
+        Attachment.FileType.getFromMimeType(fileType.toMimeType()!!)
+    }.getOrElse { Attachment.FileType.OTHER }
+}
+
 fun List<MessageData>.toDomainMessages() = map { it.toDomainMessage() }.sortedByDescending { it.createdTimestamp }
-fun List<ReceivingMessage>.toMessagesData() = map { it.toDataMessage() }

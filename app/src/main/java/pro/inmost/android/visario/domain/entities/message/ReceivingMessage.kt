@@ -12,7 +12,7 @@ data class ReceivingMessage(
     val lastEditedTimestamp: Long = 0,
     val fromCurrentUser: Boolean = false,
     val readByMe: Boolean = false,
-    val metadata: String = "",
+    val attachment: Attachment?,
     val status: MessageStatus = MessageStatus.SENDING,
     val isMeetingInvitation: Boolean
 )

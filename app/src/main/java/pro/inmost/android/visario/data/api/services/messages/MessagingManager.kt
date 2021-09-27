@@ -2,10 +2,18 @@ package pro.inmost.android.visario.data.api.services.messages
 
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import pro.inmost.android.visario.data.api.dto.requests.messages.AttachmentData
 import pro.inmost.android.visario.data.api.dto.requests.messages.EditMessageRequest
 import pro.inmost.android.visario.data.api.dto.requests.messages.SendMessageRequest
 import pro.inmost.android.visario.data.entities.message.MessageData
+import pro.inmost.android.visario.data.utils.extensions.toJson
+import pro.inmost.android.visario.data.utils.extensions.toRequestBody
 import pro.inmost.android.visario.data.utils.logError
+import java.io.File
+
 
 /**
  * Messaging manager
@@ -35,14 +43,26 @@ class MessagingManager(
      *
      * @param data
      */
-    suspend fun sendMessage(data: MessageData) = withContext(IO) {
+    suspend fun sendMessage(data: MessageData, attachment: File? = null) = withContext(IO) {
         kotlin.runCatching {
             val request = SendMessageRequest(
                 channelArn = data.channelArn,
                 content = data.content ?: "",
-                metadata = data.messageId
+                metadata = AttachmentData(data.messageId)
             )
-            service.sendMessage(request).getResult()
+            if (attachment != null){
+                val filePart = MultipartBody.Part.createFormData(
+                    "file",
+                    attachment.name,
+                    attachment.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                )
+
+                val messageBody = request.toJson().toRequestBody()
+
+                service.sendMessageWithAttachment(filePart, messageBody).getResult()
+            } else {
+                service.sendMessage(request).getResult()
+            }
         }.getOrElse {
             logError(it.message ?: "")
             Result.failure(it)

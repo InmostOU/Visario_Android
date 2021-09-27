@@ -1,6 +1,10 @@
 package pro.inmost.android.visario.data.utils.extensions
 
 import android.util.Patterns
+import android.webkit.MimeTypeMap
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import pro.inmost.android.visario.data.api.services.Endpoints
 import java.net.URLEncoder
 
@@ -36,3 +40,10 @@ fun String.urlEncode() = kotlin.runCatching {
  *
  */
 fun String.isMeetingInvitation() = contains(Endpoints.MEETING_GET)
+
+
+fun String.toMimeType() = MimeTypeMap.getSingleton().getMimeTypeFromExtension(this)
+
+fun String.toRequestBody(): RequestBody {
+    return toRequestBody("text/plain".toMediaTypeOrNull())
+}

@@ -1,7 +1,6 @@
 package pro.inmost.android.visario.data.entities.channel
 
 import pro.inmost.android.visario.data.entities.message.toDomainMessages
-import pro.inmost.android.visario.data.entities.message.toMessagesData
 import pro.inmost.android.visario.domain.entities.channel.Channel
 import pro.inmost.android.visario.domain.entities.contact.Contact
 import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
@@ -12,20 +11,14 @@ fun ChannelData.toDomainChannel(messages: List<ReceivingMessage>) = Channel(
     mode = mode,
     privacy = privacy,
     isMember = isMember,
+    isAdmin = isAdmin,
     isModerator = isModerator,
     description = description ?: "",
     memberCount = membersCount,
     messages = messages
 )
 
-fun Channel.toChannelWithMessages(): ChannelWithMessages? {
-    return kotlin.runCatching {
-        ChannelWithMessages (
-            channel = this.toDataChannel(),
-            messages = this.messages.toMessagesData()
-        )
-    }.getOrNull()
-}
+fun ChannelData.toDomainChannelWithoutMessages() = toDomainChannel(listOf())
 
 fun Channel.toDataChannel(): ChannelData {
     return ChannelData(
@@ -36,6 +29,7 @@ fun Channel.toDataChannel(): ChannelData {
         metadata = "",
         isMember = this.isMember,
         isModerator = this.isModerator,
+        isAdmin = this.isAdmin,
         description = this.description,
         membersCount = this.memberCount
     )
@@ -48,6 +42,7 @@ fun ChannelWithMessages.toDomainChannel() = Channel(
     privacy = channel.privacy,
     messages = messages.toDomainMessages(),
     isMember = channel.isMember,
+    isAdmin = channel.isAdmin,
     isModerator = channel.isModerator,
     description = channel.description ?: "",
     memberCount = channel.membersCount
@@ -66,6 +61,5 @@ fun ChannelMember.toDomainContact() = Contact(
 )
 
 fun List<ChannelWithMessages>.toDomainChannels() = mapNotNull { it.toDomainChannel() }
-fun List<Channel>.toChannelsWithMessages() = mapNotNull { it.toChannelWithMessages() }
 fun List<ChannelData>.toDomainChannelsWithoutMessages() = mapNotNull { it.toDomainChannel(listOf()) }
 fun List<ChannelMember>.toDomainContacts() = mapNotNull { it.toDomainContact() }

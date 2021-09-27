@@ -31,13 +31,14 @@ class CreateChannelViewModel(
 
     fun createChannel(){
         val channel = ChannelUI(
-            url = "",
+            channelArn = "",
             name = name.value ?: "",
             mode = if (public.value == true || restricted.value == true) ChannelMode.RESTRICTED else ChannelMode.UNRESTRICTED,
             privacy = if (public.value == true) ChannelPrivacy.PUBLIC else ChannelPrivacy.PRIVATE,
             description = description.value ?: "",
             isMember = true,
             isModerator = true,
+            isAdmin = true,
             membersCount = 1
         )
         viewModelScope.launch {

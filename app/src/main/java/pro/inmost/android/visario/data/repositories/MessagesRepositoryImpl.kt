@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
+import pro.inmost.android.visario.data.api.dto.requests.messages.AttachmentData
 import pro.inmost.android.visario.data.api.dto.requests.messages.EditMessageRequest
 import pro.inmost.android.visario.data.database.dao.MessagesDao
 import pro.inmost.android.visario.data.entities.message.MessageData
@@ -13,10 +14,12 @@ import pro.inmost.android.visario.data.entities.message.MessageDataStatus
 import pro.inmost.android.visario.data.entities.message.toDomainMessages
 import pro.inmost.android.visario.data.entities.profile.toDataProfile
 import pro.inmost.android.visario.data.utils.extensions.launchIO
+import pro.inmost.android.visario.data.utils.extensions.toJson
 import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
 import pro.inmost.android.visario.domain.entities.message.SendingMessage
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
 import pro.inmost.android.visario.domain.repositories.ProfileRepository
+import java.io.File
 import java.util.*
 
 class MessagesRepositoryImpl(
@@ -33,29 +36,33 @@ class MessagesRepositoryImpl(
     override suspend fun sendMessage(message: SendingMessage) = withContext(IO) {
         val data = createMessage(message)
         dao.insert(data)
-        send(data)
+        val file = if (message.attachment != null){
+            File(message.attachment.path)
+        } else null
+        send(data, file)
     }
 
-    override suspend fun resendMessage(messageId: String): Result<Unit> = withContext(IO){
+    override suspend fun resendMessage(messageId: String): Result<Unit> = withContext(IO) {
         dao.updateSendingStatus(messageId, MessageDataStatus.SENDING)
         val message = dao.get(messageId)
         if (message != null) send(message)
         else Result.failure(Throwable("Resend message error"))
     }
 
-    private suspend fun send(message: MessageData) = api.messages.sendMessage(message).onSuccess {
-        message.status = MessageDataStatus.DELIVERED
-        dao.update(message)
-    }.onFailure {
-        message.status = MessageDataStatus.FAIL
-        dao.update(message)
-    }
+    private suspend fun send(message: MessageData, attachment: File? = null) =
+        api.messages.sendMessage(message, attachment).onSuccess {
+            message.status = MessageDataStatus.DELIVERED
+            dao.update(message)
+        }.onFailure {
+            message.status = MessageDataStatus.FAIL
+            dao.update(message)
+        }
 
     override suspend fun edit(
         messageId: String,
         content: String,
         channelArn: String
-    ): Result<Unit> = withContext(IO){
+    ): Result<Unit> = withContext(IO) {
         val request = EditMessageRequest(
             channelArn = channelArn,
             content = content,
@@ -69,7 +76,7 @@ class MessagesRepositoryImpl(
     }
 
     override suspend fun deleteLocal(messageId: String) = withContext(IO) {
-       dao.deleteById(messageId)
+        dao.deleteById(messageId)
     }
 
     private suspend fun createMessage(message: SendingMessage): MessageData {
@@ -84,7 +91,12 @@ class MessagesRepositoryImpl(
             fromCurrentUser = true,
             readByMe = true,
             status = MessageDataStatus.SENDING
-        ).also { it.metadata = it.messageId }
+        ).also {
+            it.metadata = AttachmentData(
+                messageId = it.messageId,
+                url = message.attachment?.path ?: ""
+            ).toJson()
+        }
     }
 
     override suspend fun refreshData(channelArn: String): Unit = withContext(IO) {
@@ -95,9 +107,9 @@ class MessagesRepositoryImpl(
 
     private suspend fun updateDatabase(messages: List<MessageData>) {
         messages.forEach {
-            val localMsg = dao.get(it.messageId) ?: dao.get(it.metadata)
+            val localMsg = dao.get(it.messageId) ?: dao.get(it.attachment?.messageId ?: "")
             if (localMsg != null) {
-                if (localMsg.messageId != it.messageId){
+                if (localMsg.messageId != it.messageId) {
                     dao.updateMessageId(localMsg.messageId, it.messageId)
                 }
                 it.readByMe = localMsg.readByMe
@@ -114,11 +126,12 @@ class MessagesRepositoryImpl(
         dao.markAllMessagesAsRead(channelArn)
     }
 
-    override suspend fun updateReadStatusForAll(channelArn: String, read: Boolean) = withContext(IO)  {
-        dao.updateReadStatusForAll(channelArn, read)
-    }
+    override suspend fun updateReadStatusForAll(channelArn: String, read: Boolean) =
+        withContext(IO) {
+            dao.updateReadStatusForAll(channelArn, read)
+        }
 
-    override suspend fun updateReadStatus(messageId: String, read: Boolean) = withContext(IO)  {
+    override suspend fun updateReadStatus(messageId: String, read: Boolean) = withContext(IO) {
         dao.updateReadStatus(messageId, read)
     }
 }
