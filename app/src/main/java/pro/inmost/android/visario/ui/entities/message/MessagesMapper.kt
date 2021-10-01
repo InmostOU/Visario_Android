@@ -4,8 +4,8 @@ import pro.inmost.android.visario.domain.entities.message.Attachment
 import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
 
 fun ReceivingMessage.toUIMessage() = MessageUI(
-    id = localId,
-    awsId = this.messageId,
+    id = id,
+    awsId = this.awsId,
     text = this.text,
     channelUrl = this.channelUrl,
     senderUrl = this.senderUrl,

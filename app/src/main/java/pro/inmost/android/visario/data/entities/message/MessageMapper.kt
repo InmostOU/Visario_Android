@@ -24,8 +24,8 @@ fun ChannelMessagePayload.toDataMessage() = MessageData(
 )
 
 fun MessageData.toDomainMessage() = ReceivingMessage(
-    localId = id,
-    messageId = this.awsId,
+    id = id,
+    awsId = this.awsId,
     text = this.content ?: "",
     channelUrl = this.channelArn,
     senderUrl = this.senderArn,

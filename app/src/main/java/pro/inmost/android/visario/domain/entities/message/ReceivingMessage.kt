@@ -1,8 +1,8 @@
 package pro.inmost.android.visario.domain.entities.message
 
 data class ReceivingMessage(
-    val localId: Long,
-    val messageId: String,
+    val id: Long,
+    val awsId: String,
     val text: String,
     val channelUrl: String,
     val senderUrl: String,
