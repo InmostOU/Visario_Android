@@ -1,7 +1,6 @@
 package pro.inmost.android.visario.domain.usecases.contacts.impl
 
 import kotlinx.coroutines.flow.Flow
-import pro.inmost.android.visario.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.contact.Contact
 import pro.inmost.android.visario.domain.repositories.ContactsRepository
 import pro.inmost.android.visario.domain.usecases.contacts.FetchContactsUseCase
@@ -17,7 +16,6 @@ class FetchContactsUseCaseImpl(private val repository: ContactsRepository) : Fet
     }
 
     override fun observe(): Flow<List<Contact>> {
-        launchIO { repository.refreshData() }
         return repository.observeContacts()
     }
 }

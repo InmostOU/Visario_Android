@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.usecases.channels.AddMemberToChannelUseCase
@@ -24,9 +25,8 @@ class ChannelInviterViewModel(
     private val contacts = mutableListOf<ContactUI>()
 
     fun loadContacts() = fetchContactsUseCase.observe()
-        .map {
-            contacts.replaceAll(it.toUIContacts())
-        }
+        .map { it.toUIContacts() }
+        .onEach { contacts.replaceAll(it) }
         .asLiveData()
 
     fun inviteContact(contact: ContactUI){

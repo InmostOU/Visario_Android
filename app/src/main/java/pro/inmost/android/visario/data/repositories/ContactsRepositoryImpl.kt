@@ -10,9 +10,10 @@ import pro.inmost.android.visario.data.database.dao.ContactsDao
 import pro.inmost.android.visario.data.entities.contact.toDataContact
 import pro.inmost.android.visario.data.entities.contact.toDomainContact
 import pro.inmost.android.visario.data.entities.contact.toDomainContacts
-import pro.inmost.android.visario.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.contact.Contact
 import pro.inmost.android.visario.domain.repositories.ContactsRepository
+import pro.inmost.android.visario.utils.extensions.launchIO
+import pro.inmost.android.visario.utils.log
 
 class ContactsRepositoryImpl(
     private val api: ChimeApi,
@@ -48,8 +49,12 @@ class ContactsRepositoryImpl(
     }
 
     override suspend fun refreshData(): Unit = withContext(IO) {
-        api.contacts.getContacts().onSuccess {
-            dao.fullUpdate(it)
+        api.contacts.getContacts().onSuccess { contacts ->
+         //   dao.fullUpdate(it)
+            contacts.forEach {
+                log(it.toString())
+                dao.insert(it)
+            }
         }
     }
 
