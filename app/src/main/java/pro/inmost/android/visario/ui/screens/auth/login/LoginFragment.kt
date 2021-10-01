@@ -7,8 +7,8 @@ import pro.inmost.android.visario.databinding.FragmentLoginBinding
 import pro.inmost.android.visario.ui.activities.MainActivity
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
-import pro.inmost.android.visario.ui.utils.extensions.navigate
-import pro.inmost.android.visario.ui.utils.extensions.snackbar
+import pro.inmost.android.visario.utils.extensions.navigate
+import pro.inmost.android.visario.utils.extensions.snackbar
 
 
 /**

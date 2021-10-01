@@ -136,7 +136,7 @@
                         android:textSize="16sp"
                         android:textColor="?android:attr/textColorPrimary"
                         android:layout_marginStart="16dp"
-                        android:text="@string/attachment"/>
+                        android:text="@string/attachment_with_dots"/>
 
                     <ImageView
                         android:layout_width="24dp"

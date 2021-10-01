@@ -10,8 +10,8 @@ import pro.inmost.android.visario.data.api.dto.requests.messages.EditMessageRequ
 import pro.inmost.android.visario.data.api.dto.requests.messages.SendMessageRequest
 import pro.inmost.android.visario.data.entities.message.MessageData
 import pro.inmost.android.visario.data.utils.extensions.toJson
-import pro.inmost.android.visario.data.utils.extensions.toRequestBody
-import pro.inmost.android.visario.data.utils.logError
+import pro.inmost.android.visario.utils.extensions.toRequestBody
+import pro.inmost.android.visario.utils.logError
 import java.io.File
 
 
@@ -48,7 +48,7 @@ class MessagingManager(
             val request = SendMessageRequest(
                 channelArn = data.channelArn,
                 content = data.content ?: "",
-                metadata = AttachmentData(data.messageId)
+                metadata = AttachmentData(data.awsId)
             )
             if (attachment != null){
                 val filePart = MultipartBody.Part.createFormData(

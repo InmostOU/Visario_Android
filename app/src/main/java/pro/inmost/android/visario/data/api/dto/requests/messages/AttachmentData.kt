@@ -4,5 +4,5 @@ data class AttachmentData(
     val messageId: String,
     val fileName: String = "",
     val fileType: String = "",
-    var url: String = ""
+    var url: String? = ""
 )

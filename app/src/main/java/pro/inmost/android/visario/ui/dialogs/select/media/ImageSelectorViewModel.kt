@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
-import pro.inmost.android.visario.ui.utils.FileScanner
 import pro.inmost.android.visario.ui.utils.FilesManager
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.FileScanner
+import pro.inmost.android.visario.utils.SingleLiveEvent
 
 class ImageSelectorViewModel : ViewModel() {
     private var selectedImage: Uri? = null
@@ -36,7 +36,6 @@ class ImageSelectorViewModel : ViewModel() {
                     || it.mimeType.contains("jpg", true)
                     || it.mimeType.contains("jpeg", true)
             }.map { it.uri }
-
     }
 
     fun capturePhoto(context: Context, launcher: ActivityResultLauncher<Uri>) {

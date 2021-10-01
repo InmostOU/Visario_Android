@@ -6,8 +6,7 @@ import pro.inmost.android.visario.data.api.ChimeApi.Companion.STATUS_OK
 import pro.inmost.android.visario.data.api.dto.requests.channels.AddMemberToChannelRequest
 import pro.inmost.android.visario.data.api.dto.requests.channels.CreateChannelRequest
 import pro.inmost.android.visario.data.entities.channel.ChannelData
-import pro.inmost.android.visario.data.utils.logError
-import pro.inmost.android.visario.ui.utils.log
+import pro.inmost.android.visario.utils.logError
 
 /**
  * Channel manager for interaction with the channels
@@ -17,12 +16,12 @@ import pro.inmost.android.visario.ui.utils.log
  */
 class ChannelManager(private val service: ChannelsService) {
 
-
     /**
      * Get list of [ChannelData] the user is a member of
      *
      *  @return [Result] that encapsulates list of [ChannelData]
      * or a failure with an arbitrary [Throwable] exception.
+     *
      */
     suspend fun getChannels() = withContext(IO){
         kotlin.runCatching {
@@ -42,7 +41,6 @@ class ChannelManager(private val service: ChannelsService) {
     suspend fun getChannel(channelArn: String) = withContext(IO){
         kotlin.runCatching {
             val response = service.getChannel(channelArn)
-            log("getChannel: $response")
             Result.success(response.data)
         }.getOrElse {
             logError(it.message ?: "")

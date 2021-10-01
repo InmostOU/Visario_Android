@@ -21,7 +21,7 @@ import pro.inmost.android.visario.ui.entities.message.MessageUI
 import pro.inmost.android.visario.ui.entities.message.MessageUIStatus
 import pro.inmost.android.visario.ui.screens.channels.messages.BottomSheetAttachmentMenu.MenuItem.FILE
 import pro.inmost.android.visario.ui.screens.channels.messages.BottomSheetAttachmentMenu.MenuItem.IMAGE
-import pro.inmost.android.visario.ui.utils.extensions.*
+import pro.inmost.android.visario.utils.extensions.*
 
 
 /**
@@ -127,7 +127,7 @@ class MessagesFragment : BaseFragment<FragmentMessagesBinding>(R.layout.fragment
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA){ granted ->
             if (granted){
-                ImageSelectorDialog.show(childFragmentManager, true){ uri ->
+                ImageSelectorDialog.show(childFragmentManager, false){ uri ->
                     viewModel.attachImage(requireContext(), uri)
                 }
             } else {

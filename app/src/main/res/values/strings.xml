@@ -171,9 +171,12 @@
     <string name="media">Media</string>
     <string name="file">File</string>
     <string name="image">Image</string>
-    <string name="attachment">Attachment:</string>
+    <string name="attachment_with_dots">Attachment:</string>
+    <string name="attachment">Attachment</string>
     <string name="choose_file">Choose a file</string>
     <string name="send_email">Send email...</string>
+    <string name="attached_image">Attached image</string>
+    <string name="downloading">Downloading...</string>
 
     <plurals name="members">
         <item quantity="zero">%d member</item>

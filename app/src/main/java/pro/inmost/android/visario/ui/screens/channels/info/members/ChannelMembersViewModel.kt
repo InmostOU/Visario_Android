@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 import pro.inmost.android.visario.domain.usecases.channels.FetchChannelMembersUseCase
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 import pro.inmost.android.visario.ui.entities.contact.toUIContacts
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.extensions.replaceAll
+import pro.inmost.android.visario.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.extensions.replaceAll
 
 class ChannelMembersViewModel(
     private val fetchChannelMembersUseCase: FetchChannelMembersUseCase

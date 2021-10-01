@@ -4,10 +4,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentMeetingJoinBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
-import pro.inmost.android.visario.ui.utils.extensions.navigate
-import pro.inmost.android.visario.ui.utils.extensions.navigateBack
-import pro.inmost.android.visario.ui.utils.extensions.toast
-import pro.inmost.android.visario.ui.utils.showKeyboard
+import pro.inmost.android.visario.utils.extensions.navigate
+import pro.inmost.android.visario.utils.extensions.navigateBack
+import pro.inmost.android.visario.utils.extensions.toast
+import pro.inmost.android.visario.utils.showKeyboard
 
 
 /**

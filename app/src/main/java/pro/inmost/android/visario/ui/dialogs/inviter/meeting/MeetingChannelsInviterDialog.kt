@@ -8,7 +8,7 @@ import pro.inmost.android.visario.databinding.SelectListItemChannelBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseBottomSheet
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
-import pro.inmost.android.visario.ui.utils.extensions.snackbar
+import pro.inmost.android.visario.utils.extensions.snackbar
 
 
 /**

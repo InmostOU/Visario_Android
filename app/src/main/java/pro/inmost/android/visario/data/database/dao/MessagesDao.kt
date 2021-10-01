@@ -3,6 +3,7 @@ package pro.inmost.android.visario.data.database.dao
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import pro.inmost.android.visario.data.entities.message.MessageData
+import pro.inmost.android.visario.data.entities.message.MessageDataStatus
 
 @Dao
 interface MessagesDao {
@@ -13,14 +14,17 @@ interface MessagesDao {
     @Delete
     suspend fun delete(vararg item: MessageData)
 
-    @Query("DELETE FROM messages WHERE messageId =:messageId")
+    @Query("DELETE FROM messages WHERE awsId =:messageId")
     suspend fun deleteById(messageId: String)
 
     @Query("SELECT * FROM messages")
     suspend fun getAll(): List<MessageData>
 
-    @Query("SELECT * FROM messages WHERE messageId =:id")
-    suspend fun get(id: String): MessageData?
+    @Query("SELECT * FROM messages WHERE awsId =:awsId")
+    suspend fun getByAwsId(awsId: String): MessageData?
+
+    @Query("SELECT * FROM messages WHERE id =:id")
+    suspend fun getById(id: Long): MessageData?
 
     @Query("SELECT * FROM messages WHERE metadata =:meta")
     suspend fun getByMetadata(meta: String): MessageData?
@@ -34,7 +38,7 @@ interface MessagesDao {
     @Query("UPDATE messages SET readByMe = 1 WHERE channelArn = :channelArn")
     suspend fun markAllMessagesAsRead(channelArn: String)
 
-    @Query("SELECT EXISTS(SELECT * FROM messages WHERE messageId = :id)")
+    @Query("SELECT EXISTS(SELECT * FROM messages WHERE awsId = :id)")
     suspend fun isRowExist(id: String) : Boolean
 
     @Query("DELETE FROM messages")
@@ -51,33 +55,44 @@ interface MessagesDao {
         insert(*items.toTypedArray())
     }
 
-    @Query("UPDATE messages SET messageId =:newId, status = 'DELIVERED' WHERE messageId =:oldId")
-    suspend fun updateMessageId(oldId: String, newId: String): Int
+    @Query("UPDATE messages SET awsId =:newId WHERE awsId =:oldId")
+    suspend fun updateAwsId(oldId: String, newId: String): Int
 
     @Transaction
     suspend fun upsert(message: MessageData){
         kotlin.runCatching {
             message.attachment?.messageId?.let { oldId ->
-                updateMessageId(oldId, message.messageId)
+                updateAwsId(oldId, message.awsId)
             }
         }.onSuccess { result ->
             if (result == 0){
+                message.readByMe = true
                 insert(message)
+            } else {
+                getByAwsId(message.awsId)?.let {
+                    message.id = it.id
+                    message.readByMe = true
+                    message.status = MessageDataStatus.DELIVERED
+                    update(message)
+                }
             }
         }.onFailure {
             update(message)
         }
     }
 
-    @Query("UPDATE messages SET status =:status WHERE messageId =:messageId")
-    suspend fun updateSendingStatus(messageId: String, status: String)
+    @Query("UPDATE messages SET metadata =:metadata WHERE awsId = :awsId")
+    suspend fun updateMetadata(metadata: String, awsId: String)
+
+    @Query("UPDATE messages SET status =:status WHERE awsId = :awsId")
+    suspend fun updateSendingStatus(awsId: String, status: String)
 
     @Query("UPDATE messages SET readByMe =:read WHERE channelArn =:channelArn")
     suspend fun updateReadStatusForAll(channelArn: String, read: Boolean)
 
-    @Query("UPDATE messages SET readByMe =:read WHERE messageId =:messageId")
-    suspend fun updateReadStatus(messageId: String, read: Boolean)
+    @Query("UPDATE messages SET readByMe =:read WHERE awsId = :awsId")
+    suspend fun updateReadStatus(awsId: String, read: Boolean)
 
-    @Query("UPDATE messages SET content =:content, lastEditedTimestamp =:editedTimestamp WHERE messageId =:messageId")
-    suspend fun updateContent(messageId: String, content: String, editedTimestamp: Long)
+    @Query("UPDATE messages SET content =:content, lastEditedTimestamp =:editedTimestamp WHERE awsId = :awsId")
+    suspend fun updateContent(awsId: String, content: String, editedTimestamp: Long)
 }

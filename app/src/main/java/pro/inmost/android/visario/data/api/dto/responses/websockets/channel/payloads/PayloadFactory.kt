@@ -2,7 +2,6 @@ package pro.inmost.android.visario.data.api.dto.responses.websockets.channel.pay
 
 import com.google.gson.Gson
 import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.ChannelWebSocketMessage
-import pro.inmost.android.visario.data.entities.channel.ChannelData
 import pro.inmost.android.visario.data.entities.message.MessageData
 import pro.inmost.android.visario.data.entities.message.toDataMessage
 
@@ -28,8 +27,8 @@ object PayloadFactory {
         }.getOrNull()
     }
 
-    fun getChannelMember(json: String): ChannelData? {
-        val response = gson.fromJson(json, ChannelMembershipPayload::class.java)
-        return null
+    fun getChannelArnMembership(json: String): ChannelMembershipPayload {
+        val response = gson.fromJson(json, ChannelWebSocketMessage::class.java)
+        return gson.fromJson(response.payload, ChannelMembershipPayload::class.java)
     }
 }

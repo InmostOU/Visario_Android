@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.data.utils.extensions
+package pro.inmost.android.visario.utils.extensions
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

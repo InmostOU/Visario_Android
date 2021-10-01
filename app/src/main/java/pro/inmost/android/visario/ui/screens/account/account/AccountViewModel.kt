@@ -15,9 +15,9 @@ import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
 import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCase
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.extensions.toFile
-import pro.inmost.android.visario.ui.utils.extensions.toast
+import pro.inmost.android.visario.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.extensions.toFile
+import pro.inmost.android.visario.utils.extensions.toast
 
 class AccountViewModel(
     private val logoutUseCase: LogoutUseCase,

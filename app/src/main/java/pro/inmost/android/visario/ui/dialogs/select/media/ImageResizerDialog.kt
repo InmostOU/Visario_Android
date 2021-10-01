@@ -18,8 +18,8 @@ import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentImageResizerBinding
 import pro.inmost.android.visario.ui.utils.FilesManager
-import pro.inmost.android.visario.ui.utils.extensions.biggerThan
-import pro.inmost.android.visario.ui.utils.extensions.getUri
+import pro.inmost.android.visario.utils.extensions.biggerThan
+import pro.inmost.android.visario.utils.extensions.getUri
 import java.io.File
 
 

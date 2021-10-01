@@ -13,12 +13,12 @@ import pro.inmost.android.visario.data.entities.message.MessageData
 import pro.inmost.android.visario.data.entities.message.MessageDataStatus
 import pro.inmost.android.visario.data.entities.message.toDomainMessages
 import pro.inmost.android.visario.data.entities.profile.toDataProfile
-import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.data.utils.extensions.toJson
 import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
 import pro.inmost.android.visario.domain.entities.message.SendingMessage
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
 import pro.inmost.android.visario.domain.repositories.ProfileRepository
+import pro.inmost.android.visario.utils.extensions.launchIO
 import java.io.File
 import java.util.*
 
@@ -44,7 +44,7 @@ class MessagesRepositoryImpl(
 
     override suspend fun resendMessage(messageId: String): Result<Unit> = withContext(IO) {
         dao.updateSendingStatus(messageId, MessageDataStatus.SENDING)
-        val message = dao.get(messageId)
+        val message = dao.getByAwsId(messageId)
         if (message != null) send(message)
         else Result.failure(Throwable("Resend message error"))
     }
@@ -82,7 +82,7 @@ class MessagesRepositoryImpl(
     private suspend fun createMessage(message: SendingMessage): MessageData {
         val profile = profileRepository.observeProfile().firstOrNull()?.toDataProfile()
         return MessageData(
-            messageId = UUID.randomUUID().toString(),
+            awsId = UUID.randomUUID().toString(),
             content = message.content,
             channelArn = message.channelArn,
             senderArn = profile?.userArn ?: "",
@@ -93,8 +93,10 @@ class MessagesRepositoryImpl(
             status = MessageDataStatus.SENDING
         ).also {
             it.metadata = AttachmentData(
-                messageId = it.messageId,
-                url = message.attachment?.path ?: ""
+                messageId = it.awsId,
+                url = message.attachment?.path ?: "",
+                fileName = message.attachment?.name ?: "",
+                fileType = message.attachment?.extension ?: ""
             ).toJson()
         }
     }
@@ -107,18 +109,19 @@ class MessagesRepositoryImpl(
 
     private suspend fun updateDatabase(messages: List<MessageData>) {
         messages.forEach {
-            val localMsg = dao.get(it.messageId) ?: dao.get(it.attachment?.messageId ?: "")
+            /*val localMsg = dao.getByAwsId(it.awsId) ?: dao.getByAwsId(it.attachment?.messageId ?: "")
             if (localMsg != null) {
-                if (localMsg.messageId != it.messageId) {
-                    dao.updateMessageId(localMsg.messageId, it.messageId)
+                if (localMsg.awsId != it.awsId) {
+                    dao.updateAwsId(localMsg.awsId, it.awsId)
                 }
                 it.readByMe = localMsg.readByMe
                 it.status = MessageDataStatus.DELIVERED
-                dao.update(it)
+                dao.upsert(it)
             } else {
                 it.readByMe = true
                 dao.insert(it)
-            }
+            }*/
+            dao.upsert(it)
         }
     }
 

@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.utils.extensions
+package pro.inmost.android.visario.utils.extensions
 
 import android.content.Context
 import android.content.res.Configuration
@@ -19,6 +19,7 @@ fun Context.toast(msg: String) {
 fun Context.toast(textResId: Int) {
     Toast.makeText(this, getString(textResId), Toast.LENGTH_SHORT).show()
 }
+
 
 val Context.statusBarHeight: Int
     get() {

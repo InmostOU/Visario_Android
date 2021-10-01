@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.data.utils.extensions.isMeetingInvitation
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.extensions.isValidUrl
-import pro.inmost.android.visario.ui.utils.extensions.meetingId
+import pro.inmost.android.visario.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.extensions.isMeetingInvitation
+import pro.inmost.android.visario.utils.extensions.isValidUrl
+import pro.inmost.android.visario.utils.extensions.meetingId
 
 class JoinMeetingViewModel: ViewModel() {
     private val _joinMeeting = SingleLiveEvent<String>()

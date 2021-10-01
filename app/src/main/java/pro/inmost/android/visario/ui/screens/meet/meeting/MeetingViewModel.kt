@@ -27,8 +27,8 @@ import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
 import pro.inmost.android.visario.ui.entities.meeting.AttendeeUI
 import pro.inmost.android.visario.ui.entities.meeting.toAttendeeUI
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.log
+import pro.inmost.android.visario.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.log
 import kotlin.random.Random
 
 class MeetingViewModel(

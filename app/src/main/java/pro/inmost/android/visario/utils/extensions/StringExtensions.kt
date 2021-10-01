@@ -1,13 +1,19 @@
-package pro.inmost.android.visario.data.utils.extensions
+package pro.inmost.android.visario.utils.extensions
 
 import android.util.Patterns
 import android.webkit.MimeTypeMap
+import android.webkit.URLUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import pro.inmost.android.visario.data.api.services.Endpoints
 import java.net.URLEncoder
 
+fun String.isValidUrl() =  URLUtil.isValidUrl(this)
+
+val String.meetingId get() = kotlin.runCatching {
+    if (isMeetingInvitation()) substringAfter('=') else null
+}.getOrNull()
 
 /**
  * Check if a string is a valid email address

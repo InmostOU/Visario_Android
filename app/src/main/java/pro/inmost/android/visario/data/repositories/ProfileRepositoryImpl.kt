@@ -8,7 +8,7 @@ import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.database.dao.ProfileDao
 import pro.inmost.android.visario.data.entities.profile.toDataProfile
 import pro.inmost.android.visario.data.entities.profile.toDomainProfile
-import pro.inmost.android.visario.data.utils.extensions.launchIO
+import pro.inmost.android.visario.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.user.Profile
 import pro.inmost.android.visario.domain.repositories.ProfileRepository
 import java.io.File

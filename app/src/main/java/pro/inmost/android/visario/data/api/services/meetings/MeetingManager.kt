@@ -9,9 +9,8 @@ import pro.inmost.android.visario.data.api.dto.responses.meeting.AttendeeInfoRes
 import pro.inmost.android.visario.data.api.dto.responses.meeting.GetMeetingResponse
 import pro.inmost.android.visario.data.api.services.Endpoints
 import pro.inmost.android.visario.data.entities.meeting.AttendeeData
-import pro.inmost.android.visario.data.utils.logError
-import pro.inmost.android.visario.data.utils.logInfo
-import pro.inmost.android.visario.ui.utils.log
+import pro.inmost.android.visario.utils.log
+import pro.inmost.android.visario.utils.logError
 
 /**
  * Meeting manager
@@ -48,7 +47,7 @@ class MeetingManager(private val service: MeetingService) {
             kotlin.runCatching {
                 val request = CreateAttendeeRequest(meetingId, userId)
                 val response = service.createAttendee(request)
-                logInfo("Create attendee response: $response")
+                log("Create attendee response: $response")
                 Result.success(response)
             }.getOrElse {
                 logError("Create attendee error: ${it.message}")
@@ -66,7 +65,7 @@ class MeetingManager(private val service: MeetingService) {
         kotlin.runCatching {
             val request = DeleteAttendeeRequest(meetingId, userId.toString())
             val response = service.deleteAttendee(request)
-            logInfo("Delete attendee response: $response")
+            log("Delete attendee response: $response")
             Result.success(Unit)
         }.getOrElse {
             logError("Delete attendee error: ${it.message}")

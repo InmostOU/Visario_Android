@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.DatePicker
 import com.google.android.material.textfield.TextInputEditText
-import pro.inmost.android.visario.ui.utils.DateParser
+import pro.inmost.android.visario.utils.DateParser
 import java.util.*
 
 

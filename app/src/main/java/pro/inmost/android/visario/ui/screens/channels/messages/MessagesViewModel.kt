@@ -23,16 +23,18 @@ import pro.inmost.android.visario.ui.base.BaseViewModel
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
 import pro.inmost.android.visario.ui.entities.channel.toUIChannel
 import pro.inmost.android.visario.ui.entities.message.AttachmentUI
-import pro.inmost.android.visario.ui.entities.message.AttachmentUI.AttachmentTypeUI.IMAGE
-import pro.inmost.android.visario.ui.entities.message.AttachmentUI.AttachmentTypeUI.OTHER
+import pro.inmost.android.visario.ui.entities.message.AttachmentUI.FileType.IMAGE
+import pro.inmost.android.visario.ui.entities.message.AttachmentUI.FileType.OTHER
 import pro.inmost.android.visario.ui.entities.message.MessageUI
 import pro.inmost.android.visario.ui.entities.message.toDomainAttachment
 import pro.inmost.android.visario.ui.entities.message.toUIMessages
 import pro.inmost.android.visario.ui.entities.profile.ProfileUI
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.extensions.meetingId
-import pro.inmost.android.visario.ui.utils.extensions.toAbsolutePath
+import pro.inmost.android.visario.ui.utils.FilesManager
+import pro.inmost.android.visario.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.extensions.meetingId
+import pro.inmost.android.visario.utils.extensions.toAbsolutePath
+import java.io.File
 
 class MessagesViewModel(
     private val fetchMessagesUseCase: FetchMessagesUseCase,
@@ -152,7 +154,7 @@ class MessagesViewModel(
 
     fun resendMessage(message: MessageUI) {
         viewModelScope.launch {
-            sendMessageUseCase.resend(message.messageId)
+            sendMessageUseCase.resend(message.awsId)
         }
     }
 
@@ -195,13 +197,13 @@ class MessagesViewModel(
 
     fun deleteLocalMessage(message: MessageUI) {
         viewModelScope.launch {
-            deleteMessageUseCase.deleteLocal(message.messageId)
+            deleteMessageUseCase.deleteLocal(message.awsId)
         }
     }
 
     fun deleteMessage(message: MessageUI) {
         viewModelScope.launch {
-            deleteMessageUseCase.delete(message.messageId)
+            deleteMessageUseCase.delete(message.awsId)
         }
     }
 
@@ -211,7 +213,7 @@ class MessagesViewModel(
         viewModelScope.launch {
             if (messageForEdit != null && message.value != null) {
                 editMessageUseCase.edit(
-                    messageId = messageForEdit!!.messageId,
+                    messageId = messageForEdit!!.awsId,
                     content = message.value!!,
                     channelArn = currentChannelArn
                 ).onSuccess {
@@ -267,7 +269,14 @@ class MessagesViewModel(
     }
 
     fun attachImage(context: Context, uri: Uri) {
-        attachment.value = AttachmentUI(uri.toAbsolutePath(context), IMAGE)
+        val path = uri.toAbsolutePath(context)
+        val extension = path.substringAfterLast(".", "")
+        attachment.value = AttachmentUI(
+            path = path,
+            name = File(path).name,
+            type = IMAGE,
+            extension = extension
+        )
     }
 
     fun detachFile() {
@@ -275,7 +284,29 @@ class MessagesViewModel(
     }
 
     fun attachFile(context: Context, uri: Uri) {
-        attachment.value = AttachmentUI(uri.toAbsolutePath(context), OTHER)
+        FilesManager.saveToCache(context, uri)?.let { path ->
+            val extension = path.substringAfterLast(".", "")
+            attachment.value = AttachmentUI(
+                path = path,
+                name = File(path).name,
+                type = OTHER,
+                extension = extension
+            )
+        }
+
+    }
+
+    fun downloadAttachment(context: Context, message: MessageUI) {
+        viewModelScope.launch {
+            message.attachment?.let { attachment ->
+                FilesManager.saveInDownloads(
+                    context,
+                    attachment.path,
+                    attachment.name,
+                    attachment.extension
+                )
+            }
+        }
     }
 }
 

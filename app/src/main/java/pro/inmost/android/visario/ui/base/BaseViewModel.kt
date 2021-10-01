@@ -3,7 +3,7 @@ package pro.inmost.android.visario.ui.base
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.SingleLiveEvent
 
 abstract class BaseViewModel : ViewModel(){
     private val _notificationEvent = SingleLiveEvent<Int>()

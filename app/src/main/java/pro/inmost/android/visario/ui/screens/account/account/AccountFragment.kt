@@ -11,9 +11,9 @@ import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.dialogs.alerts.SimpleAlertDialog
 import pro.inmost.android.visario.ui.dialogs.select.media.ImageSelectorDialog
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
-import pro.inmost.android.visario.ui.utils.extensions.checkPermissions
-import pro.inmost.android.visario.ui.utils.extensions.navigate
-import pro.inmost.android.visario.ui.utils.extensions.snackbarWithAction
+import pro.inmost.android.visario.utils.extensions.checkPermissions
+import pro.inmost.android.visario.utils.extensions.navigate
+import pro.inmost.android.visario.utils.extensions.snackbarWithAction
 
 
 /**

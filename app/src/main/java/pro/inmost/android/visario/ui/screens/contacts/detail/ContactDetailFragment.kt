@@ -7,9 +7,9 @@ import pro.inmost.android.visario.databinding.FragmentContactDetailBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.dialogs.alerts.SimpleAlertDialog
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
-import pro.inmost.android.visario.ui.utils.extensions.navigate
-import pro.inmost.android.visario.ui.utils.extensions.navigateBack
-import pro.inmost.android.visario.ui.utils.extensions.sendEmail
+import pro.inmost.android.visario.utils.extensions.navigate
+import pro.inmost.android.visario.utils.extensions.navigateBack
+import pro.inmost.android.visario.utils.extensions.sendEmail
 
 
 /**

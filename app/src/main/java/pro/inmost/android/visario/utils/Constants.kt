@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.utils
+package pro.inmost.android.visario.utils
 
 import pro.inmost.android.visario.BuildConfig
 

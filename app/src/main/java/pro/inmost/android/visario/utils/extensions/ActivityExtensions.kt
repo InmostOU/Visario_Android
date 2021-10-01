@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.utils.extensions
+package pro.inmost.android.visario.utils.extensions
 
 import android.app.Activity
 import android.graphics.Color

@@ -8,7 +8,7 @@ import pro.inmost.android.visario.domain.usecases.contacts.FetchContactsUseCase
 import pro.inmost.android.visario.domain.usecases.contacts.SearchContactsUseCase
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 import pro.inmost.android.visario.ui.entities.contact.toUIContacts
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.SingleLiveEvent
 
 class ContactsViewModel(
     private val fetchContactsUseCase: FetchContactsUseCase,

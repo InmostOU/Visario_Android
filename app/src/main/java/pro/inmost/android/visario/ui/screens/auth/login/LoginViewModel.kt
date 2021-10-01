@@ -11,8 +11,8 @@ import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.domain.usecases.auth.LoginUseCase
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.ui.screens.auth.Validator
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.hideKeyboard
+import pro.inmost.android.visario.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.hideKeyboard
 
 
 class LoginViewModel(

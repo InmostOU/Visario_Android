@@ -15,7 +15,7 @@ import pro.inmost.android.visario.data.api.services.websockets.channels.Channels
 import pro.inmost.android.visario.databinding.ActivityMainBinding
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
-import pro.inmost.android.visario.ui.utils.extensions.gone
+import pro.inmost.android.visario.utils.extensions.gone
 
 class MainActivity : AppCompatActivity(), AuthListener {
     private lateinit var binding: ActivityMainBinding

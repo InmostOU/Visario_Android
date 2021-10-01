@@ -10,7 +10,7 @@ import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import pro.inmost.android.visario.databinding.GridItemMeetingMemberBinding
 import pro.inmost.android.visario.ui.entities.meeting.AttendeeUI
-import pro.inmost.android.visario.ui.utils.extensions.layoutInflater
+import pro.inmost.android.visario.utils.extensions.layoutInflater
 
 
 /**

@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.utils
+package pro.inmost.android.visario.utils
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

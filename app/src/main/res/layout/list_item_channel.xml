@@ -62,10 +62,24 @@
                     android:textSize="@dimen/text_size_chat_last_message"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:visibility="@{model.lastMessageMeetingInvitation ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{model.lastMessageMeetingInvitation || model.lastMessageHasAttachmentAndNoText ? View.GONE : View.VISIBLE}"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:text="@{model.lastMessage.length() > 0 ? model.lastMessage : @string/no_messages}"
+                    android:text="@{model.hasMessages ? model.lastMessage : @string/no_messages}"
                     tools:text="Last message"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_view_last_message_attachment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="@dimen/text_size_chat_last_message"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textStyle="italic"
+                    android:textColor="?android:attr/textColorSecondary"
+                    tools:visibility="gone"
+                    android:visibility="@{model.lastMessageHasAttachmentAndNoText ? View.VISIBLE : View.GONE}"
+                    android:text="@string/attachment"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/text_view_last_message_meet"

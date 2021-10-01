@@ -7,10 +7,10 @@ import pro.inmost.android.visario.databinding.ListItemChannelFoundBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
-import pro.inmost.android.visario.ui.utils.extensions.navigate
-import pro.inmost.android.visario.ui.utils.extensions.navigateBack
-import pro.inmost.android.visario.ui.utils.extensions.onQueryChange
-import pro.inmost.android.visario.ui.utils.hideKeyboard
+import pro.inmost.android.visario.utils.extensions.navigate
+import pro.inmost.android.visario.utils.extensions.navigateBack
+import pro.inmost.android.visario.utils.extensions.onQueryChange
+import pro.inmost.android.visario.utils.hideKeyboard
 
 
 /**

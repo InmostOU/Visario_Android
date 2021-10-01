@@ -3,8 +3,8 @@ package pro.inmost.android.visario.ui.screens.auth
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.data.utils.extensions.isValidEmail
 import pro.inmost.android.visario.domain.entities.user.Register
+import pro.inmost.android.visario.utils.extensions.isValidEmail
 
 
 /**

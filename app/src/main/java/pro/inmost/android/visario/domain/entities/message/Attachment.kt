@@ -2,8 +2,11 @@ package pro.inmost.android.visario.domain.entities.message
 
 data class Attachment(
     val path: String,
-    val type: FileType
+    val name: String,
+    val type: FileType,
+    val extension: String
 ){
+
     enum class FileType {
         IMAGE,
         VIDEO,
@@ -13,9 +16,9 @@ data class Attachment(
         companion object{
             fun getFromMimeType(mime: String): FileType {
                 return when {
-                    mime.contains("image") -> IMAGE
-                    mime.contains("video") -> VIDEO
-                    mime.contains("audio") -> AUDIO
+                    mime.contains("image", true) -> IMAGE
+                    mime.contains("video", true) -> VIDEO
+                    mime.contains("audio", true) -> AUDIO
                     else -> OTHER
                 }
             }

@@ -13,10 +13,10 @@ import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.dialogs.alerts.SimpleAlertDialog
 import pro.inmost.android.visario.ui.dialogs.inviter.meeting.MeetingChannelsInviterDialog
 import pro.inmost.android.visario.ui.entities.meeting.AttendeeUI
-import pro.inmost.android.visario.ui.utils.extensions.checkPermissions
-import pro.inmost.android.visario.ui.utils.extensions.navigateBack
-import pro.inmost.android.visario.ui.utils.extensions.snackbar
-import pro.inmost.android.visario.ui.utils.extensions.toast
+import pro.inmost.android.visario.utils.extensions.checkPermissions
+import pro.inmost.android.visario.utils.extensions.navigateBack
+import pro.inmost.android.visario.utils.extensions.snackbar
+import pro.inmost.android.visario.utils.extensions.toast
 
 
 /**

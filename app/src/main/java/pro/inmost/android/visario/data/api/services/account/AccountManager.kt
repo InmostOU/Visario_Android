@@ -7,7 +7,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import pro.inmost.android.visario.data.api.dto.requests.profile.UpdateProfileRequest
 import pro.inmost.android.visario.data.entities.profile.ProfileData
-import pro.inmost.android.visario.data.utils.logError
+import pro.inmost.android.visario.utils.logError
 import java.io.File
 
 /**

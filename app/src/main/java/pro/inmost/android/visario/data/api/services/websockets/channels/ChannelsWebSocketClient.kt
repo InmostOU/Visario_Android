@@ -8,9 +8,10 @@ import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payl
 import pro.inmost.android.visario.data.api.services.websockets.channels.ChannelEventManager.EventType
 import pro.inmost.android.visario.data.database.dao.ContactsDao
 import pro.inmost.android.visario.data.database.dao.MessagesDao
-import pro.inmost.android.visario.data.utils.extensions.launchIO
-import pro.inmost.android.visario.data.utils.extensions.launchMain
-import pro.inmost.android.visario.ui.utils.log
+import pro.inmost.android.visario.data.database.dao.ProfileDao
+import pro.inmost.android.visario.utils.extensions.launchIO
+import pro.inmost.android.visario.utils.extensions.launchMain
+import pro.inmost.android.visario.utils.log
 import java.nio.charset.Charset
 
 /**
@@ -20,6 +21,7 @@ import java.nio.charset.Charset
 class ChannelsWebSocketClient(
     private val api: ChimeApi,
     private val messagesDao: MessagesDao,
+    private val profileDao: ProfileDao,
     private val contactsDao: ContactsDao
 ) : WebSocketListener() {
     private val client = OkHttpClient()
@@ -105,7 +107,7 @@ class ChannelsWebSocketClient(
     private fun deleteMessage(json: String) =
         launchIO {
             PayloadFactory.getChannelMessage(json)?.let { message ->
-                messagesDao.deleteById(message.messageId)
+                messagesDao.deleteById(message.awsId)
             }
         }
 
@@ -113,7 +115,7 @@ class ChannelsWebSocketClient(
         launchIO {
             PayloadFactory.getChannelMessage(json)?.let { message ->
                 messagesDao.updateContent(
-                    messageId = message.messageId,
+                    awsId = message.awsId,
                     content = message.content?.trim() ?: "",
                     editedTimestamp = message.lastEditedTimestamp
                 )
@@ -123,8 +125,11 @@ class ChannelsWebSocketClient(
     private fun insertNewMessage(json: String) =
         launchIO {
             PayloadFactory.getChannelMessage(json)?.let { message ->
-                contactsDao.getByArn(message.senderArn)?.let {
-                    message.senderName = it.fullName
+                log("msg: $message")
+                profileDao.get()?.let { profile ->
+                    if (profile.userArn == message.senderArn) {
+                        message.fromCurrentUser = true
+                    }
                 }
                 messagesDao.upsert(message)
             }

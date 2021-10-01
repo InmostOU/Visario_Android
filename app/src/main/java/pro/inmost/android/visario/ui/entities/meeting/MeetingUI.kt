@@ -2,7 +2,7 @@ package pro.inmost.android.visario.ui.entities.meeting
 
 import android.text.format.DateFormat
 import com.amazonaws.services.chime.sdk.meetings.session.MeetingSession
-import pro.inmost.android.visario.ui.utils.MEETING_DATE_FORMAT
+import pro.inmost.android.visario.utils.MEETING_DATE_FORMAT
 import java.util.*
 
 data class MeetingUI(

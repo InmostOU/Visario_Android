@@ -9,7 +9,7 @@ import pro.inmost.android.visario.domain.usecases.contacts.AddContactUseCase
 import pro.inmost.android.visario.domain.usecases.contacts.UpdateContactUseCase
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 import pro.inmost.android.visario.ui.entities.contact.toDomainContact
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.SingleLiveEvent
 
 class EditContactViewModel(
     private val updateUseCase: UpdateContactUseCase,

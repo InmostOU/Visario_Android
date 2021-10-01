@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import pro.inmost.android.visario.ui.entities.BaseEntity
-import pro.inmost.android.visario.ui.utils.extensions.layoutInflater
+import pro.inmost.android.visario.utils.extensions.layoutInflater
 
 
 /**

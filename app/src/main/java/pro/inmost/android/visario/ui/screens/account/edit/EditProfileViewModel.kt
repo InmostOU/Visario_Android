@@ -11,8 +11,8 @@ import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCase
 import pro.inmost.android.visario.ui.entities.profile.ProfileUI
 import pro.inmost.android.visario.ui.entities.profile.toDomainProfile
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
-import pro.inmost.android.visario.ui.utils.DateParser
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.DateParser
+import pro.inmost.android.visario.utils.SingleLiveEvent
 
 class EditProfileViewModel(
     private val updateProfileUseCase: UpdateProfileUseCase,

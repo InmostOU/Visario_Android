@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.di.modules
+package pro.inmost.android.visario.utils.di
 
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
@@ -16,5 +16,5 @@ val appModule = module {
     single { AppDatabase.getInstance(androidApplication().applicationContext) }
     single { ChimeApi() }
     single { CredentialsStore(androidApplication().applicationContext, get<UpdateCredentialsUseCaseImpl>()) }
-    factory { ChannelsWebSocketClient(get(), get(), get()) }
+    factory { ChannelsWebSocketClient(get(), get(), get(), get()) }
 }

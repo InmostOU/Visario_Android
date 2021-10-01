@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.utils.extensions
+package pro.inmost.android.visario.utils.extensions
 
 import android.content.Context
 import android.content.res.Configuration
@@ -14,7 +14,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import com.google.android.material.snackbar.Snackbar
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.ui.utils.showKeyboard
+import pro.inmost.android.visario.utils.showKeyboard
 
 
 fun View.snackbar(msg: String) {
@@ -37,7 +37,7 @@ fun View.gone() {
     visibility = View.GONE
 }
 
-fun View.visibility(visible: Boolean){
+fun View.visibility(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.GONE
 }
 

@@ -8,7 +8,7 @@ import pro.inmost.android.visario.data.repositories.*
  */
 val repositories = module {
     factory { AccountRepositoryImpl(get()) }
-    factory { ChannelsRepositoryImpl(get(), get(), get<MessagesRepositoryImpl>()) }
+    factory { ChannelsRepositoryImpl(get(), get(),get(), get<MessagesRepositoryImpl>()) }
     factory { MessagesRepositoryImpl(get(), get(), get<ProfileRepositoryImpl>()) }
     factory { ContactsRepositoryImpl(get(), get()) }
     factory { ProfileRepositoryImpl(get(), get()) }

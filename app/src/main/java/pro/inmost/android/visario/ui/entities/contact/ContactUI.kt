@@ -6,7 +6,7 @@ import androidx.databinding.ObservableBoolean
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import pro.inmost.android.visario.ui.entities.BaseEntity
-import pro.inmost.android.visario.ui.utils.PROFILE_DATE_FORMAT
+import pro.inmost.android.visario.utils.PROFILE_DATE_FORMAT
 
 @Parcelize
 data class ContactUI(

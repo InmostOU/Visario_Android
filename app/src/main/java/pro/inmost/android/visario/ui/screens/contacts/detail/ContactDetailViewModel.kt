@@ -9,8 +9,8 @@ import pro.inmost.android.visario.domain.usecases.contacts.DeleteContactUseCase
 import pro.inmost.android.visario.domain.usecases.contacts.FetchContactsUseCase
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 import pro.inmost.android.visario.ui.entities.contact.toUIContact
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.log
+import pro.inmost.android.visario.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.log
 
 class ContactDetailViewModel(
     private val fetchContactsUseCase: FetchContactsUseCase,

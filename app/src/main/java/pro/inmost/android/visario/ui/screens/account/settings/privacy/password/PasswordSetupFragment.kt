@@ -4,7 +4,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentPrivacyPasswordBinding
 import pro.inmost.android.visario.ui.base.BaseFragment
-import pro.inmost.android.visario.ui.utils.extensions.navigateBack
+import pro.inmost.android.visario.utils.extensions.navigateBack
 
 /**
  * Fragment for change user's password

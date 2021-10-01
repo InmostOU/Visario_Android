@@ -4,14 +4,22 @@ import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.resolution
+import id.zelory.compressor.constraint.size
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.BottomSheetSelectImageBinding
 import pro.inmost.android.visario.databinding.ListItemImageBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapter
 import pro.inmost.android.visario.ui.base.BaseBottomSheet
-
+import pro.inmost.android.visario.ui.utils.FilesManager
+import pro.inmost.android.visario.utils.extensions.biggerThan
+import pro.inmost.android.visario.utils.extensions.getUri
+import java.io.File
 
 /**
  * Dialog with list of all images from user's device
@@ -54,7 +62,11 @@ class ImageSelectorDialog(private val crop: Boolean, val callback: (Uri) -> Unit
             if (crop) {
                 resizeImage(it)
             } else {
-                setResultAndClose(it)
+                lifecycleScope.launch {
+                    saveToCache(it)?.let { destUri ->
+                        setResultAndClose(destUri)
+                    }
+                }
             }
         }
 
@@ -73,6 +85,27 @@ class ImageSelectorDialog(private val crop: Boolean, val callback: (Uri) -> Unit
     private fun setResultAndClose(uri: Uri) {
         callback(uri)
         dismiss()
+    }
+
+    private suspend fun saveToCache(src: Uri): Uri? {
+        val destFile = requireContext().contentResolver.openInputStream(src)?.use { stream ->
+            val destFile = FilesManager.createImageFile(requireContext())
+            destFile.writeBytes(stream.readBytes())
+            destFile
+        }
+        return if (destFile != null && destFile.biggerThan(5000)){
+            decreaseSize(destFile).getUri(requireContext())
+        } else {
+            destFile?.getUri(requireContext())
+        }
+    }
+
+    private suspend fun decreaseSize(file: File): File {
+        return Compressor.compress(requireContext(), file) {
+            resolution(1080, 1080)
+            quality(80)
+            size(4_194_305) // 4 MB
+        }
     }
 
     companion object {

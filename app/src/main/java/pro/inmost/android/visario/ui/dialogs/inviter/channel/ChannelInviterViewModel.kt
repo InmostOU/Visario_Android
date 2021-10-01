@@ -13,7 +13,7 @@ import pro.inmost.android.visario.domain.usecases.contacts.FetchContactsUseCase
 import pro.inmost.android.visario.ui.base.BaseViewModel
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
 import pro.inmost.android.visario.ui.entities.contact.toUIContacts
-import pro.inmost.android.visario.ui.utils.extensions.replaceAll
+import pro.inmost.android.visario.utils.extensions.replaceAll
 
 class ChannelInviterViewModel(
     private val fetchContactsUseCase: FetchContactsUseCase,

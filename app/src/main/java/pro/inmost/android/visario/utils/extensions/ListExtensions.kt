@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.utils.extensions
+package pro.inmost.android.visario.utils.extensions
 
 fun <T>MutableList<T>.replaceAll(collection: Collection<T>): MutableList<T> {
     clear()

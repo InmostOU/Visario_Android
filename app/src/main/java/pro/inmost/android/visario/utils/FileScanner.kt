@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.utils
+package pro.inmost.android.visario.utils
 
 import android.content.ContentResolver
 import android.content.ContentUris

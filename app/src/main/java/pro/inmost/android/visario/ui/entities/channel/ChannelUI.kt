@@ -3,8 +3,8 @@ package pro.inmost.android.visario.ui.entities.channel
 import androidx.databinding.ObservableBoolean
 import pro.inmost.android.visario.ui.entities.BaseEntity
 import pro.inmost.android.visario.ui.entities.message.MessageUI
-import pro.inmost.android.visario.ui.utils.ONE_DAY_IN_MILLIS
-import pro.inmost.android.visario.ui.utils.ONE_WEEK_IN_MILLIS
+import pro.inmost.android.visario.utils.ONE_DAY_IN_MILLIS
+import pro.inmost.android.visario.utils.ONE_WEEK_IN_MILLIS
 
 data class ChannelUI (
     val channelArn: String,
@@ -20,7 +20,10 @@ data class ChannelUI (
 ): BaseEntity {
 
     val lastMessage: String
-        get() = messages.firstOrNull()?.text ?: ""
+        get() = messages.firstOrNull()?.text?.trim() ?: ""
+
+    val hasMessages: Boolean
+        get() = messages.isNotEmpty()
 
     val lastMessageTime: String
         get() {
@@ -37,6 +40,12 @@ data class ChannelUI (
 
     val isLastMessageMeetingInvitation: Boolean
         get() = messages.firstOrNull()?.isMeetingInvitation ?: false
+
+    val isLastMessageEmpty: Boolean
+        get() = messages.firstOrNull()?.text?.trim().isNullOrBlank()
+
+    val isLastMessageHasAttachmentAndNoText: Boolean
+        get() = messages.firstOrNull()?.attachment != null && messages.firstOrNull()?.text.isNullOrBlank()
 
     val disabled = ObservableBoolean(false)
     val invited = ObservableBoolean(false)

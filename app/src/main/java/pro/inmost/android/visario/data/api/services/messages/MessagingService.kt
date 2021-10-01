@@ -27,7 +27,7 @@ interface MessagingService {
     ): BaseResponse
 
     @Multipart
-    @POST(Endpoints.MESSAGE_SEND)
+    @POST(Endpoints.MESSAGE_SEND_WITH_ATTACHMENT)
     suspend fun sendMessageWithAttachment(
         @Part file: MultipartBody.Part,
         @Part("message") message: RequestBody

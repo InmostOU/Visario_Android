@@ -2,11 +2,18 @@ package pro.inmost.android.visario.ui.entities.message
 
 data class AttachmentUI(
     val path: String,
-    val type: AttachmentTypeUI
+    val name: String,
+    val extension: String,
+    val type: FileType
 ){
-    enum class AttachmentTypeUI{
+
+    val nameWithExtension: String
+        get() = "$name.$extension"
+
+    enum class FileType{
         IMAGE,
         VIDEO,
+        AUDIO,
         OTHER
     }
 }

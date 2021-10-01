@@ -6,7 +6,7 @@ import pro.inmost.android.visario.data.api.ChimeApi.Companion.STATUS_OK
 import pro.inmost.android.visario.data.api.dto.requests.auth.LoginRequest
 import pro.inmost.android.visario.data.api.dto.requests.auth.RegistrationRequest
 import pro.inmost.android.visario.data.api.dto.responses.auth.AuthResponse
-import pro.inmost.android.visario.data.utils.logError
+import pro.inmost.android.visario.utils.logError
 
 
 /**

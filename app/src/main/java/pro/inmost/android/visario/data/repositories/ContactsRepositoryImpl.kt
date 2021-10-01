@@ -10,7 +10,7 @@ import pro.inmost.android.visario.data.database.dao.ContactsDao
 import pro.inmost.android.visario.data.entities.contact.toDataContact
 import pro.inmost.android.visario.data.entities.contact.toDomainContact
 import pro.inmost.android.visario.data.entities.contact.toDomainContacts
-import pro.inmost.android.visario.data.utils.extensions.launchIO
+import pro.inmost.android.visario.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.contact.Contact
 import pro.inmost.android.visario.domain.repositories.ContactsRepository
 

@@ -4,7 +4,8 @@ import android.text.format.DateFormat
 import pro.inmost.android.visario.ui.entities.BaseEntity
 
 data class MessageUI(
-    val messageId: String,
+    val id: Long,
+    val awsId: String,
     val text: String,
     val channelUrl: String,
     val senderUrl: String,
@@ -18,6 +19,9 @@ data class MessageUI(
     val isMeetingInvitation: Boolean,
     val attachment: AttachmentUI? = null
 ): BaseEntity {
+
+    val hasText: Boolean
+        get() = text.isNotBlank()
 
     val edited: Boolean
         get() = lastEditedTimestamp > createdTimestamp
@@ -38,10 +42,12 @@ data class MessageUI(
         get() = attachment != null && attachment.path.isNotBlank()
 
     val isImageAttach: Boolean
-        get() = attachment != null && attachment.path.isNotBlank() && attachment.type == AttachmentUI.AttachmentTypeUI.IMAGE
+        get() = attachment != null && attachment.path.isNotBlank() && attachment.type == AttachmentUI.FileType.IMAGE
+
+    val isFileAttach: Boolean
+        get() = attachment != null && attachment.path.isNotBlank() && attachment.type == AttachmentUI.FileType.OTHER
 
     override val baseId: String
-        get() = (channelUrl + senderUrl + senderName).hashCode().toString()
-
+        get() = id.toString()
 
 }

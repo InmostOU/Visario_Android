@@ -6,7 +6,7 @@ import androidx.lifecycle.liveData
 import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCase
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
 import pro.inmost.android.visario.ui.entities.channel.toUIChannel
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.SingleLiveEvent
 
 class ChannelInfoViewModel(
     private val fetchChannelsUseCase: FetchChannelsUseCase

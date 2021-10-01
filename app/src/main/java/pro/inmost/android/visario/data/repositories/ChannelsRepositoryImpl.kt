@@ -8,16 +8,18 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.database.dao.ChannelsDao
+import pro.inmost.android.visario.data.database.dao.ProfileDao
 import pro.inmost.android.visario.data.entities.channel.*
 import pro.inmost.android.visario.data.entities.contact.toDomainContacts
-import pro.inmost.android.visario.data.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.channel.Channel
 import pro.inmost.android.visario.domain.repositories.ChannelsRepository
 import pro.inmost.android.visario.domain.repositories.MessagesRepository
+import pro.inmost.android.visario.utils.extensions.launchIO
 
 class ChannelsRepositoryImpl(
     private val api: ChimeApi,
     private val channelsDao: ChannelsDao,
+    private val profileDao: ProfileDao,
     private val messagesRepository: MessagesRepository
 ) : ChannelsRepository {
 
@@ -72,15 +74,20 @@ class ChannelsRepositoryImpl(
 
     override suspend fun leave(channelArn: String): Result<Unit> {
         return api.channels.leave(channelArn).onSuccess {
-            launchIO { refreshData() }
+            channelsDao.deleteByArn(channelArn)
         }
     }
 
     override suspend fun addMember(channelArn: String, userArn: String): Result<Channel> {
-        return api.channels.addMember(channelArn, userArn)
-            .mapCatching {
-                getChannel(channelArn).getOrThrow()
+        return api.channels.addMember(channelArn, userArn).mapCatching {
+            api.channels.getChannel(channelArn).onSuccess { channel ->
+                if (userArn == profileDao.get()?.userArn){
+                    channel.isMember = true
+                    channelsDao.insert(channel)
+                }
             }
+            getChannel(channelArn).getOrThrow()
+        }
     }
 
     private fun getSavedChannels() = channelsDao.getChannelsWithMessages().map { data ->

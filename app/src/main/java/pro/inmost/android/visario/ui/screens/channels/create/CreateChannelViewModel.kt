@@ -11,8 +11,8 @@ import pro.inmost.android.visario.ui.entities.channel.ChannelMode
 import pro.inmost.android.visario.ui.entities.channel.ChannelPrivacy
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
 import pro.inmost.android.visario.ui.entities.channel.toDomainChannel
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
-import pro.inmost.android.visario.ui.utils.log
+import pro.inmost.android.visario.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.log
 
 class CreateChannelViewModel(
     private val createChannelUseCase: CreateChannelUseCase,

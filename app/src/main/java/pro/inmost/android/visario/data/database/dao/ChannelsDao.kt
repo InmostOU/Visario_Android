@@ -14,6 +14,9 @@ interface ChannelsDao {
     @Delete
     suspend fun delete(vararg item: ChannelData)
 
+    @Query ("DELETE FROM channels WHERE channelArn =:channelArn")
+    suspend fun deleteByArn(channelArn: String)
+
     @Query("SELECT * FROM channels")
     suspend fun getAll(): List<ChannelData>
 

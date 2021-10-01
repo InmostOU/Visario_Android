@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import pro.inmost.android.visario.domain.usecases.channels.FetchChannelsUseCase
 import pro.inmost.android.visario.ui.entities.channel.ChannelUI
 import pro.inmost.android.visario.ui.entities.channel.toUIChannels
-import pro.inmost.android.visario.ui.utils.SingleLiveEvent
+import pro.inmost.android.visario.utils.SingleLiveEvent
 
 class SearchChannelsViewModel(
     private val fetchChannelsUseCase: FetchChannelsUseCase

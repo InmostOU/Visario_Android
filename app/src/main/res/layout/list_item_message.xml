@@ -31,12 +31,15 @@
             tools:background="@drawable/shape_bg_incoming_bubble"
             android:background="@{message.fromCurrentUser ? @drawable/shape_bg_outgoing_bubble : @drawable/shape_bg_incoming_bubble}">
 
+
+            <!--MESSAGE HEADER-->
             <LinearLayout
                 android:id="@+id/header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="20dp"
                 android:paddingEnd="16dp"
+                android:onClick="@{(view) -> viewModel.onMessageClick(view, message)}"
                 android:paddingTop="4dp">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -91,6 +94,7 @@
 
             </LinearLayout>
 
+            <!--JOIN MEETING LAYOUT-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,6 +130,56 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <ImageView
+                android:id="@+id/attachment_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="@dimen/message_image_height"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:loadImage="@{message.attachment.path}"
+                android:visibility="@{message.imageAttach ? View.VISIBLE : View.GONE}"
+                tools:visibility="gone"
+                android:src="@drawable/ic_outline_image_24"
+                android:contentDescription="@string/attached_image" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="@{message.fileAttach ? View.VISIBLE : View.GONE}"
+                android:layout_marginTop="8dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <ImageButton
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:scaleType="fitXY"
+                    android:padding="8dp"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{(view) -> viewModel.downloadAttachment(view.context, message)}"
+                    app:tint="?attr/colorPrimary"
+                    android:src="@drawable/ic_baseline_download_24"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="@dimen/message_text_size"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@{message.attachment.nameWithExtension}"
+                    tools:text="file_name.pdf"/>
+
+            </LinearLayout>
+
             <com.vanniktech.emoji.EmojiTextView
                 android:id="@+id/message_text"
                 android:layout_width="wrap_content"
@@ -138,7 +192,7 @@
                 android:layout_marginBottom="10dp"
                 android:inputType="textMultiLine"
                 android:onClick="@{(view) -> viewModel.onMessageClick(view, message)}"
-                android:visibility="@{message.meetingInvitation ? View.GONE : View.VISIBLE}"
+                android:visibility="@{message.meetingInvitation || !message.hasText ? View.GONE : View.VISIBLE}"
                 android:text="@{message.text}"
                 tools:text="Hello world! Please notice that you are beautiful!"
                 android:textColor="?android:attr/textColorPrimary"

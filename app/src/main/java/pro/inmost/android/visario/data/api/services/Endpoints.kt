@@ -9,6 +9,7 @@ internal object Endpoints {
 
     const val MESSAGE_LIST = "/messages/list"
     const val MESSAGE_SEND = "/messages/send"
+    const val MESSAGE_SEND_WITH_ATTACHMENT = "/messages/sendWithAttachment"
     const val MESSAGE_EDIT = "/messages/edit"
     const val MESSAGE_DELETE = "/messages/delete"
     const val MESSAGES_SESSION = "/messages/messaging-session"

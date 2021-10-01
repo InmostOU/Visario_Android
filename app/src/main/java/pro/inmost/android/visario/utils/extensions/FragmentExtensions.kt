@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.ui.utils.extensions
+package pro.inmost.android.visario.utils.extensions
 
 import android.Manifest
 import android.content.ClipData
@@ -16,7 +16,6 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import pro.inmost.android.visario.R
-import pro.inmost.android.visario.data.utils.extensions.isValidEmail
 
 inline fun Fragment.navigate(direction: () -> NavDirections) {
     kotlin.runCatching {

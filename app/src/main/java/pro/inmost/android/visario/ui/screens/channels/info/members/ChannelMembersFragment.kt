@@ -10,8 +10,8 @@ import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.dialogs.inviter.channel.ChannelInviterDialog
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
-import pro.inmost.android.visario.ui.utils.extensions.navigate
-import pro.inmost.android.visario.ui.utils.extensions.navigateBack
+import pro.inmost.android.visario.utils.extensions.navigate
+import pro.inmost.android.visario.utils.extensions.navigateBack
 
 class ChannelMembersFragment : BaseFragment<FragmentChannelMembersBinding>(R.layout.fragment_channel_members) {
     private val viewModel: ChannelMembersViewModel by viewModel()

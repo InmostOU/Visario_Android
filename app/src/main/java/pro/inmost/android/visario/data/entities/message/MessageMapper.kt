@@ -2,20 +2,20 @@ package pro.inmost.android.visario.data.entities.message
 
 import pro.inmost.android.visario.data.api.dto.requests.messages.AttachmentData
 import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads.ChannelMessagePayload
-import pro.inmost.android.visario.data.utils.extensions.isMeetingInvitation
-import pro.inmost.android.visario.data.utils.extensions.toMimeType
 import pro.inmost.android.visario.domain.entities.message.Attachment
 import pro.inmost.android.visario.domain.entities.message.MessageStatus
 import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
-import pro.inmost.android.visario.ui.utils.DateParser
+import pro.inmost.android.visario.utils.DateParser
+import pro.inmost.android.visario.utils.extensions.isMeetingInvitation
+import pro.inmost.android.visario.utils.extensions.toMimeType
 
 
 fun ChannelMessagePayload.toDataMessage() = MessageData(
-    messageId = this.MessageId,
+    awsId = this.MessageId,
     content = this.Content?.trim() ?: "",
     createdTimestamp = DateParser.parseToMillis(this.CreatedTimestamp),
     lastEditedTimestamp = DateParser.parseToMillis(this.LastUpdatedTimestamp),
-    metadata = Metadata ?: "",
+    metadata = Metadata?.replace("\u0026", "&") ?: "",
     redacted = this.Redacted,
     senderName = this.Sender.Name,
     senderArn = this.Sender.Arn,
@@ -24,7 +24,8 @@ fun ChannelMessagePayload.toDataMessage() = MessageData(
 )
 
 fun MessageData.toDomainMessage() = ReceivingMessage(
-    messageId = this.messageId,
+    localId = id,
+    messageId = this.awsId,
     text = this.content ?: "",
     channelUrl = this.channelArn,
     senderUrl = this.senderArn,
@@ -41,8 +42,10 @@ fun MessageData.toDomainMessage() = ReceivingMessage(
 )
 
 fun AttachmentData.toAttachment() = Attachment(
-    path = url,
-    type = getFileType(fileType)
+    path = url ?: "",
+    name = fileName,
+    type = getFileType(fileType),
+    extension = fileType
 )
 
 private fun getFileType(fileType: String): Attachment.FileType {

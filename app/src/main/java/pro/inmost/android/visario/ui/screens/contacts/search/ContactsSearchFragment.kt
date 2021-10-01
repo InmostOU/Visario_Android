@@ -7,11 +7,11 @@ import pro.inmost.android.visario.databinding.ListItemContactFoundBinding
 import pro.inmost.android.visario.ui.adapters.GenericListAdapterWithDiffUtil
 import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.entities.contact.ContactUI
-import pro.inmost.android.visario.ui.utils.extensions.navigate
-import pro.inmost.android.visario.ui.utils.extensions.navigateBack
-import pro.inmost.android.visario.ui.utils.extensions.onQueryChange
-import pro.inmost.android.visario.ui.utils.extensions.visibility
-import pro.inmost.android.visario.ui.utils.showKeyboard
+import pro.inmost.android.visario.utils.extensions.navigate
+import pro.inmost.android.visario.utils.extensions.navigateBack
+import pro.inmost.android.visario.utils.extensions.onQueryChange
+import pro.inmost.android.visario.utils.extensions.visibility
+import pro.inmost.android.visario.utils.showKeyboard
 
 
 /**

@@ -95,12 +95,28 @@ fun ImageView.loadImage(uri: Uri?) {
     Glide.with(context).load(uri).into(this)
 }
 
+/**
+ * Set image into the ImageView
+ *
+ * @param url of image
+ */
+@BindingAdapter(value = ["loadImage"])
+fun ImageView.loadImage(url: String?) {
+    url ?: return
+
+    Glide.with(context)
+        .load(url)
+        .placeholder(R.drawable.ic_outline_image_24)
+        .diskCacheStrategy(DiskCacheStrategy.DATA)
+        .into(this)
+}
+
 @BindingAdapter(value = ["attach"])
 fun ImageView.attach(attachment: AttachmentUI?) {
     if (attachment == null) {
         setImageDrawable(null)
     } else {
-        if (attachment.type == AttachmentUI.AttachmentTypeUI.OTHER){
+        if (attachment.type == AttachmentUI.FileType.OTHER){
             Glide.with(context).load(R.drawable.ic_baseline_file_24).into(this)
         } else {
             Glide.with(context).load(attachment.path).into(this)
