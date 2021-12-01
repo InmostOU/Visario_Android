@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.di.modules
+package pro.inmost.android.visario.utils.di
 
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -111,12 +111,11 @@ val viewModelsModule = module {
     }
 
     // ACCOUNT
-    viewModel { LoginViewModel(get<LoginUseCaseImpl>(), get()) }
+    viewModel { LoginViewModel(get<LoginUseCaseImpl>()) }
     viewModel { RegisterViewModel(get<RegistrationUseCaseImpl>()) }
     viewModel {
         AccountViewModel(
             get<LogoutUseCaseImpl>(),
-            get(),
             get<FetchProfileUseCaseImpl>(),
             get<UpdateProfileUseCaseImpl>()
         )

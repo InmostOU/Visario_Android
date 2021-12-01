@@ -54,7 +54,7 @@ class CredentialsStore(context: Context, private val updateCredentialsUseCase: U
             saveRefreshToken(refreshToken)
             saveCurrentUser(currentUser)
         }
-        update()
+        updateCredentialsUseCase.update(credentials)
     }
 
     /**
@@ -82,19 +82,19 @@ class CredentialsStore(context: Context, private val updateCredentialsUseCase: U
     private fun getRefreshToken() = preferences.getString(PREF_KEY_REFRESH_TOKEN, "") ?: ""
 
     private fun saveAccessToken(token: String) {
-        preferences.edit {
+        preferences.edit(commit = true) {
             putString(PREF_KEY_ACCESS_TOKEN, token)
         }
     }
 
     private fun saveRefreshToken(token: String) {
-        preferences.edit {
+        preferences.edit(commit = true) {
             putString(PREF_KEY_REFRESH_TOKEN, token)
         }
     }
 
     private fun saveCurrentUser(user: String) {
-        preferences.edit {
+        preferences.edit(commit = true) {
             putString(PREF_KEY_USER, user)
         }
     }

@@ -13,6 +13,7 @@ import pro.inmost.android.visario.R
 import pro.inmost.android.visario.VisarioApp
 import pro.inmost.android.visario.data.api.services.websockets.channels.ChannelsWebSocketClient
 import pro.inmost.android.visario.databinding.ActivityMainBinding
+import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.utils.extensions.gone
@@ -39,11 +40,9 @@ class MainActivity : AppCompatActivity(), AuthListener {
         }
     }
 
-
     private fun checkAuth() {
         if (credentialsStore.isCredentialsNotEmpty()){
-            credentialsStore.update()
-            openApp()
+            onLogin(credentialsStore.getCredentials())
         } else {
             openLoginScreen()
         }
@@ -57,13 +56,15 @@ class MainActivity : AppCompatActivity(), AuthListener {
         binding.splashScreen.root.gone()
     }
 
-    override fun onLogin() {
+    override fun onLogin(credentials: Credentials) {
+        credentialsStore.saveCredentials(credentials)
+        VisarioApp.instance?.reloadModules()
         openApp()
     }
 
     override fun onLogout() {
-        VisarioApp.instance?.reloadModules()
         credentialsStore.clear()
+        channelsWebSocketClient.disconnect()
         openLoginScreen()
     }
 
@@ -76,7 +77,6 @@ class MainActivity : AppCompatActivity(), AuthListener {
 
     private fun openLoginScreen() {
         setNavGraph(R.navigation.login_navigation)
-        channelsWebSocketClient.disconnect()
     }
 
     private fun setNavGraph(navGraphId: Int) {

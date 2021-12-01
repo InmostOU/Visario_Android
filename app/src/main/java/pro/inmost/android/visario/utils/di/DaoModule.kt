@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.di.modules
+package pro.inmost.android.visario.utils.di
 
 import org.koin.dsl.module
 import pro.inmost.android.visario.data.database.AppDatabase

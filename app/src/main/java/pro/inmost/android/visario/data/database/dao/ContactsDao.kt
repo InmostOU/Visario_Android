@@ -11,10 +11,13 @@ interface ContactsDao {
     @Update
     suspend fun update(vararg item: ContactData)
     @Delete
-    suspend fun delete(vararg item: ContactData)
+    suspend fun deleteByUsername(vararg item: ContactData)
 
     @Query("DELETE FROM contacts WHERE username = :username")
-    suspend fun delete(username: String)
+    suspend fun deleteByUsername(username: String)
+
+    @Query("DELETE FROM contacts WHERE id = :id")
+    suspend fun deleteById(id: Long)
 
     @Query("SELECT * FROM contacts")
     fun getAllObservable(): Flow<List<ContactData>>

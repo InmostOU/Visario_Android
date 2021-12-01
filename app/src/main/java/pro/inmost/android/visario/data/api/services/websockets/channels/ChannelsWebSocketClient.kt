@@ -6,7 +6,6 @@ import okio.ByteString
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads.PayloadFactory
 import pro.inmost.android.visario.data.api.services.websockets.channels.ChannelEventManager.EventType
-import pro.inmost.android.visario.data.database.dao.ContactsDao
 import pro.inmost.android.visario.data.database.dao.MessagesDao
 import pro.inmost.android.visario.data.database.dao.ProfileDao
 import pro.inmost.android.visario.utils.extensions.launchIO
@@ -21,8 +20,7 @@ import java.nio.charset.Charset
 class ChannelsWebSocketClient(
     private val api: ChimeApi,
     private val messagesDao: MessagesDao,
-    private val profileDao: ProfileDao,
-    private val contactsDao: ContactsDao
+    private val profileDao: ProfileDao
 ) : WebSocketListener() {
     private val client = OkHttpClient()
     private var webSocketLink: String = ""
@@ -107,7 +105,7 @@ class ChannelsWebSocketClient(
     private fun deleteMessage(json: String) =
         launchIO {
             PayloadFactory.getChannelMessage(json)?.let { message ->
-                messagesDao.deleteById(message.awsId)
+                messagesDao.deleteByAwsId(message.awsId)
             }
         }
 
@@ -125,7 +123,6 @@ class ChannelsWebSocketClient(
     private fun insertNewMessage(json: String) =
         launchIO {
             PayloadFactory.getChannelMessage(json)?.let { message ->
-                log("msg: $message")
                 profileDao.get()?.let { profile ->
                     if (profile.userArn == message.senderArn) {
                         message.fromCurrentUser = true

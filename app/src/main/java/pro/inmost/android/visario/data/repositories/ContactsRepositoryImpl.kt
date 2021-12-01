@@ -13,7 +13,6 @@ import pro.inmost.android.visario.data.entities.contact.toDomainContacts
 import pro.inmost.android.visario.domain.entities.contact.Contact
 import pro.inmost.android.visario.domain.repositories.ContactsRepository
 import pro.inmost.android.visario.utils.extensions.launchIO
-import pro.inmost.android.visario.utils.log
 
 class ContactsRepositoryImpl(
     private val api: ChimeApi,
@@ -52,7 +51,6 @@ class ContactsRepositoryImpl(
         api.contacts.getContacts().onSuccess { contacts ->
          //   dao.fullUpdate(it)
             contacts.forEach {
-                log(it.toString())
                 dao.insert(it)
             }
         }
@@ -66,6 +64,7 @@ class ContactsRepositoryImpl(
 
     override suspend fun deleteContact(id: Long) = withContext(IO) {
         api.contacts.deleteContact(id).onSuccess {
+            dao.deleteById(id)
             refreshData()
         }
     }

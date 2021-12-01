@@ -30,7 +30,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             openRegisterScreen()
         }
         viewModel.loginSuccessful.observe(viewLifecycleOwner){
-            authListener?.onLogin()
+            authListener?.onLogin(it)
         }
         viewModel.showSnackbar.observe(viewLifecycleOwner) { snackbar(it) }
     }

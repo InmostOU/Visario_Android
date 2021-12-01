@@ -24,17 +24,17 @@ class ChannelsRepositoryImpl(
 ) : ChannelsRepository {
 
     override fun getChannels(): Flow<List<Channel>> {
-        val savedChannels = getSavedChannels().map { it.toDomainChannels() }
         launchIO { refreshData() }
-        return savedChannels.filter { it.isNotEmpty() }
+        return getSavedChannels().map { it.toDomainChannels() }
+            .filter { it.isNotEmpty() }
     }
 
     override suspend fun refreshData(): Unit = withContext(IO) {
-        api.channels.getChannels().onSuccess { data ->
-            data.forEach { channel ->
+        api.channels.getChannels().onSuccess { channels ->
+            updateDatabase(channels)
+            channels.forEach { channel ->
                 messagesRepository.refreshData(channel.channelArn)
             }
-            updateDatabase(data)
         }
     }
 
@@ -81,7 +81,7 @@ class ChannelsRepositoryImpl(
     override suspend fun addMember(channelArn: String, userArn: String): Result<Channel> {
         return api.channels.addMember(channelArn, userArn).mapCatching {
             api.channels.getChannel(channelArn).onSuccess { channel ->
-                if (userArn == profileDao.get()?.userArn){
+                if (userArn == profileDao.get()?.userArn) {
                     channel.isMember = true
                     channelsDao.insert(channel)
                 }
@@ -98,9 +98,5 @@ class ChannelsRepositoryImpl(
 
     private suspend fun updateDatabase(data: List<ChannelData>) {
         channelsDao.fullUpdate(data)
-    }
-
-    private suspend fun updateDatabase(data: ChannelData) {
-        channelsDao.insert(data)
     }
 }

@@ -6,8 +6,11 @@ import com.vanniktech.emoji.ios.IosEmojiProvider
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
-import pro.inmost.android.visario.di.modules.*
+import pro.inmost.android.visario.di.modules.useCases
 import pro.inmost.android.visario.utils.di.appModule
+import pro.inmost.android.visario.utils.di.dao
+import pro.inmost.android.visario.utils.di.repositories
+import pro.inmost.android.visario.utils.di.viewModelsModule
 
 
 class VisarioApp : Application() {

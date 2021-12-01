@@ -42,7 +42,14 @@ interface ChannelsDao {
 
     @Transaction
     suspend fun fullUpdate(items: List<ChannelData>){
-        deleteAll()
-        insert(*items.toTypedArray())
+        getAll().minus(items).forEach { delete(it) }
+        items.forEach { channel ->
+            val savedChannel = get(channel.channelArn)
+            if (savedChannel != null){
+                update(channel)
+            } else {
+                insert(channel)
+            }
+        }
     }
 }

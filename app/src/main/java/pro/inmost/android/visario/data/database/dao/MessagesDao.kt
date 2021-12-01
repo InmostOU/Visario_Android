@@ -8,14 +8,14 @@ import pro.inmost.android.visario.data.entities.message.MessageDataStatus
 @Dao
 interface MessagesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(vararg item: MessageData)
+    suspend fun insert(item: MessageData): Long
     @Update
     suspend fun update(vararg item: MessageData)
     @Delete
     suspend fun delete(vararg item: MessageData)
 
-    @Query("DELETE FROM messages WHERE awsId =:messageId")
-    suspend fun deleteById(messageId: String)
+    @Query("DELETE FROM messages WHERE awsId = :awsId")
+    suspend fun deleteByAwsId(awsId: String)
 
     @Query("SELECT * FROM messages")
     suspend fun getAll(): List<MessageData>
@@ -41,18 +41,17 @@ interface MessagesDao {
     @Query("SELECT EXISTS(SELECT * FROM messages WHERE awsId = :id)")
     suspend fun isRowExist(id: String) : Boolean
 
-    @Query("DELETE FROM messages")
-    suspend fun deleteAll()
-
-    @Transaction
-    suspend fun fullUpdate(items: List<MessageData>){
-        deleteAll()
-        insert(*items.toTypedArray())
-    }
+    @Query("DELETE FROM messages WHERE channelArn = :channelArn")
+    suspend fun deleteAllMessagesInChannel(channelArn: String)
 
     @Transaction
     suspend fun updateChannelMessages(channelArn: String, items: List<MessageData>){
-        insert(*items.toTypedArray())
+        items.forEach { message ->
+            getByAwsId(message.awsId)?.let { message.readByMe = it.readByMe }
+            message.status = MessageDataStatus.DELIVERED
+        }
+        deleteAllMessagesInChannel(channelArn)
+        items.forEach { insert(it) }
     }
 
     @Query("UPDATE messages SET awsId =:newId WHERE awsId =:oldId")
@@ -60,23 +59,17 @@ interface MessagesDao {
 
     @Transaction
     suspend fun upsert(message: MessageData){
-        kotlin.runCatching {
-            message.attachment?.messageId?.let { oldId ->
-                updateAwsId(oldId, message.awsId)
-            }
-        }.onSuccess { result ->
-            if (result == 0){
-                message.readByMe = true
-                insert(message)
-            } else {
-                getByAwsId(message.awsId)?.let {
-                    message.id = it.id
-                    message.readByMe = true
-                    message.status = MessageDataStatus.DELIVERED
-                    update(message)
-                }
-            }
-        }.onFailure {
+        message.attachment?.messageId?.let { oldId ->
+            updateAwsId(oldId, message.awsId)
+        }
+        val savedMessage = getByAwsId(message.awsId)
+        if (savedMessage == null){
+            if (message.fromCurrentUser) message.readByMe = true
+            insert(message)
+        } else {
+            message.id = savedMessage.id
+            message.readByMe = savedMessage.readByMe
+            message.status = MessageDataStatus.DELIVERED
             update(message)
         }
     }

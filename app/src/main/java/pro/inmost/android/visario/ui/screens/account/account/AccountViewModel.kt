@@ -14,14 +14,12 @@ import pro.inmost.android.visario.domain.usecases.auth.LogoutUseCase
 import pro.inmost.android.visario.domain.usecases.profile.FetchProfileUseCase
 import pro.inmost.android.visario.domain.usecases.profile.UpdateProfileUseCase
 import pro.inmost.android.visario.ui.entities.profile.toUIProfile
-import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.utils.SingleLiveEvent
 import pro.inmost.android.visario.utils.extensions.toFile
 import pro.inmost.android.visario.utils.extensions.toast
 
 class AccountViewModel(
     private val logoutUseCase: LogoutUseCase,
-    private val credentialsStore: CredentialsStore,
     private val fetchProfileUseCase: FetchProfileUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase
 ) : ViewModel() {
@@ -54,7 +52,6 @@ class AccountViewModel(
     }
 
     fun logout() {
-        credentialsStore.clear()
         viewModelScope.launch {
             logoutUseCase.logout()
             _logoutEvent.call()
