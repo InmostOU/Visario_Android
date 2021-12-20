@@ -8,8 +8,7 @@ env:
   GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
   GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
   GOOGLE_RERESH_TOKEN: ${{secrets.GOOGLE_RERESH_TOKEN}}
-  GOOGLE_FOLDER_DEV: 18TPq7wc-t8Pj-aceMCrT7g51qMnWuUIw
-  GOOGLE_FOLDER_MASTER: 1NrnASUrJgpNLNegYuuTZX-cnueBHkS-e
+  GOOGLE_FOLDER_MAIN: 1cRee3rjMgjbbIyOY9pQTDkvcOD0teN6h
   APK_MIME_TYPE: application/vnd.android.package-archive
 
 jobs:
@@ -29,10 +28,10 @@ jobs:
         run: bash ./gradlew assembleDebug --stacktrace
           
       - name: Upload to Google Drive
-        uses: jumedi/google-drive-upload-action@master
+        uses: jumedi-development/google-drive-upload-action@master
         env:
           FILE_NAME: build_server_${{ env.BUILD_NUMBER }}.apk
-          GOOGLE_FOLDER: ${{ github.ref == 'refs/heads/master' &&  env.GOOGLE_FOLDER_MASTER || env.GOOGLE_FOLDER_DEV }}
+          GOOGLE_FOLDER: ${{ env.GOOGLE_FOLDER_MAIN }}
         with:
           GOOGLE_CLIENT_ID: ${{ env.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ env.GOOGLE_CLIENT_SECRET }}
