@@ -1,4 +1,4 @@
-name: Inmost Deploy
+name: Build App
 
 on:
   workflow_dispatch:
