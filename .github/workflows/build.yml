@@ -1,1 +1,43 @@
-d
+name: Inmost Deploy
+
+on:
+  workflow_dispatch:
+
+env:
+  BUILD_NUMBER: ${{ github.run_number }}
+  GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
+  GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
+  GOOGLE_RERESH_TOKEN: ${{secrets.GOOGLE_RERESH_TOKEN}}
+  GOOGLE_FOLDER_DEV: 18TPq7wc-t8Pj-aceMCrT7g51qMnWuUIw
+  GOOGLE_FOLDER_MASTER: 1NrnASUrJgpNLNegYuuTZX-cnueBHkS-e
+  APK_MIME_TYPE: application/vnd.android.package-archive
+
+jobs:
+  android:
+    name: Android
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout sources
+        uses: actions/checkout@v2
+
+      - name: setup java sdk
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11.0.10'
+          
+      - name: Generate the Android App Apk
+        run: bash ./gradlew assembleDebug --stacktrace
+          
+      - name: Upload to Google Drive
+        uses: jumedi/google-drive-upload-action@master
+        env:
+          FILE_NAME: build_server_${{ env.BUILD_NUMBER }}.apk
+          GOOGLE_FOLDER: ${{ github.ref == 'refs/heads/master' &&  env.GOOGLE_FOLDER_MASTER || env.GOOGLE_FOLDER_DEV }}
+        with:
+          GOOGLE_CLIENT_ID: ${{ env.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ env.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ env.GOOGLE_RERESH_TOKEN }}
+          GOOGLE_FOLDER_ID: ${{ env.GOOGLE_FOLDER }}
+          FILE_PATH: ${{ github.workspace }}/app/build/outputs/apk/debug/app-debug.apk
+          FILE_MIME_TYPE: ${{ env.APK_MIME_TYPE }}
+          FILE_NAME: ${{ env.FILE_NAME }}
