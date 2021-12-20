@@ -2,13 +2,16 @@ name: Build App
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 env:
   BUILD_NUMBER: ${{ github.run_number }}
   GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
   GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
   GOOGLE_RERESH_TOKEN: ${{secrets.GOOGLE_RERESH_TOKEN}}
-  GOOGLE_FOLDER_MAIN: 1cRee3rjMgjbbIyOY9pQTDkvcOD0teN6h
+  GOOGLE_FOLDER_MAIN: 1wn_kRLi2TB-vccVW5ucp3YHxld37KDlC
   APK_MIME_TYPE: application/vnd.android.package-archive
 
 jobs:
@@ -30,7 +33,7 @@ jobs:
       - name: Upload to Google Drive
         uses: jumedi-development/google-drive-upload-action@master
         env:
-          FILE_NAME: build_server_${{ env.BUILD_NUMBER }}.apk
+          FILE_NAME: visario_${{ env.BUILD_NUMBER }}.apk
           GOOGLE_FOLDER: ${{ env.GOOGLE_FOLDER_MAIN }}
         with:
           GOOGLE_CLIENT_ID: ${{ env.GOOGLE_CLIENT_ID }}
