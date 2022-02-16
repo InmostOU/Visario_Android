@@ -13,6 +13,8 @@ interface AccountRepository {
      * @return user's [Credentials]
      */
     suspend fun login(email: String, password: String): Result<Credentials>
+
+    suspend fun loginViaFacebook(): Result<Int>
     /**
      * Register new user
      *

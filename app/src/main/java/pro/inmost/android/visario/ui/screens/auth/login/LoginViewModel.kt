@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.facebook.login.LoginResult
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.entities.user.Credentials
@@ -52,5 +53,9 @@ class LoginViewModel(
             }
             _loginButtonEnabled.value = true
         }
+    }
+
+    fun loginViaFacebook(result: LoginResult?) {
+
     }
 }

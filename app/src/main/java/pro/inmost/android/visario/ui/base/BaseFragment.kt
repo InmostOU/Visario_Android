@@ -19,9 +19,9 @@ import pro.inmost.android.visario.ui.activities.MainActivity
  */
 abstract class BaseFragment<T : ViewDataBinding>(private val layId: Int) : Fragment() {
     private var _binding: T? = null
-    protected val binding get() = _binding!!
+    val binding get() = _binding!!
 
-    protected open var bottomNavViewVisibility = View.GONE
+    open var bottomNavViewVisibility = View.GONE
 
     override fun onResume() {
         super.onResume()

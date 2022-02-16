@@ -13,4 +13,6 @@ interface LoginUseCase {
      * or a failure with an arbitrary [Throwable] exception.
      */
     suspend fun login(email: String, password: String): Result<Credentials>
+
+    suspend fun loginViaFacebook(): Result<Int>
 }

@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Visario</string>
+
+    <string name="facebook_app_id">471830241087582</string>
+    <string name="fb_login_protocol_scheme">fb471830241087582</string>
+    <string name="facebook_client_token">6283f85d2a2d55de600845ba9f08f52b</string>
+
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>

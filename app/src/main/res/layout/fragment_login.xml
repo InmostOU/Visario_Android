@@ -15,14 +15,14 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/login_cardView"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="0.93"
             app:cardCornerRadius="8dp"
             app:cardElevation="5dp"
             app:layout_constraintDimensionRatio="1:1"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -86,27 +86,48 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="24dp"
-                    android:enabled="@{viewModel.loginButtonEnabled}"
-                    android:onClick="@{(view) -> viewModel.login(view)}"
-                    android:text="@string/login" />
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_register"
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.loginButtonEnabled}"
+                        android:onClick="@{(view) -> viewModel.login(view)}"
+                        android:text="@string/login"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_register"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.loginButtonEnabled}"
+                        android:text="@string/register"
+                        android:onClick="@{() -> viewModel.openRegisterScreen()}"
+                        android:textColor="?attr/colorOnSurface"
+                        app:layout_constraintStart_toEndOf="@+id/button_login"
+                        app:layout_constraintTop_toTopOf="@+id/button_login"
+                        app:layout_constraintBottom_toBottomOf="@+id/button_login"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/button_login_via_facebook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:enabled="@{viewModel.loginButtonEnabled}"
-                    android:text="@string/register"
-                    android:onClick="@{() -> viewModel.openRegisterScreen()}"
-                    android:textColor="?attr/colorOnSurface" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp" />
+
             </LinearLayout>
 
 

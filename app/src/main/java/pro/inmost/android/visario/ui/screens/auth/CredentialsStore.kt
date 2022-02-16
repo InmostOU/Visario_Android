@@ -3,6 +3,7 @@ package pro.inmost.android.visario.ui.screens.auth
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import androidx.core.content.edit
+import com.facebook.AccessToken
 import pro.inmost.android.visario.BuildConfig
 import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.domain.usecases.auth.UpdateCredentialsUseCase
@@ -62,7 +63,13 @@ class CredentialsStore(context: Context, private val updateCredentialsUseCase: U
      *
      */
     fun isCredentialsNotEmpty() =
-        getCurrentUser().isNotBlank() && getAccessToken().isNotBlank() && getRefreshToken().isNotBlank()
+        (getCurrentUser().isNotBlank() && getAccessToken().isNotBlank() && getRefreshToken().isNotBlank())
+                || isLoggedInViaFacebook()
+
+    fun isLoggedInViaFacebook(): Boolean {
+        val accessToken = AccessToken.getCurrentAccessToken()
+        return accessToken != null && !accessToken.isExpired
+    }
 
     /**
      * Clear credentials in SharedPreferences
@@ -77,11 +84,11 @@ class CredentialsStore(context: Context, private val updateCredentialsUseCase: U
 
     private fun getCurrentUser(): String = preferences.getString(PREF_KEY_USER, "") ?: ""
 
-    private fun getAccessToken() = preferences.getString(PREF_KEY_ACCESS_TOKEN, "") ?: ""
+    private fun getAccessToken() = preferences.getString(PREF_KEY_ACCESS_TOKEN, "") ?: AccessToken.getCurrentAccessToken()?.token ?: ""
 
     private fun getRefreshToken() = preferences.getString(PREF_KEY_REFRESH_TOKEN, "") ?: ""
 
-    private fun saveAccessToken(token: String) {
+    fun saveAccessToken(token: String) {
         preferences.edit(commit = true) {
             putString(PREF_KEY_ACCESS_TOKEN, token)
         }

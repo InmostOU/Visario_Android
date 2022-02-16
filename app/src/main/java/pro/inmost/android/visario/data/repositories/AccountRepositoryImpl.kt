@@ -26,6 +26,10 @@ class AccountRepositoryImpl(
         Result.failure(Throwable("Unknown error"))
     }
 
+    override suspend fun loginViaFacebook(): Result<Int> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun logout(): Boolean = withContext(IO) {
         chimeApi.auth.logout()
     }

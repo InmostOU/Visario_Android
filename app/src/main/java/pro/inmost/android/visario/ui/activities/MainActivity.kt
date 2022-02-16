@@ -6,6 +6,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.facebook.AccessToken
+import com.facebook.LoginStatusCallback
+import com.facebook.login.LoginManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -17,6 +20,8 @@ import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.utils.extensions.gone
+import pro.inmost.android.visario.utils.log
+
 
 class MainActivity : AppCompatActivity(), AuthListener {
     private lateinit var binding: ActivityMainBinding
@@ -41,7 +46,22 @@ class MainActivity : AppCompatActivity(), AuthListener {
     }
 
     private fun checkAuth() {
-        if (credentialsStore.isCredentialsNotEmpty()){
+        LoginManager.getInstance().retrieveLoginStatus(this, object : LoginStatusCallback {
+            override fun onCompleted(accessToken: AccessToken) {
+                credentialsStore.saveAccessToken(accessToken.token)
+                log("on MainActivity token received: ${accessToken.token}")
+            }
+
+            override fun onFailure() {
+                // No access token could be retrieved for the user
+            }
+
+            override fun onError(exception: Exception) {
+                // An error occurred
+            }
+        })
+
+        if (credentialsStore.isCredentialsNotEmpty()) {
             onLogin(credentialsStore.getCredentials())
         } else {
             openLoginScreen()
@@ -64,6 +84,7 @@ class MainActivity : AppCompatActivity(), AuthListener {
 
     override fun onLogout() {
         credentialsStore.clear()
+        LoginManager.getInstance().logOut()
         channelsWebSocketClient.disconnect()
         openLoginScreen()
     }

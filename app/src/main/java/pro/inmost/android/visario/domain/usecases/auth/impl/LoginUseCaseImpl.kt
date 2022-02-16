@@ -9,4 +9,8 @@ class LoginUseCaseImpl(private val repository: AccountRepository) : LoginUseCase
     override suspend fun login(email: String, password: String): Result<Credentials> {
         return repository.login(email, password)
     }
+
+    override suspend fun loginViaFacebook(): Result<Int> {
+        return repository.loginViaFacebook()
+    }
 }
