@@ -6,10 +6,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.facebook.AccessToken
-import com.facebook.LoginStatusCallback
 import com.facebook.login.LoginManager
-import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -21,7 +19,6 @@ import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
 import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.utils.extensions.gone
-import pro.inmost.android.visario.utils.log
 
 
 class MainActivity : AppCompatActivity(), AuthListener {
@@ -32,6 +29,7 @@ class MainActivity : AppCompatActivity(), AuthListener {
     }
     private val credentialsStore: CredentialsStore by inject()
     private val channelsWebSocketClient: ChannelsWebSocketClient by inject()
+    private val googleSignInClient: GoogleSignInClient by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,22 +45,7 @@ class MainActivity : AppCompatActivity(), AuthListener {
     }
 
     private fun checkAuth() {
-        LoginManager.getInstance().retrieveLoginStatus(this, object : LoginStatusCallback {
-            override fun onCompleted(accessToken: AccessToken) {
-                credentialsStore.saveAccessToken(accessToken.token)
-                log("on MainActivity token received: ${accessToken.token}")
-            }
-
-            override fun onFailure() {
-                // No access token could be retrieved for the user
-            }
-
-            override fun onError(exception: Exception) {
-                // An error occurred
-            }
-        })
-
-        if (credentialsStore.isCredentialsNotEmpty() || GoogleSignIn.getLastSignedInAccount(this) != null) {
+        if (credentialsStore.isCredentialsNotEmpty()){
             onLogin(credentialsStore.getCredentials())
         } else {
             openLoginScreen()
@@ -86,6 +69,7 @@ class MainActivity : AppCompatActivity(), AuthListener {
     override fun onLogout() {
         credentialsStore.clear()
         LoginManager.getInstance().logOut()
+        googleSignInClient.signOut()
         channelsWebSocketClient.disconnect()
         openLoginScreen()
     }

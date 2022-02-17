@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.facebook.login.LoginResult
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.entities.user.Credentials
@@ -31,8 +32,8 @@ class LoginViewModel(
     private val _loginSuccessful = SingleLiveEvent<Credentials>()
     val loginSuccessful: LiveData<Credentials> = _loginSuccessful
 
-    private val _loginButtonEnabled = MutableLiveData(true)
-    val loginButtonEnabled: LiveData<Boolean> = _loginButtonEnabled
+    private val _loading = MutableLiveData(false)
+    val loading: LiveData<Boolean> = _loading
 
     fun openRegisterScreen() {
         _openRegisterScreen.call()
@@ -43,19 +44,44 @@ class LoginViewModel(
         val valid = validator.validate(email.value, password.value)
         if (!valid) return
 
-        _loginButtonEnabled.value = false
+        showLoading(true)
 
         viewModelScope.launch {
-            loginUseCase.login(email.value!!, password.value!!).onSuccess {
-                _loginSuccessful.value = it
-            }.onFailure {
-                _showSnackbar.value = R.string.login_failed
-            }
-            _loginButtonEnabled.value = true
+            val result = loginUseCase.login(email.value!!, password.value!!)
+            onLoginResult(result)
         }
     }
 
     fun loginViaFacebook(result: LoginResult?) {
+        showLoading(true)
+        result?.let {
+            viewModelScope.launch {
+                onLoginResult(
+                    loginUseCase.loginViaFacebook(it.accessToken.token)
+                )
+            }
+        }
+    }
 
+    fun loginViaGoogle(result: GoogleSignInAccount) {
+        showLoading(true)
+        viewModelScope.launch {
+            onLoginResult(
+                loginUseCase.loginViaGoogle(result.idToken ?: "")
+            )
+        }
+    }
+
+    private fun onLoginResult(result: Result<Credentials>){
+        showLoading(false)
+        result.onSuccess {
+            _loginSuccessful.value = it
+        }.onFailure {
+            _showSnackbar.value = R.string.login_failed
+        }
+    }
+
+    fun showLoading(show: Boolean){
+        _loading.value = show
     }
 }

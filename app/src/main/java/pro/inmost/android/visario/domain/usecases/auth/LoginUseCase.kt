@@ -14,5 +14,7 @@ interface LoginUseCase {
      */
     suspend fun login(email: String, password: String): Result<Credentials>
 
-    suspend fun loginViaFacebook(): Result<Int>
+    suspend fun loginViaFacebook(token: String): Result<Credentials>
+
+    suspend fun loginViaGoogle(token: String): Result<Credentials>
 }

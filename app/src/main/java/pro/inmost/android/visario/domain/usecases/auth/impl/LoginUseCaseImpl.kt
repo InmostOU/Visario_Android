@@ -10,7 +10,11 @@ class LoginUseCaseImpl(private val repository: AccountRepository) : LoginUseCase
         return repository.login(email, password)
     }
 
-    override suspend fun loginViaFacebook(): Result<Int> {
-        return repository.loginViaFacebook()
+    override suspend fun loginViaFacebook(token: String): Result<Credentials> {
+        return repository.loginViaFacebook(token)
+    }
+
+    override suspend fun loginViaGoogle(token: String): Result<Credentials> {
+        return repository.loginViaGoogle(token)
     }
 }

@@ -3,6 +3,7 @@ package pro.inmost.android.visario.data.repositories
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
+import pro.inmost.android.visario.data.api.dto.requests.toCredentials
 import pro.inmost.android.visario.data.api.dto.requests.toRegistrationRequest
 import pro.inmost.android.visario.data.database.AppDatabase
 import pro.inmost.android.visario.domain.entities.user.Credentials
@@ -14,20 +15,15 @@ class AccountRepositoryImpl(
 ) : AccountRepository {
 
     override suspend fun login(email: String, password: String): Result<Credentials> = withContext(IO) {
-        chimeApi.auth.login(email, password).onSuccess {
-            val credentials = Credentials(
-                currentUser = it.userProfile.email,
-                accessToken = it.accessToken,
-                refreshToken = it.refreshToken)
-            return@withContext Result.success(credentials)
-        }.onFailure {
-            return@withContext Result.failure(it)
-        }
-        Result.failure(Throwable("Unknown error"))
+        chimeApi.auth.login(email, password).map { it.toCredentials() }
     }
 
-    override suspend fun loginViaFacebook(): Result<Int> {
-        TODO("Not yet implemented")
+    override suspend fun loginViaFacebook(token: String): Result<Credentials> = withContext(IO) {
+        chimeApi.auth.loginViaFacebook(token).map { it.toCredentials() }
+    }
+
+    override suspend fun loginViaGoogle(token: String): Result<Credentials> = withContext(IO) {
+        chimeApi.auth.loginViaGoogle(token).map { it.toCredentials() }
     }
 
     override suspend fun logout(): Boolean = withContext(IO) {
