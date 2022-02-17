@@ -2,6 +2,9 @@ package pro.inmost.android.visario.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -14,9 +17,10 @@ import pro.inmost.android.visario.VisarioApp
 import pro.inmost.android.visario.data.api.services.websockets.channels.ChannelsWebSocketClient
 import pro.inmost.android.visario.databinding.ActivityMainBinding
 import pro.inmost.android.visario.domain.entities.user.Credentials
+import pro.inmost.android.visario.ui.screens.auth.AppPreferences
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
-import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.utils.extensions.gone
+import pro.inmost.android.visario.utils.extensions.toast
 
 class MainActivity : AppCompatActivity(), AuthListener {
     private lateinit var binding: ActivityMainBinding
@@ -24,7 +28,7 @@ class MainActivity : AppCompatActivity(), AuthListener {
     private val navController: NavController by lazy {
         (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment).navController
     }
-    private val credentialsStore: CredentialsStore by inject()
+    private val mAppPreferences: AppPreferences by inject()
     private val channelsWebSocketClient: ChannelsWebSocketClient by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,11 +45,49 @@ class MainActivity : AppCompatActivity(), AuthListener {
     }
 
     private fun checkAuth() {
-        if (credentialsStore.isCredentialsNotEmpty()){
-            onLogin(credentialsStore.getCredentials())
+        if (mAppPreferences.isCredentialsNotEmpty()){
+            if (mAppPreferences.requestBiometrics){
+                requestBiometrics()
+            } else {
+                onLogin(mAppPreferences.getCredentials())
+            }
         } else {
             openLoginScreen()
         }
+    }
+
+    private fun requestBiometrics() {
+        val executor = ContextCompat.getMainExecutor(this)
+        val biometricPrompt = BiometricPrompt(this, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int,
+                                                   errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    toast(getString(R.string.auth_error, errString))
+                    openLoginScreen()
+                }
+
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    toast(R.string.auth_succeeded)
+                    onLogin(mAppPreferences.getCredentials())
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    toast(R.string.auth_failed)
+                    openLoginScreen()
+                }
+            })
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.biometric_login))
+            .setNegativeButtonText(getString(R.string.use_password))
+            .setAllowedAuthenticators(BIOMETRIC_STRONG)
+            .build()
+
+        biometricPrompt.authenticate(promptInfo)
     }
 
     fun setBottomNavVisibility(visibility: Int) {
@@ -57,13 +99,13 @@ class MainActivity : AppCompatActivity(), AuthListener {
     }
 
     override fun onLogin(credentials: Credentials) {
-        credentialsStore.saveCredentials(credentials)
+        mAppPreferences.saveCredentials(credentials)
         VisarioApp.instance?.reloadModules()
         openApp()
     }
 
     override fun onLogout() {
-        credentialsStore.clear()
+        mAppPreferences.clear()
         channelsWebSocketClient.disconnect()
         openLoginScreen()
     }

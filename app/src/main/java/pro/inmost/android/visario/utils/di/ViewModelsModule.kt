@@ -128,7 +128,7 @@ val viewModelsModule = module {
     }
 
     // SETTINGS
-    viewModel { SecurityViewModel() }
+    viewModel { SecurityViewModel(get()) }
 
     viewModel {
         PhoneNumberSetupViewModel(

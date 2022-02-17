@@ -55,6 +55,8 @@ android {
 }
 
 dependencies {
+    // Biometric
+    implementation("androidx.biometric:biometric:1.2.0-alpha04")
 
     // EMOJI
     implementation 'com.vanniktech:emoji-ios:0.7.0'

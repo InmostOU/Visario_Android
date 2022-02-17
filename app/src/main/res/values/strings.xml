@@ -177,6 +177,12 @@
     <string name="send_email">Send email...</string>
     <string name="attached_image">Attached image</string>
     <string name="downloading">Downloading...</string>
+    <string name="fingerprint_app_login">Fingerprint App Login</string>
+    <string name="biometric_login">Biometric login</string>
+    <string name="use_password">Use password</string>
+    <string name="auth_error">Auth error: %s</string>
+    <string name="auth_failed">Auth failed</string>
+    <string name="auth_succeeded">Auth succeeded</string>
 
     <plurals name="members">
         <item quantity="zero">%d member</item>
