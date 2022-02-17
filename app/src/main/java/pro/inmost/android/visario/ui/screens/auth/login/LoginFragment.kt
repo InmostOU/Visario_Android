@@ -1,10 +1,20 @@
 package pro.inmost.android.visario.ui.screens.auth.login
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentLoginBinding
@@ -27,11 +37,41 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private val viewModel: LoginViewModel by viewModel()
     private var authListener: AuthListener? = null
     private val EMAIL = "email"
+    lateinit var googleLoginResultLauncher: ActivityResultLauncher<Intent>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        googleLoginResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK){
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                handleSignInResult(task)
+            }
+        }
+    }
+
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account: GoogleSignInAccount = completedTask.getResult(ApiException::class.java)
+
+
+        } catch (e: ApiException) {
+            logError( "signInResult:failed code=" + e.statusCode)
+        }
+    }
 
     override fun onCreated() {
         binding.viewModel = viewModel
         setupFacebookLogin()
         subscribeEvents()
+    }
+
+    private fun loginViaGoogle() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        val googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+        val signInIntent: Intent = googleSignInClient.signInIntent
+        googleLoginResultLauncher.launch(signInIntent)
     }
 
     private fun setupFacebookLogin() {
@@ -66,6 +106,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             authListener?.onLogin(it)
         }
         viewModel.showSnackbar.observe(viewLifecycleOwner) { snackbar(it) }
+
+        binding.buttonLoginViaGoogle.setOnClickListener {
+            loginViaGoogle()
+        }
     }
 
     private fun openRegisterScreen() {

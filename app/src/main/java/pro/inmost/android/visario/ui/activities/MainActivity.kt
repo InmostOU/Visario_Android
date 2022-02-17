@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.facebook.AccessToken
 import com.facebook.LoginStatusCallback
 import com.facebook.login.LoginManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity(), AuthListener {
             }
         })
 
-        if (credentialsStore.isCredentialsNotEmpty()) {
+        if (credentialsStore.isCredentialsNotEmpty() || GoogleSignIn.getLastSignedInAccount(this) != null) {
             onLogin(credentialsStore.getCredentials())
         } else {
             openLoginScreen()

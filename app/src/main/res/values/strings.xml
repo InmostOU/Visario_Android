@@ -182,6 +182,8 @@
     <string name="send_email">Send email...</string>
     <string name="attached_image">Attached image</string>
     <string name="downloading">Downloading...</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_in_with_facebook">Sign in with Facebook</string>
 
     <plurals name="members">
         <item quantity="zero">%d member</item>
