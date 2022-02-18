@@ -17,6 +17,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import org.koin.android.ext.android.inject
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentLoginBinding
@@ -28,6 +31,7 @@ import pro.inmost.android.visario.utils.extensions.snackbar
 import pro.inmost.android.visario.utils.extensions.toast
 import pro.inmost.android.visario.utils.log
 import pro.inmost.android.visario.utils.logError
+import pro.inmost.android.visario.utils.extensions.toast
 
 
 /**
@@ -36,7 +40,7 @@ import pro.inmost.android.visario.utils.logError
  * @constructor Create empty Login fragment
  */
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
-    private val viewModel: LoginViewModel by viewModel()
+    private val loginViewModel: LoginViewModel by viewModel()
     private var authListener: AuthListener? = null
     private val EMAIL = "email"
     lateinit var googleLoginResultLauncher: ActivityResultLauncher<Intent>
@@ -64,7 +68,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     override fun onCreated() {
-        binding.viewModel = viewModel
+        binding.viewModel = loginViewModel
         setupFacebookLogin()
         subscribeEvents()
     }
@@ -95,20 +99,54 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     private fun subscribeEvents() {
-        viewModel.openRegisterScreen.observe(viewLifecycleOwner){
-            openRegisterScreen()
+        loginViewModel.loginSuccessful.observe(viewLifecycleOwner){
+            authListener?.onLogin()
         }
-        viewModel.loginSuccessful.observe(viewLifecycleOwner){
-            authListener?.onLogin(it)
+        loginViewModel.showSnackbar.observe(viewLifecycleOwner) { snackbar(it) }
+        binding.apply {
+            buttonLogin.setOnClickListener {
+                loginViewModel.login()
+            }
+            buttonRegister.setOnClickListener {
+                openRegisterScreen()
+            }
+            buttonFingerprint.setOnClickListener {
+                requestBiometrics()
+            }
+            buttonLoginViaGoogle.setOnClickListener {
+                loginViaGoogle()
+            }
+            buttonLoginViaFacebook.setOnClickListener {
+                LoginManager.getInstance().logIn(this, listOf(EMAIL))
+            }
         }
-        viewModel.showSnackbar.observe(viewLifecycleOwner) { snackbar(it) }
+    }
 
-        binding.buttonLoginViaGoogle.setOnClickListener {
-            loginViaGoogle()
-        }
-        binding.buttonLoginViaFacebook.setOnClickListener {
-            LoginManager.getInstance().logIn(this, listOf(EMAIL))
-        }
+    private fun requestBiometrics() {
+        val executor = ContextCompat.getMainExecutor(requireContext())
+        val biometricPrompt = BiometricPrompt(this, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    toast(R.string.auth_succeeded)
+                    authListener?.onLogin()
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    toast(R.string.auth_failed)
+                }
+            })
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.biometric_login))
+            .setNegativeButtonText(getString(R.string.use_password))
+            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+            .build()
+
+        biometricPrompt.authenticate(promptInfo)
     }
 
     private fun openRegisterScreen() {

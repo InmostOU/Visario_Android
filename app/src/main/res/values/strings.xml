@@ -186,6 +186,13 @@
     <string name="downloading">Downloading...</string>
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="sign_in_with_facebook">Sign in with Facebook</string>
+    <string name="fingerprint_app_login">Ask for a password each time the app is restarted</string>
+    <string name="biometric_login">Biometric login</string>
+    <string name="use_password">Use password</string>
+    <string name="auth_error">Auth error: %s</string>
+    <string name="auth_failed">Auth failed</string>
+    <string name="auth_succeeded">Auth succeeded</string>
+    <string name="fingerprint_button_description">Use fingerprint</string>
 
     <plurals name="members">
         <item quantity="zero">%d member</item>

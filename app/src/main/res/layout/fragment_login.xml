@@ -87,6 +87,13 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:enabled="@{viewModel.loginButtonEnabled}"
+                    android:text="@string/login" />
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -120,6 +127,17 @@
                         app:layout_constraintBottom_toBottomOf="@+id/button_login"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageButton
+                    android:id="@+id/button_fingerprint"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginTop="8dp"
+                    android:visibility="@{viewModel.loggedInBefore ? View.VISIBLE : View.GONE}"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_fingerprint_24"
+                    android:contentDescription="@string/fingerprint_button_description" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

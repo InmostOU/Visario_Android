@@ -1,6 +1,7 @@
 package pro.inmost.android.visario.utils.di
 
 import android.content.Context
+import android.content.Context
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -12,7 +13,7 @@ import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.api.services.websockets.channels.ChannelsWebSocketClient
 import pro.inmost.android.visario.data.database.AppDatabase
 import pro.inmost.android.visario.domain.usecases.auth.impl.UpdateCredentialsUseCaseImpl
-import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
+import pro.inmost.android.visario.ui.screens.auth.AppPreferences
 
 
 /**
@@ -21,9 +22,15 @@ import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 val appModule = module {
     single { AppDatabase.getInstance(androidApplication().applicationContext) }
     single { ChimeApi() }
-    single { CredentialsStore(androidApplication().applicationContext, get<UpdateCredentialsUseCaseImpl>()) }
+    single {
+        AppPreferences(
+            androidApplication()
+                .applicationContext
+                .getSharedPreferences("app_pref", Context.MODE_PRIVATE),
+            get<UpdateCredentialsUseCaseImpl>()
+        )
+    }
     factory { ChannelsWebSocketClient(get(), get(), get()) }
-    single { getGoogleSignInClient(androidApplication().applicationContext) }
     single { getGoogleSignInClient(androidApplication().applicationContext) }
     single { LoginManager.getInstance() }
 }

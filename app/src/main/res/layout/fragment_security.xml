@@ -179,6 +179,16 @@
 
                 </LinearLayout>
 
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/fingerprint_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_chat_name"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:padding="8dp"
+                    android:checked="@{viewModel.loginEachTime}"
+                    android:text="@string/fingerprint_app_login"/>
+
 
             </LinearLayout>
 
