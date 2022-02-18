@@ -64,6 +64,20 @@ class Authenticator(private val service: AuthService) {
         }
     }
 
+    suspend fun forgotPassword(email: String) = withContext(IO){
+        kotlin.runCatching {
+            val response = service.forgotPassword(email)
+            if (response.equals("ok", true)){
+                Result.success(Unit)
+            } else {
+                Result.failure(Throwable("Forgot password request failed"))
+            }
+        }.getOrElse {
+            logError("forgot password error: ${it.message}")
+            Result.failure(Throwable(it))
+        }
+    }
+
     fun logout(): Boolean {
         clearTokens()
         return true

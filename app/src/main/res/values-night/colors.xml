@@ -3,4 +3,5 @@
     <color name="dividerColor">#DDDDDD</color>
     <color name="outgoing_message_bubble">#2F5265</color>
     <color name="incoming_message_bubble">#1C2F39</color>
+    <color name="loading_background">#A32B5368</color>
 </resources>

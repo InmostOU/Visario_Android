@@ -38,4 +38,6 @@ interface AccountRepository {
      * @param credentials
      */
     fun updateCredentials(credentials: Credentials)
+
+    suspend fun forgotPassword(email: String): Result<Unit>
 }
