@@ -177,6 +177,7 @@
     <string name="send_email">Send email...</string>
     <string name="attached_image">Attached image</string>
     <string name="downloading">Downloading...</string>
+    <string name="forgot_password"><u>Forgot password?</u></string>
 
     <plurals name="members">
         <item quantity="zero">%d member</item>

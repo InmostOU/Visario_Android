@@ -86,11 +86,23 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/button_forgot_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/forgot_password"
+                    android:textStyle="bold"
+                    android:layout_gravity="end"
+                    android:paddingEnd="12dp"
+                    android:textSize="15sp"
+                    android:textColor="#2475EF"
+                    android:layout_margin="8dp"/>
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="8dp"
                     android:enabled="@{viewModel.loginButtonEnabled}"
                     android:onClick="@{(view) -> viewModel.login(view)}"
                     android:text="@string/login" />
