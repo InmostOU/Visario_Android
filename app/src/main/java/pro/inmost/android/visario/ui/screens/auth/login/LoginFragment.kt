@@ -1,6 +1,9 @@
 package pro.inmost.android.visario.ui.screens.auth.login
 
 import android.content.Context
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentLoginBinding
@@ -9,6 +12,7 @@ import pro.inmost.android.visario.ui.base.BaseFragment
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
 import pro.inmost.android.visario.utils.extensions.navigate
 import pro.inmost.android.visario.utils.extensions.snackbar
+import pro.inmost.android.visario.utils.extensions.toast
 
 
 /**
@@ -17,22 +21,57 @@ import pro.inmost.android.visario.utils.extensions.snackbar
  * @constructor Create empty Login fragment
  */
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
-    private val viewModel: LoginViewModel by viewModel()
+    private val loginViewModel: LoginViewModel by viewModel()
     private var authListener: AuthListener? = null
 
     override fun onCreated() {
-        binding.viewModel = viewModel
+        binding.viewModel = loginViewModel
         subscribeEvents()
     }
 
     private fun subscribeEvents() {
-        viewModel.openRegisterScreen.observe(viewLifecycleOwner){
-            openRegisterScreen()
+        loginViewModel.loginSuccessful.observe(viewLifecycleOwner){
+            authListener?.onLogin()
         }
-        viewModel.loginSuccessful.observe(viewLifecycleOwner){
-            authListener?.onLogin(it)
+        loginViewModel.showSnackbar.observe(viewLifecycleOwner) { snackbar(it) }
+        binding.apply {
+            buttonLogin.setOnClickListener {
+                loginViewModel.login()
+            }
+            buttonRegister.setOnClickListener {
+                openRegisterScreen()
+            }
+            buttonFingerprint.setOnClickListener {
+                requestBiometrics()
+            }
         }
-        viewModel.showSnackbar.observe(viewLifecycleOwner) { snackbar(it) }
+    }
+
+    private fun requestBiometrics() {
+        val executor = ContextCompat.getMainExecutor(requireContext())
+        val biometricPrompt = BiometricPrompt(this, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    toast(R.string.auth_succeeded)
+                    authListener?.onLogin()
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    toast(R.string.auth_failed)
+                }
+            })
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.biometric_login))
+            .setNegativeButtonText(getString(R.string.use_password))
+            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+            .build()
+
+        biometricPrompt.authenticate(promptInfo)
     }
 
     private fun openRegisterScreen() {

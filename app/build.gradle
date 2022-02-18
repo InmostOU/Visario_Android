@@ -69,7 +69,7 @@ dependencies {
     implementation(name: 'amazon-chime-sdk-media', ext: 'aar')
 
     // Room database
-    def room_version = "2.3.0"
+    def room_version = "2.4.1"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="pro.inmost.android.visario.ui.screens.auth.login.LoginViewModel" />
@@ -92,8 +93,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:enabled="@{viewModel.loginButtonEnabled}"
-                    android:onClick="@{(view) -> viewModel.login(view)}"
                     android:text="@string/login" />
+
+                <ImageButton
+                    android:id="@+id/button_fingerprint"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginTop="8dp"
+                    android:visibility="@{viewModel.loggedInBefore ? View.VISIBLE : View.GONE}"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_fingerprint_24"
+                    android:contentDescription="@string/fingerprint_button_description" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_register"
@@ -105,7 +116,6 @@
                     android:layout_marginBottom="5dp"
                     android:enabled="@{viewModel.loginButtonEnabled}"
                     android:text="@string/register"
-                    android:onClick="@{() -> viewModel.openRegisterScreen()}"
                     android:textColor="?attr/colorOnSurface" />
             </LinearLayout>
 

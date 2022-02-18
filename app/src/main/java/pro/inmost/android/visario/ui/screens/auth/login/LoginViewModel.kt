@@ -1,6 +1,5 @@
 package pro.inmost.android.visario.ui.screens.auth.login
 
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,20 +8,21 @@ import kotlinx.coroutines.launch
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.domain.usecases.auth.LoginUseCase
+import pro.inmost.android.visario.ui.screens.auth.AppPreferences
 import pro.inmost.android.visario.ui.screens.auth.Validator
 import pro.inmost.android.visario.utils.SingleLiveEvent
-import pro.inmost.android.visario.utils.hideKeyboard
 
 
 class LoginViewModel(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val appPreferences: AppPreferences
 ) : ViewModel(){
     val validator = Validator()
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    private val _openRegisterScreen = SingleLiveEvent<Unit>()
-    val openRegisterScreen: LiveData<Unit> = _openRegisterScreen
+    val isLoggedInBefore: Boolean
+        get() = appPreferences.isCredentialsNotEmpty
 
     private val _showSnackbar = SingleLiveEvent<Int>()
     val showSnackbar: LiveData<Int> = _showSnackbar
@@ -33,20 +33,16 @@ class LoginViewModel(
     private val _loginButtonEnabled = MutableLiveData(true)
     val loginButtonEnabled: LiveData<Boolean> = _loginButtonEnabled
 
-    fun openRegisterScreen() {
-        _openRegisterScreen.call()
-    }
-
-    fun login(view: View) {
-        view.hideKeyboard()
+    fun login() {
         val valid = validator.validate(email.value, password.value)
         if (!valid) return
 
         _loginButtonEnabled.value = false
 
         viewModelScope.launch {
-            loginUseCase.login(email.value!!, password.value!!).onSuccess {
-                _loginSuccessful.value = it
+            loginUseCase.login(email.value!!, password.value!!).onSuccess { credentials ->
+                appPreferences.saveCredentials(credentials)
+                _loginSuccessful.value = credentials
             }.onFailure {
                 _showSnackbar.value = R.string.login_failed
             }

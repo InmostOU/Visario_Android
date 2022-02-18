@@ -17,11 +17,11 @@ class AppPreferences(
     private val updateCredentialsUseCase: UpdateCredentialsUseCase
 ) {
 
-    var requestBiometrics: Boolean
-        get() = preferences.getBoolean(PREF_KEY_BIOMETRICS, false)
+    var loginEachTime: Boolean
+        get() = preferences.getBoolean(PREF_KEY_LOGIN_EACH_TIME, false)
         set(value) {
             preferences.edit(commit = true) {
-                putBoolean(PREF_KEY_BIOMETRICS, value)
+                putBoolean(PREF_KEY_LOGIN_EACH_TIME, value)
             }
         }
 
@@ -48,6 +48,23 @@ class AppPreferences(
                 putString(PREF_KEY_USER, value)
             }
         }
+
+    var isLoggedIn: Boolean
+        get() = preferences.getBoolean(PREF_KEY_LOGGED_IN, false)
+        set(value) {
+            preferences.edit(commit = true) {
+                putBoolean(PREF_KEY_LOGGED_IN, value)
+            }
+        }
+
+    /**
+     * Check if credentials not empty
+     *
+     */
+    val isCredentialsNotEmpty: Boolean
+        get() = currentUser.isNotBlank()
+                && accessToken.isNotBlank()
+                && refreshToken.isNotBlank()
 
     /**
      * Update credentials
@@ -85,13 +102,6 @@ class AppPreferences(
     }
 
     /**
-     * Check if credentials not empty
-     *
-     */
-    fun isCredentialsNotEmpty() =
-        currentUser.isNotBlank() && accessToken.isNotBlank() && refreshToken.isNotBlank()
-
-    /**
      * Clear credentials in SharedPreferences
      *
      */
@@ -106,7 +116,8 @@ class AppPreferences(
         const val PREF_KEY_ACCESS_TOKEN = "${BuildConfig.APPLICATION_ID}.AccessTokenPref"
         const val PREF_KEY_REFRESH_TOKEN = "${BuildConfig.APPLICATION_ID}.RefreshTokenPref"
         const val PREF_KEY_USER = "${BuildConfig.APPLICATION_ID}.UserPref"
-        const val PREF_KEY_BIOMETRICS = "${BuildConfig.APPLICATION_ID}.Biometrics"
+        const val PREF_KEY_LOGIN_EACH_TIME = "${BuildConfig.APPLICATION_ID}.LoginEachTime"
+        const val PREF_KEY_LOGGED_IN = "${BuildConfig.APPLICATION_ID}.LoggedIn"
     }
 }
 

@@ -111,7 +111,7 @@ val viewModelsModule = module {
     }
 
     // ACCOUNT
-    viewModel { LoginViewModel(get<LoginUseCaseImpl>()) }
+    viewModel { LoginViewModel(get<LoginUseCaseImpl>(), get()) }
     viewModel { RegisterViewModel(get<RegistrationUseCaseImpl>()) }
     viewModel {
         AccountViewModel(

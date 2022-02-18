@@ -42,6 +42,7 @@ class SecurityFragment : BaseFragment<FragmentSecurityBinding>(R.layout.fragment
     }
 
     override fun onCreated() {
+        binding.viewModel = viewModel
         observeEvents()
         setupBiometrics()
     }
@@ -57,7 +58,7 @@ class SecurityFragment : BaseFragment<FragmentSecurityBinding>(R.layout.fragment
         if (biometricManager.canAuthenticate(BIOMETRIC_STRONG) == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) {
             openDeviceSettings()
         } else {
-            viewModel.toggleBiometrics(requestBiometrics)
+            viewModel.toggleLoginEachTime(requestBiometrics)
         }
     }
 
