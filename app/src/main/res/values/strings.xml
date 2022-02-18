@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Visario</string>
+
+    <string name="facebook_app_id">471830241087582</string>
+    <string name="fb_login_protocol_scheme">fb471830241087582</string>
+    <string name="facebook_client_token">6283f85d2a2d55de600845ba9f08f52b</string>
+
+    <string name="server_client_id">418259760145-kba451lmdgn5go77qva9p1d1j6n31l99.apps.googleusercontent.com</string>
+
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -177,6 +184,15 @@
     <string name="send_email">Send email...</string>
     <string name="attached_image">Attached image</string>
     <string name="downloading">Downloading...</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_in_with_facebook">Sign in with Facebook</string>
+    <string name="fingerprint_app_login">Ask for a password each time the app is restarted</string>
+    <string name="biometric_login">Biometric login</string>
+    <string name="use_password">Use password</string>
+    <string name="auth_error">Auth error: %s</string>
+    <string name="auth_failed">Auth failed</string>
+    <string name="auth_succeeded">Auth succeeded</string>
+    <string name="fingerprint_button_description">Use fingerprint</string>
     <string name="forgot_password"><u>Forgot password?</u></string>
 
     <plurals name="members">

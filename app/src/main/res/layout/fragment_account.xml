@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
 
-            <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -31,10 +31,9 @@
                 app:title="@{viewModel.fullName}"
                 app:subtitle="Online"
                 tools:title="Albert Einstein"
-                app:collapsedTitleTextAppearance="@style/ToolbarTitle"
-                app:collapsedSubtitleTextAppearance="@style/ToolbarSubtitle"
+                app:collapsedTitleTextColor="?attr/colorOnSurface"
+                app:expandedTitleTextColor="?attr/colorOnSurface"
                 app:expandedTitleTextAppearance="@style/ExpandedUserTitle"
-                app:expandedSubtitleTextAppearance="@style/ExpandedUserSubTitle"
                 app:expandedTitleMarginStart="@dimen/user_name_margin_start"
                 app:expandedTitleMarginBottom="@dimen/user_name_margin_bottom"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -59,7 +58,7 @@
                     app:subtitle="@string/online"
                     android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"  />
-            </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

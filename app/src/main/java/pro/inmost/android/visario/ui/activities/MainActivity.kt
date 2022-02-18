@@ -6,6 +6,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.facebook.login.LoginManager
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -13,10 +15,10 @@ import pro.inmost.android.visario.R
 import pro.inmost.android.visario.VisarioApp
 import pro.inmost.android.visario.data.api.services.websockets.channels.ChannelsWebSocketClient
 import pro.inmost.android.visario.databinding.ActivityMainBinding
-import pro.inmost.android.visario.domain.entities.user.Credentials
+import pro.inmost.android.visario.ui.screens.auth.AppPreferences
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
-import pro.inmost.android.visario.ui.screens.auth.CredentialsStore
 import pro.inmost.android.visario.utils.extensions.gone
+
 
 class MainActivity : AppCompatActivity(), AuthListener {
     private lateinit var binding: ActivityMainBinding
@@ -24,8 +26,9 @@ class MainActivity : AppCompatActivity(), AuthListener {
     private val navController: NavController by lazy {
         (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment).navController
     }
-    private val credentialsStore: CredentialsStore by inject()
+    private val appPreferences: AppPreferences by inject()
     private val channelsWebSocketClient: ChannelsWebSocketClient by inject()
+    private val googleSignInClient: GoogleSignInClient by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,15 +39,18 @@ class MainActivity : AppCompatActivity(), AuthListener {
         lifecycleScope.launch {
             delay(splashTime)
             checkAuth()
-            hideSplash()
         }
     }
 
     private fun checkAuth() {
-        if (credentialsStore.isCredentialsNotEmpty()){
-            onLogin(credentialsStore.getCredentials())
-        } else {
+        if (appPreferences.loginEachTime){
             openLoginScreen()
+        } else {
+            if (appPreferences.isLoggedIn){
+                onLogin()
+            } else {
+                openLoginScreen()
+            }
         }
     }
 
@@ -56,27 +62,31 @@ class MainActivity : AppCompatActivity(), AuthListener {
         binding.splashScreen.root.gone()
     }
 
-    override fun onLogin(credentials: Credentials) {
-        credentialsStore.saveCredentials(credentials)
+    override fun onLogin() {
         VisarioApp.instance?.reloadModules()
         openApp()
     }
 
     override fun onLogout() {
-        credentialsStore.clear()
+        LoginManager.getInstance().logOut()
+        googleSignInClient.signOut()
         channelsWebSocketClient.disconnect()
         openLoginScreen()
     }
 
     private fun openApp() {
+        appPreferences.isLoggedIn = true
         setNavGraph(R.navigation.app_navigation)
+        hideSplash()
         lifecycleScope.launch {
             channelsWebSocketClient.connect()
         }
     }
 
     private fun openLoginScreen() {
+        appPreferences.isLoggedIn = false
         setNavGraph(R.navigation.login_navigation)
+        hideSplash()
     }
 
     private fun setNavGraph(navGraphId: Int) {

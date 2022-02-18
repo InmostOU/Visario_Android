@@ -20,6 +20,8 @@ internal object Endpoints {
     const val PROFILE_UPLOAD_PHOTO = "/user/uploadUserPhoto"
 
     const val LOGIN = "/auth/login"
+    const val LOGIN_FACEBOOK = "/auth/facebookLogin"
+    const val LOGIN_GOOGLE = "/auth/googleLogin"
     const val REGISTER = "/auth/register"
 
     const val WS_CHANNELS = "/websocket/getPresignedUrl"
