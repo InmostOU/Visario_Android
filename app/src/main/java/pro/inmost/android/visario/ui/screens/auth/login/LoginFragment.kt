@@ -6,6 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -17,9 +20,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import org.koin.android.ext.android.inject
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricPrompt
-import androidx.core.content.ContextCompat
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.databinding.FragmentLoginBinding
@@ -31,7 +31,6 @@ import pro.inmost.android.visario.utils.extensions.snackbar
 import pro.inmost.android.visario.utils.extensions.toast
 import pro.inmost.android.visario.utils.log
 import pro.inmost.android.visario.utils.logError
-import pro.inmost.android.visario.utils.extensions.toast
 
 
 /**
@@ -60,7 +59,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account: GoogleSignInAccount = completedTask.getResult(ApiException::class.java)
-            viewModel.loginViaGoogle(account)
+            loginViewModel.loginViaGoogle(account)
         } catch (e: ApiException) {
             logError( "signInResult:failed code=" + e.statusCode)
             toast(R.string.login_failed)
@@ -92,7 +91,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
                 override fun onSuccess(result: LoginResult?) {
                     log("login via facebook success")
-                    viewModel.loginViaFacebook(result)
+                    loginViewModel.loginViaFacebook(result)
                 }
 
             })
@@ -117,7 +116,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 loginViaGoogle()
             }
             buttonLoginViaFacebook.setOnClickListener {
-                LoginManager.getInstance().logIn(this, listOf(EMAIL))
+                facebookSignInClient.logIn(this@LoginFragment, listOf(EMAIL))
             }
         }
     }
