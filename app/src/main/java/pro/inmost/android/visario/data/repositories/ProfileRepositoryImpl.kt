@@ -5,12 +5,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi
+import pro.inmost.android.visario.data.api.dto.requests.profile.ChangePasswordRequest
 import pro.inmost.android.visario.data.database.dao.ProfileDao
 import pro.inmost.android.visario.data.entities.profile.toDataProfile
 import pro.inmost.android.visario.data.entities.profile.toDomainProfile
-import pro.inmost.android.visario.utils.extensions.launchIO
 import pro.inmost.android.visario.domain.entities.user.Profile
 import pro.inmost.android.visario.domain.repositories.ProfileRepository
+import pro.inmost.android.visario.utils.extensions.launchIO
 import java.io.File
 
 class ProfileRepositoryImpl(
@@ -39,5 +40,17 @@ class ProfileRepositoryImpl(
         return api.user.updateProfileImage(file).onSuccess {
             refresh()
         }
+    }
+
+    override suspend fun updatePassword(
+        currentPass: String,
+        newPass: String,
+        matchingNewPass: String
+    ): Result<Unit> {
+        return api.user.updatePassword(ChangePasswordRequest(
+            oldPassword = currentPass,
+            newPassword = newPass,
+            matchingPassword = matchingNewPass
+        ))
     }
 }

@@ -10,7 +10,6 @@ import pro.inmost.android.visario.utils.logError
  * @property timestamp - time of response
  * @property status - 200 - is OK
  * @property message - message about successfully or failed request
- * @property message - message about successfully or failed request
  * @property path - the endpoint to which the request was sent
  */
 data class BaseResponse (
@@ -31,7 +30,7 @@ data class BaseResponse (
         Result.success(Unit)
     } else {
         logError(toString())
-        Result.failure(Throwable(toString()))
+        Result.failure(Throwable(message))
     }
 
     override fun toString(): String {

@@ -33,4 +33,6 @@ interface ProfileRepository {
      * @return [Result]
      */
     suspend fun uploadProfilePhoto(file: File): Result<Unit>
+
+    suspend fun updatePassword(currentPass: String, newPass: String, matchingNewPass: String): Result<Unit>
 }

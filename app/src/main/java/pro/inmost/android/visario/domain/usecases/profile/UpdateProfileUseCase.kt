@@ -25,6 +25,8 @@ interface UpdateProfileUseCase {
      */
     suspend fun uploadImage(file: File): Result<Unit>
 
+    suspend fun updatePassword(currentPass: String, newPass: String, matchingNewPass: String): Result<Unit>
+
 
     /**
      * Refresh user's profile data
