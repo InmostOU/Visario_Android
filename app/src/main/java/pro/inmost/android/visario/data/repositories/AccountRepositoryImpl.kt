@@ -40,4 +40,8 @@ class AccountRepositoryImpl(
             AppDatabase.updateName(credentials.currentUser)
         }
     }
+
+    override suspend fun forgotPassword(email: String)= withContext(IO) {
+        chimeApi.auth.forgotPassword(email)
+    }
 }

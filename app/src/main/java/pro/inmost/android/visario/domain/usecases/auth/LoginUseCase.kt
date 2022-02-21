@@ -17,4 +17,6 @@ interface LoginUseCase {
     suspend fun loginViaFacebook(token: String): Result<Credentials>
 
     suspend fun loginViaGoogle(token: String): Result<Credentials>
+
+    suspend fun forgotPassword(email: String): Result<Unit>
 }

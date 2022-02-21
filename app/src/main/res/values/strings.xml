@@ -126,6 +126,7 @@
     <string name="leave">Leave</string>
     <string name="dialog_message_leave_channel">Are you sure you want to leave and remove the channel?</string>
     <string name="login_failed">Login failed</string>
+    <string name="forgot_password_success">Password recovery instructions have been sent to your email</string>
     <string name="register_failed">Register failed</string>
     <string name="search_channel">Search channels</string>
     <string name="are_you_sure">Are you sure?</string>
@@ -193,6 +194,8 @@
     <string name="auth_failed">Auth failed</string>
     <string name="auth_succeeded">Auth succeeded</string>
     <string name="fingerprint_button_description">Use fingerprint</string>
+    <string name="forgot_password"><u>Forgot password?</u></string>
+    <string name="generic_error">Failed. Please try later.</string>
 
     <plurals name="members">
         <item quantity="zero">%d member</item>

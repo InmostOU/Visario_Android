@@ -80,4 +80,19 @@ class LoginViewModel(
     fun showLoading(show: Boolean){
         _loading.value = show
     }
+
+    fun forgotPassword() {
+        val valid = validator.validateEmail(email.value)
+        if (!valid) return
+        showLoading(true)
+
+        viewModelScope.launch {
+            loginUseCase.forgotPassword(email.value!!).onSuccess {
+                _showSnackbar.value = R.string.forgot_password_success
+            }.onFailure {
+                _showSnackbar.value = R.string.generic_error
+            }
+            showLoading(false)
+        }
+    }
 }

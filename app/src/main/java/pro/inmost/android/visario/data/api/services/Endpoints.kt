@@ -23,6 +23,7 @@ internal object Endpoints {
     const val LOGIN_FACEBOOK = "/auth/facebookLogin"
     const val LOGIN_GOOGLE = "/auth/googleLogin"
     const val REGISTER = "/auth/register"
+    const val FORGOT_PASSWORD = "/auth/forgot-password"
 
     const val WS_CHANNELS = "/websocket/getPresignedUrl"
 

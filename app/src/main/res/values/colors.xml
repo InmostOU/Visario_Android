@@ -42,4 +42,5 @@
     <color name="ucrop_color_widget_active">@color/primaryColor</color>
 
     <color name="facebook_logo">#3b5998</color>
+    <color name="loading_background">#BBFFFFFF</color>
 </resources>

@@ -29,6 +29,7 @@ import pro.inmost.android.visario.ui.screens.auth.AuthListener
 import pro.inmost.android.visario.utils.extensions.navigate
 import pro.inmost.android.visario.utils.extensions.snackbar
 import pro.inmost.android.visario.utils.extensions.toast
+import pro.inmost.android.visario.utils.hideKeyboard
 import pro.inmost.android.visario.utils.log
 import pro.inmost.android.visario.utils.logError
 
@@ -104,6 +105,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         loginViewModel.showSnackbar.observe(viewLifecycleOwner) { snackbar(it) }
         binding.apply {
             buttonLogin.setOnClickListener {
+                it.hideKeyboard()
                 loginViewModel.login()
             }
             buttonRegister.setOnClickListener {
@@ -117,6 +119,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             }
             buttonLoginViaFacebook.setOnClickListener {
                 facebookSignInClient.logIn(this@LoginFragment, listOf(EMAIL))
+            }
+            buttonForgotPassword.setOnClickListener {
+                loginViewModel.forgotPassword()
             }
         }
     }

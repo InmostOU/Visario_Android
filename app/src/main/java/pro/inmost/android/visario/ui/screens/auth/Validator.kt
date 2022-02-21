@@ -88,16 +88,21 @@ class Validator {
     }
 
     fun validate(email: String?, pass: String?): Boolean {
-        var valid = true
-        if (!email.isValidEmail()) {
-            _emailInvalid.value = R.string.invalid_email
-            valid = false
-        }
+        var valid = validateEmail(email)
         if (pass.isNullOrBlank()) {
             _passInvalid.value = R.string.empty_field
             valid = false
         }
 
+        return valid
+    }
+
+    fun validateEmail(email: String?): Boolean{
+        var valid = true
+        if (!email.isValidEmail()) {
+            _emailInvalid.value = R.string.invalid_email
+            valid = false
+        }
         return valid
     }
 }
