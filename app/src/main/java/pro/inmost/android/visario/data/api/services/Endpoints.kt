@@ -24,6 +24,7 @@ internal object Endpoints {
     const val LOGIN_GOOGLE = "/auth/googleLogin"
     const val REGISTER = "/auth/register"
     const val FORGOT_PASSWORD = "/auth/forgot-password"
+    const val CHANGE_PASSWORD = "/auth/changePassword"
 
     const val WS_CHANNELS = "/websocket/getPresignedUrl"
 

@@ -5,6 +5,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import pro.inmost.android.visario.data.api.dto.requests.profile.ChangePasswordRequest
 import pro.inmost.android.visario.data.api.dto.requests.profile.UpdateProfileRequest
 import pro.inmost.android.visario.data.entities.profile.ProfileData
 import pro.inmost.android.visario.utils.logError
@@ -74,6 +75,15 @@ class AccountManager(private val service: AccountService) {
             service.uploadPhoto(filePart).getResult()
         }.getOrElse {
             logError("upload photo error: ${it.message}")
+            Result.failure(it)
+        }
+    }
+
+    suspend fun updatePassword(changePasswordRequest: ChangePasswordRequest): Result<Unit> = withContext(IO) {
+        kotlin.runCatching {
+            service.updatePassword(changePasswordRequest).getResult()
+        }.getOrElse {
+            logError("Update password error: ${it.message}")
             Result.failure(it)
         }
     }

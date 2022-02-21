@@ -150,7 +150,6 @@ val viewModelsModule = module {
     }
     viewModel {
         PasswordSetupViewModel(
-            get<FetchProfileUseCaseImpl>(),
             get<UpdateProfileUseCaseImpl>()
         )
     }

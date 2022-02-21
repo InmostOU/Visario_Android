@@ -14,6 +14,14 @@ class UpdateProfileUseCaseImpl(private val repository: ProfileRepository) : Upda
         return repository.uploadProfilePhoto(file)
     }
 
+    override suspend fun updatePassword(
+        currentPass: String,
+        newPass: String,
+        matchingNewPass: String
+    ): Result<Unit> {
+        return repository.updatePassword(currentPass, newPass, matchingNewPass)
+    }
+
     override suspend fun refresh(){
         repository.refresh()
     }

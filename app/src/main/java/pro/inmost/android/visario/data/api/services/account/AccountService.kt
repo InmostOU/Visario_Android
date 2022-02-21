@@ -1,6 +1,7 @@
 package pro.inmost.android.visario.data.api.services.account
 
 import okhttp3.MultipartBody
+import pro.inmost.android.visario.data.api.dto.requests.profile.ChangePasswordRequest
 import pro.inmost.android.visario.data.api.dto.requests.profile.UpdateProfileRequest
 import pro.inmost.android.visario.data.api.dto.responses.base.BaseResponse
 import pro.inmost.android.visario.data.api.services.Endpoints
@@ -33,4 +34,7 @@ interface AccountService {
     @Multipart
     @POST(Endpoints.PROFILE_UPLOAD_PHOTO)
     suspend fun uploadPhoto(@Part file: MultipartBody.Part): BaseResponse
+
+    @POST(Endpoints.CHANGE_PASSWORD)
+    suspend fun updatePassword(@Body request: ChangePasswordRequest): BaseResponse
 }

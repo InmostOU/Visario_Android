@@ -65,25 +65,33 @@ class Validator {
                 valid = false
             }
 
-            if (!password.contains(min6CharLength.toRegex())) {
-                _passInvalid.value = R.string.short_pass
-                valid = false
-            } else if (!password.contains(atLeastOneCharReg.toRegex())) {
-                _passInvalid.value = R.string.at_least_one_char
-                valid = false
-            } else if (!password.contains(atLeastOneDigReg.toRegex())) {
-                _passInvalid.value = R.string.at_least_one_dig
-                valid = false
-            } else if (!password.contains(atLeastOneSpecialReg.toRegex())) {
-                _passInvalid.value = R.string.at_least_one_special
-                valid = false
-            }
+            valid = validatePassword(password, matchingPassword)
 
-            if (matchingPassword != password) {
-                _confirmPassInvalid.value = R.string.password_not_confirmed
-                valid = false
-            }
         }
+        return valid
+    }
+
+    fun validatePassword(password: String, matchingPassword: String): Boolean{
+        var valid = true
+        if (!password.contains(min6CharLength.toRegex())) {
+            _passInvalid.value = R.string.short_pass
+            valid = false
+        } else if (!password.contains(atLeastOneCharReg.toRegex())) {
+            _passInvalid.value = R.string.at_least_one_char
+            valid = false
+        } else if (!password.contains(atLeastOneDigReg.toRegex())) {
+            _passInvalid.value = R.string.at_least_one_dig
+            valid = false
+        } else if (!password.contains(atLeastOneSpecialReg.toRegex())) {
+            _passInvalid.value = R.string.at_least_one_special
+            valid = false
+        }
+
+        if (matchingPassword != password) {
+            _confirmPassInvalid.value = R.string.password_not_confirmed
+            valid = false
+        }
+
         return valid
     }
 

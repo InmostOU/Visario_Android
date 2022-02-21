@@ -196,6 +196,7 @@
     <string name="fingerprint_button_description">Use fingerprint</string>
     <string name="forgot_password"><u>Forgot password?</u></string>
     <string name="generic_error">Failed. Please try later.</string>
+    <string name="password_updated">Password updated</string>
 
     <plurals name="members">
         <item quantity="zero">%d member</item>
