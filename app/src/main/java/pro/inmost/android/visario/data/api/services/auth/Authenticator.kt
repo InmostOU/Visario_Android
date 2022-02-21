@@ -3,6 +3,8 @@ package pro.inmost.android.visario.data.api.services.auth
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.ChimeApi.Companion.STATUS_OK
+import pro.inmost.android.visario.data.api.dto.requests.auth.FacebookLoginRequest
+import pro.inmost.android.visario.data.api.dto.requests.auth.GoogleLoginRequest
 import pro.inmost.android.visario.data.api.dto.requests.auth.LoginRequest
 import pro.inmost.android.visario.data.api.dto.requests.auth.RegistrationRequest
 import pro.inmost.android.visario.data.api.dto.responses.auth.AuthResponse
@@ -20,6 +22,36 @@ class Authenticator(private val service: AuthService) {
     suspend fun login(email: String, password: String): Result<AuthResponse> = withContext(IO) {
         kotlin.runCatching {
             val response = service.login(LoginRequest(email, password))
+            if (response.status == STATUS_OK) {
+                Result.success(response)
+            } else {
+                logError("login error: ${response.message}")
+                Result.failure(Throwable(response.message))
+            }
+        }.getOrElse {
+            logError("login error: ${it.message}")
+            Result.failure(Throwable(it))
+        }
+    }
+
+    suspend fun loginViaFacebook(token: String): Result<AuthResponse> = withContext(IO) {
+        kotlin.runCatching {
+            val response = service.loginViaFacebook(FacebookLoginRequest(token))
+            if (response.status == STATUS_OK) {
+                Result.success(response)
+            } else {
+                logError("login error: ${response.message}")
+                Result.failure(Throwable(response.message))
+            }
+        }.getOrElse {
+            logError("login error: ${it.message}")
+            Result.failure(Throwable(it))
+        }
+    }
+
+    suspend fun loginViaGoogle(token: String): Result<AuthResponse> = withContext(IO) {
+        kotlin.runCatching {
+            val response = service.loginViaGoogle(GoogleLoginRequest(token))
             if (response.status == STATUS_OK) {
                 Result.success(response)
             } else {

@@ -55,7 +55,7 @@
         <entry key="app/src/main/res/layout/fragment_detail_contact.xml" value="0.18958333333333333" />
         <entry key="app/src/main/res/layout/fragment_image_picker.xml" value="0.232421875" />
         <entry key="app/src/main/res/layout/fragment_image_resizer.xml" value="0.221484375" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.18472222222222223" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2953703703703704" />
         <entry key="app/src/main/res/layout/fragment_meeting.xml" value="0.281362067328559" />
         <entry key="app/src/main/res/layout/fragment_meeting_create.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_meeting_join.xml" value="0.3098958333333333" />
@@ -74,6 +74,7 @@
         <entry key="app/src/main/res/layout/fragment_security.xml" value="0.2935185185185185" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.2644444444444444" />
         <entry key="app/src/main/res/layout/grid_item_meeting_member.xml" value="0.2675925925925926" />
+        <entry key="app/src/main/res/layout/layout_loading.xml" value="0.2814814814814815" />
         <entry key="app/src/main/res/layout/list_item_channel.xml" value="0.29814814814814816" />
         <entry key="app/src/main/res/layout/list_item_channel_found.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/list_item_channel_member.xml" value="0.26481481481481484" />
@@ -110,7 +111,7 @@
         <entry key="app/src/main/res/menu/popup_message_other.xml" value="0.29074074074074074" />
         <entry key="app/src/main/res/menu/settings.xml" value="0.22013888888888888" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.133984375" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2326388888888889" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1511325412326389" />
         <entry key="app/src/main/res/xml/provider_paths.xml" value="0.2076388888888889" />
       </map>
     </option>

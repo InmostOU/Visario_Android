@@ -1,5 +1,7 @@
 package pro.inmost.android.visario.data.api.services.auth
 
+import pro.inmost.android.visario.data.api.dto.requests.auth.FacebookLoginRequest
+import pro.inmost.android.visario.data.api.dto.requests.auth.GoogleLoginRequest
 import pro.inmost.android.visario.data.api.dto.requests.auth.LoginRequest
 import pro.inmost.android.visario.data.api.dto.requests.auth.RegistrationRequest
 import pro.inmost.android.visario.data.api.dto.responses.auth.AuthResponse
@@ -15,6 +17,12 @@ interface AuthService {
 
     @POST(Endpoints.LOGIN)
     suspend fun login(@Body body: LoginRequest): AuthResponse
+
+    @POST(Endpoints.LOGIN_FACEBOOK)
+    suspend fun loginViaFacebook(@Body body: FacebookLoginRequest): AuthResponse
+
+    @POST(Endpoints.LOGIN_GOOGLE)
+    suspend fun loginViaGoogle(@Body body: GoogleLoginRequest): AuthResponse
 
     @POST(Endpoints.REGISTER)
     suspend fun register(@Body body: RegistrationRequest): AuthResponse

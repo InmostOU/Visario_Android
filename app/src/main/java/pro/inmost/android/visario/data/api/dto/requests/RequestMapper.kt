@@ -1,6 +1,8 @@
 package pro.inmost.android.visario.data.api.dto.requests
 
 import pro.inmost.android.visario.data.api.dto.requests.auth.RegistrationRequest
+import pro.inmost.android.visario.data.api.dto.responses.auth.AuthResponse
+import pro.inmost.android.visario.domain.entities.user.Credentials
 import pro.inmost.android.visario.domain.entities.user.Register
 
 
@@ -19,6 +21,12 @@ fun Register.toRegistrationRequest(): RegistrationRequest {
         matchingPassword = this.password
     )
 }
+
+fun AuthResponse.toCredentials() = Credentials(
+    currentUser = userProfile.email,
+    accessToken = accessToken,
+    refreshToken = refreshToken
+)
 
 
 

@@ -46,7 +46,7 @@
     <style name="ExpandedUserTitle">
         <item name="android:textSize">@dimen/expanded_user_title</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
     <style name="ExpandedUserSubTitle" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textSize">@dimen/expanded_user_subtitle</item>
