@@ -2,6 +2,7 @@ package pro.inmost.android.visario.data.api.services.websockets.channels
 
 import com.google.gson.Gson
 import pro.inmost.android.visario.data.api.services.websockets.channels.model.ChannelWebSocketMessage
+import pro.inmost.android.visario.utils.extensions.parseJson
 
 /**
  * Helper class for getting EventType from json received by web-socket
@@ -10,10 +11,13 @@ import pro.inmost.android.visario.data.api.services.websockets.channels.model.Ch
 object ChannelEventManager {
     private val gson = Gson()
 
-    fun getEvent(json: String): EventType {
-        val response = gson.fromJson(json, ChannelWebSocketMessage::class.java)
-        val event = response.headers.eventType
-        return EventType.valueOf(event)
+    fun getEvent(json: String): EventType? {
+        val response = json.parseJson<ChannelWebSocketMessage>(gson)
+        if (response != null){
+            val event = response.headers.eventType
+            return EventType.valueOf(event)
+        }
+        return null
     }
 
     enum class EventType {

@@ -3,17 +3,20 @@ package pro.inmost.android.visario.utils.extensions
 import android.util.Patterns
 import android.webkit.MimeTypeMap
 import android.webkit.URLUtil
+import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import pro.inmost.android.visario.data.api.services.Endpoints
+import pro.inmost.android.visario.utils.logE
 import java.net.URLEncoder
 
-fun String.isValidUrl() =  URLUtil.isValidUrl(this)
+fun String.isValidUrl() = URLUtil.isValidUrl(this)
 
-val String.meetingId get() = kotlin.runCatching {
-    if (isMeetingInvitation()) substringAfter('=') else null
-}.getOrNull()
+val String.meetingId
+    get() = kotlin.runCatching {
+        if (isMeetingInvitation()) substringAfter('=') else null
+    }.getOrNull()
 
 /**
  * Check if a string is a valid email address
@@ -52,4 +55,17 @@ fun String.toMimeType() = MimeTypeMap.getSingleton().getMimeTypeFromExtension(th
 
 fun String.toRequestBody(): RequestBody {
     return toRequestBody("text/plain".toMediaTypeOrNull())
+}
+
+inline fun <reified T> String.parseJson(gson: Gson? = null): T? {
+    return kotlin.runCatching {
+        (gson ?: Gson()).fromJson(this, T::class.java).also {
+            if (it == null) {
+                logE("Json for ${T::class.simpleName} class null or empty")
+            }
+        }
+    }.onFailure {
+        logE(it.message ?: "Invalid json for ${T::class.simpleName} class")
+        it.printStackTrace()
+    }.getOrNull()
 }
