@@ -3,6 +3,7 @@ package pro.inmost.android.visario.data.api.services
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import pro.inmost.android.visario.data.api.services.Endpoints.PORT_BASE
 import pro.inmost.android.visario.data.api.services.Endpoints.SERVER_BASE_URL
 import pro.inmost.android.visario.data.api.services.auth.Authenticator
 import retrofit2.Retrofit
@@ -36,7 +37,7 @@ class ServiceFactory(private val tokens: Authenticator.TokensHolder) {
         }
 
         return builder
-            .baseUrl(SERVER_BASE_URL)
+            .baseUrl(SERVER_BASE_URL + PORT_BASE)
             .build()
             .create(service)
     }

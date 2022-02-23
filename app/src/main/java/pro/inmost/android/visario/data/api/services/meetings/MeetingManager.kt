@@ -7,7 +7,9 @@ import pro.inmost.android.visario.data.api.dto.requests.meeting.DeleteAttendeeRe
 import pro.inmost.android.visario.data.api.dto.requests.meeting.GetAttendeeInfoRequest
 import pro.inmost.android.visario.data.api.dto.responses.meeting.AttendeeInfoResponse
 import pro.inmost.android.visario.data.api.dto.responses.meeting.GetMeetingResponse
-import pro.inmost.android.visario.data.api.services.Endpoints
+import pro.inmost.android.visario.data.api.services.Endpoints.MEETING_GET
+import pro.inmost.android.visario.data.api.services.Endpoints.PORT_BASE
+import pro.inmost.android.visario.data.api.services.Endpoints.SERVER_BASE_URL
 import pro.inmost.android.visario.data.entities.meeting.AttendeeData
 import pro.inmost.android.visario.utils.log
 import pro.inmost.android.visario.utils.logError
@@ -80,7 +82,7 @@ class MeetingManager(private val service: MeetingService) {
      * @return string with actual link
      */
     fun getMeetingInvitationLink(meetingId: String) =
-        "${Endpoints.SERVER_BASE_URL}${Endpoints.MEETING_GET}?meetingId=$meetingId"
+        "${SERVER_BASE_URL + PORT_BASE}$MEETING_GET?meetingId=$meetingId"
 
     /**
      * Join the existing meeting
