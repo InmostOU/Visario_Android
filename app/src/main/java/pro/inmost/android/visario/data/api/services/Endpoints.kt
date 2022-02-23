@@ -6,6 +6,7 @@ package pro.inmost.android.visario.data.api.services
  */
 internal object Endpoints {
     const val PORT_BASE = ":8081"
+    const val PORT_SOCKET_STATUS = ":9297"
     const val SERVER_BASE_URL = "http://18.156.36.15"
 
     const val MESSAGE_LIST = "/messages/list"
@@ -28,6 +29,7 @@ internal object Endpoints {
     const val CHANGE_PASSWORD = "/auth/changePassword"
 
     const val WS_CHANNELS = "/websocket/getPresignedUrl"
+    const val WS_CONTACTS_STATUS = "/activity"
 
     const val MEETING_GET = "/meeting/getMeeting"
     const val MEETING_CREATE = "/meeting/create"
@@ -49,4 +51,5 @@ internal object Endpoints {
     const val CONTACT_FIND = "/contact/findUserByUsername"
     const val CONTACT_DELETE = "/contact/delete"
     const val CONTACT_EDIT = "/contact/edit"
+    const val CONTACTS_STATUS = "/contact/status"
 }
