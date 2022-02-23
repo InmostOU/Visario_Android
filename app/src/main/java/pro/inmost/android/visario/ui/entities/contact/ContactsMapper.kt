@@ -16,7 +16,8 @@ fun Contact.toUIContact() = ContactUI(
     favorite = this.favorite,
     muted = this.muted,
     inMyContacts = this.inMyContacts,
-    birthdate = 0L
+    birthdate = 0L,
+    lastSeen = lastSeen
 )
 
 fun ContactUI.toDomainContact() = Contact(
@@ -32,8 +33,8 @@ fun ContactUI.toDomainContact() = Contact(
     online = this.online,
     favorite = this.favorite,
     muted = this.muted,
-    inMyContacts = this.inMyContacts
+    inMyContacts = this.inMyContacts,
+    lastSeen = lastSeen
 )
 
 fun List<Contact>.toUIContacts() = map { it.toUIContact() }
-fun List<ContactUI>.toDomainContacts() = map { it.toDomainContact() }

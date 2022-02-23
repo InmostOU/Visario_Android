@@ -30,7 +30,7 @@
                 app:contentScrim="?attr/colorSurface"
                 app:titleEnabled="true"
                 app:title="@{viewModel.contact.fullName}"
-                app:subtitle="@{viewModel.contact.online ? @string/online : @string/offline}"
+                app:subtitle="@{viewModel.contact.online ? @string/online : @string/last_seen(viewModel.contact.lastSeenFormat)}"
                 tools:subtitle="@string/online"
                 tools:title="Albert Einstein"
                 app:collapsedTitleTextAppearance="@style/ToolbarTitle"

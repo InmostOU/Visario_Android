@@ -21,11 +21,16 @@ abstract class BaseWebSocketClient {
      *
      */
     suspend fun connect(){
-        val request = Request.Builder()
-            .url(getWebSocketLink())
-            .build()
+        kotlin.runCatching {
+            val request = Request.Builder()
+                .url(getWebSocketLink())
+                .build()
 
-        client.newWebSocket(request, listener)
+            client.newWebSocket(request, listener)
+        }.onFailure {
+            logE("$logTag connection failed: ${it.localizedMessage}")
+            it.printStackTrace()
+        }
     }
 
     private fun reconnect() {

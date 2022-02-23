@@ -15,7 +15,8 @@ fun ContactData.toDomainContact() = Contact(
     online = this.online,
     favorite = this.favorite,
     muted = this.muted,
-    inMyContacts = this.inMyContacts
+    inMyContacts = this.inMyContacts,
+    lastSeen = lastSeen
 )
 
 fun Contact.toDataContact() = ContactData(

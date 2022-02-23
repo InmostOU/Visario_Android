@@ -13,7 +13,8 @@ data class Contact(
     var online: Boolean = false,
     var favorite: Boolean = false,
     var muted: Boolean = false,
-    var inMyContacts: Boolean = false
+    var inMyContacts: Boolean = false,
+    val lastSeen: Long
 ){
     val fullName: String get() = "$firstName $lastName"
 }

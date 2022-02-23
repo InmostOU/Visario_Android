@@ -12,7 +12,7 @@ import pro.inmost.android.visario.data.database.dao.ProfileDao
 import pro.inmost.android.visario.data.entities.message.MessageData
 import pro.inmost.android.visario.data.entities.message.MessageDataStatus
 import pro.inmost.android.visario.data.entities.message.toDomainMessages
-import pro.inmost.android.visario.data.utils.extensions.toJson
+import pro.inmost.android.visario.utils.extensions.toJson
 import pro.inmost.android.visario.domain.entities.message.ReceivingMessage
 import pro.inmost.android.visario.domain.entities.message.SendingMessage
 import pro.inmost.android.visario.domain.repositories.MessagesRepository

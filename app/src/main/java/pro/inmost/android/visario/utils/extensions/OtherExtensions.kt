@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.data.utils.extensions
+package pro.inmost.android.visario.utils.extensions
 
 import com.google.gson.Gson
 

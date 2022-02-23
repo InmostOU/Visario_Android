@@ -9,7 +9,7 @@ import pro.inmost.android.visario.data.api.dto.requests.messages.AttachmentData
 import pro.inmost.android.visario.data.api.dto.requests.messages.EditMessageRequest
 import pro.inmost.android.visario.data.api.dto.requests.messages.SendMessageRequest
 import pro.inmost.android.visario.data.entities.message.MessageData
-import pro.inmost.android.visario.data.utils.extensions.toJson
+import pro.inmost.android.visario.utils.extensions.toJson
 import pro.inmost.android.visario.utils.extensions.toRequestBody
 import pro.inmost.android.visario.utils.logE
 import java.io.File

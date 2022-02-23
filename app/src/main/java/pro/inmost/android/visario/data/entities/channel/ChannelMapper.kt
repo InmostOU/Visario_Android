@@ -58,6 +58,8 @@ fun ChannelMember.toDomainContact() = Contact(
     phoneNumber = "",
     about = "",
     image = "",
+    online = true,
+    lastSeen = System.currentTimeMillis()
 )
 
 fun List<ChannelWithMessages>.toDomainChannels() = mapNotNull { it.toDomainChannel() }

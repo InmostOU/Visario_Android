@@ -1,7 +1,9 @@
 package pro.inmost.android.visario.ui.entities.message
 
-import android.text.format.DateFormat
 import pro.inmost.android.visario.ui.entities.BaseEntity
+import pro.inmost.android.visario.utils.extensions.toDateFormat
+import pro.inmost.android.visario.utils.extensions.toDayFormat
+import pro.inmost.android.visario.utils.extensions.toTimeFormat
 
 data class MessageUI(
     val id: Long,
@@ -27,16 +29,16 @@ data class MessageUI(
         get() = lastEditedTimestamp > createdTimestamp
 
     val createdTimeFormat: String
-        get() = DateFormat.format("hh:mm", createdTimestamp).toString()
+        get() = createdTimestamp.toTimeFormat()
 
     val createdDateFormat: String
-        get() = DateFormat.format("dd-MM-yyyy", createdTimestamp).toString()
+        get() = createdTimestamp.toDateFormat()
 
     val createdDayFormat: String
-        get() = DateFormat.format("EEE", createdTimestamp).toString()
+        get() = createdTimestamp.toDayFormat()
 
     val editedDateFormat: String
-        get() = DateFormat.format("hh:mm", lastEditedTimestamp).toString()
+        get() = lastEditedTimestamp.toTimeFormat()
 
     val hasAttachment: Boolean
         get() = attachment != null && attachment.path.isNotBlank()

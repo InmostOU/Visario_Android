@@ -65,7 +65,7 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:text="@{model.online ? @string/online : @string/offline}"
+                    android:text="@{model.online ? @string/online : @string/last_seen(model.lastSeenFormat)}"
                     tools:text="Online"/>
 
             </LinearLayout>
