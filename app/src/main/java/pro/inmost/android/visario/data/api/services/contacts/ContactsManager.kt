@@ -5,7 +5,7 @@ import kotlinx.coroutines.withContext
 import pro.inmost.android.visario.data.api.dto.requests.contacts.AddContactRequest
 import pro.inmost.android.visario.data.api.dto.requests.contacts.DeleteContactRequest
 import pro.inmost.android.visario.data.api.dto.requests.contacts.EditContactRequest
-import pro.inmost.android.visario.utils.logError
+import pro.inmost.android.visario.utils.logE
 
 /**
  * Contacts manager for interaction with the user's contacts
@@ -25,7 +25,7 @@ class ContactsManager(private val service: ContactsService) {
         kotlin.runCatching {
             service.getContacts().getResult()
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }
@@ -39,7 +39,7 @@ class ContactsManager(private val service: ContactsService) {
         kotlin.runCatching {
             service.addContact(AddContactRequest(username)).getResult()
         }.getOrElse  {
-            logError("addContact error: " + it.message)
+            logE("addContact error: " + it.message)
             Result.failure(it)
         }
     }
@@ -54,7 +54,7 @@ class ContactsManager(private val service: ContactsService) {
         kotlin.runCatching {
             service.editContact(request).getResult()
         }.getOrElse  {
-            logError("editContact error: " + it.message ?: "")
+            logE("editContact error: " + it.message ?: "")
             Result.failure(it)
         }
     }
@@ -68,7 +68,7 @@ class ContactsManager(private val service: ContactsService) {
         kotlin.runCatching {
             service.deleteContact(DeleteContactRequest(id)).getResult()
         }.getOrElse  {
-            logError("deleteContact error: " + it.message ?: "")
+            logE("deleteContact error: " + it.message ?: "")
             Result.failure(it)
         }
     }
@@ -83,7 +83,7 @@ class ContactsManager(private val service: ContactsService) {
         kotlin.runCatching {
             service.search(username).getResult()
         }.getOrElse {
-            logError("searchContacts error: " + it.message ?: "")
+            logE("searchContacts error: " + it.message ?: "")
             Result.failure(it)
         }
     }

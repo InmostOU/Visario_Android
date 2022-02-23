@@ -1,7 +1,7 @@
-package pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads
+package pro.inmost.android.visario.data.api.services.websockets.channels.model.payloads
 
 import com.google.gson.Gson
-import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.ChannelWebSocketMessage
+import pro.inmost.android.visario.data.api.services.websockets.channels.model.ChannelWebSocketMessage
 import pro.inmost.android.visario.data.entities.message.MessageData
 import pro.inmost.android.visario.data.entities.message.toDataMessage
 

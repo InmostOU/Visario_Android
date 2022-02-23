@@ -1,4 +1,4 @@
-package pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads
+package pro.inmost.android.visario.data.api.services.websockets.channels.model.payloads
 
 
 /**

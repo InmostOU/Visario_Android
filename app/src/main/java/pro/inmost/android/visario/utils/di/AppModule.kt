@@ -10,6 +10,7 @@ import org.koin.dsl.module
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.data.api.ChimeApi
 import pro.inmost.android.visario.data.api.services.websockets.channels.ChannelsWebSocketClient
+import pro.inmost.android.visario.data.api.services.websockets.contacts.ContactStatusWebSocketClient
 import pro.inmost.android.visario.data.database.AppDatabase
 import pro.inmost.android.visario.domain.usecases.auth.impl.UpdateCredentialsUseCaseImpl
 import pro.inmost.android.visario.ui.screens.auth.AppPreferences
@@ -30,6 +31,7 @@ val appModule = module {
         )
     }
     factory { ChannelsWebSocketClient(get(), get(), get()) }
+    factory { ContactStatusWebSocketClient(get()) }
     single { getGoogleSignInClient(androidApplication().applicationContext) }
     single { LoginManager.getInstance() }
 }

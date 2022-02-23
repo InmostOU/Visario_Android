@@ -31,7 +31,7 @@ import pro.inmost.android.visario.utils.extensions.snackbar
 import pro.inmost.android.visario.utils.extensions.toast
 import pro.inmost.android.visario.utils.hideKeyboard
 import pro.inmost.android.visario.utils.log
-import pro.inmost.android.visario.utils.logError
+import pro.inmost.android.visario.utils.logE
 
 
 /**
@@ -62,7 +62,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             val account: GoogleSignInAccount = completedTask.getResult(ApiException::class.java)
             loginViewModel.loginViaGoogle(account)
         } catch (e: ApiException) {
-            logError( "signInResult:failed code=" + e.statusCode)
+            logE( "signInResult:failed code=" + e.statusCode)
             toast(R.string.login_failed)
         }
     }
@@ -86,7 +86,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 }
 
                 override fun onError(error: FacebookException) {
-                    logError("login via facebook error: ${error.message}")
+                    logE("login via facebook error: ${error.message}")
                     toast(R.string.login_failed)
                 }
 

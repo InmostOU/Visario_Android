@@ -12,7 +12,7 @@ import pro.inmost.android.visario.data.api.services.Endpoints.PORT_BASE
 import pro.inmost.android.visario.data.api.services.Endpoints.SERVER_BASE_URL
 import pro.inmost.android.visario.data.entities.meeting.AttendeeData
 import pro.inmost.android.visario.utils.log
-import pro.inmost.android.visario.utils.logError
+import pro.inmost.android.visario.utils.logE
 
 /**
  * Meeting manager
@@ -32,7 +32,7 @@ class MeetingManager(private val service: MeetingService) {
             log(meetingResponse.toString())
             Result.success(meetingResponse)
         }.getOrElse {
-            logError("createMeeting error: ${it.message}")
+            logE("createMeeting error: ${it.message}")
             Result.failure(it)
         }
     }
@@ -52,7 +52,7 @@ class MeetingManager(private val service: MeetingService) {
                 log("Create attendee response: $response")
                 Result.success(response)
             }.getOrElse {
-                logError("Create attendee error: ${it.message}")
+                logE("Create attendee error: ${it.message}")
                 Result.failure(it)
             }
         }
@@ -70,7 +70,7 @@ class MeetingManager(private val service: MeetingService) {
             log("Delete attendee response: $response")
             Result.success(Unit)
         }.getOrElse {
-            logError("Delete attendee error: ${it.message}")
+            logE("Delete attendee error: ${it.message}")
             Result.failure(it)
         }
     }
@@ -96,7 +96,7 @@ class MeetingManager(private val service: MeetingService) {
             log(meetingResponse.toString())
             Result.success(meetingResponse)
         }.getOrElse {
-            logError("Get meeting error: ${it.message}")
+            logE("Get meeting error: ${it.message}")
             Result.failure(it)
         }
     }
@@ -116,7 +116,7 @@ class MeetingManager(private val service: MeetingService) {
             log("getAttendeeInfo response: $response")
             Result.success(response)
         }.getOrElse {
-            logError("Get attendee info error: ${it.message}")
+            logE("Get attendee info error: ${it.message}")
             Result.failure(it)
         }
     }

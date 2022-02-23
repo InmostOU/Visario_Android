@@ -8,7 +8,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import pro.inmost.android.visario.data.api.dto.requests.profile.ChangePasswordRequest
 import pro.inmost.android.visario.data.api.dto.requests.profile.UpdateProfileRequest
 import pro.inmost.android.visario.data.entities.profile.ProfileData
-import pro.inmost.android.visario.utils.logError
+import pro.inmost.android.visario.utils.logE
 import java.io.File
 
 /**
@@ -29,7 +29,7 @@ class AccountManager(private val service: AccountService) {
             val response = service.getUserProfile()
             Result.success(response)
         }.getOrElse {
-            logError("getProfile error: ${it.message}")
+            logE("getProfile error: ${it.message}")
             Result.failure(it)
         }
     }
@@ -54,7 +54,7 @@ class AccountManager(private val service: AccountService) {
 
             service.updateProfile(request).getResult()
         }.getOrElse {
-            logError("updateProfile error: ${it.message}")
+            logE("updateProfile error: ${it.message}")
             Result.failure(it)
         }
     }
@@ -74,7 +74,7 @@ class AccountManager(private val service: AccountService) {
             )
             service.uploadPhoto(filePart).getResult()
         }.getOrElse {
-            logError("upload photo error: ${it.message}")
+            logE("upload photo error: ${it.message}")
             Result.failure(it)
         }
     }
@@ -83,7 +83,7 @@ class AccountManager(private val service: AccountService) {
         kotlin.runCatching {
             service.updatePassword(changePasswordRequest).getResult()
         }.getOrElse {
-            logError("Update password error: ${it.message}")
+            logE("Update password error: ${it.message}")
             Result.failure(it)
         }
     }

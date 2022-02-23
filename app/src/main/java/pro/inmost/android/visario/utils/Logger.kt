@@ -11,6 +11,6 @@ fun logDebug(msg: String){
     Log.d("VISARIO_LOG", msg)
 }
 
-fun logError(msg: String){
+fun logE(msg: String){
     Log.e("VISARIO_LOG", msg)
 }

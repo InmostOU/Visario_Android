@@ -8,7 +8,7 @@ import pro.inmost.android.visario.data.api.dto.requests.auth.GoogleLoginRequest
 import pro.inmost.android.visario.data.api.dto.requests.auth.LoginRequest
 import pro.inmost.android.visario.data.api.dto.requests.auth.RegistrationRequest
 import pro.inmost.android.visario.data.api.dto.responses.auth.AuthResponse
-import pro.inmost.android.visario.utils.logError
+import pro.inmost.android.visario.utils.logE
 
 
 /**
@@ -25,11 +25,11 @@ class Authenticator(private val service: AuthService) {
             if (response.status == STATUS_OK) {
                 Result.success(response)
             } else {
-                logError("login error: ${response.message}")
+                logE("login error: ${response.message}")
                 Result.failure(Throwable(response.message))
             }
         }.getOrElse {
-            logError("login error: ${it.message}")
+            logE("login error: ${it.message}")
             Result.failure(Throwable(it))
         }
     }
@@ -40,11 +40,11 @@ class Authenticator(private val service: AuthService) {
             if (response.status == STATUS_OK) {
                 Result.success(response)
             } else {
-                logError("login error: ${response.message}")
+                logE("login error: ${response.message}")
                 Result.failure(Throwable(response.message))
             }
         }.getOrElse {
-            logError("login error: ${it.message}")
+            logE("login error: ${it.message}")
             Result.failure(Throwable(it))
         }
     }
@@ -55,11 +55,11 @@ class Authenticator(private val service: AuthService) {
             if (response.status == STATUS_OK) {
                 Result.success(response)
             } else {
-                logError("login error: ${response.message}")
+                logE("login error: ${response.message}")
                 Result.failure(Throwable(response.message))
             }
         }.getOrElse {
-            logError("login error: ${it.message}")
+            logE("login error: ${it.message}")
             Result.failure(Throwable(it))
         }
     }
@@ -73,7 +73,7 @@ class Authenticator(private val service: AuthService) {
                 Result.failure(Throwable("Forgot password request failed"))
             }
         }.getOrElse {
-            logError("forgot password error: ${it.message}")
+            logE("forgot password error: ${it.message}")
             Result.failure(Throwable(it))
         }
     }
@@ -89,11 +89,11 @@ class Authenticator(private val service: AuthService) {
             if (response.status == STATUS_OK) {
                 Result.success(Unit)
             } else {
-                logError("register error: ${response.message}")
+                logE("register error: ${response.message}")
                 Result.failure(Throwable(response.message))
             }
         }.getOrElse {
-            logError("register error: ${it.message}")
+            logE("register error: ${it.message}")
             Result.failure(Throwable(it))
         }
     }

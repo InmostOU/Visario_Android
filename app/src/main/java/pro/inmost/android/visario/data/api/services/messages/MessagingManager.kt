@@ -11,7 +11,7 @@ import pro.inmost.android.visario.data.api.dto.requests.messages.SendMessageRequ
 import pro.inmost.android.visario.data.entities.message.MessageData
 import pro.inmost.android.visario.data.utils.extensions.toJson
 import pro.inmost.android.visario.utils.extensions.toRequestBody
-import pro.inmost.android.visario.utils.logError
+import pro.inmost.android.visario.utils.logE
 import java.io.File
 
 
@@ -33,7 +33,7 @@ class MessagingManager(
         kotlin.runCatching {
             service.getMessages(channelArn).getResult()
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }
@@ -64,7 +64,7 @@ class MessagingManager(
                 service.sendMessage(request).getResult()
             }
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }
@@ -78,7 +78,7 @@ class MessagingManager(
         kotlin.runCatching {
             service.editMessage(request).getResult()
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }
@@ -93,7 +93,7 @@ class MessagingManager(
         kotlin.runCatching {
             service.deleteMessage(messageId).getResult()
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }

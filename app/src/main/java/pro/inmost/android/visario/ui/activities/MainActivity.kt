@@ -14,6 +14,7 @@ import org.koin.android.ext.android.inject
 import pro.inmost.android.visario.R
 import pro.inmost.android.visario.VisarioApp
 import pro.inmost.android.visario.data.api.services.websockets.channels.ChannelsWebSocketClient
+import pro.inmost.android.visario.data.api.services.websockets.contacts.ContactStatusWebSocketClient
 import pro.inmost.android.visario.databinding.ActivityMainBinding
 import pro.inmost.android.visario.ui.screens.auth.AppPreferences
 import pro.inmost.android.visario.ui.screens.auth.AuthListener
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity(), AuthListener {
     }
     private val appPreferences: AppPreferences by inject()
     private val channelsWebSocketClient: ChannelsWebSocketClient by inject()
+    private val contactStatusWebSocketClient: ContactStatusWebSocketClient by inject()
     private val googleSignInClient: GoogleSignInClient by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +42,16 @@ class MainActivity : AppCompatActivity(), AuthListener {
             delay(splashTime)
             checkAuth()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        connectWebSockets()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        disconnectWebSockets()
     }
 
     private fun checkAuth() {
@@ -70,16 +82,38 @@ class MainActivity : AppCompatActivity(), AuthListener {
     override fun onLogout() {
         LoginManager.getInstance().logOut()
         googleSignInClient.signOut()
-        channelsWebSocketClient.disconnect()
         openLoginScreen()
+        disconnectWebSockets()
     }
 
     private fun openApp() {
         appPreferences.isLoggedIn = true
         setNavGraph(R.navigation.app_navigation)
         hideSplash()
+        connectWebSockets()
+    }
+
+    private fun connectWebSockets() {
         lifecycleScope.launch {
-            channelsWebSocketClient.connect()
+            if (appPreferences.isLoggedIn){
+                if (!channelsWebSocketClient.connected){
+                    channelsWebSocketClient.connect()
+                }
+                if (!contactStatusWebSocketClient.connected){
+                    contactStatusWebSocketClient.connect()
+                }
+            }
+        }
+    }
+
+    private fun disconnectWebSockets() {
+        if (appPreferences.isLoggedIn){
+            if (channelsWebSocketClient.connected){
+                channelsWebSocketClient.disconnect()
+            }
+            if (contactStatusWebSocketClient.connected){
+                contactStatusWebSocketClient.disconnect()
+            }
         }
     }
 

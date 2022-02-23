@@ -2,7 +2,7 @@ package pro.inmost.android.visario.data.api.dto.responses.base
 
 import android.text.format.DateFormat
 import pro.inmost.android.visario.data.api.ChimeApi
-import pro.inmost.android.visario.utils.logError
+import pro.inmost.android.visario.utils.logE
 
 /**
  * Base response from server without extra data
@@ -29,7 +29,7 @@ data class BaseResponse (
     fun getResult() = if (status == ChimeApi.STATUS_OK){
         Result.success(Unit)
     } else {
-        logError(toString())
+        logE(toString())
         Result.failure(Throwable(message))
     }
 

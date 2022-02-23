@@ -6,7 +6,7 @@ import pro.inmost.android.visario.data.api.ChimeApi.Companion.STATUS_OK
 import pro.inmost.android.visario.data.api.dto.requests.channels.AddMemberToChannelRequest
 import pro.inmost.android.visario.data.api.dto.requests.channels.CreateChannelRequest
 import pro.inmost.android.visario.data.entities.channel.ChannelData
-import pro.inmost.android.visario.utils.logError
+import pro.inmost.android.visario.utils.logE
 
 /**
  * Channel manager for interaction with the channels
@@ -27,7 +27,7 @@ class ChannelManager(private val service: ChannelsService) {
         kotlin.runCatching {
             Result.success(service.getChannels().data)
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }
@@ -43,7 +43,7 @@ class ChannelManager(private val service: ChannelsService) {
             val response = service.getChannel(channelArn)
             Result.success(response.data)
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }
@@ -75,7 +75,7 @@ class ChannelManager(private val service: ChannelsService) {
             )
             service.create(request).getResult()
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }
@@ -90,7 +90,7 @@ class ChannelManager(private val service: ChannelsService) {
         kotlin.runCatching {
             service.leave(channelArn).getResult()
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }
@@ -107,7 +107,7 @@ class ChannelManager(private val service: ChannelsService) {
         kotlin.runCatching {
             service.search(channelName).getResult()
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }
@@ -128,7 +128,7 @@ class ChannelManager(private val service: ChannelsService) {
             )
             service.addMember(request).getResult()
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }
@@ -144,7 +144,7 @@ class ChannelManager(private val service: ChannelsService) {
         kotlin.runCatching {
             service.getMembers(channelArn).getResult()
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }
@@ -165,7 +165,7 @@ class ChannelManager(private val service: ChannelsService) {
                 Result.failure(Throwable(response.error))
             }
         }.getOrElse {
-            logError(it.message ?: "")
+            logE(it.message ?: "")
             Result.failure(it)
         }
     }

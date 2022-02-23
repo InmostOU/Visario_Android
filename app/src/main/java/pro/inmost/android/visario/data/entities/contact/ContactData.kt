@@ -18,7 +18,8 @@ data class ContactData(
     var online: Boolean = false,
     var favorite: Boolean = false,
     var muted: Boolean = false,
-    var inMyContacts: Boolean = false
+    var inMyContacts: Boolean = false,
+    var lastSeen: Long = 0L
 ) {
     val fullName: String
         get() = "$firstName $lastName".trim()

@@ -1,7 +1,7 @@
 package pro.inmost.android.visario.data.api.dto.responses.base
 
 import pro.inmost.android.visario.data.api.ChimeApi
-import pro.inmost.android.visario.utils.logError
+import pro.inmost.android.visario.utils.logE
 
 /**
  * Base response from server with extra data
@@ -23,7 +23,7 @@ data class BaseDataResponse<T>(
     fun getResult() = if (status == ChimeApi.STATUS_OK){
         Result.success(data)
     } else {
-        logError(toString())
+        logE(toString())
         Result.failure(Throwable(toString()))
     }
 

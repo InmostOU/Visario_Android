@@ -1,7 +1,7 @@
 package pro.inmost.android.visario.data.entities.message
 
 import pro.inmost.android.visario.data.api.dto.requests.messages.AttachmentData
-import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.payloads.ChannelMessagePayload
+import pro.inmost.android.visario.data.api.services.websockets.channels.model.payloads.ChannelMessagePayload
 import pro.inmost.android.visario.domain.entities.message.Attachment
 import pro.inmost.android.visario.domain.entities.message.MessageStatus
 import pro.inmost.android.visario.domain.entities.message.ReceivingMessage

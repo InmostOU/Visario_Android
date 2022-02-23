@@ -1,7 +1,7 @@
 package pro.inmost.android.visario.data.api.services.websockets.channels
 
 import com.google.gson.Gson
-import pro.inmost.android.visario.data.api.dto.responses.websockets.channel.ChannelWebSocketMessage
+import pro.inmost.android.visario.data.api.services.websockets.channels.model.ChannelWebSocketMessage
 
 /**
  * Helper class for getting EventType from json received by web-socket
